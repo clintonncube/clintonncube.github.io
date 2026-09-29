@@ -569,6 +569,33 @@ textarea{
     background:#eee;
 }
 
+/* ================= DOCUMENTS ================= */
+
+.document-upload-box{
+    border:2px dashed #bfdbfe;
+    background:#eff6ff;
+    border-radius:12px;
+    padding:20px;
+}
+
+.progress-container{
+    display:none;
+    margin-top:20px;
+    background:#e5e7eb;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    padding:8px;
+    background:#2563eb;
+    color:white;
+    text-align:center;
+    font-weight:bold;
+    transition:.3s;
+}
+
 /* ================= PREVIEW ================= */
 
 .preview-box{
@@ -953,6 +980,10 @@ textarea{
             💡 Skills
         </button>
 
+        <button class="nav-btn" data-page="documents">
+            📄 Documents
+        </button>
+
         <button class="nav-btn" data-page="diary">
             📔 Private Diary
         </button>
@@ -1214,6 +1245,13 @@ textarea{
                 onclick="showPage('skills')"
             >
                 💡 Manage Skills
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="showPage('documents')"
+            >
+                📄 Manage Documents
             </button>
 
         </div>
@@ -2111,6 +2149,163 @@ textarea{
 </section>
 
 
+<!-- ================= DOCUMENTS ================= -->
+
+<section class="page" id="page-documents">
+
+    <h2 class="page-title">
+        Documents Manager
+    </h2>
+
+    <p class="page-subtitle">
+        Upload documents that visitors can download from your website.
+    </p>
+
+    <div class="warning-box">
+
+        <strong>
+            📄 Document Upload
+        </strong>
+
+        <br>
+
+        Select a document from your laptop. It will be uploaded
+        to Firebase Storage and automatically appear on your
+        website's Files page.
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Upload New Document
+        </h3>
+
+        <form id="documentForm">
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Document Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="documentName"
+                        placeholder="Example: Mathematics Project 2026"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="documentDescription"
+                        placeholder="Describe this document..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Choose Document From Your Laptop
+                    </label>
+
+                    <input
+                        type="file"
+                        id="documentFile"
+                        required
+                    >
+
+                    <p
+                        style="
+                            color:#6b7280;
+                            font-size:13px;
+                            margin-top:7px;
+                        "
+                    >
+                        Select the document you want visitors
+                        to download.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                    id="uploadDocumentBtn"
+                >
+                    📤 Upload Document
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    onclick="clearDocumentForm()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="documentUploadProgress"
+            class="progress-container"
+        >
+
+            <div
+                id="documentProgressBar"
+                class="progress-bar"
+            >
+                0%
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            📁 Uploaded Documents
+        </h3>
+
+        <div
+            class="items-list"
+            id="documentList"
+        >
+
+            <div class="loading">
+                Loading documents...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- ================= DIARY ================= -->
 
 <section class="page" id="page-diary">
@@ -2252,6 +2447,8 @@ textarea{
 
 <script type="module">
 
+/* ================= FIREBASE IMPORTS ================= */
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -2271,6 +2468,14 @@ import {
     push,
     remove
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+import {
+    getStorage,
+    ref as storageRef,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
 /* ================= FIREBASE ================= */
@@ -2312,6 +2517,9 @@ const auth =
 
 const db =
     getDatabase(app);
+
+const storage =
+    getStorage(app);
 
 
 /* ================= HELPERS ================= */
@@ -2543,6 +2751,7 @@ const pageTitles = {
     projects:"Projects",
     hobbies:"Hobbies",
     skills:"Skills",
+    documents:"Documents",
     diary:"Private Diary"
 
 };
@@ -2631,6 +2840,7 @@ async function loadEverything(){
         loadProjects(),
         loadHobbies(),
         loadSkills(),
+        loadDocuments(),
         loadDiary()
 
     ]);
@@ -2985,11 +3195,6 @@ window.previewGalleryURL =
                 preview.style.display =
                     "none";
 
-                showToast(
-                    "The selected image could not be found. Check that the file is in the GitHub images folder.",
-                    "error"
-                );
-
             };
 
     };
@@ -3022,8 +3227,6 @@ window.previewLocalImage =
 
     };
 
-
-/* ================= SAVE SINGLE GALLERY IMAGE ================= */
 
 $("galleryForm").addEventListener(
     "submit",
@@ -3102,7 +3305,6 @@ $("galleryForm").addEventListener(
 
                 }
 
-
                 if(duplicate){
 
                     showToast(
@@ -3113,7 +3315,6 @@ $("galleryForm").addEventListener(
                     return;
 
                 }
-
 
                 await push(
                     ref(db,"gallery"),
@@ -3148,8 +3349,6 @@ $("galleryForm").addEventListener(
 );
 
 
-/* ================= LOAD GALLERY ================= */
-
 window.loadGallery =
     async function(){
 
@@ -3176,7 +3375,6 @@ window.loadGallery =
                 return;
 
             }
-
 
             Object.entries(
                 snapshot.val()
@@ -3239,7 +3437,6 @@ window.loadGallery =
 
                     `;
 
-
                     wrapper
                         .querySelector(".edit-btn")
                         .onclick =
@@ -3249,7 +3446,6 @@ window.loadGallery =
                                 item
                             );
 
-
                     wrapper
                         .querySelector(".preview-item-btn")
                         .onclick =
@@ -3258,13 +3454,11 @@ window.loadGallery =
                                 "gallery.html"
                             );
 
-
                     wrapper
                         .querySelector(".delete-btn")
                         .onclick =
                         () =>
                             deleteGallery(id);
-
 
                     list.appendChild(
                         wrapper
@@ -3286,8 +3480,6 @@ window.loadGallery =
 
     };
 
-
-/* ================= EDIT GALLERY ================= */
 
 window.editGallery =
     function(id,item){
@@ -3316,8 +3508,6 @@ window.editGallery =
 
     };
 
-
-/* ================= DELETE GALLERY ================= */
 
 window.deleteGallery =
     async function(id){
@@ -3358,8 +3548,6 @@ window.deleteGallery =
 
     };
 
-
-/* ================= CLEAR GALLERY ================= */
 
 window.clearGalleryForm =
     function(){
@@ -4201,6 +4389,616 @@ window.clearSkillForm =
     };
 
 
+/* ================= DOCUMENTS ================= */
+
+$("documentForm").addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        const name =
+            $("documentName")
+                .value
+                .trim();
+
+        const description =
+            $("documentDescription")
+                .value
+                .trim();
+
+        const file =
+            $("documentFile")
+                .files[0];
+
+        if(!file){
+
+            showToast(
+                "Please choose a document first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        if(!name){
+
+            showToast(
+                "Please enter a document name.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        const button =
+            $("uploadDocumentBtn");
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "📤 Uploading...";
+
+        $("documentUploadProgress")
+            .style.display =
+            "block";
+
+        $("documentProgressBar").style.width =
+            "10%";
+
+        $("documentProgressBar").textContent =
+            "Preparing...";
+
+        try{
+
+            const safeName =
+                file.name
+                    .replace(
+                        /[^\w.\-() ]/g,
+                        "_"
+                    );
+
+            const timestamp =
+                Date.now();
+
+            const storagePath =
+                "documents/" +
+                timestamp +
+                "_" +
+                safeName;
+
+            const fileReference =
+                storageRef(
+                    storage,
+                    storagePath
+                );
+
+            $("documentProgressBar").style.width =
+                "25%";
+
+            $("documentProgressBar").textContent =
+                "Uploading...";
+
+            const uploadResult =
+                await uploadBytes(
+                    fileReference,
+                    file,
+                    {
+                        contentType:
+                            file.type ||
+                            "application/octet-stream"
+                    }
+                );
+
+            $("documentProgressBar").style.width =
+                "70%";
+
+            $("documentProgressBar").textContent =
+                "Getting download link...";
+
+            const downloadURL =
+                await getDownloadURL(
+                    uploadResult.ref
+                );
+
+            $("documentProgressBar").style.width =
+                "85%";
+
+            $("documentProgressBar").textContent =
+                "Saving information...";
+
+            const documentData = {
+
+                name:
+                    name,
+
+                originalName:
+                    file.name,
+
+                description:
+                    description,
+
+                url:
+                    downloadURL,
+
+                storagePath:
+                    storagePath,
+
+                type:
+                    file.type ||
+                    "application/octet-stream",
+
+                size:
+                    file.size,
+
+                uploadedAt:
+                    new Date()
+                        .toISOString()
+
+            };
+
+            await push(
+                ref(
+                    db,
+                    "documents"
+                ),
+                documentData
+            );
+
+            $("documentProgressBar").style.width =
+                "100%";
+
+            $("documentProgressBar").textContent =
+                "Upload complete!";
+
+            showToast(
+                "Document uploaded successfully.",
+                "success"
+            );
+
+            clearDocumentForm();
+
+            await loadDocuments();
+
+            setTimeout(
+                () => {
+
+                    $("documentUploadProgress")
+                        .style.display =
+                        "none";
+
+                    $("documentProgressBar")
+                        .style.width =
+                        "0%";
+
+                },
+                1500
+            );
+
+        }catch(error){
+
+            console.error(
+                "Document upload error:",
+                error
+            );
+
+            console.error(
+                "Error code:",
+                error.code
+            );
+
+            let message =
+                "Document upload failed.";
+
+            if(
+                error.code ===
+                "storage/unauthorized"
+            ){
+
+                message =
+                    "Upload denied. Check your Firebase Storage rules.";
+
+            }else if(
+                error.code ===
+                "storage/quota-exceeded"
+            ){
+
+                message =
+                    "Firebase Storage quota has been exceeded.";
+
+            }else if(
+                error.code ===
+                "storage/canceled"
+            ){
+
+                message =
+                    "Upload was cancelled.";
+
+            }else if(
+                error.message
+            ){
+
+                message =
+                    error.message;
+
+            }
+
+            showToast(
+                message,
+                "error"
+            );
+
+            $("documentUploadProgress")
+                .style.display =
+                "none";
+
+        }finally{
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "📤 Upload Document";
+
+        }
+
+    }
+);
+
+
+/* ================= LOAD DOCUMENTS ================= */
+
+window.loadDocuments =
+    async function(){
+
+        try{
+
+            const snapshot =
+                await get(
+                    ref(
+                        db,
+                        "documents"
+                    )
+                );
+
+            const list =
+                $("documentList");
+
+            list.innerHTML =
+                "";
+
+            if(!snapshot.exists()){
+
+                list.innerHTML =
+                    `<div class="empty">
+                        No documents uploaded yet.
+                    </div>`;
+
+                return;
+
+            }
+
+            const documents =
+                Object.entries(
+                    snapshot.val()
+                )
+                .sort(
+                    (a,b) =>
+                        String(
+                            b[1].uploadedAt || ""
+                        )
+                        .localeCompare(
+                            String(
+                                a[1].uploadedAt || ""
+                            )
+                        )
+                );
+
+
+            documents.forEach(
+                ([id,item]) => {
+
+                    const wrapper =
+                        document.createElement(
+                            "div"
+                        );
+
+                    wrapper.className =
+                        "item";
+
+                    const fileSize =
+                        formatFileSize(
+                            item.size || 0
+                        );
+
+                    const uploadDate =
+                        item.uploadedAt
+                            ? new Date(
+                                item.uploadedAt
+                            ).toLocaleString()
+                            : "Unknown";
+
+
+                    wrapper.innerHTML = `
+
+                        <div class="item-header">
+
+                            <div>
+
+                                <h4>
+                                    📄
+                                    ${escapeHTML(
+                                        item.name ||
+                                        item.originalName ||
+                                        "Document"
+                                    )}
+                                </h4>
+
+                                <p>
+                                    ${escapeHTML(
+                                        item.description ||
+                                        "No description provided."
+                                    )}
+                                </p>
+
+                                <p
+                                    style="
+                                        margin-top:7px;
+                                        font-size:12px;
+                                        color:#6b7280;
+                                    "
+                                >
+                                    File:
+                                    ${escapeHTML(
+                                        item.originalName ||
+                                        "Unknown"
+                                    )}
+
+                                    <br>
+
+                                    Size:
+                                    ${escapeHTML(
+                                        fileSize
+                                    )}
+
+                                    <br>
+
+                                    Uploaded:
+                                    ${escapeHTML(
+                                        uploadDate
+                                    )}
+                                </p>
+
+                            </div>
+
+                            <div class="item-actions">
+
+                                <button
+                                    class="small-btn preview-item-btn"
+                                >
+                                    Open
+                                </button>
+
+                                <button
+                                    class="small-btn delete-btn"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    wrapper
+                        .querySelector(
+                            ".preview-item-btn"
+                        )
+                        .onclick =
+                        () => {
+
+                            if(item.url){
+
+                                window.open(
+                                    item.url,
+                                    "_blank",
+                                    "noopener"
+                                );
+
+                            }else{
+
+                                showToast(
+                                    "Download link not found.",
+                                    "error"
+                                );
+
+                            }
+
+                        };
+
+
+                    wrapper
+                        .querySelector(
+                            ".delete-btn"
+                        )
+                        .onclick =
+                        () =>
+                            deleteDocument(
+                                id,
+                                item
+                            );
+
+
+                    list.appendChild(
+                        wrapper
+                    );
+
+                }
+            );
+
+        }catch(error){
+
+            console.error(
+                "Could not load documents:",
+                error
+            );
+
+            $("documentList").innerHTML =
+                `<div class="empty">
+                    Could not load documents.
+                </div>`;
+
+        }
+
+    };
+
+
+/* ================= DELETE DOCUMENT ================= */
+
+window.deleteDocument =
+    async function(
+        id,
+        item
+    ){
+
+        const documentName =
+            item.name ||
+            item.originalName ||
+            "this document";
+
+        const confirmed =
+            confirm(
+                "Delete " +
+                documentName +
+                "?\n\nThis will remove the document from the website."
+            );
+
+        if(!confirmed)
+            return;
+
+        try{
+
+            if(item.storagePath){
+
+                try{
+
+                    const fileReference =
+                        storageRef(
+                            storage,
+                            item.storagePath
+                        );
+
+                    await deleteObject(
+                        fileReference
+                    );
+
+                }catch(storageError){
+
+                    console.warn(
+                        "Storage file could not be deleted:",
+                        storageError
+                    );
+
+                }
+
+            }
+
+            await remove(
+                ref(
+                    db,
+                    "documents/" + id
+                )
+            );
+
+            showToast(
+                "Document deleted successfully.",
+                "success"
+            );
+
+            await loadDocuments();
+
+        }catch(error){
+
+            console.error(
+                "Delete document error:",
+                error
+            );
+
+            showToast(
+                "Could not delete the document.",
+                "error"
+            );
+
+        }
+
+    };
+
+
+/* ================= CLEAR DOCUMENT FORM ================= */
+
+window.clearDocumentForm =
+    function(){
+
+        $("documentForm")
+            .reset();
+
+        $("documentUploadProgress")
+            .style.display =
+            "none";
+
+        $("documentProgressBar")
+            .style.width =
+            "0%";
+
+        $("documentProgressBar")
+            .textContent =
+            "0%";
+
+    };
+
+
+/* ================= FILE SIZE ================= */
+
+function formatFileSize(bytes){
+
+    if(!bytes)
+        return "0 Bytes";
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(2)
+        ) +
+        " " +
+        units[index]
+    );
+
+}
+
+
 /* ================= DIARY ================= */
 
 $("diaryForm").addEventListener(
@@ -4521,6 +5319,7 @@ window.clearDiaryForm =
 
 const WEBSITE_URL =
     "https://clintonncube.github.io/";
+
 
 window.previewPage =
     function(page){
