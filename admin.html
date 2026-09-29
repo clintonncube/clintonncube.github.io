@@ -1,9 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Admin Dashboard | Clinton Ncube</title>
 
 <style>
@@ -13,20 +13,13 @@
     padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#f3f4f6;
     color:#111827;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
     font:inherit;
 }
 
@@ -34,7 +27,7 @@ button{
     cursor:pointer;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 
 #loginScreen{
     min-height:100vh;
@@ -77,11 +70,6 @@ button{
     outline:none;
 }
 
-.login-box input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.1);
-}
-
 .login-btn{
     width:100%;
     padding:13px;
@@ -92,15 +80,6 @@ button{
     font-weight:bold;
 }
 
-.login-btn:hover{
-    background:#1d4ed8;
-}
-
-.login-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
 .login-error{
     color:#dc2626;
     text-align:center;
@@ -108,7 +87,7 @@ button{
     min-height:20px;
 }
 
-/* ================= ADMIN ================= */
+/* ADMIN */
 
 #adminApp{
     display:none;
@@ -168,17 +147,10 @@ button{
     color:#fca5a5;
 }
 
-.logout-side:hover{
-    background:#991b1b;
-    color:white;
-}
-
 .main{
     margin-left:250px;
     min-height:100vh;
 }
-
-/* ================= TOPBAR ================= */
 
 .topbar{
     height:72px;
@@ -234,8 +206,6 @@ button{
     font-weight:bold;
 }
 
-/* ================= CONTENT ================= */
-
 .content{
     max-width:1500px;
     margin:auto;
@@ -259,7 +229,7 @@ button{
     margin-bottom:25px;
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .card{
     background:white;
@@ -273,7 +243,7 @@ button{
     margin-bottom:15px;
 }
 
-/* ================= DASHBOARD ================= */
+/* DASHBOARD */
 
 .welcome-banner{
     background:linear-gradient(135deg,#2563eb,#1e40af);
@@ -299,15 +269,6 @@ button{
     border-radius:7px;
     padding:10px 15px;
     font-weight:bold;
-}
-
-.btn:hover{
-    opacity:.9;
-}
-
-.btn:disabled{
-    opacity:.55;
-    cursor:not-allowed;
 }
 
 .btn-primary{
@@ -340,6 +301,11 @@ button{
     color:white;
 }
 
+.btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(5,1fr);
@@ -368,7 +334,6 @@ button{
 .stat-card .label{
     color:#6b7280;
     font-size:14px;
-    margin-top:4px;
 }
 
 .dashboard-grid{
@@ -385,10 +350,6 @@ button{
     border-bottom:1px solid #eee;
 }
 
-.info-row:last-child{
-    border-bottom:0;
-}
-
 .info-label{
     font-weight:bold;
 }
@@ -398,34 +359,7 @@ button{
     text-align:right;
 }
 
-.refresh-info{
-    color:#dbeafe;
-    font-size:13px;
-    margin-top:10px;
-}
-
-/* ================= SECURITY CARD ================= */
-
-.security-card{
-    border-left:5px solid #16a34a;
-}
-
-.security-status{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#166534;
-    font-weight:bold;
-}
-
-.security-dot{
-    width:11px;
-    height:11px;
-    background:#16a34a;
-    border-radius:50%;
-}
-
-/* ================= FORMS ================= */
+/* FORMS */
 
 .form-grid{
     display:grid;
@@ -475,7 +409,7 @@ textarea{
     flex-wrap:wrap;
 }
 
-/* ================= ITEMS ================= */
+/* ITEMS */
 
 .items-list{
     display:grid;
@@ -509,7 +443,6 @@ textarea{
     display:flex;
     gap:7px;
     flex-wrap:wrap;
-    flex-shrink:0;
 }
 
 .small-btn{
@@ -532,7 +465,7 @@ textarea{
     background:#16a34a;
 }
 
-/* ================= GALLERY ================= */
+/* DOCUMENTS */
 
 .warning-box{
     background:#fff7ed;
@@ -544,59 +477,131 @@ textarea{
     line-height:1.6;
 }
 
-.gallery-preview{
-    width:180px;
-    height:130px;
-    object-fit:cover;
+.folder-upload{
+    border:3px dashed #93c5fd;
+    background:#eff6ff;
+    border-radius:15px;
+    padding:30px;
+    text-align:center;
+}
+
+.folder-upload-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.folder-upload h3{
+    color:#1e3a8a;
+}
+
+.folder-upload p{
+    color:#64748b;
+    margin:10px 0 20px;
+}
+
+.folder-button{
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:13px 22px;
     border-radius:8px;
-    border:1px solid #ddd;
-    margin-top:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.folder-button:hover{
+    background:#1d4ed8;
+}
+
+.folder-button input{
     display:none;
 }
 
-.gallery-item{
-    display:grid;
-    grid-template-columns:120px 1fr auto;
+.selected-folder{
+    display:none;
+    margin-top:20px;
+    background:white;
+    border:1px solid #bfdbfe;
+    border-radius:10px;
+    padding:15px;
+    text-align:left;
+}
+
+.selected-folder strong{
+    color:#1e3a8a;
+}
+
+.file-summary{
+    display:flex;
     gap:15px;
-    align-items:center;
+    flex-wrap:wrap;
+    margin-top:10px;
 }
 
-.gallery-item img{
-    width:120px;
-    height:90px;
-    object-fit:cover;
+.summary-box{
+    background:#f8fafc;
+    padding:10px 14px;
     border-radius:7px;
-    background:#eee;
-}
-
-/* ================= DOCUMENTS ================= */
-
-.document-upload-box{
-    border:2px dashed #bfdbfe;
-    background:#eff6ff;
-    border-radius:12px;
-    padding:20px;
+    border:1px solid #e2e8f0;
 }
 
 .progress-container{
     display:none;
     margin-top:20px;
+}
+
+.progress-background{
+    height:25px;
     background:#e5e7eb;
-    border-radius:8px;
+    border-radius:20px;
     overflow:hidden;
 }
 
 .progress-bar{
     width:0%;
-    padding:8px;
+    height:100%;
     background:#2563eb;
     color:white;
     text-align:center;
-    font-weight:bold;
-    transition:.3s;
+    font-size:13px;
+    line-height:25px;
+    transition:.2s;
 }
 
-/* ================= PREVIEW ================= */
+.upload-status{
+    margin-top:10px;
+    color:#475569;
+    font-size:14px;
+}
+
+.folder-file-list{
+    max-height:300px;
+    overflow-y:auto;
+    margin-top:15px;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    background:#f8fafc;
+}
+
+.folder-file{
+    padding:8px 12px;
+    border-bottom:1px solid #e5e7eb;
+    font-size:13px;
+}
+
+.folder-file:last-child{
+    border-bottom:0;
+}
+
+.folder-file.success{
+    color:#166534;
+}
+
+.folder-file.error{
+    color:#991b1b;
+}
+
+/* PREVIEW */
 
 .preview-box{
     background:#f8fafc;
@@ -611,12 +616,6 @@ textarea{
     gap:10px;
     flex-wrap:wrap;
     margin-top:15px;
-}
-
-.preview-note{
-    color:#6b7280;
-    font-size:13px;
-    margin-top:10px;
 }
 
 .preview-frame-wrapper{
@@ -643,49 +642,7 @@ textarea{
     max-width:390px;
 }
 
-/* ================= LIVE FORM PREVIEW ================= */
-
-.content-preview{
-    background:#eff6ff;
-    border:1px solid #bfdbfe;
-    border-radius:10px;
-    padding:18px;
-    margin-top:20px;
-}
-
-.content-preview h4{
-    margin-bottom:10px;
-    color:#1e3a8a;
-}
-
-.live-text{
-    white-space:pre-wrap;
-    line-height:1.6;
-    color:#374151;
-}
-
-/* ================= STATUS ================= */
-
-.status-box{
-    padding:12px 15px;
-    border-radius:8px;
-    margin-bottom:15px;
-    display:none;
-}
-
-.status-box.success{
-    display:block;
-    background:#dcfce7;
-    color:#166534;
-}
-
-.status-box.error{
-    display:block;
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-/* ================= EMPTY / LOADING ================= */
+/* STATUS */
 
 .empty{
     text-align:center;
@@ -698,8 +655,6 @@ textarea{
     padding:25px;
     color:#777;
 }
-
-/* ================= TOAST ================= */
 
 #toastContainer{
     position:fixed;
@@ -732,8 +687,6 @@ textarea{
     background:#2563eb;
 }
 
-/* ================= OVERLAY ================= */
-
 .sidebar-overlay{
     display:none;
     position:fixed;
@@ -742,7 +695,7 @@ textarea{
     z-index:950;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
 @media(max-width:1100px){
 
@@ -779,10 +732,6 @@ textarea{
         padding:0 15px;
     }
 
-    .topbar h1{
-        font-size:17px;
-    }
-
     .admin-email,
     .website-btn{
         display:none;
@@ -806,23 +755,6 @@ textarea{
 
     .form-group.full{
         grid-column:auto;
-    }
-
-    .gallery-item{
-        grid-template-columns:80px 1fr;
-    }
-
-    .gallery-item .item-actions{
-        grid-column:1/-1;
-    }
-
-    .gallery-item img{
-        width:80px;
-        height:65px;
-    }
-
-    .preview-frame{
-        height:500px;
     }
 
 }
@@ -854,32 +786,13 @@ textarea{
         text-align:left;
     }
 
-    .dashboard-actions .btn{
-        width:100%;
-    }
-
-    .form-actions .btn{
-        width:100%;
-    }
-
-    .preview-frame{
-        height:400px;
-    }
-
-    #toastContainer{
-        left:15px;
-        right:15px;
-        bottom:15px;
-        max-width:none;
-    }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div id="loginScreen">
 
@@ -889,9 +802,7 @@ textarea{
 
             <h1>Clinton Ncube</h1>
 
-            <p>
-                Secure Admin Dashboard
-            </p>
+            <p>Secure Admin Dashboard</p>
 
         </div>
 
@@ -901,7 +812,6 @@ textarea{
                 type="email"
                 id="loginEmail"
                 placeholder="Email address"
-                autocomplete="username"
                 required
             >
 
@@ -909,7 +819,6 @@ textarea{
                 type="password"
                 id="loginPassword"
                 placeholder="Password"
-                autocomplete="current-password"
                 required
             >
 
@@ -933,22 +842,17 @@ textarea{
 </div>
 
 
-<!-- ================= ADMIN APP ================= -->
+<!-- ADMIN -->
 
 <div id="adminApp">
 
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
+    <aside class="sidebar" id="sidebar">
 
         <div class="sidebar-logo">
 
             <h2>Clinton Ncube</h2>
 
-            <span>
-                Admin Dashboard
-            </span>
+            <span>Admin Dashboard</span>
 
         </div>
 
@@ -981,7 +885,7 @@ textarea{
         </button>
 
         <button class="nav-btn" data-page="documents">
-            📄 Documents
+            📁 Documents
         </button>
 
         <button class="nav-btn" data-page="diary">
@@ -994,12 +898,10 @@ textarea{
 
     </aside>
 
-
     <div
         class="sidebar-overlay"
         id="sidebarOverlay"
     ></div>
-
 
     <main class="main">
 
@@ -1031,7 +933,6 @@ textarea{
                     class="website-btn"
                     href="https://clintonncube.github.io/"
                     target="_blank"
-                    rel="noopener"
                 >
                     🌐 View Website
                 </a>
@@ -1043,7 +944,8 @@ textarea{
 
         <div class="content">
 
-<!-- ================= DASHBOARD ================= -->
+
+<!-- DASHBOARD -->
 
 <section class="page active" id="page-dashboard">
 
@@ -1081,23 +983,6 @@ textarea{
                 👁️ Live Preview
             </button>
 
-            <a
-                class="btn btn-light"
-                href="https://clintonncube.github.io/"
-                target="_blank"
-                rel="noopener"
-                style="text-decoration:none;"
-            >
-                🌐 Open Website
-            </a>
-
-        </div>
-
-        <div
-            id="lastRefresh"
-            class="refresh-info"
-        >
-            Last dashboard refresh: Not yet refreshed
         </div>
 
     </div>
@@ -1142,9 +1027,7 @@ textarea{
 
         <div class="card">
 
-            <h3>
-                🌐 Website Information
-            </h3>
+            <h3>🌐 Website Information</h3>
 
             <div class="info-row">
                 <span class="info-label">Name</span>
@@ -1170,89 +1053,23 @@ textarea{
         </div>
 
 
-        <div class="card security-card">
+        <div class="card">
 
-            <h3>
-                🔐 Security Status
-            </h3>
+            <h3>🔐 Security Status</h3>
 
-            <div class="security-status">
-
-                <span class="security-dot"></span>
-
-                Admin authentication is active
-
-            </div>
-
-            <p
-                style="margin-top:12px;color:#6b7280;line-height:1.6;"
-            >
-                Your dashboard requires Firebase authentication.
-                Private diary information is protected by your
-                Firebase database rules.
+            <p style="color:#166534;font-weight:bold;">
+                🟢 Admin authentication is active
             </p>
 
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>
-            ⚡ Quick Actions
-        </h3>
-
-        <div class="dashboard-actions">
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('home')"
+            <p
+                style="
+                    margin-top:12px;
+                    color:#6b7280;
+                    line-height:1.6;
+                "
             >
-                🏡 Edit Home
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('gallery')"
-            >
-                🖼️ Manage Gallery
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('projects')"
-            >
-                📚 Manage Projects
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('achievements')"
-            >
-                🏆 Manage Achievements
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('hobbies')"
-            >
-                🏀 Manage Hobbies
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('skills')"
-            >
-                💡 Manage Skills
-            </button>
-
-            <button
-                class="btn btn-primary"
-                onclick="showPage('documents')"
-            >
-                📄 Manage Documents
-            </button>
+                Your dashboard requires Firebase authentication.
+            </p>
 
         </div>
 
@@ -1261,13 +1078,7 @@ textarea{
 
     <div class="preview-box">
 
-        <h3>
-            👁️ Website Preview
-        </h3>
-
-        <p>
-            Check how your live website looks after saving changes.
-        </p>
+        <h3>👁️ Website Preview</h3>
 
         <div class="preview-controls">
 
@@ -1300,38 +1111,10 @@ textarea{
             </button>
 
             <button
-                class="btn btn-light"
-                onclick="previewPage('achievements.html')"
-            >
-                🏆 Achievements
-            </button>
-
-            <button
-                class="btn btn-light"
-                onclick="previewPage('hobbies.html')"
-            >
-                🏀 Hobbies
-            </button>
-
-            <button
-                class="btn btn-light"
-                onclick="previewPage('skills.html')"
-            >
-                💡 Skills
-            </button>
-
-            <button
                 class="btn btn-warning"
                 onclick="mobilePreview()"
             >
                 📱 Mobile
-            </button>
-
-            <button
-                class="btn btn-light"
-                onclick="desktopPreview()"
-            >
-                🖥️ Desktop
             </button>
 
             <button
@@ -1343,10 +1126,6 @@ textarea{
 
         </div>
 
-        <p class="preview-note">
-            Save your changes before refreshing the website preview.
-        </p>
-
         <div
             class="preview-frame-wrapper"
             id="previewWrapper"
@@ -1356,7 +1135,6 @@ textarea{
             <iframe
                 id="previewFrame"
                 class="preview-frame"
-                title="Website Preview"
             ></iframe>
 
         </div>
@@ -1366,7 +1144,7 @@ textarea{
 </section>
 
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
 <section class="page" id="page-home">
 
@@ -1377,8 +1155,6 @@ textarea{
     <p class="page-subtitle">
         Update your homepage information.
     </p>
-
-    <div id="homeStatus" class="status-box"></div>
 
     <div class="card">
 
@@ -1405,7 +1181,6 @@ textarea{
                     <input
                         type="text"
                         id="homeUpdated"
-                        placeholder="2026"
                     >
 
                 </div>
@@ -1436,7 +1211,6 @@ textarea{
 
             </div>
 
-
             <div class="form-actions">
 
                 <button
@@ -1454,53 +1228,16 @@ textarea{
                     🔄 Reload
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="showHomeLivePreview()"
-                >
-                    👁️ Live Draft Preview
-                </button>
-
             </div>
 
         </form>
-
-
-        <div id="homeLivePreview" class="content-preview">
-
-            <h4>
-                ✨ Draft Preview — Not Yet Saved
-            </h4>
-
-            <p id="homePreviewName" class="live-text"></p>
-
-            <p
-                id="homePreviewWelcome"
-                class="live-text"
-                style="margin-top:10px;"
-            ></p>
-
-            <p
-                id="homePreviewGoal"
-                class="live-text"
-                style="margin-top:10px;"
-            ></p>
-
-            <p
-                id="homePreviewAbout"
-                class="live-text"
-                style="margin-top:10px;"
-            ></p>
-
-        </div>
 
     </div>
 
 </section>
 
 
-<!-- ================= GALLERY ================= -->
+<!-- GALLERY -->
 
 <section class="page" id="page-gallery">
 
@@ -1509,27 +1246,8 @@ textarea{
     </h2>
 
     <p class="page-subtitle">
-        Add, edit and manage your gallery images.
+        Add, edit and manage gallery images.
     </p>
-
-
-    <div class="warning-box">
-
-        <strong>
-            No Firebase Storage required.
-        </strong>
-
-        <br>
-
-        Your gallery uses image files already placed in your
-        GitHub <strong>images</strong> folder.
-
-        <br>
-
-        Firebase Realtime Database stores the gallery information.
-
-    </div>
-
 
     <div class="card">
 
@@ -1544,162 +1262,40 @@ textarea{
                 id="galleryEditId"
             >
 
-            <div class="form-grid">
+            <div class="form-group">
 
-                <div class="form-group full">
+                <label>Image Title</label>
 
-                    <label>
-                        Image Title
-                    </label>
-
-                    <input
-                        type="text"
-                        id="galleryTitle"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Choose Existing Website Image
-                    </label>
-
-                    <select
-                        id="gallerySelector"
-                        onchange="selectGalleryImage()"
-                    >
-
-                        <option value="">
-                            -- Select an image --
-                        </option>
-
-                        <option value="images/IMG-20240819-WA0011_(1).jpg">
-                            IMG-20240819-WA0011_(1).jpg
-                        </option>
-
-                        <option value="images/IMG-20240819-WA0020_(1).jpg">
-                            IMG-20240819-WA0020_(1).jpg
-                        </option>
-
-                        <option value="images/IMG-20240819-WA0021_(1).jpg">
-                            IMG-20240819-WA0021_(1).jpg
-                        </option>
-
-                        <option value="images/IMG-20251221-WA0056.jpg">
-                            IMG-20251221-WA0056.jpg
-                        </option>
-
-                        <option value="images/IMG_20250802_093252.jpg">
-                            IMG_20250802_093252.jpg
-                        </option>
-
-                        <option value="images/IMG_20250802_093305.jpg">
-                            IMG_20250802_093305.jpg
-                        </option>
-
-                        <option value="images/IMG_20250802_144742_edit_7426347801541.jpg">
-                            IMG_20250802_144742_edit_7426347801541.jpg
-                        </option>
-
-                        <option value="images/IMG_20250802_145115_edit_7303969500494.jpg">
-                            IMG_20250802_145115_edit_7303969500494.jpg
-                        </option>
-
-                        <option value="images/IMG_20250802_145348_edit_7272302860610.jpg">
-                            IMG_20250802_145348_edit_7272302860610.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_48_08_Pro.jpg">
-                            WIN_20260814_16_48_08_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_48_27_Pro.jpg">
-                            WIN_20260814_16_48_27_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_48_35_Pro.jpg">
-                            WIN_20260814_16_48_35_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_48_39_Pro.jpg">
-                            WIN_20260814_16_48_39_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_49_03_Pro.jpg">
-                            WIN_20260814_16_49_03_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_49_16_Pro.jpg">
-                            WIN_20260814_16_49_16_Pro.jpg
-                        </option>
-
-                        <option value="images/WIN_20260814_16_49_28_Pro.jpg">
-                            WIN_20260814_16_49_28_Pro.jpg
-                        </option>
-
-                        <option value="images/photo3.jpg">
-                            photo3.jpg
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Image Path / URL
-                    </label>
-
-                    <input
-                        type="text"
-                        id="galleryFile"
-                        oninput="previewGalleryURL()"
-                        required
-                    >
-
-                    <img
-                        id="galleryPreview"
-                        class="gallery-preview"
-                        alt="Gallery preview"
-                    >
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Temporary Local Preview
-                    </label>
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onchange="previewLocalImage(event)"
-                    >
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Description
-                    </label>
-
-                    <textarea
-                        id="galleryDescription"
-                    ></textarea>
-
-                </div>
+                <input
+                    type="text"
+                    id="galleryTitle"
+                    required
+                >
 
             </div>
 
+            <div class="form-group">
+
+                <label>Image Path / URL</label>
+
+                <input
+                    type="text"
+                    id="galleryFile"
+                    placeholder="images/example.jpg"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="galleryDescription"
+                ></textarea>
+
+            </div>
 
             <div class="form-actions">
 
@@ -1718,14 +1314,6 @@ textarea{
                     Clear
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="previewPage('gallery.html')"
-                >
-                    👁️ Preview Gallery
-                </button>
-
             </div>
 
         </form>
@@ -1735,25 +1323,19 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Gallery Images
-        </h3>
+        <h3>Gallery Images</h3>
 
         <div
             class="items-list"
             id="galleryList"
-        >
-            <div class="loading">
-                Loading gallery...
-            </div>
-        </div>
+        ></div>
 
     </div>
 
 </section>
 
 
-<!-- ================= ACHIEVEMENTS ================= -->
+<!-- ACHIEVEMENTS -->
 
 <section class="page" id="page-achievements">
 
@@ -1818,14 +1400,6 @@ textarea{
                     Clear
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="previewPage('achievements.html')"
-                >
-                    👁️ Preview
-                </button>
-
             </div>
 
         </form>
@@ -1835,9 +1409,7 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Achievements
-        </h3>
+        <h3>Achievements</h3>
 
         <div
             class="items-list"
@@ -1849,7 +1421,7 @@ textarea{
 </section>
 
 
-<!-- ================= PROJECTS ================= -->
+<!-- PROJECTS -->
 
 <section class="page" id="page-projects">
 
@@ -1858,7 +1430,7 @@ textarea{
     </h2>
 
     <p class="page-subtitle">
-        Manage your projects and links.
+        Manage your projects.
     </p>
 
     <div class="card">
@@ -1904,7 +1476,6 @@ textarea{
                 <input
                     type="text"
                     id="projectLink"
-                    placeholder="https://..."
                 >
 
             </div>
@@ -1926,14 +1497,6 @@ textarea{
                     Clear
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="previewPage('projects.html')"
-                >
-                    👁️ Preview Projects
-                </button>
-
             </div>
 
         </form>
@@ -1943,9 +1506,7 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Projects
-        </h3>
+        <h3>Projects</h3>
 
         <div
             class="items-list"
@@ -1957,7 +1518,7 @@ textarea{
 </section>
 
 
-<!-- ================= HOBBIES ================= -->
+<!-- HOBBIES -->
 
 <section class="page" id="page-hobbies">
 
@@ -2022,14 +1583,6 @@ textarea{
                     Clear
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="previewPage('hobbies.html')"
-                >
-                    👁️ Preview Hobbies
-                </button>
-
             </div>
 
         </form>
@@ -2039,9 +1592,7 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Hobbies
-        </h3>
+        <h3>Hobbies</h3>
 
         <div
             class="items-list"
@@ -2053,7 +1604,7 @@ textarea{
 </section>
 
 
-<!-- ================= SKILLS ================= -->
+<!-- SKILLS -->
 
 <section class="page" id="page-skills">
 
@@ -2118,14 +1669,6 @@ textarea{
                     Clear
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-primary"
-                    onclick="previewPage('skills.html')"
-                >
-                    👁️ Preview Skills
-                </button>
-
             </div>
 
         </form>
@@ -2135,9 +1678,7 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Skills
-        </h3>
+        <h3>Skills</h3>
 
         <div
             class="items-list"
@@ -2149,7 +1690,7 @@ textarea{
 </section>
 
 
-<!-- ================= DOCUMENTS ================= -->
+<!-- DOCUMENTS -->
 
 <section class="page" id="page-documents">
 
@@ -2158,126 +1699,159 @@ textarea{
     </h2>
 
     <p class="page-subtitle">
-        Upload documents that visitors can download from your website.
+        Upload complete folders and make their files available for download.
     </p>
+
 
     <div class="warning-box">
 
-        <strong>
-            📄 Document Upload
-        </strong>
+        <strong>📁 Folder Upload</strong>
 
         <br>
 
-        Select a document from your laptop. It will be uploaded
-        to Firebase Storage and automatically appear on your
-        website's Files page.
+        Select a folder from your computer. All files inside
+        the folder will be uploaded automatically.
+
+        <br><br>
+
+        Example:
+
+        <strong>
+            School Projects → Mathematics → project.pdf
+        </strong>
+
+        will keep the folder information when uploaded.
 
     </div>
 
 
     <div class="card">
 
-        <h3>
-            Upload New Document
-        </h3>
+        <div class="folder-upload">
 
-        <form id="documentForm">
+            <div class="folder-upload-icon">
+                📁
+            </div>
 
-            <div class="form-grid">
+            <h3>
+                Upload an Entire Folder
+            </h3>
 
-                <div class="form-group full">
+            <p>
+                Choose a folder from your laptop and upload
+                all of its files at once.
+            </p>
 
-                    <label>
-                        Document Name
-                    </label>
 
-                    <input
-                        type="text"
-                        id="documentName"
-                        placeholder="Example: Mathematics Project 2026"
-                        required
-                    >
+            <label class="folder-button">
+
+                📂 Choose Folder
+
+                <input
+                    type="file"
+                    id="folderInput"
+                    webkitdirectory
+                    directory
+                    multiple
+                >
+
+            </label>
+
+
+            <div
+                class="selected-folder"
+                id="selectedFolder"
+            >
+
+                <strong>
+                    Selected folder
+                </strong>
+
+                <div
+                    id="selectedFolderName"
+                    style="margin-top:5px;"
+                ></div>
+
+
+                <div class="file-summary">
+
+                    <div class="summary-box">
+
+                        📄
+                        <strong id="folderFileCount">
+                            0
+                        </strong>
+                        files
+
+                    </div>
+
+                    <div class="summary-box">
+
+                        💾
+                        <strong id="folderTotalSize">
+                            0 Bytes
+                        </strong>
+
+                    </div>
 
                 </div>
 
 
-                <div class="form-group full">
-
-                    <label>
-                        Description
-                    </label>
-
-                    <textarea
-                        id="documentDescription"
-                        placeholder="Describe this document..."
-                    ></textarea>
-
-                </div>
-
-
-                <div class="form-group full">
-
-                    <label>
-                        Choose Document From Your Laptop
-                    </label>
-
-                    <input
-                        type="file"
-                        id="documentFile"
-                        required
-                    >
-
-                    <p
-                        style="
-                            color:#6b7280;
-                            font-size:13px;
-                            margin-top:7px;
-                        "
-                    >
-                        Select the document you want visitors
-                        to download.
-                    </p>
-
-                </div>
+                <div
+                    class="folder-file-list"
+                    id="folderFileList"
+                ></div>
 
             </div>
 
-
-            <div class="form-actions">
-
-                <button
-                    type="submit"
-                    class="btn btn-success"
-                    id="uploadDocumentBtn"
-                >
-                    📤 Upload Document
-                </button>
-
-                <button
-                    type="button"
-                    class="btn btn-light"
-                    onclick="clearDocumentForm()"
-                >
-                    Clear
-                </button>
-
-            </div>
-
-        </form>
+        </div>
 
 
         <div
-            id="documentUploadProgress"
             class="progress-container"
+            id="folderProgressContainer"
         >
 
-            <div
-                id="documentProgressBar"
-                class="progress-bar"
-            >
-                0%
+            <div class="progress-background">
+
+                <div
+                    class="progress-bar"
+                    id="folderProgressBar"
+                >
+                    0%
+                </div>
+
             </div>
+
+            <div
+                class="upload-status"
+                id="folderUploadStatus"
+            >
+                Preparing upload...
+            </div>
+
+        </div>
+
+
+        <div
+            class="form-actions"
+            style="margin-top:20px;"
+        >
+
+            <button
+                class="btn btn-success"
+                id="uploadFolderBtn"
+                disabled
+            >
+                📤 Upload Folder
+            </button>
+
+            <button
+                class="btn btn-light"
+                id="clearFolderBtn"
+            >
+                Clear Selection
+            </button>
 
         </div>
 
@@ -2287,7 +1861,7 @@ textarea{
     <div class="card">
 
         <h3>
-            📁 Uploaded Documents
+            📄 Uploaded Files
         </h3>
 
         <div
@@ -2306,7 +1880,7 @@ textarea{
 </section>
 
 
-<!-- ================= DIARY ================= -->
+<!-- DIARY -->
 
 <section class="page" id="page-diary">
 
@@ -2381,20 +1955,7 @@ textarea{
 
                 </div>
 
-                <div class="form-group full">
-
-                    <label>Photo Path / URL</label>
-
-                    <input
-                        type="text"
-                        id="diaryPhoto"
-                        placeholder="images/example.jpg"
-                    >
-
-                </div>
-
             </div>
-
 
             <div class="form-actions">
 
@@ -2422,9 +1983,7 @@ textarea{
 
     <div class="card">
 
-        <h3>
-            Diary Entries
-        </h3>
+        <h3>Diary Entries</h3>
 
         <div
             class="items-list"
@@ -2434,6 +1993,7 @@ textarea{
     </div>
 
 </section>
+
 
         </div>
 
@@ -2447,7 +2007,7 @@ textarea{
 
 <script type="module">
 
-/* ================= FIREBASE IMPORTS ================= */
+/* ================= FIREBASE ================= */
 
 import {
     initializeApp
@@ -2478,8 +2038,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
-/* ================= FIREBASE ================= */
-
 const firebaseConfig = {
 
     apiKey:
@@ -2501,7 +2059,7 @@ const firebaseConfig = {
         "946671700613",
 
     appId:
-        "1:946671700613:web:5d74536df1db0b35e77ec",
+        "1:946671700613:web:5d74536df1dbb0d35e77ec",
 
     measurementId:
         "G-K1S62MHHXP"
@@ -2540,10 +2098,7 @@ function escapeHTML(value){
 }
 
 
-function showToast(
-    message,
-    type="info"
-){
+function showToast(message,type="info"){
 
     const toast =
         document.createElement("div");
@@ -2565,13 +2120,38 @@ function showToast(
 }
 
 
-function formatDateTime(){
+function formatFileSize(bytes){
 
-    return new Date()
-        .toLocaleString([],{
-            dateStyle:"medium",
-            timeStyle:"short"
-        });
+    if(!bytes)
+        return "0 Bytes";
+
+    const units =
+        [
+            "Bytes",
+            "KB",
+            "MB",
+            "GB"
+        ];
+
+    const index =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return (
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(2)
+        ) +
+        " " +
+        units[index]
+    );
 
 }
 
@@ -2585,13 +2165,10 @@ $("loginForm").addEventListener(
         event.preventDefault();
 
         const email =
-            $("loginEmail")
-                .value
-                .trim();
+            $("loginEmail").value.trim();
 
         const password =
-            $("loginPassword")
-                .value;
+            $("loginPassword").value;
 
         $("loginError").textContent =
             "";
@@ -2615,7 +2192,7 @@ $("loginForm").addEventListener(
             console.error(error);
 
             $("loginError").textContent =
-                "Login failed. Please check your email and password.";
+                "Login failed. Check your email and password.";
 
         }finally{
 
@@ -2648,20 +2225,7 @@ onAuthStateChanged(
             $("adminEmail").textContent =
                 user.email || "";
 
-            try{
-
-                await loadEverything();
-
-            }catch(error){
-
-                console.error(error);
-
-                showToast(
-                    "Some dashboard information could not be loaded.",
-                    "error"
-                );
-
-            }
+            await loadEverything();
 
         }else{
 
@@ -2683,41 +2247,22 @@ $("logoutSide").addEventListener(
     "click",
     async () => {
 
-        const confirmed =
-            confirm(
-                "Are you sure you want to logout?"
-            );
-
-        if(!confirmed)
+        if(!confirm("Logout?"))
             return;
 
-        try{
-
-            await signOut(auth);
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Logout failed.",
-                "error"
-            );
-
-        }
+        await signOut(auth);
 
     }
 );
 
 
-/* ================= MOBILE MENU ================= */
+/* ================= MENU ================= */
 
 $("menuToggle").addEventListener(
     "click",
     () => {
 
-        $("sidebar")
-            .classList.toggle("open");
+        $("sidebar").classList.toggle("open");
 
         $("sidebarOverlay")
             .classList.toggle("open");
@@ -2730,8 +2275,7 @@ $("sidebarOverlay").addEventListener(
     "click",
     () => {
 
-        $("sidebar")
-            .classList.remove("open");
+        $("sidebar").classList.remove("open");
 
         $("sidebarOverlay")
             .classList.remove("open");
@@ -2751,64 +2295,53 @@ const pageTitles = {
     projects:"Projects",
     hobbies:"Hobbies",
     skills:"Skills",
-    documents:"Documents",
+    documents:"Documents Manager",
     diary:"Private Diary"
 
 };
 
 
 window.showPage =
-    function(page){
+function(page){
 
-        document
-            .querySelectorAll(".page")
-            .forEach(
-                pageElement =>
-                    pageElement
-                        .classList
-                        .remove("active")
-            );
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            element =>
+                element.classList.remove("active")
+        );
 
-        document
-            .querySelectorAll(".nav-btn")
-            .forEach(
-                button =>
-                    button
-                        .classList
-                        .remove("active")
-            );
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(
+            element =>
+                element.classList.remove("active")
+        );
 
-        const target =
-            $("page-" + page);
+    const target =
+        $("page-" + page);
 
-        if(target)
-            target.classList.add("active");
+    if(target)
+        target.classList.add("active");
 
-        const navButton =
-            document.querySelector(
-                `.nav-btn[data-page="${page}"]`
-            );
+    const button =
+        document.querySelector(
+            `.nav-btn[data-page="${page}"]`
+        );
 
-        if(navButton)
-            navButton.classList.add("active");
+    if(button)
+        button.classList.add("active");
 
-        $("topbarTitle").textContent =
-            pageTitles[page] || "Dashboard";
+    $("topbarTitle").textContent =
+        pageTitles[page] ||
+        "Dashboard";
 
-        $("sidebar")
-            .classList
-            .remove("open");
+    $("sidebar").classList.remove("open");
 
-        $("sidebarOverlay")
-            .classList
-            .remove("open");
+    $("sidebarOverlay")
+        .classList.remove("open");
 
-        window.scrollTo({
-            top:0,
-            behavior:"smooth"
-        });
-
-    };
+};
 
 
 document
@@ -2847,59 +2380,10 @@ async function loadEverything(){
 
     await updateDashboardStats();
 
-    $("lastRefresh").textContent =
-        "Last dashboard refresh: " +
-        formatDateTime();
-
 }
 
 
 /* ================= DASHBOARD ================= */
-
-$("refreshDashboardBtn").addEventListener(
-    "click",
-    async () => {
-
-        const button =
-            $("refreshDashboardBtn");
-
-        button.disabled =
-            true;
-
-        button.textContent =
-            "🔄 Refreshing...";
-
-        try{
-
-            await loadEverything();
-
-            showToast(
-                "Dashboard refreshed successfully.",
-                "success"
-            );
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Dashboard refresh failed.",
-                "error"
-            );
-
-        }finally{
-
-            button.disabled =
-                false;
-
-            button.textContent =
-                "🔄 Refresh Dashboard";
-
-        }
-
-    }
-);
-
 
 async function countChildren(path){
 
@@ -2920,98 +2404,95 @@ async function countChildren(path){
 
 async function updateDashboardStats(){
 
-    const counts =
-        await Promise.all([
-
-            countChildren("gallery"),
-            countChildren("achievements"),
-            countChildren("projects"),
-            countChildren("hobbies"),
-            countChildren("skills")
-
-        ]);
-
     $("galleryCount").textContent =
-        counts[0];
+        await countChildren("gallery");
 
     $("achievementCount").textContent =
-        counts[1];
+        await countChildren("achievements");
 
     $("projectCount").textContent =
-        counts[2];
+        await countChildren("projects");
 
     $("hobbyCount").textContent =
-        counts[3];
+        await countChildren("hobbies");
 
     $("skillCount").textContent =
-        counts[4];
+        await countChildren("skills");
 
 }
+
+
+$("refreshDashboardBtn").addEventListener(
+    "click",
+    async () => {
+
+        await loadEverything();
+
+        showToast(
+            "Dashboard refreshed.",
+            "success"
+        );
+
+    }
+);
 
 
 /* ================= HOME ================= */
 
 window.loadHome =
-    async function(){
+async function(){
 
-        try{
+    try{
 
-            const snapshot =
-                await get(
-                    ref(db,"websiteData")
-                );
-
-            const data =
-                snapshot.exists()
-                    ? snapshot.val()
-                    : {};
-
-            $("homeName").value =
-                data.name ||
-                "Clinton Ncube";
-
-            $("homeWelcome").value =
-                data.welcome ||
-                "";
-
-            $("homeGoal").value =
-                data.goal ||
-                "";
-
-            $("homeAbout").value =
-                data.about ||
-                "";
-
-            $("homeUpdated").value =
-                data.lastUpdated ||
-                "2026";
-
-            $("dashboardName").textContent =
-                data.name ||
-                "Clinton Ncube";
-
-            $("dashboardGoal").textContent =
-                data.goal ||
-                "Not set";
-
-            $("dashboardUpdated").textContent =
-                data.lastUpdated ||
-                "Not set";
-
-            updateHomeLivePreview();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not load home information.",
-                "error"
+        const snapshot =
+            await get(
+                ref(db,"websiteData")
             );
 
-        }
+        const data =
+            snapshot.exists()
+                ? snapshot.val()
+                : {};
 
-    };
+        $("homeName").value =
+            data.name ||
+            "Clinton Ncube";
+
+        $("homeWelcome").value =
+            data.welcome ||
+            "";
+
+        $("homeGoal").value =
+            data.goal ||
+            "";
+
+        $("homeAbout").value =
+            data.about ||
+            "";
+
+        $("homeUpdated").value =
+            data.lastUpdated ||
+            "2026";
+
+        $("dashboardName").textContent =
+            data.name ||
+            "Clinton Ncube";
+
+        $("dashboardGoal").textContent =
+            data.goal ||
+            "Not set";
+
+        $("dashboardUpdated").textContent =
+            data.lastUpdated ||
+            "Not set";
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+};
 
 
 $("homeForm").addEventListener(
@@ -3022,30 +2503,19 @@ $("homeForm").addEventListener(
 
         const data = {
 
-            name:
-                $("homeName")
-                    .value
-                    .trim(),
+            name:$("homeName").value.trim(),
 
             welcome:
-                $("homeWelcome")
-                    .value
-                    .trim(),
+                $("homeWelcome").value.trim(),
 
             goal:
-                $("homeGoal")
-                    .value
-                    .trim(),
+                $("homeGoal").value.trim(),
 
             about:
-                $("homeAbout")
-                    .value
-                    .trim(),
+                $("homeAbout").value.trim(),
 
             lastUpdated:
-                $("homeUpdated")
-                    .value
-                    .trim()
+                $("homeUpdated").value.trim()
 
         };
 
@@ -3059,7 +2529,7 @@ $("homeForm").addEventListener(
             await loadHome();
 
             showToast(
-                "Home information saved successfully.",
+                "Home information saved.",
                 "success"
             );
 
@@ -3078,155 +2548,7 @@ $("homeForm").addEventListener(
 );
 
 
-function updateHomeLivePreview(){
-
-    $("homePreviewName").textContent =
-        $("homeName").value ||
-        "Clinton Ncube";
-
-    $("homePreviewWelcome").textContent =
-        $("homeWelcome").value ||
-        "Your welcome message will appear here.";
-
-    $("homePreviewGoal").textContent =
-        $("homeGoal").value ||
-        "Your goal will appear here.";
-
-    $("homePreviewAbout").textContent =
-        $("homeAbout").value ||
-        "Your about information will appear here.";
-
-}
-
-
-window.showHomeLivePreview =
-    function(){
-
-        updateHomeLivePreview();
-
-        $("homeLivePreview")
-            .scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
-
-    };
-
-
-[
-    "homeName",
-    "homeWelcome",
-    "homeGoal",
-    "homeAbout"
-]
-.forEach(
-    id => {
-
-        $(id).addEventListener(
-            "input",
-            updateHomeLivePreview
-        );
-
-    }
-);
-
-
 /* ================= GALLERY ================= */
-
-window.selectGalleryImage =
-    function(){
-
-        const selected =
-            $("gallerySelector").value;
-
-        if(!selected)
-            return;
-
-        $("galleryFile").value =
-            selected;
-
-        if(!$("galleryTitle").value.trim()){
-
-            const filename =
-                selected
-                    .split("/")
-                    .pop()
-                    .replace(/\.[^/.]+$/,"");
-
-            $("galleryTitle").value =
-                filename;
-
-        }
-
-        previewGalleryURL();
-
-    };
-
-
-window.previewGalleryURL =
-    function(){
-
-        const path =
-            $("galleryFile")
-                .value
-                .trim();
-
-        const preview =
-            $("galleryPreview");
-
-        if(!path){
-
-            preview.style.display =
-                "none";
-
-            return;
-
-        }
-
-        preview.src =
-            path;
-
-        preview.style.display =
-            "block";
-
-        preview.onerror =
-            () => {
-
-                preview.style.display =
-                    "none";
-
-            };
-
-    };
-
-
-window.previewLocalImage =
-    function(event){
-
-        const file =
-            event.target.files[0];
-
-        if(!file)
-            return;
-
-        const reader =
-            new FileReader();
-
-        reader.onload =
-            event => {
-
-                $("galleryPreview").src =
-                    event.target.result;
-
-                $("galleryPreview").style.display =
-                    "block";
-
-            };
-
-        reader.readAsDataURL(file);
-
-    };
-
 
 $("galleryForm").addEventListener(
     "submit",
@@ -3240,19 +2562,13 @@ $("galleryForm").addEventListener(
         const data = {
 
             title:
-                $("galleryTitle")
-                    .value
-                    .trim(),
+                $("galleryTitle").value.trim(),
 
             file:
-                $("galleryFile")
-                    .value
-                    .trim(),
+                $("galleryFile").value.trim(),
 
             description:
-                $("galleryDescription")
-                    .value
-                    .trim()
+                $("galleryDescription").value.trim()
 
         };
 
@@ -3263,67 +2579,16 @@ $("galleryForm").addEventListener(
                 await set(
                     ref(
                         db,
-                        "gallery/"+id
+                        "gallery/" + id
                     ),
                     data
                 );
 
-                showToast(
-                    "Gallery image updated.",
-                    "success"
-                );
-
             }else{
-
-                const snapshot =
-                    await get(
-                        ref(db,"gallery")
-                    );
-
-                let duplicate =
-                    false;
-
-                if(snapshot.exists()){
-
-                    Object.values(
-                        snapshot.val() || {}
-                    ).forEach(
-                        item => {
-
-                            if(
-                                item &&
-                                item.file === data.file
-                            ){
-
-                                duplicate =
-                                    true;
-
-                            }
-
-                        }
-                    );
-
-                }
-
-                if(duplicate){
-
-                    showToast(
-                        "This image is already in the gallery.",
-                        "info"
-                    );
-
-                    return;
-
-                }
 
                 await push(
                     ref(db,"gallery"),
                     data
-                );
-
-                showToast(
-                    "Gallery image added.",
-                    "success"
                 );
 
             }
@@ -3334,12 +2599,17 @@ $("galleryForm").addEventListener(
 
             await updateDashboardStats();
 
+            showToast(
+                "Gallery saved.",
+                "success"
+            );
+
         }catch(error){
 
             console.error(error);
 
             showToast(
-                "Could not save gallery image.",
+                "Could not save gallery item.",
                 "error"
             );
 
@@ -3350,380 +2620,282 @@ $("galleryForm").addEventListener(
 
 
 window.loadGallery =
-    async function(){
+async function(){
 
-        try{
+    const snapshot =
+        await get(
+            ref(db,"gallery")
+        );
 
-            const snapshot =
-                await get(
-                    ref(db,"gallery")
-                );
+    const list =
+        $("galleryList");
 
-            const list =
-                $("galleryList");
+    list.innerHTML =
+        "";
 
-            list.innerHTML =
-                "";
+    if(!snapshot.exists()){
 
-            if(!snapshot.exists()){
+        list.innerHTML =
+            `<div class="empty">
+                No gallery images yet.
+            </div>`;
 
-                list.innerHTML =
-                    `<div class="empty">
-                        No gallery images yet.
-                    </div>`;
+        return;
 
-                return;
+    }
 
-            }
+    Object.entries(
+        snapshot.val()
+    )
+    .forEach(
+        ([id,item]) => {
 
-            Object.entries(
-                snapshot.val()
-            ).forEach(
-                ([id,item]) => {
+            const wrapper =
+                document.createElement("div");
 
-                    const wrapper =
-                        document.createElement("div");
+            wrapper.className =
+                "item";
 
-                    wrapper.className =
-                        "item gallery-item";
+            wrapper.innerHTML = `
 
-                    wrapper.innerHTML = `
+                <div class="item-header">
 
-                        <img
-                            src="${escapeHTML(item.file || "")}"
-                            alt="${escapeHTML(item.title || "Gallery image")}"
-                            onerror="this.style.opacity='0.3';"
+                    <div>
+
+                        <h4>
+                            🖼️
+                            ${escapeHTML(item.title)}
+                        </h4>
+
+                        <p>
+                            ${escapeHTML(
+                                item.description || ""
+                            )}
+                        </p>
+
+                        <p
+                            style="
+                                font-size:12px;
+                                margin-top:5px;
+                            "
                         >
+                            ${escapeHTML(
+                                item.file || ""
+                            )}
+                        </p>
 
-                        <div>
+                    </div>
 
-                            <h4>
-                                ${escapeHTML(item.title || "")}
-                            </h4>
+                    <div class="item-actions">
 
-                            <p>
-                                ${escapeHTML(item.description || "")}
-                            </p>
+                        <button
+                            class="small-btn edit-btn"
+                        >
+                            Edit
+                        </button>
 
-                            <p
-                                style="font-size:12px;margin-top:5px;"
-                            >
-                                ${escapeHTML(item.file || "")}
-                            </p>
+                        <button
+                            class="small-btn delete-btn"
+                        >
+                            Delete
+                        </button>
 
-                        </div>
+                    </div>
 
-                        <div class="item-actions">
+                </div>
 
-                            <button
-                                class="small-btn edit-btn"
-                            >
-                                Edit
-                            </button>
+            `;
 
-                            <button
-                                class="small-btn preview-item-btn"
-                            >
-                                Preview
-                            </button>
-
-                            <button
-                                class="small-btn delete-btn"
-                            >
-                                Delete
-                            </button>
-
-                        </div>
-
-                    `;
-
-                    wrapper
-                        .querySelector(".edit-btn")
-                        .onclick =
-                        () =>
-                            editGallery(
-                                id,
-                                item
-                            );
-
-                    wrapper
-                        .querySelector(".preview-item-btn")
-                        .onclick =
-                        () =>
-                            previewPage(
-                                "gallery.html"
-                            );
-
-                    wrapper
-                        .querySelector(".delete-btn")
-                        .onclick =
-                        () =>
-                            deleteGallery(id);
-
-                    list.appendChild(
-                        wrapper
+            wrapper
+                .querySelector(".edit-btn")
+                .onclick =
+                () =>
+                    editGallery(
+                        id,
+                        item
                     );
 
-                }
-            );
+            wrapper
+                .querySelector(".delete-btn")
+                .onclick =
+                () =>
+                    deleteGallery(id);
 
-        }catch(error){
-
-            console.error(error);
-
-            $("galleryList").innerHTML =
-                `<div class="empty">
-                    Could not load gallery.
-                </div>`;
+            list.appendChild(wrapper);
 
         }
+    );
 
-    };
+};
 
 
 window.editGallery =
-    function(id,item){
+function(id,item){
 
-        $("galleryEditId").value =
-            id;
+    $("galleryEditId").value =
+        id;
 
-        $("galleryTitle").value =
-            item.title || "";
+    $("galleryTitle").value =
+        item.title || "";
 
-        $("galleryFile").value =
-            item.file || "";
+    $("galleryFile").value =
+        item.file || "";
 
-        $("galleryDescription").value =
-            item.description || "";
+    $("galleryDescription").value =
+        item.description || "";
 
-        $("gallerySelector").value =
-            item.file || "";
+    $("galleryFormTitle").textContent =
+        "Edit Gallery Image";
 
-        $("galleryFormTitle").textContent =
-            "Edit Gallery Image";
+    showPage("gallery");
 
-        previewGalleryURL();
-
-        showPage("gallery");
-
-    };
+};
 
 
 window.deleteGallery =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this gallery image? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this gallery image?"
+    ))
+        return;
 
-        try{
+    await remove(
+        ref(
+            db,
+            "gallery/" + id
+        )
+    );
 
-            await remove(
-                ref(
-                    db,
-                    "gallery/"+id
-                )
-            );
+    await loadGallery();
 
-            showToast(
-                "Gallery image deleted.",
-                "success"
-            );
+    await updateDashboardStats();
 
-            await loadGallery();
+    showToast(
+        "Gallery image deleted.",
+        "success"
+    );
 
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not delete gallery image.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearGalleryForm =
-    function(){
+function(){
 
-        $("galleryForm").reset();
+    $("galleryForm").reset();
 
-        $("galleryEditId").value =
-            "";
+    $("galleryEditId").value =
+        "";
 
-        $("galleryFormTitle").textContent =
-            "Add Gallery Image";
+    $("galleryFormTitle").textContent =
+        "Add Gallery Image";
 
-        $("galleryPreview").style.display =
-            "none";
-
-    };
+};
 
 
-/* ================= SIMPLE MANAGER ================= */
+/* ================= GENERIC LOADERS ================= */
 
 async function loadSimple(
     path,
     listId,
     emptyText,
-    editFn,
-    deleteFn,
-    previewPageName,
-    showLink=false
+    editFunction,
+    deleteFunction
 ){
 
-    try{
+    const snapshot =
+        await get(
+            ref(db,path)
+        );
 
-        const snapshot =
-            await get(
-                ref(db,path)
-            );
+    const list =
+        $(listId);
 
-        const list =
-            $(listId);
+    list.innerHTML =
+        "";
+
+    if(!snapshot.exists()){
 
         list.innerHTML =
-            "";
+            `<div class="empty">
+                ${emptyText}
+            </div>`;
 
-        if(!snapshot.exists()){
+        return;
 
-            list.innerHTML =
-                `<div class="empty">
-                    ${emptyText}
-                </div>`;
+    }
 
-            return;
+    Object.entries(
+        snapshot.val()
+    )
+    .forEach(
+        ([id,item]) => {
 
-        }
+            const wrapper =
+                document.createElement("div");
 
-        Object.entries(
-            snapshot.val()
-        ).forEach(
-            ([id,item]) => {
+            wrapper.className =
+                "item";
 
-                const wrapper =
-                    document.createElement("div");
+            wrapper.innerHTML = `
 
-                wrapper.className =
-                    "item";
+                <div class="item-header">
 
-                let link = "";
+                    <div>
 
-                if(
-                    showLink &&
-                    item.link
-                ){
+                        <h4>
+                            ${escapeHTML(
+                                item.title || ""
+                            )}
+                        </h4>
 
-                    link = `
-
-                        <p
-                            style="margin-top:7px;"
-                        >
-
-                            <a
-                                href="${escapeHTML(item.link)}"
-                                target="_blank"
-                                rel="noopener"
-                            >
-                                🔗 Open Project Link
-                            </a>
-
+                        <p>
+                            ${escapeHTML(
+                                item.description || ""
+                            )}
                         </p>
-
-                    `;
-
-                }
-
-                wrapper.innerHTML = `
-
-                    <div class="item-header">
-
-                        <div>
-
-                            <h4>
-                                ${escapeHTML(item.title || "")}
-                            </h4>
-
-                            <p>
-                                ${escapeHTML(item.description || "")}
-                            </p>
-
-                            ${link}
-
-                        </div>
-
-                        <div class="item-actions">
-
-                            <button
-                                class="small-btn edit-btn"
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                class="small-btn preview-item-btn"
-                            >
-                                Preview
-                            </button>
-
-                            <button
-                                class="small-btn delete-btn"
-                            >
-                                Delete
-                            </button>
-
-                        </div>
 
                     </div>
 
-                `;
+                    <div class="item-actions">
 
-                wrapper
-                    .querySelector(".edit-btn")
-                    .onclick =
-                    () =>
-                        editFn(
-                            id,
-                            item
-                        );
+                        <button
+                            class="small-btn edit-btn"
+                        >
+                            Edit
+                        </button>
 
-                wrapper
-                    .querySelector(".preview-item-btn")
-                    .onclick =
-                    () =>
-                        previewPage(
-                            previewPageName
-                        );
+                        <button
+                            class="small-btn delete-btn"
+                        >
+                            Delete
+                        </button>
 
-                wrapper
-                    .querySelector(".delete-btn")
-                    .onclick =
-                    () =>
-                        deleteFn(id);
+                    </div>
 
-                list.appendChild(
-                    wrapper
-                );
+                </div>
 
-            }
-        );
+            `;
 
-    }catch(error){
+            wrapper
+                .querySelector(".edit-btn")
+                .onclick =
+                () =>
+                    editFunction(
+                        id,
+                        item
+                    );
 
-        console.error(error);
+            wrapper
+                .querySelector(".delete-btn")
+                .onclick =
+                () =>
+                    deleteFunction(id);
 
-        $(listId).innerHTML =
-            `<div class="empty">
-                Could not load information.
-            </div>`;
+            list.appendChild(wrapper);
 
-    }
+        }
+    );
 
 }
 
@@ -3742,153 +2914,117 @@ $("achievementForm").addEventListener(
         const data = {
 
             title:
-                $("achievementTitle")
-                    .value
-                    .trim(),
+                $("achievementTitle").value.trim(),
 
             description:
-                $("achievementDescription")
-                    .value
-                    .trim()
+                $("achievementDescription").value.trim()
 
         };
 
-        try{
+        if(id){
 
-            if(id){
+            await set(
+                ref(
+                    db,
+                    "achievements/" + id
+                ),
+                data
+            );
 
-                await set(
-                    ref(
-                        db,
-                        "achievements/"+id
-                    ),
-                    data
-                );
+        }else{
 
-                showToast(
-                    "Achievement updated.",
-                    "success"
-                );
-
-            }else{
-
-                await push(
-                    ref(db,"achievements"),
-                    data
-                );
-
-                showToast(
-                    "Achievement added.",
-                    "success"
-                );
-
-            }
-
-            clearAchievementForm();
-
-            await loadAchievements();
-
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not save achievement.",
-                "error"
+            await push(
+                ref(db,"achievements"),
+                data
             );
 
         }
+
+        clearAchievementForm();
+
+        await loadAchievements();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Achievement saved.",
+            "success"
+        );
 
     }
 );
 
 
 window.loadAchievements =
-    () =>
-        loadSimple(
-            "achievements",
-            "achievementList",
-            "No achievements yet.",
-            editAchievement,
-            deleteAchievement,
-            "achievements.html"
-        );
+() =>
+    loadSimple(
+        "achievements",
+        "achievementList",
+        "No achievements yet.",
+        editAchievement,
+        deleteAchievement
+    );
 
 
 window.editAchievement =
-    function(id,item){
+function(id,item){
 
-        $("achievementEditId").value =
-            id;
+    $("achievementEditId").value =
+        id;
 
-        $("achievementTitle").value =
-            item.title || "";
+    $("achievementTitle").value =
+        item.title || "";
 
-        $("achievementDescription").value =
-            item.description || "";
+    $("achievementDescription").value =
+        item.description || "";
 
-        $("achievementFormTitle").textContent =
-            "Edit Achievement";
+    $("achievementFormTitle").textContent =
+        "Edit Achievement";
 
-        showPage("achievements");
+    showPage("achievements");
 
-    };
+};
 
 
 window.deleteAchievement =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this achievement? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this achievement?"
+    ))
+        return;
 
-        try{
+    await remove(
+        ref(
+            db,
+            "achievements/" + id
+        )
+    );
 
-            await remove(
-                ref(
-                    db,
-                    "achievements/"+id
-                )
-            );
+    await loadAchievements();
 
-            showToast(
-                "Achievement deleted.",
-                "success"
-            );
+    await updateDashboardStats();
 
-            await loadAchievements();
+    showToast(
+        "Achievement deleted.",
+        "success"
+    );
 
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not delete achievement.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearAchievementForm =
-    function(){
+function(){
 
-        $("achievementForm").reset();
+    $("achievementForm").reset();
 
-        $("achievementEditId").value =
-            "";
+    $("achievementEditId").value =
+        "";
 
-        $("achievementFormTitle").textContent =
-            "Add Achievement";
+    $("achievementFormTitle").textContent =
+        "Add Achievement";
 
-    };
+};
 
 
 /* ================= PROJECTS ================= */
@@ -3905,162 +3041,123 @@ $("projectForm").addEventListener(
         const data = {
 
             title:
-                $("projectTitle")
-                    .value
-                    .trim(),
+                $("projectTitle").value.trim(),
 
             description:
-                $("projectDescription")
-                    .value
-                    .trim(),
+                $("projectDescription").value.trim(),
 
             link:
-                $("projectLink")
-                    .value
-                    .trim()
+                $("projectLink").value.trim()
 
         };
 
-        try{
+        if(id){
 
-            if(id){
+            await set(
+                ref(
+                    db,
+                    "projects/" + id
+                ),
+                data
+            );
 
-                await set(
-                    ref(
-                        db,
-                        "projects/"+id
-                    ),
-                    data
-                );
+        }else{
 
-                showToast(
-                    "Project updated.",
-                    "success"
-                );
-
-            }else{
-
-                await push(
-                    ref(db,"projects"),
-                    data
-                );
-
-                showToast(
-                    "Project added.",
-                    "success"
-                );
-
-            }
-
-            clearProjectForm();
-
-            await loadProjects();
-
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not save project.",
-                "error"
+            await push(
+                ref(db,"projects"),
+                data
             );
 
         }
+
+        clearProjectForm();
+
+        await loadProjects();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Project saved.",
+            "success"
+        );
 
     }
 );
 
 
 window.loadProjects =
-    () =>
-        loadSimple(
-            "projects",
-            "projectList",
-            "No projects yet.",
-            editProject,
-            deleteProject,
-            "projects.html",
-            true
-        );
+() =>
+    loadSimple(
+        "projects",
+        "projectList",
+        "No projects yet.",
+        editProject,
+        deleteProject
+    );
 
 
 window.editProject =
-    function(id,item){
+function(id,item){
 
-        $("projectEditId").value =
-            id;
+    $("projectEditId").value =
+        id;
 
-        $("projectTitle").value =
-            item.title || "";
+    $("projectTitle").value =
+        item.title || "";
 
-        $("projectDescription").value =
-            item.description || "";
+    $("projectDescription").value =
+        item.description || "";
 
-        $("projectLink").value =
-            item.link || "";
+    $("projectLink").value =
+        item.link || "";
 
-        $("projectFormTitle").textContent =
-            "Edit Project";
+    $("projectFormTitle").textContent =
+        "Edit Project";
 
-        showPage("projects");
+    showPage("projects");
 
-    };
+};
 
 
 window.deleteProject =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this project? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this project?"
+    ))
+        return;
 
-        try{
+    await remove(
+        ref(
+            db,
+            "projects/" + id
+        )
+    );
 
-            await remove(
-                ref(
-                    db,
-                    "projects/"+id
-                )
-            );
+    await loadProjects();
 
-            showToast(
-                "Project deleted.",
-                "success"
-            );
+    await updateDashboardStats();
 
-            await loadProjects();
+    showToast(
+        "Project deleted.",
+        "success"
+    );
 
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not delete project.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearProjectForm =
-    function(){
+function(){
 
-        $("projectForm").reset();
+    $("projectForm").reset();
 
-        $("projectEditId").value =
-            "";
+    $("projectEditId").value =
+        "";
 
-        $("projectFormTitle").textContent =
-            "Add Project";
+    $("projectFormTitle").textContent =
+        "Add Project";
 
-    };
+};
 
 
 /* ================= HOBBIES ================= */
@@ -4077,153 +3174,117 @@ $("hobbyForm").addEventListener(
         const data = {
 
             title:
-                $("hobbyTitle")
-                    .value
-                    .trim(),
+                $("hobbyTitle").value.trim(),
 
             description:
-                $("hobbyDescription")
-                    .value
-                    .trim()
+                $("hobbyDescription").value.trim()
 
         };
 
-        try{
+        if(id){
 
-            if(id){
+            await set(
+                ref(
+                    db,
+                    "hobbies/" + id
+                ),
+                data
+            );
 
-                await set(
-                    ref(
-                        db,
-                        "hobbies/"+id
-                    ),
-                    data
-                );
+        }else{
 
-                showToast(
-                    "Hobby updated.",
-                    "success"
-                );
-
-            }else{
-
-                await push(
-                    ref(db,"hobbies"),
-                    data
-                );
-
-                showToast(
-                    "Hobby added.",
-                    "success"
-                );
-
-            }
-
-            clearHobbyForm();
-
-            await loadHobbies();
-
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not save hobby.",
-                "error"
+            await push(
+                ref(db,"hobbies"),
+                data
             );
 
         }
+
+        clearHobbyForm();
+
+        await loadHobbies();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Hobby saved.",
+            "success"
+        );
 
     }
 );
 
 
 window.loadHobbies =
-    () =>
-        loadSimple(
-            "hobbies",
-            "hobbyList",
-            "No hobbies yet.",
-            editHobby,
-            deleteHobby,
-            "hobbies.html"
-        );
+() =>
+    loadSimple(
+        "hobbies",
+        "hobbyList",
+        "No hobbies yet.",
+        editHobby,
+        deleteHobby
+    );
 
 
 window.editHobby =
-    function(id,item){
+function(id,item){
 
-        $("hobbyEditId").value =
-            id;
+    $("hobbyEditId").value =
+        id;
 
-        $("hobbyTitle").value =
-            item.title || "";
+    $("hobbyTitle").value =
+        item.title || "";
 
-        $("hobbyDescription").value =
-            item.description || "";
+    $("hobbyDescription").value =
+        item.description || "";
 
-        $("hobbyFormTitle").textContent =
-            "Edit Hobby";
+    $("hobbyFormTitle").textContent =
+        "Edit Hobby";
 
-        showPage("hobbies");
+    showPage("hobbies");
 
-    };
+};
 
 
 window.deleteHobby =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this hobby? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this hobby?"
+    ))
+        return;
 
-        try{
+    await remove(
+        ref(
+            db,
+            "hobbies/" + id
+        )
+    );
 
-            await remove(
-                ref(
-                    db,
-                    "hobbies/"+id
-                )
-            );
+    await loadHobbies();
 
-            showToast(
-                "Hobby deleted.",
-                "success"
-            );
+    await updateDashboardStats();
 
-            await loadHobbies();
+    showToast(
+        "Hobby deleted.",
+        "success"
+    );
 
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not delete hobby.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearHobbyForm =
-    function(){
+function(){
 
-        $("hobbyForm").reset();
+    $("hobbyForm").reset();
 
-        $("hobbyEditId").value =
-            "";
+    $("hobbyEditId").value =
+        "";
 
-        $("hobbyFormTitle").textContent =
-            "Add Hobby";
+    $("hobbyFormTitle").textContent =
+        "Add Hobby";
 
-    };
+};
 
 
 /* ================= SKILLS ================= */
@@ -4240,235 +3301,410 @@ $("skillForm").addEventListener(
         const data = {
 
             title:
-                $("skillTitle")
-                    .value
-                    .trim(),
+                $("skillTitle").value.trim(),
 
             description:
-                $("skillDescription")
-                    .value
-                    .trim()
+                $("skillDescription").value.trim()
 
         };
 
-        try{
+        if(id){
 
-            if(id){
+            await set(
+                ref(
+                    db,
+                    "skills/" + id
+                ),
+                data
+            );
 
-                await set(
-                    ref(
-                        db,
-                        "skills/"+id
-                    ),
-                    data
-                );
+        }else{
 
-                showToast(
-                    "Skill updated.",
-                    "success"
-                );
-
-            }else{
-
-                await push(
-                    ref(db,"skills"),
-                    data
-                );
-
-                showToast(
-                    "Skill added.",
-                    "success"
-                );
-
-            }
-
-            clearSkillForm();
-
-            await loadSkills();
-
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not save skill.",
-                "error"
+            await push(
+                ref(db,"skills"),
+                data
             );
 
         }
+
+        clearSkillForm();
+
+        await loadSkills();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Skill saved.",
+            "success"
+        );
 
     }
 );
 
 
 window.loadSkills =
-    () =>
-        loadSimple(
-            "skills",
-            "skillList",
-            "No skills yet.",
-            editSkill,
-            deleteSkill,
-            "skills.html"
-        );
+() =>
+    loadSimple(
+        "skills",
+        "skillList",
+        "No skills yet.",
+        editSkill,
+        deleteSkill
+    );
 
 
 window.editSkill =
-    function(id,item){
+function(id,item){
 
-        $("skillEditId").value =
-            id;
+    $("skillEditId").value =
+        id;
 
-        $("skillTitle").value =
-            item.title || "";
+    $("skillTitle").value =
+        item.title || "";
 
-        $("skillDescription").value =
-            item.description || "";
+    $("skillDescription").value =
+        item.description || "";
 
-        $("skillFormTitle").textContent =
-            "Edit Skill";
+    $("skillFormTitle").textContent =
+        "Edit Skill";
 
-        showPage("skills");
+    showPage("skills");
 
-    };
+};
 
 
 window.deleteSkill =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this skill? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this skill?"
+    ))
+        return;
 
-        try{
+    await remove(
+        ref(
+            db,
+            "skills/" + id
+        )
+    );
 
-            await remove(
-                ref(
-                    db,
-                    "skills/"+id
-                )
-            );
+    await loadSkills();
 
-            showToast(
-                "Skill deleted.",
-                "success"
-            );
+    await updateDashboardStats();
 
-            await loadSkills();
+    showToast(
+        "Skill deleted.",
+        "success"
+    );
 
-            await updateDashboardStats();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not delete skill.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearSkillForm =
-    function(){
+function(){
 
-        $("skillForm").reset();
+    $("skillForm").reset();
 
-        $("skillEditId").value =
-            "";
+    $("skillEditId").value =
+        "";
 
-        $("skillFormTitle").textContent =
-            "Add Skill";
+    $("skillFormTitle").textContent =
+        "Add Skill";
 
-    };
+};
 
 
-/* ================= DOCUMENTS ================= */
+/* =========================================================
+   FOLDER UPLOAD SYSTEM
+========================================================= */
 
-$("documentForm").addEventListener(
-    "submit",
-    async event => {
+let selectedFiles = [];
 
-        event.preventDefault();
 
-        const name =
-            $("documentName")
-                .value
-                .trim();
+/* SELECT FOLDER */
 
-        const description =
-            $("documentDescription")
-                .value
-                .trim();
+$("folderInput").addEventListener(
+    "change",
+    event => {
+
+        selectedFiles =
+            Array.from(
+                event.target.files
+            );
+
+        if(!selectedFiles.length){
+
+            clearFolderSelection();
+
+            return;
+
+        }
+
+        displaySelectedFolder();
+
+    }
+);
+
+
+/* DISPLAY SELECTED FOLDER */
+
+function displaySelectedFolder(){
+
+    const firstFile =
+        selectedFiles[0];
+
+    let folderName =
+        "Selected Folder";
+
+    if(
+        firstFile.webkitRelativePath
+    ){
+
+        folderName =
+            firstFile
+                .webkitRelativePath
+                .split("/")
+                [0];
+
+    }
+
+    $("selectedFolderName").textContent =
+        folderName;
+
+    $("folderFileCount").textContent =
+        selectedFiles.length;
+
+    const totalSize =
+        selectedFiles.reduce(
+            (
+                total,
+                file
+            ) =>
+                total + file.size,
+            0
+        );
+
+    $("folderTotalSize").textContent =
+        formatFileSize(totalSize);
+
+
+    const fileList =
+        $("folderFileList");
+
+    fileList.innerHTML =
+        "";
+
+
+    selectedFiles.forEach(
+        file => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "folder-file";
+
+            div.textContent =
+                file.webkitRelativePath ||
+                file.name;
+
+            fileList.appendChild(
+                div
+            );
+
+        }
+    );
+
+
+    $("selectedFolder")
+        .style.display =
+        "block";
+
+    $("uploadFolderBtn")
+        .disabled =
+        false;
+
+}
+
+
+/* CLEAR FOLDER */
+
+$("clearFolderBtn").addEventListener(
+    "click",
+    clearFolderSelection
+);
+
+
+function clearFolderSelection(){
+
+    selectedFiles = [];
+
+    $("folderInput").value =
+        "";
+
+    $("selectedFolder")
+        .style.display =
+        "none";
+
+    $("folderFileList").innerHTML =
+        "";
+
+    $("folderFileCount").textContent =
+        "0";
+
+    $("folderTotalSize").textContent =
+        "0 Bytes";
+
+    $("uploadFolderBtn")
+        .disabled =
+        true;
+
+    $("folderProgressContainer")
+        .style.display =
+        "none";
+
+}
+
+
+/* UPLOAD FOLDER */
+
+$("uploadFolderBtn").addEventListener(
+    "click",
+    uploadFolder
+);
+
+
+async function uploadFolder(){
+
+    if(!selectedFiles.length){
+
+        showToast(
+            "Please choose a folder first.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        $("uploadFolderBtn");
+
+    button.disabled =
+        true;
+
+    $("folderProgressContainer")
+        .style.display =
+        "block";
+
+
+    const fileList =
+        $("folderFileList");
+
+    const fileRows =
+        Array.from(
+            fileList.children
+        );
+
+
+    let uploaded =
+        0;
+
+    let failed =
+        0;
+
+
+    const folderRoot =
+        selectedFiles[0]
+            .webkitRelativePath
+            ? selectedFiles[0]
+                .webkitRelativePath
+                .split("/")[0]
+            : "Uploaded Folder";
+
+
+    for(
+        let i = 0;
+        i < selectedFiles.length;
+        i++
+    ){
 
         const file =
-            $("documentFile")
-                .files[0];
+            selectedFiles[i];
 
-        if(!file){
+        const row =
+            fileRows[i];
 
-            showToast(
-                "Please choose a document first.",
-                "error"
-            );
+        const relativePath =
+            file.webkitRelativePath ||
+            file.name;
 
-            return;
 
-        }
+        $("folderUploadStatus")
+            .textContent =
+                "Uploading " +
+                (i + 1) +
+                " of " +
+                selectedFiles.length +
+                ": " +
+                relativePath;
 
-        if(!name){
-
-            showToast(
-                "Please enter a document name.",
-                "error"
-            );
-
-            return;
-
-        }
-
-        const button =
-            $("uploadDocumentBtn");
-
-        button.disabled =
-            true;
-
-        button.textContent =
-            "📤 Uploading...";
-
-        $("documentUploadProgress")
-            .style.display =
-            "block";
-
-        $("documentProgressBar").style.width =
-            "10%";
-
-        $("documentProgressBar").textContent =
-            "Preparing...";
 
         try{
 
-            const safeName =
-                file.name
-                    .replace(
-                        /[^\w.\-() ]/g,
-                        "_"
-                    );
+            /*
+             * Remove the first folder name.
+             *
+             * Example:
+             *
+             * Mathematics/project.pdf
+             *
+             * becomes:
+             *
+             * project.pdf
+             *
+             * while folderRoot is Mathematics.
+             */
+
+            const pathParts =
+                relativePath.split("/");
+
+            pathParts.shift();
+
+            const insideFolder =
+                pathParts.join("/");
+
+
+            const safePath =
+                insideFolder
+                    .split("/")
+                    .map(
+                        part =>
+                            part.replace(
+                                /[^\w.\-() ]/g,
+                                "_"
+                            )
+                    )
+                    .join("/");
+
 
             const timestamp =
-                Date.now();
+                Date.now() +
+                "_" +
+                i;
+
 
             const storagePath =
                 "documents/" +
+                folderRoot +
+                "/" +
                 timestamp +
                 "_" +
-                safeName;
+                safePath;
+
 
             const fileReference =
                 storageRef(
@@ -4476,11 +3712,6 @@ $("documentForm").addEventListener(
                     storagePath
                 );
 
-            $("documentProgressBar").style.width =
-                "25%";
-
-            $("documentProgressBar").textContent =
-                "Uploading...";
 
             const uploadResult =
                 await uploadBytes(
@@ -4493,39 +3724,36 @@ $("documentForm").addEventListener(
                     }
                 );
 
-            $("documentProgressBar").style.width =
-                "70%";
-
-            $("documentProgressBar").textContent =
-                "Getting download link...";
 
             const downloadURL =
                 await getDownloadURL(
                     uploadResult.ref
                 );
 
-            $("documentProgressBar").style.width =
-                "85%";
-
-            $("documentProgressBar").textContent =
-                "Saving information...";
 
             const documentData = {
 
                 name:
-                    name,
+                    file.name,
 
                 originalName:
                     file.name,
 
                 description:
-                    description,
+                    "Uploaded from folder: " +
+                    folderRoot,
 
                 url:
                     downloadURL,
 
                 storagePath:
                     storagePath,
+
+                folder:
+                    folderRoot,
+
+                relativePath:
+                    relativePath,
 
                 type:
                     file.type ||
@@ -4540,463 +3768,373 @@ $("documentForm").addEventListener(
 
             };
 
+
             await push(
-                ref(
-                    db,
-                    "documents"
-                ),
+                ref(db,"documents"),
                 documentData
             );
 
-            $("documentProgressBar").style.width =
-                "100%";
 
-            $("documentProgressBar").textContent =
-                "Upload complete!";
+            uploaded++;
 
-            showToast(
-                "Document uploaded successfully.",
+            row.classList.add(
                 "success"
             );
 
-            clearDocumentForm();
+            row.textContent =
+                "✓ " +
+                relativePath;
 
-            await loadDocuments();
-
-            setTimeout(
-                () => {
-
-                    $("documentUploadProgress")
-                        .style.display =
-                        "none";
-
-                    $("documentProgressBar")
-                        .style.width =
-                        "0%";
-
-                },
-                1500
-            );
 
         }catch(error){
 
             console.error(
-                "Document upload error:",
+                "Upload failed:",
+                relativePath,
                 error
             );
 
-            console.error(
-                "Error code:",
-                error.code
-            );
+            failed++;
 
-            let message =
-                "Document upload failed.";
-
-            if(
-                error.code ===
-                "storage/unauthorized"
-            ){
-
-                message =
-                    "Upload denied. Check your Firebase Storage rules.";
-
-            }else if(
-                error.code ===
-                "storage/quota-exceeded"
-            ){
-
-                message =
-                    "Firebase Storage quota has been exceeded.";
-
-            }else if(
-                error.code ===
-                "storage/canceled"
-            ){
-
-                message =
-                    "Upload was cancelled.";
-
-            }else if(
-                error.message
-            ){
-
-                message =
-                    error.message;
-
-            }
-
-            showToast(
-                message,
+            row.classList.add(
                 "error"
             );
 
-            $("documentUploadProgress")
-                .style.display =
-                "none";
-
-        }finally{
-
-            button.disabled =
-                false;
-
-            button.textContent =
-                "📤 Upload Document";
+            row.textContent =
+                "✗ " +
+                relativePath +
+                " — upload failed";
 
         }
 
+
+        const percent =
+            Math.round(
+                (
+                    (i + 1) /
+                    selectedFiles.length
+                ) * 100
+            );
+
+
+        $("folderProgressBar")
+            .style.width =
+            percent + "%";
+
+        $("folderProgressBar")
+            .textContent =
+            percent + "%";
+
     }
-);
 
 
-/* ================= LOAD DOCUMENTS ================= */
+    $("folderUploadStatus")
+        .textContent =
+        "Finished: " +
+        uploaded +
+        " uploaded, " +
+        failed +
+        " failed.";
+
+
+    if(failed === 0){
+
+        showToast(
+            uploaded +
+            " files uploaded successfully.",
+            "success"
+        );
+
+    }else{
+
+        showToast(
+            uploaded +
+            " uploaded, " +
+            failed +
+            " failed.",
+            "error"
+        );
+
+    }
+
+
+    await loadDocuments();
+
+
+    button.disabled =
+        false;
+
+}
+
+
+/* ================= DOCUMENT LIST ================= */
 
 window.loadDocuments =
-    async function(){
+async function(){
 
-        try{
+    try{
 
-            const snapshot =
-                await get(
-                    ref(
-                        db,
-                        "documents"
-                    )
-                );
+        const snapshot =
+            await get(
+                ref(
+                    db,
+                    "documents"
+                )
+            );
 
-            const list =
-                $("documentList");
+        const list =
+            $("documentList");
+
+        list.innerHTML =
+            "";
+
+
+        if(!snapshot.exists()){
 
             list.innerHTML =
-                "";
+                `<div class="empty">
+                    No documents uploaded yet.
+                </div>`;
 
-            if(!snapshot.exists()){
+            return;
 
-                list.innerHTML =
-                    `<div class="empty">
-                        No documents uploaded yet.
-                    </div>`;
+        }
 
-                return;
 
-            }
+        const entries =
+            Object.entries(
+                snapshot.val()
+            );
 
-            const documents =
-                Object.entries(
-                    snapshot.val()
+
+        entries.sort(
+            (a,b) =>
+                String(
+                    b[1].uploadedAt || ""
                 )
-                .sort(
-                    (a,b) =>
-                        String(
-                            b[1].uploadedAt || ""
-                        )
-                        .localeCompare(
-                            String(
-                                a[1].uploadedAt || ""
-                            )
-                        )
-                );
+                .localeCompare(
+                    String(
+                        a[1].uploadedAt || ""
+                    )
+                )
+        );
 
 
-            documents.forEach(
-                ([id,item]) => {
+        entries.forEach(
+            ([id,item]) => {
 
-                    const wrapper =
-                        document.createElement(
-                            "div"
-                        );
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
 
-                    wrapper.className =
-                        "item";
-
-                    const fileSize =
-                        formatFileSize(
-                            item.size || 0
-                        );
-
-                    const uploadDate =
-                        item.uploadedAt
-                            ? new Date(
-                                item.uploadedAt
-                            ).toLocaleString()
-                            : "Unknown";
+                wrapper.className =
+                    "item";
 
 
-                    wrapper.innerHTML = `
+                const folder =
+                    item.folder ||
+                    "No folder";
 
-                        <div class="item-header">
 
-                            <div>
+                wrapper.innerHTML = `
 
-                                <h4>
-                                    📄
-                                    ${escapeHTML(
-                                        item.name ||
-                                        item.originalName ||
-                                        "Document"
-                                    )}
-                                </h4>
+                    <div class="item-header">
 
-                                <p>
-                                    ${escapeHTML(
-                                        item.description ||
-                                        "No description provided."
-                                    )}
-                                </p>
+                        <div>
 
-                                <p
-                                    style="
-                                        margin-top:7px;
-                                        font-size:12px;
-                                        color:#6b7280;
-                                    "
-                                >
-                                    File:
-                                    ${escapeHTML(
-                                        item.originalName ||
-                                        "Unknown"
-                                    )}
+                            <h4>
+                                📄
+                                ${escapeHTML(
+                                    item.name ||
+                                    item.originalName ||
+                                    "Document"
+                                )}
+                            </h4>
 
-                                    <br>
+                            <p>
+                                📁
+                                ${escapeHTML(folder)}
+                            </p>
 
-                                    Size:
-                                    ${escapeHTML(
-                                        fileSize
-                                    )}
+                            <p
+                                style="
+                                    font-size:12px;
+                                    margin-top:6px;
+                                    color:#64748b;
+                                "
+                            >
+                                ${escapeHTML(
+                                    item.relativePath ||
+                                    item.originalName ||
+                                    ""
+                                )}
 
-                                    <br>
+                                <br>
 
-                                    Uploaded:
-                                    ${escapeHTML(
-                                        uploadDate
-                                    )}
-                                </p>
-
-                            </div>
-
-                            <div class="item-actions">
-
-                                <button
-                                    class="small-btn preview-item-btn"
-                                >
-                                    Open
-                                </button>
-
-                                <button
-                                    class="small-btn delete-btn"
-                                >
-                                    Delete
-                                </button>
-
-                            </div>
+                                ${escapeHTML(
+                                    formatFileSize(
+                                        item.size || 0
+                                    )
+                                )}
+                            </p>
 
                         </div>
 
-                    `;
+
+                        <div class="item-actions">
+
+                            <button
+                                class="small-btn preview-item-btn"
+                            >
+                                Open
+                            </button>
+
+                            <button
+                                class="small-btn delete-btn"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
 
 
-                    wrapper
-                        .querySelector(
-                            ".preview-item-btn"
-                        )
-                        .onclick =
-                        () => {
+                wrapper
+                    .querySelector(
+                        ".preview-item-btn"
+                    )
+                    .onclick =
+                    () => {
 
-                            if(item.url){
+                        if(item.url){
 
-                                window.open(
-                                    item.url,
-                                    "_blank",
-                                    "noopener"
-                                );
-
-                            }else{
-
-                                showToast(
-                                    "Download link not found.",
-                                    "error"
-                                );
-
-                            }
-
-                        };
-
-
-                    wrapper
-                        .querySelector(
-                            ".delete-btn"
-                        )
-                        .onclick =
-                        () =>
-                            deleteDocument(
-                                id,
-                                item
+                            window.open(
+                                item.url,
+                                "_blank"
                             );
 
+                        }
 
-                    list.appendChild(
-                        wrapper
-                    );
+                    };
 
-                }
-            );
 
-        }catch(error){
+                wrapper
+                    .querySelector(
+                        ".delete-btn"
+                    )
+                    .onclick =
+                    () =>
+                        deleteDocument(
+                            id,
+                            item
+                        );
 
-            console.error(
-                "Could not load documents:",
-                error
-            );
 
-            $("documentList").innerHTML =
-                `<div class="empty">
-                    Could not load documents.
-                </div>`;
+                list.appendChild(
+                    wrapper
+                );
 
-        }
+            }
+        );
 
-    };
+
+    }catch(error){
+
+        console.error(
+            "Documents error:",
+            error
+        );
+
+        $("documentList").innerHTML =
+            `<div class="empty">
+                Could not load documents.
+            </div>`;
+
+    }
+
+};
 
 
 /* ================= DELETE DOCUMENT ================= */
 
 window.deleteDocument =
-    async function(
-        id,
-        item
-    ){
+async function(id,item){
 
-        const documentName =
-            item.name ||
-            item.originalName ||
-            "this document";
+    const name =
+        item.name ||
+        item.originalName ||
+        "this document";
 
-        const confirmed =
-            confirm(
-                "Delete " +
-                documentName +
-                "?\n\nThis will remove the document from the website."
-            );
 
-        if(!confirmed)
-            return;
+    if(!confirm(
+        "Delete " +
+        name +
+        "?"
+    ))
+        return;
 
-        try{
 
-            if(item.storagePath){
+    try{
 
-                try{
+        if(item.storagePath){
 
-                    const fileReference =
-                        storageRef(
-                            storage,
-                            item.storagePath
-                        );
+            try{
 
-                    await deleteObject(
-                        fileReference
+                const fileReference =
+                    storageRef(
+                        storage,
+                        item.storagePath
                     );
 
-                }catch(storageError){
+                await deleteObject(
+                    fileReference
+                );
 
-                    console.warn(
-                        "Storage file could not be deleted:",
-                        storageError
-                    );
+            }catch(storageError){
 
-                }
+                console.warn(
+                    "Storage deletion error:",
+                    storageError
+                );
 
             }
 
-            await remove(
-                ref(
-                    db,
-                    "documents/" + id
-                )
-            );
-
-            showToast(
-                "Document deleted successfully.",
-                "success"
-            );
-
-            await loadDocuments();
-
-        }catch(error){
-
-            console.error(
-                "Delete document error:",
-                error
-            );
-
-            showToast(
-                "Could not delete the document.",
-                "error"
-            );
-
         }
 
-    };
 
-
-/* ================= CLEAR DOCUMENT FORM ================= */
-
-window.clearDocumentForm =
-    function(){
-
-        $("documentForm")
-            .reset();
-
-        $("documentUploadProgress")
-            .style.display =
-            "none";
-
-        $("documentProgressBar")
-            .style.width =
-            "0%";
-
-        $("documentProgressBar")
-            .textContent =
-            "0%";
-
-    };
-
-
-/* ================= FILE SIZE ================= */
-
-function formatFileSize(bytes){
-
-    if(!bytes)
-        return "0 Bytes";
-
-    const units = [
-        "Bytes",
-        "KB",
-        "MB",
-        "GB"
-    ];
-
-    const index =
-        Math.floor(
-            Math.log(bytes) /
-            Math.log(1024)
+        await remove(
+            ref(
+                db,
+                "documents/" + id
+            )
         );
 
-    return (
-        parseFloat(
-            (
-                bytes /
-                Math.pow(
-                    1024,
-                    index
-                )
-            ).toFixed(2)
-        ) +
-        " " +
-        units[index]
-    );
 
-}
+        await loadDocuments();
+
+
+        showToast(
+            "Document deleted.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            "Could not delete document.",
+            "error"
+        );
+
+    }
+
+};
 
 
 /* ================= DIARY ================= */
@@ -5016,303 +4154,264 @@ $("diaryForm").addEventListener(
                 $("diaryDate").value,
 
             title:
-                $("diaryTitle")
-                    .value
-                    .trim(),
+                $("diaryTitle").value.trim(),
 
             happened:
-                $("diaryHappened")
-                    .value
-                    .trim(),
+                $("diaryHappened").value.trim(),
 
             feelings:
-                $("diaryFeelings")
-                    .value
-                    .trim(),
+                $("diaryFeelings").value.trim(),
 
             notes:
-                $("diaryNotes")
-                    .value
-                    .trim(),
-
-            photo:
-                $("diaryPhoto")
-                    .value
-                    .trim()
+                $("diaryNotes").value.trim()
 
         };
 
-        try{
 
-            if(id){
+        if(id){
 
-                await set(
-                    ref(
-                        db,
-                        "diary/"+id
-                    ),
-                    data
-                );
+            await set(
+                ref(
+                    db,
+                    "diary/" + id
+                ),
+                data
+            );
 
-                showToast(
-                    "Diary entry updated.",
-                    "success"
-                );
+        }else{
 
-            }else{
-
-                await push(
-                    ref(db,"diary"),
-                    data
-                );
-
-                showToast(
-                    "Diary entry added.",
-                    "success"
-                );
-
-            }
-
-            clearDiaryForm();
-
-            await loadDiary();
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Could not save diary entry.",
-                "error"
+            await push(
+                ref(db,"diary"),
+                data
             );
 
         }
+
+
+        clearDiaryForm();
+
+        await loadDiary();
+
+
+        showToast(
+            "Diary entry saved.",
+            "success"
+        );
 
     }
 );
 
 
 window.loadDiary =
-    async function(){
+async function(){
 
-        try{
+    const snapshot =
+        await get(
+            ref(db,"diary")
+        );
 
-            const snapshot =
-                await get(
-                    ref(db,"diary")
-                );
+    const list =
+        $("diaryList");
 
-            const list =
-                $("diaryList");
+    list.innerHTML =
+        "";
 
-            list.innerHTML =
-                "";
 
-            if(!snapshot.exists()){
+    if(!snapshot.exists()){
 
-                list.innerHTML =
-                    `<div class="empty">
-                        No diary entries yet.
-                    </div>`;
+        list.innerHTML =
+            `<div class="empty">
+                No diary entries yet.
+            </div>`;
 
-                return;
+        return;
 
-            }
+    }
 
-            Object.entries(
-                snapshot.val()
-            )
-            .sort(
-                (a,b) =>
-                    String(b[1].date || "")
-                        .localeCompare(
-                            String(a[1].date || "")
-                        )
-            )
-            .forEach(
-                ([id,item]) => {
 
-                    const wrapper =
-                        document.createElement("div");
+    Object.entries(
+        snapshot.val()
+    )
+    .forEach(
+        ([id,item]) => {
 
-                    wrapper.className =
-                        "item";
+            const wrapper =
+                document.createElement("div");
 
-                    wrapper.innerHTML = `
+            wrapper.className =
+                "item";
 
-                        <div class="item-header">
 
-                            <div>
+            wrapper.innerHTML = `
 
-                                <h4>
-                                    ${escapeHTML(item.title || "")}
-                                </h4>
+                <div class="item-header">
 
-                                <p>
-                                    <strong>Date:</strong>
-                                    ${escapeHTML(item.date || "")}
-                                </p>
+                    <div>
 
-                                <p
-                                    style="margin-top:8px;"
-                                >
-                                    ${escapeHTML(item.happened || "")}
-                                </p>
+                        <h4>
+                            ${escapeHTML(
+                                item.title || ""
+                            )}
+                        </h4>
 
-                                <p
-                                    style="margin-top:8px;"
-                                >
-                                    <strong>Feelings:</strong>
-                                    ${escapeHTML(item.feelings || "")}
-                                </p>
+                        <p>
+                            Date:
+                            ${escapeHTML(
+                                item.date || ""
+                            )}
+                        </p>
 
-                                <p
-                                    style="margin-top:8px;"
-                                >
-                                    <strong>Notes:</strong>
-                                    ${escapeHTML(item.notes || "")}
-                                </p>
+                        <p
+                            style="margin-top:7px;"
+                        >
+                            ${escapeHTML(
+                                item.happened || ""
+                            )}
+                        </p>
 
-                            </div>
+                        <p
+                            style="margin-top:7px;"
+                        >
+                            <strong>
+                                Feelings:
+                            </strong>
 
-                            <div class="item-actions">
+                            ${escapeHTML(
+                                item.feelings || ""
+                            )}
+                        </p>
 
-                                <button
-                                    class="small-btn edit-btn"
-                                >
-                                    Edit
-                                </button>
+                        <p
+                            style="margin-top:7px;"
+                        >
+                            <strong>
+                                Notes:
+                            </strong>
 
-                                <button
-                                    class="small-btn delete-btn"
-                                >
-                                    Delete
-                                </button>
+                            ${escapeHTML(
+                                item.notes || ""
+                            )}
+                        </p>
 
-                            </div>
+                    </div>
 
-                        </div>
+                    <div class="item-actions">
 
-                    `;
+                        <button
+                            class="small-btn edit-btn"
+                        >
+                            Edit
+                        </button>
 
-                    wrapper
-                        .querySelector(".edit-btn")
-                        .onclick =
-                        () =>
-                            editDiary(
-                                id,
-                                item
-                            );
+                        <button
+                            class="small-btn delete-btn"
+                        >
+                            Delete
+                        </button>
 
-                    wrapper
-                        .querySelector(".delete-btn")
-                        .onclick =
-                        () =>
-                            deleteDiary(id);
+                    </div>
 
-                    list.appendChild(
-                        wrapper
+                </div>
+
+            `;
+
+
+            wrapper
+                .querySelector(".edit-btn")
+                .onclick =
+                () =>
+                    editDiary(
+                        id,
+                        item
                     );
 
-                }
+
+            wrapper
+                .querySelector(".delete-btn")
+                .onclick =
+                () =>
+                    deleteDiary(id);
+
+
+            list.appendChild(
+                wrapper
             );
 
-        }catch(error){
-
-            console.error(error);
-
-            $("diaryList").innerHTML =
-                `<div class="empty">
-                    Could not load diary.
-                </div>`;
-
         }
+    );
 
-    };
+};
 
 
 window.editDiary =
-    function(id,item){
+function(id,item){
 
-        $("diaryEditId").value =
-            id;
+    $("diaryEditId").value =
+        id;
 
-        $("diaryDate").value =
-            item.date || "";
+    $("diaryDate").value =
+        item.date || "";
 
-        $("diaryTitle").value =
-            item.title || "";
+    $("diaryTitle").value =
+        item.title || "";
 
-        $("diaryHappened").value =
-            item.happened || "";
+    $("diaryHappened").value =
+        item.happened || "";
 
-        $("diaryFeelings").value =
-            item.feelings || "";
+    $("diaryFeelings").value =
+        item.feelings || "";
 
-        $("diaryNotes").value =
-            item.notes || "";
+    $("diaryNotes").value =
+        item.notes || "";
 
-        $("diaryPhoto").value =
-            item.photo || "";
+    $("diaryFormTitle").textContent =
+        "Edit Diary Entry";
 
-        $("diaryFormTitle").textContent =
-            "Edit Diary Entry";
+    showPage("diary");
 
-        showPage("diary");
-
-    };
+};
 
 
 window.deleteDiary =
-    async function(id){
+async function(id){
 
-        if(!confirm(
-            "Delete this diary entry? This action cannot be undone."
-        ))
-            return;
+    if(!confirm(
+        "Delete this diary entry?"
+    ))
+        return;
 
-        try{
 
-            await remove(
-                ref(
-                    db,
-                    "diary/"+id
-                )
-            );
+    await remove(
+        ref(
+            db,
+            "diary/" + id
+        )
+    );
 
-            showToast(
-                "Diary entry deleted.",
-                "success"
-            );
 
-            await loadDiary();
+    await loadDiary();
 
-        }catch(error){
 
-            console.error(error);
+    showToast(
+        "Diary entry deleted.",
+        "success"
+    );
 
-            showToast(
-                "Could not delete diary entry.",
-                "error"
-            );
-
-        }
-
-    };
+};
 
 
 window.clearDiaryForm =
-    function(){
+function(){
 
-        $("diaryForm").reset();
+    $("diaryForm").reset();
 
-        $("diaryEditId").value =
-            "";
+    $("diaryEditId").value =
+        "";
 
-        $("diaryFormTitle").textContent =
-            "Add Diary Entry";
+    $("diaryFormTitle").textContent =
+        "Add Diary Entry";
 
-    };
+};
 
 
 /* ================= WEBSITE PREVIEW ================= */
@@ -5322,141 +4421,97 @@ const WEBSITE_URL =
 
 
 window.previewPage =
-    function(page){
+function(page){
 
-        const frame =
-            $("previewFrame");
+    const wrapper =
+        $("previewWrapper");
 
-        const wrapper =
-            $("previewWrapper");
+    const frame =
+        $("previewFrame");
 
-        frame.src =
-            WEBSITE_URL +
-            page +
-            "?preview=" +
-            Date.now();
 
-        wrapper.style.display =
-            "flex";
+    frame.src =
+        WEBSITE_URL +
+        page +
+        "?preview=" +
+        Date.now();
 
-        frame.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
 
-        showPage("dashboard");
+    wrapper.style.display =
+        "flex";
 
-    };
+
+    showPage("dashboard");
+
+};
 
 
 window.previewWebsite =
-    function(){
+function(){
 
-        previewPage(
-            "index.html"
-        );
+    previewPage(
+        "index.html"
+    );
 
-    };
+};
 
 
 window.mobilePreview =
-    function(){
+function(){
 
-        const frame =
-            $("previewFrame");
+    const frame =
+        $("previewFrame");
 
-        const wrapper =
-            $("previewWrapper");
-
-        if(!frame.src){
-
-            frame.src =
-                WEBSITE_URL +
-                "index.html";
-
-        }
-
-        frame.classList.add(
-            "mobile"
-        );
-
-        wrapper.style.display =
-            "flex";
-
-        showToast(
-            "Mobile preview enabled.",
-            "info"
-        );
-
-    };
+    const wrapper =
+        $("previewWrapper");
 
 
-window.desktopPreview =
-    function(){
+    if(!frame.src)
+        frame.src =
+            WEBSITE_URL +
+            "index.html";
 
-        const frame =
-            $("previewFrame");
 
-        const wrapper =
-            $("previewWrapper");
+    frame.classList.add(
+        "mobile"
+    );
 
-        if(!frame.src){
 
-            frame.src =
-                WEBSITE_URL +
-                "index.html";
+    wrapper.style.display =
+        "flex";
 
-        }
-
-        frame.classList.remove(
-            "mobile"
-        );
-
-        wrapper.style.display =
-            "flex";
-
-        showToast(
-            "Desktop preview enabled.",
-            "info"
-        );
-
-    };
+};
 
 
 window.refreshPreview =
-    function(){
+function(){
 
-        const frame =
-            $("previewFrame");
+    const frame =
+        $("previewFrame");
 
-        if(
-            !frame.src ||
-            frame.src === "about:blank"
-        ){
 
-            previewWebsite();
+    if(!frame.src){
 
-            return;
+        previewWebsite();
 
-        }
+        return;
 
-        const base =
-            frame.src.split("?")[0];
+    }
 
-        frame.src =
-            base +
-            "?refresh=" +
-            Date.now();
 
-        showToast(
-            "Website preview refreshed.",
-            "success"
-        );
+    const base =
+        frame.src.split("?")[0];
 
-    };
 
+    frame.src =
+        base +
+        "?refresh=" +
+        Date.now();
+
+};
 
 </script>
 
 </body>
 </html>
+```
