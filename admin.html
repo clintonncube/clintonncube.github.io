@@ -2845,31 +2845,7 @@ $("logoutSide").addEventListener("click", async () => {
     await signOut(auth);
 
 }) 
-/* ================= AUTH ================= */
 
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        if(user){
-
-            $("loginScreen").style.display = "none";
-            $("adminApp").style.display = "block";
-
-            $("adminEmail").textContent =
-                user.email || "";
-
-            await loadEverything();
-
-        }else{
-
-            $("loginScreen").style.display = "flex";
-            $("adminApp").style.display = "none";
-
-        }
-
-    }
-);
 
 
 /* ================= LOGOUT ================= */
@@ -2904,27 +2880,7 @@ $("logoutSide").addEventListener("click", async () => {
     }
 
 });
-/* ================= LOGOUT ================= */
 
-$("logoutSide").addEventListener("click", async () => {
-
-    if(!confirm("Are you sure you want to logout?")) return;
-
-    // Clear email and password
-    $("loginEmail").value = "";
-    $("loginPassword").value = "";
-
-    // Clear login error
-    $("loginError").textContent = "";
-    $("loginError").classList.remove("show");
-
-    // Reset password visibility
-    $("loginPassword").type = "password";
-    $("passwordToggle").textContent = "👁️";
-    $("passwordToggle").setAttribute(
-        "aria-label",
-        "Show password"
-    );
 
     // Sign out of Firebase
     await signOut(auth);
