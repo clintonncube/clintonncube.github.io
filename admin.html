@@ -441,6 +441,11 @@ textarea {
     background: #b91c1c;
 }
 
+.primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* ================= CARDS ================= */
 
 .card {
@@ -520,19 +525,19 @@ textarea {
     display: block;
 }
 
-/* ================= DOCUMENTS ================= */
-
-.folder-box {
-    border: 2px dashed #cbd5e1;
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    background: #f8fafc;
+.gallery-upload-preview {
+    width: 100%;
+    max-width: 500px;
+    height: 280px;
+    object-fit: contain;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    display: block;
+    margin-top: 5px;
 }
 
-.folder-box input {
-    margin: 15px 0;
-}
+/* ================= PROGRESS ================= */
 
 .progress-container {
     display: none;
@@ -655,6 +660,10 @@ textarea {
 
     .dashboard-actions {
         flex-direction: column;
+    }
+
+    .gallery-upload-preview {
+        height: 220px;
     }
 
 }
@@ -795,7 +804,6 @@ textarea {
 
     <div class="admin-layout">
 
-
         <!-- ================= SIDEBAR ================= -->
 
         <aside
@@ -901,7 +909,6 @@ textarea {
         <!-- ================= MAIN ================= -->
 
         <main class="admin-main">
-
 
             <!-- TOPBAR -->
 
@@ -1236,17 +1243,179 @@ textarea {
                     </h2>
 
                     <p>
-                        Add, edit and delete photos.
+                        Upload, edit and delete photos.
                     </p>
 
                 </div>
 
 
+                <!-- ================= UPLOAD PHOTO ================= -->
+
                 <div class="card">
 
                     <h3>
-                        ➕ Add Photo
+                        📷 Upload Photo From Your Device
                     </h3>
+
+
+                    <div class="form-grid">
+
+
+                        <!-- PHOTO SELECT -->
+
+                        <div class="form-group form-full">
+
+                            <label for="galleryFile">
+                                Choose a picture
+                            </label>
+
+                            <input
+                                id="galleryFile"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp,image/gif"
+                            >
+
+                            <p
+                                style="
+                                    margin-top:8px;
+                                    color:#6b7280;
+                                    font-size:14px;
+                                "
+                            >
+                                Choose a picture from your laptop
+                                or phone gallery.
+                            </p>
+
+                        </div>
+
+
+                        <!-- PREVIEW -->
+
+                        <div
+                            class="form-group form-full"
+                            id="galleryUploadPreviewContainer"
+                            style="display:none;"
+                        >
+
+                            <label>
+                                Photo Preview
+                            </label>
+
+                            <img
+                                id="galleryUploadPreview"
+                                class="gallery-upload-preview"
+                                alt="Selected photo preview"
+                            >
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="form-group">
+
+                            <label for="galleryTitle">
+                                Title
+                            </label>
+
+                            <input
+                                id="galleryTitle"
+                                type="text"
+                                placeholder="Photo title"
+                            >
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group">
+
+                            <label for="galleryDescription">
+                                Description
+                            </label>
+
+                            <input
+                                id="galleryDescription"
+                                type="text"
+                                placeholder="Photo description"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- UPLOAD PROGRESS -->
+
+                    <div
+                        id="galleryUploadProgress"
+                        class="progress-container"
+                    >
+
+                        <div class="progress-track">
+
+                            <div
+                                id="galleryProgressBar"
+                                class="progress-bar"
+                            ></div>
+
+                        </div>
+
+
+                        <div
+                            id="galleryProgressText"
+                            class="progress-text"
+                        >
+                            Preparing upload...
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveGalleryBtn"
+                            class="primary-btn"
+                        >
+                            ☁️ Upload Photo
+                        </button>
+
+
+                        <button
+                            id="clearGalleryBtn"
+                            class="secondary-btn"
+                            style="margin-left:8px;"
+                        >
+                            ✖ Clear
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= OLD URL ADD ================= -->
+
+                <div class="card">
+
+                    <h3>
+                        🔗 Add Photo Using URL
+                    </h3>
+
+                    <p
+                        style="
+                            color:#6b7280;
+                            margin-bottom:18px;
+                        "
+                    >
+                        You can still add an existing image path
+                        or image URL if you need to.
+                    </p>
+
 
                     <div class="form-grid">
 
@@ -1272,7 +1441,7 @@ textarea {
                             </label>
 
                             <input
-                                id="galleryTitle"
+                                id="galleryUrlTitle"
                                 type="text"
                                 placeholder="Photo title"
                             >
@@ -1287,7 +1456,7 @@ textarea {
                             </label>
 
                             <input
-                                id="galleryDescription"
+                                id="galleryUrlDescription"
                                 type="text"
                                 placeholder="Photo description"
                             >
@@ -1300,16 +1469,18 @@ textarea {
                     <div class="save-area">
 
                         <button
-                            id="saveGalleryBtn"
-                            class="primary-btn"
+                            id="saveGalleryUrlBtn"
+                            class="secondary-btn"
                         >
-                            ➕ Add Photo
+                            ➕ Add URL Photo
                         </button>
 
                     </div>
 
                 </div>
 
+
+                <!-- ================= EXISTING PHOTOS ================= -->
 
                 <div class="card">
 
@@ -2738,6 +2909,9 @@ async function loadSimple(
                             item.title ||
                             "Gallery image";
 
+                        image.loading =
+                            "lazy";
+
                         div.appendChild(
                             image
                         );
@@ -2933,6 +3107,8 @@ async function loadSimple(
 
                                 try {
 
+                                    /* Delete database entry */
+
                                     await remove(
                                         ref(
                                             db,
@@ -2941,6 +3117,41 @@ async function loadSimple(
                                             key
                                         )
                                     );
+
+
+                                    /* Delete Gallery Storage file */
+
+                                    if(
+                                        path ===
+                                        "gallery" &&
+                                        item.storagePath
+                                    ) {
+
+                                        try {
+
+                                            const imageStorageRef =
+                                                storageRef(
+                                                    storage,
+                                                    item.storagePath
+                                                );
+
+
+                                            await deleteObject(
+                                                imageStorageRef
+                                            );
+
+                                        }
+
+                                        catch(storageError) {
+
+                                            console.warn(
+                                                "Storage image could not be deleted:",
+                                                storageError
+                                            );
+
+                                        }
+
+                                    }
 
 
                                     await loadSimple(
@@ -3018,6 +3229,120 @@ async function loadSimple(
                          GALLERY
 ========================================================= */
 
+
+/* ================= PHOTO PREVIEW ================= */
+
+$("galleryFile")
+    .addEventListener(
+        "change",
+        event => {
+
+            const file =
+                event.target.files[0];
+
+
+            if(!file) {
+
+                $("galleryUploadPreviewContainer")
+                    .style
+                    .display =
+                    "none";
+
+                return;
+
+            }
+
+
+            if(
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                showToast(
+                    "Please choose a valid image."
+                );
+
+                $("galleryFile")
+                    .value = "";
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e) {
+
+                    $("galleryUploadPreview")
+                        .src =
+                        e.target.result;
+
+
+                    $("galleryUploadPreviewContainer")
+                        .style
+                        .display =
+                        "block";
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+
+/* ================= CLEAR GALLERY FORM ================= */
+
+$("clearGalleryBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            $("galleryFile")
+                .value = "";
+
+            $("galleryTitle")
+                .value = "";
+
+            $("galleryDescription")
+                .value = "";
+
+            $("galleryUploadPreview")
+                .src = "";
+
+            $("galleryUploadPreviewContainer")
+                .style
+                .display =
+                "none";
+
+            $("galleryUploadProgress")
+                .style
+                .display =
+                "none";
+
+            $("galleryProgressBar")
+                .style
+                .width =
+                "0%";
+
+            $("galleryProgressText")
+                .textContent =
+                "Preparing upload...";
+
+        }
+    );
+
+
+/* ================= LOAD GALLERY ================= */
+
 async function loadGallery() {
 
     await loadSimple(
@@ -3032,7 +3357,287 @@ async function loadGallery() {
 }
 
 
+/* ================= UPLOAD PHOTO ================= */
+
 $("saveGalleryBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const file =
+                $("galleryFile")
+                    .files[0];
+
+
+            const title =
+                $("galleryTitle")
+                    .value
+                    .trim();
+
+
+            const description =
+                $("galleryDescription")
+                    .value
+                    .trim();
+
+
+            if(!file) {
+
+                showToast(
+                    "Please choose a photo first."
+                );
+
+                return;
+
+            }
+
+
+            if(
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                showToast(
+                    "Please choose a valid image."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                $("saveGalleryBtn")
+                    .disabled =
+                    true;
+
+                $("saveGalleryBtn")
+                    .textContent =
+                    "☁️ Uploading...";
+
+
+                $("galleryUploadProgress")
+                    .style
+                    .display =
+                    "block";
+
+
+                $("galleryProgressBar")
+                    .style
+                    .width =
+                    "10%";
+
+
+                $("galleryProgressText")
+                    .textContent =
+                    "Preparing photo...";
+
+
+                /* Safe filename */
+
+                const originalName =
+                    file.name;
+
+
+                const safeName =
+                    originalName
+                        .replace(
+                            /[^a-zA-Z0-9._-]/g,
+                            "_"
+                        );
+
+
+                const uniqueName =
+                    Date.now() +
+                    "_" +
+                    safeName;
+
+
+                /* Storage reference */
+
+                const imageRef =
+                    storageRef(
+                        storage,
+                        "gallery/" +
+                        uniqueName
+                    );
+
+
+                $("galleryProgressBar")
+                    .style
+                    .width =
+                    "30%";
+
+
+                $("galleryProgressText")
+                    .textContent =
+                    "Uploading photo to Firebase...";
+
+
+                /* Upload */
+
+                const snapshot =
+                    await uploadBytes(
+                        imageRef,
+                        file,
+                        {
+                            contentType:
+                                file.type
+                        }
+                    );
+
+
+                $("galleryProgressBar")
+                    .style
+                    .width =
+                    "70%";
+
+
+                $("galleryProgressText")
+                    .textContent =
+                    "Getting photo URL...";
+
+
+                /* Download URL */
+
+                const downloadURL =
+                    await getDownloadURL(
+                        snapshot.ref
+                    );
+
+
+                $("galleryProgressBar")
+                    .style
+                    .width =
+                    "85%";
+
+
+                $("galleryProgressText")
+                    .textContent =
+                    "Saving photo information...";
+
+
+                /* Database */
+
+                await push(
+                    ref(
+                        db,
+                        "gallery"
+                    ),
+                    {
+
+                        image:
+                            downloadURL,
+
+                        storagePath:
+                            "gallery/" +
+                            uniqueName,
+
+                        fileName:
+                            originalName,
+
+                        title:
+                            title,
+
+                        description:
+                            description,
+
+                        uploadedAt:
+                            Date.now()
+
+                    }
+                );
+
+
+                $("galleryProgressBar")
+                    .style
+                    .width =
+                    "100%";
+
+
+                $("galleryProgressText")
+                    .textContent =
+                    "Upload complete!";
+
+
+                /* Clear form */
+
+                $("galleryFile")
+                    .value = "";
+
+                $("galleryTitle")
+                    .value = "";
+
+                $("galleryDescription")
+                    .value = "";
+
+                $("galleryUploadPreview")
+                    .src = "";
+
+                $("galleryUploadPreviewContainer")
+                    .style
+                    .display =
+                    "none";
+
+
+                /* Refresh */
+
+                await loadGallery();
+
+                await updateDashboardStats();
+
+
+                showToast(
+                    "📷 Photo uploaded successfully!"
+                );
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "GALLERY UPLOAD ERROR:",
+                    error
+                );
+
+                console.error(
+                    "Error code:",
+                    error.code
+                );
+
+                console.error(
+                    "Error message:",
+                    error.message
+                );
+
+
+                showToast(
+                    "Photo upload failed. Check Firebase Storage rules."
+                );
+
+            }
+
+            finally {
+
+                $("saveGalleryBtn")
+                    .disabled =
+                    false;
+
+                $("saveGalleryBtn")
+                    .textContent =
+                    "☁️ Upload Photo";
+
+            }
+
+        }
+    );
+
+
+/* ================= ADD PHOTO USING URL ================= */
+
+$("saveGalleryUrlBtn")
     .addEventListener(
         "click",
         async () => {
@@ -3042,13 +3647,15 @@ $("saveGalleryBtn")
                     .value
                     .trim();
 
+
             const title =
-                $("galleryTitle")
+                $("galleryUrlTitle")
                     .value
                     .trim();
 
+
             const description =
-                $("galleryDescription")
+                $("galleryUrlDescription")
                     .value
                     .trim();
 
@@ -3089,10 +3696,10 @@ $("saveGalleryBtn")
                 $("galleryImage")
                     .value = "";
 
-                $("galleryTitle")
+                $("galleryUrlTitle")
                     .value = "";
 
-                $("galleryDescription")
+                $("galleryUrlDescription")
                     .value = "";
 
 
@@ -3110,6 +3717,7 @@ $("saveGalleryBtn")
             catch(error) {
 
                 console.error(
+                    "URL PHOTO ERROR:",
                     error
                 );
 
@@ -3603,6 +4211,10 @@ $("uploadFolderBtn")
                             url:
                                 url,
 
+                            storagePath:
+                                "documents/" +
+                                fileRef.name,
+
                             size:
                                 file.size,
 
@@ -3820,11 +4432,40 @@ async function loadDocuments() {
 
                                 try {
 
-                                    /*
-                                      The database entry is removed
-                                      here. The Storage file is also
-                                      attempted where possible.
-                                    */
+                                    /* Delete Storage file */
+
+                                    if(
+                                        item.storagePath
+                                    ) {
+
+                                        try {
+
+                                            const fileRef =
+                                                storageRef(
+                                                    storage,
+                                                    item.storagePath
+                                                );
+
+
+                                            await deleteObject(
+                                                fileRef
+                                            );
+
+                                        }
+
+                                        catch(storageError) {
+
+                                            console.warn(
+                                                "Storage file could not be deleted:",
+                                                storageError
+                                            );
+
+                                        }
+
+                                    }
+
+
+                                    /* Delete database entry */
 
                                     await remove(
                                         ref(
