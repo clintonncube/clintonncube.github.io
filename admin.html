@@ -1,0 +1,2326 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Clinton Ncube</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f4f6;
+    color:#111827;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(127,29,29,.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(37,99,235,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #080b12,
+            #111827 50%,
+            #1f2937
+        );
+}
+
+.login-container{
+    width:100%;
+    max-width:950px;
+    min-height:560px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    overflow:hidden;
+    border-radius:28px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+
+.login-brand{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:55px;
+    color:white;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(127,29,29,.95),
+            rgba(17,24,39,.98)
+        );
+}
+
+.brand-icon{
+    width:75px;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:20px;
+    margin-bottom:28px;
+    font-size:34px;
+    background:rgba(255,255,255,.1);
+}
+
+.login-brand h1{
+    font-size:42px;
+    margin-bottom:14px;
+}
+
+.brand-subtitle{
+    color:#d1d5db;
+    line-height:1.7;
+    max-width:380px;
+}
+
+.brand-features{
+    margin-top:35px;
+    display:grid;
+    gap:13px;
+}
+
+.brand-feature{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#e5e7eb;
+}
+
+.brand-feature-icon{
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:9px;
+    background:rgba(255,255,255,.09);
+}
+
+.login-panel{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:50px;
+    background:#ffffff;
+}
+
+.login-heading{
+    margin-bottom:30px;
+}
+
+.login-heading h2{
+    font-size:29px;
+    color:#111827;
+    margin-bottom:8px;
+}
+
+.login-heading p{
+    color:#6b7280;
+}
+
+.login-form-group{
+    margin-bottom:20px;
+}
+
+.login-form-group label{
+    display:block;
+    color:#374151;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.login-input-wrapper{
+    position:relative;
+}
+
+.login-input-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    pointer-events:none;
+}
+
+.login-box input{
+    width:100%;
+    height:52px;
+    padding:0 45px 0 44px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    background:#f9fafb;
+    color:#111827;
+    outline:none;
+}
+
+.login-box input:focus{
+    background:white;
+    border-color:#7f1d1d;
+    box-shadow:0 0 0 4px rgba(127,29,29,.1);
+}
+
+.password-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    width:34px;
+    height:34px;
+    border:0;
+    border-radius:8px;
+    background:transparent;
+}
+
+.login-btn{
+    width:100%;
+    height:52px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #991b1b,
+        #7f1d1d
+    );
+    color:white;
+    font-weight:700;
+    font-size:15px;
+}
+
+.login-btn:disabled{
+    opacity:.7;
+}
+
+.login-error{
+    display:none;
+    margin-top:15px;
+    padding:10px 12px;
+    border-radius:9px;
+    color:#b91c1c;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    text-align:center;
+    font-size:13px;
+}
+
+.login-error.show{
+    display:block;
+}
+
+.login-security{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:18px;
+    color:#6b7280;
+    font-size:12px;
+}
+
+.security-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#16a34a;
+}
+
+.back-website{
+    display:block;
+    margin-top:22px;
+    text-align:center;
+    color:#6b7280;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.back-website:hover{
+    color:#7f1d1d;
+}
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+#adminApp{
+    display:none;
+    min-height:100vh;
+}
+
+.admin-layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    flex-shrink:0;
+    background:#111827;
+    color:white;
+    padding:20px 15px;
+}
+
+.sidebar-title{
+    font-size:22px;
+    font-weight:700;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+.nav-btn{
+    width:100%;
+    padding:13px 14px;
+    margin-bottom:6px;
+    border:0;
+    border-radius:9px;
+    background:transparent;
+    color:#d1d5db;
+    text-align:left;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:#7f1d1d;
+    color:white;
+}
+
+.logout-side{
+    margin-top:20px;
+}
+
+/* MAIN */
+
+.admin-main{
+    flex:1;
+    min-width:0;
+}
+
+.topbar{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    background:white;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.topbar-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.topbar-title{
+    font-size:21px;
+    font-weight:700;
+}
+
+.admin-email{
+    color:#6b7280;
+    font-size:13px;
+}
+
+.website-btn{
+    padding:10px 15px;
+    border:0;
+    border-radius:8px;
+    background:#7f1d1d;
+    color:white;
+}
+
+.menu-toggle{
+    display:none;
+    border:0;
+    background:transparent;
+    font-size:24px;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+    padding:25px;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-header{
+    margin-bottom:25px;
+}
+
+.page-header h2{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.page-header p{
+    color:#6b7280;
+}
+
+/* CARDS */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:22px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 5px 15px rgba(0,0,0,.04);
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.stat-number{
+    font-size:32px;
+    font-weight:700;
+    color:#7f1d1d;
+}
+
+/* FORMS */
+
+.form-card{
+    background:white;
+    border-radius:14px;
+    padding:25px;
+    border:1px solid #e5e7eb;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.primary-btn{
+    padding:11px 18px;
+    border:0;
+    border-radius:8px;
+    background:#7f1d1d;
+    color:white;
+    font-weight:700;
+}
+
+.secondary-btn{
+    padding:11px 18px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:white;
+}
+
+/* LIST */
+
+.item-list{
+    margin-top:20px;
+    display:grid;
+    gap:12px;
+}
+
+.item{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:16px;
+}
+
+.item-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.item-actions button{
+    padding:7px 12px;
+    border:0;
+    border-radius:7px;
+}
+
+/* TOAST */
+
+#toastContainer{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:9999;
+}
+
+.toast{
+    padding:13px 18px;
+    margin-top:10px;
+    border-radius:9px;
+    background:#111827;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .login-container{
+        max-width:500px;
+        grid-template-columns:1fr;
+    }
+
+    .login-brand{
+        padding:35px 30px;
+        text-align:center;
+        align-items:center;
+    }
+
+    .login-panel{
+        padding:35px 30px;
+    }
+
+    .sidebar{
+        position:fixed;
+        left:-260px;
+        top:0;
+        bottom:0;
+        z-index:1000;
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .admin-main{
+        width:100%;
+    }
+}
+
+@media(max-width:450px){
+
+    #loginScreen{
+        padding:15px;
+    }
+
+    .login-brand{
+        padding:30px 20px;
+    }
+
+    .login-panel{
+        padding:30px 20px;
+    }
+
+    .login-brand h1{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ======================================================
+     LOGIN
+====================================================== -->
+
+<div id="loginScreen">
+
+    <div class="login-container">
+
+        <div class="login-brand">
+
+            <div class="brand-icon">🔐</div>
+
+            <h1>Clinton Ncube</h1>
+
+            <p class="brand-subtitle">
+                Welcome to your personal website
+                management system. Sign in to manage
+                your content, projects, gallery and more.
+            </p>
+
+            <div class="brand-features">
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">🖼️</div>
+                    <span>Manage your gallery</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">📚</div>
+                    <span>Manage your projects</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">📁</div>
+                    <span>Manage your documents</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">⚙️</div>
+                    <span>Control your website</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="login-panel">
+
+            <div class="login-heading">
+
+                <h2>Welcome back</h2>
+
+                <p>
+                    Sign in to access your admin dashboard.
+                </p>
+
+            </div>
+
+            <div class="login-box">
+
+                <form id="loginForm">
+
+                    <div class="login-form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="Enter your email"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="login-form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                🔑
+                            </span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginButton"
+                    >
+                        🔓 Sign In
+                    </button>
+
+                    <div
+                        id="loginError"
+                        class="login-error"
+                    ></div>
+
+                </form>
+
+                <div class="login-security">
+
+                    <span class="security-dot"></span>
+
+                    <span>
+                        Secure Firebase authentication
+                    </span>
+
+                </div>
+
+                <a
+                    class="back-website"
+                    href="https://clintonncube.github.io/"
+                    target="_blank"
+                >
+                    ← Back to Clinton Ncube Website
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     ADMIN APPLICATION
+====================================================== -->
+
+<div id="adminApp">
+
+    <div class="admin-layout">
+
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar-title">
+                ⚙️ Admin Panel
+            </div>
+
+            <button
+                class="nav-btn active"
+                data-page="dashboard"
+            >
+                📊 Dashboard
+            </button>
+
+            <button class="nav-btn" data-page="home">
+                🏠 Home Manager
+            </button>
+
+            <button class="nav-btn" data-page="gallery">
+                🖼️ Gallery
+            </button>
+
+            <button class="nav-btn" data-page="achievements">
+                🏆 Achievements
+            </button>
+
+            <button class="nav-btn" data-page="projects">
+                📚 Projects
+            </button>
+
+            <button class="nav-btn" data-page="hobbies">
+                🏀 Hobbies
+            </button>
+
+            <button class="nav-btn" data-page="skills">
+                💻 Skills
+            </button>
+
+            <button class="nav-btn" data-page="documents">
+                📁 Documents
+            </button>
+
+            <button class="nav-btn" data-page="diary">
+                📔 Private Diary
+            </button>
+
+            <button
+                class="nav-btn logout-side"
+                id="logoutSide"
+            >
+                🚪 Logout
+            </button>
+
+        </aside>
+
+
+        <main class="admin-main">
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        class="menu-toggle"
+                        id="menuToggle"
+                    >
+                        ☰
+                    </button>
+
+                    <div>
+
+                        <div
+                            class="topbar-title"
+                            id="topbarTitle"
+                        >
+                            Dashboard
+                        </div>
+
+                        <div
+                            class="admin-email"
+                            id="adminEmail"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="website-btn"
+                    onclick="window.open(
+                        'https://clintonncube.github.io/',
+                        '_blank'
+                    )"
+                >
+                    🌐 Website
+                </button>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+
+            <section
+                class="page active"
+                id="page-dashboard"
+            >
+
+                <div class="page-header">
+
+                    <h2>Dashboard</h2>
+
+                    <p>
+                        Welcome to your website management
+                        dashboard.
+                    </p>
+
+                </div>
+
+                <div class="card-grid">
+
+                    <div class="card">
+                        <h3>🖼️ Gallery</h3>
+                        <div
+                            class="stat-number"
+                            id="galleryCount"
+                        >
+                            0
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🏆 Achievements</h3>
+                        <div
+                            class="stat-number"
+                            id="achievementCount"
+                        >
+                            0
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>📚 Projects</h3>
+                        <div
+                            class="stat-number"
+                            id="projectCount"
+                        >
+                            0
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🏀 Hobbies</h3>
+                        <div
+                            class="stat-number"
+                            id="hobbyCount"
+                        >
+                            0
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>💻 Skills</h3>
+                        <div
+                            class="stat-number"
+                            id="skillCount"
+                        >
+                            0
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button
+                    class="primary-btn"
+                    id="refreshDashboardBtn"
+                >
+                    🔄 Refresh Dashboard
+                </button>
+
+            </section>
+
+
+            <!-- HOME -->
+
+            <section
+                class="page"
+                id="page-home"
+            >
+
+                <div class="page-header">
+
+                    <h2>Home Manager</h2>
+
+                    <p>
+                        Edit your website home information.
+                    </p>
+
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input
+                            id="homeName"
+                            value="Clinton Ncube"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Updated</label>
+                        <input
+                            id="homeLastUpdated"
+                            value="2026"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Welcome Message</label>
+                        <textarea id="homeWelcome"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Goal</label>
+                        <textarea id="homeGoal"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>About</label>
+                        <textarea id="homeAbout"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveHomeBtn"
+                    >
+                        💾 Save Home
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- GALLERY -->
+
+            <section
+                class="page"
+                id="page-gallery"
+            >
+
+                <div class="page-header">
+
+                    <h2>Gallery Manager</h2>
+
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Image URL / Path</label>
+                        <input id="galleryImage">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="galleryTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="galleryDescription"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveGalleryBtn"
+                    >
+                        ➕ Add Photo
+                    </button>
+
+                </div>
+
+                <div
+                    class="item-list"
+                    id="galleryList"
+                ></div>
+
+            </section>
+
+
+            <!-- ACHIEVEMENTS -->
+
+            <section
+                class="page"
+                id="page-achievements"
+            >
+
+                <div class="page-header">
+
+                    <h2>Achievements</h2>
+
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="achievementTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="achievementDescription"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveAchievementBtn"
+                    >
+                        ➕ Add Achievement
+                    </button>
+
+                </div>
+
+                <div
+                    class="item-list"
+                    id="achievementList"
+                ></div>
+
+            </section>
+
+
+            <!-- PROJECTS -->
+
+            <section
+                class="page"
+                id="page-projects"
+            >
+
+                <div class="page-header">
+                    <h2>Projects</h2>
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="projectTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="projectDescription"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input id="projectLink">
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveProjectBtn"
+                    >
+                        ➕ Add Project
+                    </button>
+
+                </div>
+
+                <div
+                    class="item-list"
+                    id="projectList"
+                ></div>
+
+            </section>
+
+
+            <!-- HOBBIES -->
+
+            <section
+                class="page"
+                id="page-hobbies"
+            >
+
+                <div class="page-header">
+                    <h2>Hobbies</h2>
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="hobbyTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="hobbyDescription"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveHobbyBtn"
+                    >
+                        ➕ Add Hobby
+                    </button>
+
+                </div>
+
+                <div
+                    class="item-list"
+                    id="hobbyList"
+                ></div>
+
+            </section>
+
+
+            <!-- SKILLS -->
+
+            <section
+                class="page"
+                id="page-skills"
+            >
+
+                <div class="page-header">
+                    <h2>Skills</h2>
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="skillTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="skillDescription"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveSkillBtn"
+                    >
+                        ➕ Add Skill
+                    </button>
+
+                </div>
+
+                <div
+                    class="item-list"
+                    id="skillList"
+                ></div>
+
+            </section>
+
+
+            <!-- DOCUMENTS -->
+
+            <section
+                class="page"
+                id="page-documents"
+            >
+
+                <div class="page-header">
+                    <h2>Documents Manager</h2>
+                </div>
+
+                <div class="form-card">
+
+                    <p>
+                        Document upload will be connected
+                        to Firebase Storage after login
+                        testing is confirmed.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- DIARY -->
+
+            <section
+                class="page"
+                id="page-diary"
+            >
+
+                <div class="page-header">
+                    <h2>Private Diary</h2>
+                </div>
+
+                <div class="form-card">
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input
+                            type="date"
+                            id="diaryDate"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input id="diaryTitle">
+                    </div>
+
+                    <div class="form-group">
+                        <label>What happened?</label>
+                        <textarea id="diaryHappened"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Feelings</label>
+                        <textarea id="diaryFeelings"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="diaryNotes"></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveDiaryBtn"
+                    >
+                        💾 Save Diary Entry
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<div id="toastContainer"></div>
+
+
+<!-- ======================================================
+     FIREBASE + JAVASCRIPT
+====================================================== -->
+
+<script type="module">
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    set,
+    push,
+    remove
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+import {
+    getStorage,
+    ref as storageRef,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+
+    authDomain:
+        "clinton-ncube-website.firebaseapp.com",
+
+    databaseURL:
+        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+
+    projectId:
+        "clinton-ncube-website",
+
+    storageBucket:
+        "clinton-ncube-website.firebasestorage.app",
+
+    messagingSenderId:
+        "946671700613",
+
+    appId:
+        "1:946671700613:web:5d74536df1dbb0d35e77ec",
+
+    measurementId:
+        "G-K1S62MHHXP"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+const storage = getStorage(app);
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const $ = id =>
+    document.getElementById(id);
+
+
+function showToast(message){
+
+    const toast =
+        document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.textContent = message;
+
+    $("toastContainer")
+        .appendChild(toast);
+
+    setTimeout(
+        () => toast.remove(),
+        3500
+    );
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+$("passwordToggle").addEventListener(
+    "click",
+    () => {
+
+        const password =
+            $("loginPassword");
+
+        if(password.type === "password"){
+
+            password.type = "text";
+
+            $("passwordToggle")
+                .textContent = "🙈";
+
+        }else{
+
+            password.type = "password";
+
+            $("passwordToggle")
+                .textContent = "👁️";
+
+        }
+
+    }
+);
+
+
+$("loginForm").addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        const email =
+            $("loginEmail")
+                .value
+                .trim();
+
+        const password =
+            $("loginPassword")
+                .value;
+
+        $("loginError")
+            .classList
+            .remove("show");
+
+        $("loginButton")
+            .disabled = true;
+
+        $("loginButton")
+            .textContent = "Signing in...";
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+        }catch(error){
+
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+            $("loginError")
+                .textContent =
+                "Login failed. Please check your email and password.";
+
+            $("loginError")
+                .classList
+                .add("show");
+
+        }finally{
+
+            $("loginButton")
+                .disabled = false;
+
+            $("loginButton")
+                .textContent =
+                "🔓 Sign In";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    user => {
+
+        if(user){
+
+            $("loginScreen")
+                .style
+                .display = "none";
+
+            $("adminApp")
+                .style
+                .display = "block";
+
+            $("adminEmail")
+                .textContent =
+                user.email || "";
+
+        }else{
+
+            $("loginScreen")
+                .style
+                .display = "flex";
+
+            $("adminApp")
+                .style
+                .display = "none";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+$("logoutSide").addEventListener(
+    "click",
+    async () => {
+
+        if(
+            !confirm(
+                "Are you sure you want to logout?"
+            )
+        ) return;
+
+        try{
+
+            await signOut(auth);
+
+        }catch(error){
+
+            console.error(error);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+$("menuToggle").addEventListener(
+    "click",
+    () => {
+
+        $("sidebar")
+            .classList
+            .toggle("open");
+
+    }
+);
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const pageTitles = {
+
+    dashboard:"Dashboard",
+    home:"Home Manager",
+    gallery:"Gallery",
+    achievements:"Achievements",
+    projects:"Projects",
+    hobbies:"Hobbies",
+    skills:"Skills",
+    documents:"Documents Manager",
+    diary:"Private Diary"
+
+};
+
+
+document
+    .querySelectorAll(
+        ".nav-btn[data-page]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const page =
+                    button.dataset.page;
+
+                document
+                    .querySelectorAll(".page")
+                    .forEach(
+                        element =>
+                            element
+                                .classList
+                                .remove("active")
+                    );
+
+                document
+                    .querySelectorAll(
+                        ".nav-btn[data-page]"
+                    )
+                    .forEach(
+                        element =>
+                            element
+                                .classList
+                                .remove("active")
+                    );
+
+                const target =
+                    $("page-" + page);
+
+                if(target){
+
+                    target
+                        .classList
+                        .add("active");
+
+                }
+
+                button
+                    .classList
+                    .add("active");
+
+                $("topbarTitle")
+                    .textContent =
+                    pageTitles[page] ||
+                    "Dashboard";
+
+                $("sidebar")
+                    .classList
+                    .remove("open");
+
+            }
+
+        );
+
+    });
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+async function countChildren(path){
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(db,path)
+            );
+
+        if(!snapshot.exists())
+            return 0;
+
+        return Object.keys(
+            snapshot.val() || {}
+        ).length;
+
+    }catch(error){
+
+        console.error(error);
+
+        return 0;
+
+    }
+
+}
+
+
+async function updateDashboardStats(){
+
+    $("galleryCount")
+        .textContent =
+        await countChildren("gallery");
+
+    $("achievementCount")
+        .textContent =
+        await countChildren("achievements");
+
+    $("projectCount")
+        .textContent =
+        await countChildren("projects");
+
+    $("hobbyCount")
+        .textContent =
+        await countChildren("hobbies");
+
+    $("skillCount")
+        .textContent =
+        await countChildren("skills");
+
+}
+
+
+$("refreshDashboardBtn").addEventListener(
+    "click",
+    async () => {
+
+        await updateDashboardStats();
+
+        showToast(
+            "Dashboard refreshed."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+async function loadHome(){
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(db,"websiteData")
+            );
+
+        if(!snapshot.exists())
+            return;
+
+        const data =
+            snapshot.val() || {};
+
+        $("homeName").value =
+            data.name || "Clinton Ncube";
+
+        $("homeLastUpdated").value =
+            data.lastUpdated || "2026";
+
+        $("homeWelcome").value =
+            data.welcome || "";
+
+        $("homeGoal").value =
+            data.goal || "";
+
+        $("homeAbout").value =
+            data.about || "";
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+$("saveHomeBtn").addEventListener(
+    "click",
+    async () => {
+
+        try{
+
+            await set(
+                ref(db,"websiteData"),
+                {
+
+                    name:
+                        $("homeName").value.trim(),
+
+                    lastUpdated:
+                        $("homeLastUpdated")
+                            .value
+                            .trim(),
+
+                    welcome:
+                        $("homeWelcome")
+                            .value
+                            .trim(),
+
+                    goal:
+                        $("homeGoal")
+                            .value
+                            .trim(),
+
+                    about:
+                        $("homeAbout")
+                            .value
+                            .trim()
+
+                }
+            );
+
+            showToast(
+                "Home information saved."
+            );
+
+        }catch(error){
+
+            console.error(error);
+
+            showToast(
+                "Could not save home information."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SIMPLE MANAGER HELPER
+========================================================= */
+
+async function loadSimple(
+    path,
+    listId,
+    fields
+){
+
+    const list =
+        $(listId);
+
+    list.innerHTML = "";
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(db,path)
+            );
+
+        if(!snapshot.exists()){
+
+            list.innerHTML =
+                "<div class='item'>No items yet.</div>";
+
+            return;
+
+        }
+
+        const data =
+            snapshot.val() || {};
+
+        Object.entries(data)
+            .forEach(
+                ([key,item]) => {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+                    div.className = "item";
+
+                    let html =
+                        `<strong>${item.title || ""}</strong>`;
+
+                    fields
+                        .filter(
+                            field =>
+                                field !== "title"
+                        )
+                        .forEach(
+                            field => {
+
+                                if(item[field]){
+
+                                    html +=
+                                        `<p>${item[field]}</p>`;
+
+                                }
+
+                            }
+                        );
+
+                    html += `
+                        <div class="item-actions">
+
+                            <button
+                                data-delete="${key}"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+                    `;
+
+                    div.innerHTML = html;
+
+                    div.querySelector(
+                        "[data-delete]"
+                    ).addEventListener(
+                        "click",
+                        async () => {
+
+                            if(
+                                !confirm(
+                                    "Delete this item?"
+                                )
+                            ) return;
+
+                            await remove(
+                                ref(
+                                    db,
+                                    `${path}/${key}`
+                                )
+                            );
+
+                            await loadSimple(
+                                path,
+                                listId,
+                                fields
+                            );
+
+                            await updateDashboardStats();
+
+                        }
+                    );
+
+                    list.appendChild(div);
+
+                }
+            );
+
+    }catch(error){
+
+        console.error(error);
+
+        list.innerHTML =
+            "<div class='item'>Unable to load items.</div>";
+
+    }
+
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+async function loadGallery(){
+
+    await loadSimple(
+        "gallery",
+        "galleryList",
+        [
+            "title",
+            "description"
+        ]
+    );
+
+}
+
+
+$("saveGalleryBtn").addEventListener(
+    "click",
+    async () => {
+
+        const image =
+            $("galleryImage")
+                .value
+                .trim();
+
+        const title =
+            $("galleryTitle")
+                .value
+                .trim();
+
+        const description =
+            $("galleryDescription")
+                .value
+                .trim();
+
+        if(!image){
+
+            showToast(
+                "Please enter an image URL or path."
+            );
+
+            return;
+
+        }
+
+        await push(
+            ref(db,"gallery"),
+            {
+                image,
+                title,
+                description
+            }
+        );
+
+        $("galleryImage").value = "";
+
+        $("galleryTitle").value = "";
+
+        $("galleryDescription").value = "";
+
+        await loadGallery();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Photo added."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+async function loadAchievements(){
+
+    await loadSimple(
+        "achievements",
+        "achievementList",
+        [
+            "title",
+            "description"
+        ]
+    );
+
+}
+
+
+$("saveAchievementBtn").addEventListener(
+    "click",
+    async () => {
+
+        await push(
+            ref(db,"achievements"),
+            {
+
+                title:
+                    $("achievementTitle")
+                        .value
+                        .trim(),
+
+                description:
+                    $("achievementDescription")
+                        .value
+                        .trim()
+
+            }
+        );
+
+        $("achievementTitle").value = "";
+
+        $("achievementDescription")
+            .value = "";
+
+        await loadAchievements();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Achievement added."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+async function loadProjects(){
+
+    await loadSimple(
+        "projects",
+        "projectList",
+        [
+            "title",
+            "description",
+            "link"
+        ]
+    );
+
+}
+
+
+$("saveProjectBtn").addEventListener(
+    "click",
+    async () => {
+
+        await push(
+            ref(db,"projects"),
+            {
+
+                title:
+                    $("projectTitle")
+                        .value
+                        .trim(),
+
+                description:
+                    $("projectDescription")
+                        .value
+                        .trim(),
+
+                link:
+                    $("projectLink")
+                        .value
+                        .trim()
+
+            }
+        );
+
+        $("projectTitle").value = "";
+
+        $("projectDescription")
+            .value = "";
+
+        $("projectLink").value = "";
+
+        await loadProjects();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Project added."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HOBBIES
+========================================================= */
+
+async function loadHobbies(){
+
+    await loadSimple(
+        "hobbies",
+        "hobbyList",
+        [
+            "title",
+            "description"
+        ]
+    );
+
+}
+
+
+$("saveHobbyBtn").addEventListener(
+    "click",
+    async () => {
+
+        await push(
+            ref(db,"hobbies"),
+            {
+
+                title:
+                    $("hobbyTitle")
+                        .value
+                        .trim(),
+
+                description:
+                    $("hobbyDescription")
+                        .value
+                        .trim()
+
+            }
+        );
+
+        $("hobbyTitle").value = "";
+
+        $("hobbyDescription")
+            .value = "";
+
+        await loadHobbies();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Hobby added."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+async function loadSkills(){
+
+    await loadSimple(
+        "skills",
+        "skillList",
+        [
+            "title",
+            "description"
+        ]
+    );
+
+}
+
+
+$("saveSkillBtn").addEventListener(
+    "click",
+    async () => {
+
+        await push(
+            ref(db,"skills"),
+            {
+
+                title:
+                    $("skillTitle")
+                        .value
+                        .trim(),
+
+                description:
+                    $("skillDescription")
+                        .value
+                        .trim()
+
+            }
+        );
+
+        $("skillTitle").value = "";
+
+        $("skillDescription")
+            .value = "";
+
+        await loadSkills();
+
+        await updateDashboardStats();
+
+        showToast(
+            "Skill added."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL DATA LOAD
+========================================================= */
+
+async function loadEverything(){
+
+    await loadHome();
+
+    await loadGallery();
+
+    await loadAchievements();
+
+    await loadProjects();
+
+    await loadHobbies();
+
+    await loadSkills();
+
+    await updateDashboardStats();
+
+}
+
+
+/* =========================================================
+   LOAD DATA WHEN LOGGED IN
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if(!user)
+            return;
+
+        try{
+
+            await loadEverything();
+
+        }catch(error){
+
+            console.error(
+                "DATA LOAD ERROR:",
+                error
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
