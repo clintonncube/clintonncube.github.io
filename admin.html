@@ -1,8 +1,6 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,990 +8,701 @@
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
+/* ================= RESET ================= */
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f3f4f6;
-    color:#111827;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
 }
 
 button,
 input,
-textarea,
-select{
-    font-family:inherit;
+textarea {
+    font-family: inherit;
 }
 
-button{
-    cursor:pointer;
+/* ================= LOGIN ================= */
+
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #111827, #2563eb);
+    padding: 20px;
 }
 
-/* =========================================================
-   LOGIN
-========================================================= */
-
-#loginScreen{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(127,29,29,.35),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(37,99,235,.25),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #080b12,
-            #111827 50%,
-            #1f2937
-        );
+.login-container {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
 
-.login-container{
-    width:100%;
-    max-width:950px;
-    min-height:560px;
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    overflow:hidden;
-
-    border-radius:28px;
-    border:1px solid rgba(255,255,255,.12);
-
-    background:rgba(255,255,255,.06);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.45);
+.login-brand {
+    background: #111827;
+    color: white;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
 }
 
-.login-brand{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    padding:55px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(127,29,29,.95),
-            rgba(17,24,39,.98)
-        );
+.login-brand h1 {
+    font-size: 34px;
 }
 
-.brand-icon{
-    width:75px;
-    height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:20px;
-    margin-bottom:28px;
-
-    font-size:34px;
-
-    background:
-        rgba(255,255,255,.1);
+.login-brand p {
+    color: #d1d5db;
+    line-height: 1.7;
 }
 
-.login-brand h1{
-    font-size:42px;
-    margin-bottom:14px;
+.login-features {
+    margin-top: 10px;
+    display: grid;
+    gap: 12px;
 }
 
-.brand-subtitle{
-    color:#d1d5db;
-    line-height:1.7;
-    max-width:380px;
+.login-feature {
+    color: #e5e7eb;
 }
 
-.brand-features{
-    margin-top:35px;
-
-    display:grid;
-    gap:13px;
+.login-panel {
+    padding: 50px 40px;
 }
 
-.brand-feature{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    color:#e5e7eb;
+.login-panel h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
-.brand-feature-icon{
-    width:34px;
-    height:34px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:9px;
-
-    background:
-        rgba(255,255,255,.09);
+.login-panel > p {
+    color: #6b7280;
+    margin-bottom: 30px;
 }
 
-.login-panel{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    padding:50px;
-
-    background:#ffffff;
+.login-form {
+    display: grid;
+    gap: 18px;
 }
 
-.login-heading{
-    margin-bottom:30px;
+.form-group {
+    display: grid;
+    gap: 8px;
 }
 
-.login-heading h2{
-    font-size:29px;
-    color:#111827;
-    margin-bottom:8px;
-}
-
-.login-heading p{
-    color:#6b7280;
-}
-
-.login-form-group{
-    margin-bottom:20px;
-}
-
-.login-form-group label{
-    display:block;
-
-    color:#374151;
-    font-size:13px;
-    font-weight:700;
-
-    margin-bottom:8px;
-}
-
-.login-input-wrapper{
-    position:relative;
-}
-
-.login-input-icon{
-    position:absolute;
-
-    left:14px;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    pointer-events:none;
-}
-
-.login-box input{
-    width:100%;
-    height:52px;
-
-    padding:
-        0
-        45px
-        0
-        44px;
-
-    border:
-        1px solid
-        #d1d5db;
-
-    border-radius:12px;
-
-    background:#f9fafb;
-    color:#111827;
-
-    outline:none;
-}
-
-.login-box input:focus{
-    background:white;
-
-    border-color:#7f1d1d;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(127,29,29,.1);
-}
-
-.password-toggle{
-    position:absolute;
-
-    right:10px;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:34px;
-    height:34px;
-
-    border:0;
-    border-radius:8px;
-
-    background:transparent;
-}
-
-.login-btn{
-    width:100%;
-    height:52px;
-
-    border:0;
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #991b1b,
-            #7f1d1d
-        );
-
-    color:white;
-
-    font-weight:700;
-    font-size:15px;
-}
-
-.login-btn:disabled{
-    opacity:.7;
-}
-
-.login-error{
-    display:none;
-
-    margin-top:15px;
-    padding:10px 12px;
-
-    border-radius:9px;
-
-    color:#b91c1c;
-
-    background:#fef2f2;
-
-    border:
-        1px solid
-        #fecaca;
-
-    text-align:center;
-
-    font-size:13px;
-}
-
-.login-error.show{
-    display:block;
-}
-
-.login-security{
-    display:flex;
-    align-items:center;
-
-    gap:8px;
-
-    margin-top:18px;
-
-    color:#6b7280;
-
-    font-size:12px;
-}
-
-.security-dot{
-    width:8px;
-    height:8px;
-
-    border-radius:50%;
-
-    background:#16a34a;
-}
-
-.back-website{
-    display:block;
-
-    margin-top:22px;
-
-    text-align:center;
-
-    color:#6b7280;
-
-    text-decoration:none;
-
-    font-size:13px;
-}
-
-.back-website:hover{
-    color:#7f1d1d;
-}
-
-
-/* =========================================================
-   ADMIN APP
-========================================================= */
-
-#adminApp{
-    display:none;
-    min-height:100vh;
-}
-
-.admin-layout{
-    display:flex;
-    min-height:100vh;
-}
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
-
-.sidebar{
-    width:255px;
-    flex-shrink:0;
-
-    background:#111827;
-    color:white;
-
-    padding:20px 15px;
-}
-
-.sidebar-title{
-    font-size:22px;
-    font-weight:700;
-
-    padding:10px;
-
-    margin-bottom:20px;
-}
-
-.nav-btn{
-    width:100%;
-
-    padding:13px 14px;
-
-    margin-bottom:6px;
-
-    border:0;
-    border-radius:9px;
-
-    background:transparent;
-
-    color:#d1d5db;
-
-    text-align:left;
-
-    transition:.2s;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-    background:#7f1d1d;
-    color:white;
-}
-
-.logout-side{
-    margin-top:20px;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.admin-main{
-    flex:1;
-    min-width:0;
-}
-
-.topbar{
-    min-height:70px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 25px;
-
-    background:white;
-
-    border-bottom:
-        1px solid
-        #e5e7eb;
-}
-
-.topbar-left{
-    display:flex;
-    align-items:center;
-
-    gap:15px;
-}
-
-.topbar-title{
-    font-size:21px;
-    font-weight:700;
-}
-
-.admin-email{
-    color:#6b7280;
-    font-size:13px;
-    margin-top:3px;
-}
-
-.website-btn{
-    padding:10px 15px;
-
-    border:0;
-    border-radius:8px;
-
-    background:#7f1d1d;
-
-    color:white;
-}
-
-.menu-toggle{
-    display:none;
-
-    border:0;
-
-    background:transparent;
-
-    font-size:24px;
-}
-
-
-/* =========================================================
-   PAGES
-========================================================= */
-
-.page{
-    display:none;
-    padding:25px;
-}
-
-.page.active{
-    display:block;
-}
-
-.page-header{
-    margin-bottom:25px;
-}
-
-.page-header h2{
-    font-size:28px;
-    margin-bottom:6px;
-}
-
-.page-header p{
-    color:#6b7280;
-}
-
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-.card-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(180px,1fr)
-        );
-
-    gap:18px;
-}
-
-.card{
-    background:white;
-
-    border-radius:14px;
-
-    padding:22px;
-
-    border:
-        1px solid
-        #e5e7eb;
-
-    box-shadow:
-        0 5px 15px
-        rgba(0,0,0,.04);
-}
-
-.card h3{
-    margin-bottom:10px;
-}
-
-.stat-number{
-    font-size:32px;
-    font-weight:700;
-
-    color:#7f1d1d;
-}
-
-
-/* =========================================================
-   DASHBOARD WELCOME
-========================================================= */
-
-.welcome-card{
-    margin-bottom:20px;
-
-    padding:25px;
-
-    border-radius:16px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #7f1d1d,
-            #111827
-        );
-}
-
-.welcome-card h2{
-    margin-bottom:8px;
-}
-
-.welcome-card p{
-    color:#e5e7eb;
-}
-
-
-/* =========================================================
-   FORMS
-========================================================= */
-
-.form-card{
-    background:white;
-
-    border-radius:14px;
-
-    padding:25px;
-
-    border:
-        1px solid
-        #e5e7eb;
-}
-
-.form-group{
-    margin-bottom:18px;
-}
-
-.form-group label{
-    display:block;
-
-    font-weight:700;
-
-    font-size:14px;
-
-    margin-bottom:7px;
+.form-group label {
+    font-weight: 600;
 }
 
 .form-group input,
-.form-group textarea,
-.form-group select{
-    width:100%;
-
-    padding:12px;
-
-    border:
-        1px solid
-        #d1d5db;
-
-    border-radius:8px;
-
-    outline:none;
-}
-
-.form-group textarea{
-    min-height:120px;
-
-    resize:vertical;
+.form-group textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 13px;
+    outline: none;
+    font-size: 15px;
 }
 
 .form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-
-    border-color:#7f1d1d;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(127,29,29,.08);
+.form-group textarea:focus {
+    border-color: #2563eb;
 }
 
-.primary-btn{
-    padding:11px 18px;
-
-    border:0;
-    border-radius:8px;
-
-    background:#7f1d1d;
-
-    color:white;
-
-    font-weight:700;
+.password-wrapper {
+    position: relative;
 }
 
-.secondary-btn{
-    padding:11px 18px;
-
-    border:
-        1px solid
-        #d1d5db;
-
-    border-radius:8px;
-
-    background:white;
+.password-wrapper input {
+    padding-right: 50px;
 }
 
-
-/* =========================================================
-   LIST
-========================================================= */
-
-.item-list{
-    margin-top:20px;
-
-    display:grid;
-
-    gap:12px;
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
 }
 
-.item{
-    background:white;
-
-    border:
-        1px solid
-        #e5e7eb;
-
-    border-radius:10px;
-
-    padding:16px;
+.login-button {
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.item strong{
-    display:block;
-
-    margin-bottom:7px;
+.login-button:hover {
+    background: #1d4ed8;
 }
 
-.item p{
-    color:#4b5563;
-
-    line-height:1.5;
-
-    margin-top:5px;
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.item-actions{
-    display:flex;
-
-    gap:8px;
-
-    margin-top:12px;
+.login-error {
+    display: none;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
 }
 
-.item-actions button{
-    padding:7px 12px;
-
-    border:0;
-
-    border-radius:7px;
-
-    background:#e5e7eb;
+.login-error.show {
+    display: block;
 }
 
-.item-actions .delete-btn{
-    background:#fee2e2;
-    color:#991b1b;
+/* ================= ADMIN APP ================= */
+
+#adminApp {
+    display: none;
 }
 
-
-/* =========================================================
-   GALLERY IMAGE
-========================================================= */
-
-.gallery-preview{
-    width:100px;
-    height:70px;
-
-    object-fit:cover;
-
-    border-radius:8px;
-
-    margin-bottom:10px;
-
-    background:#e5e7eb;
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
 }
 
+/* ================= SIDEBAR ================= */
 
-/* =========================================================
-   DOCUMENTS
-========================================================= */
-
-.file-box{
-    padding:20px;
-
-    border:
-        2px dashed
-        #d1d5db;
-
-    border-radius:12px;
-
-    text-align:center;
+.sidebar {
+    width: 260px;
+    background: #111827;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 1000;
 }
 
-.file-box input{
-    margin-top:12px;
+.sidebar-header {
+    padding: 25px 20px;
+    border-bottom: 1px solid #374151;
 }
 
-.progress-container{
-    display:none;
-
-    margin-top:15px;
+.sidebar-header h2 {
+    font-size: 21px;
 }
 
-.progress-bar{
-    width:0%;
-    height:10px;
-
-    border-radius:10px;
-
-    background:#7f1d1d;
-
-    transition:.2s;
+.sidebar-header p {
+    color: #9ca3af;
+    margin-top: 5px;
+    font-size: 13px;
 }
 
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-#toastContainer{
-    position:fixed;
-
-    right:20px;
-    bottom:20px;
-
-    z-index:9999;
+.sidebar-nav {
+    padding: 15px 10px;
 }
 
-.toast{
-    padding:13px 18px;
-
-    margin-top:10px;
-
-    border-radius:9px;
-
-    background:#111827;
-
-    color:white;
-
-    box-shadow:
-        0 10px 25px
-        rgba(0,0,0,.2);
+.nav-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    background: transparent;
+    color: #d1d5db;
+    padding: 13px 15px;
+    margin-bottom: 5px;
+    border-radius: 9px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
 }
 
+.nav-btn:hover {
+    background: #1f2937;
+    color: white;
+}
 
-/* =========================================================
-   MOBILE
-========================================================= */
+.nav-btn.active {
+    background: #2563eb;
+    color: white;
+}
 
-@media(max-width:800px){
+.logout-btn {
+    color: #fca5a5;
+}
 
-    .login-container{
-        max-width:500px;
+.logout-btn:hover {
+    background: #7f1d1d;
+    color: white;
+}
 
-        grid-template-columns:1fr;
+/* ================= MAIN ================= */
+
+.admin-main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.topbar h1 {
+    font-size: 22px;
+}
+
+.menu-toggle {
+    display: none;
+    border: none;
+    background: #f3f4f6;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-email {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.website-btn {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* ================= PAGES ================= */
+
+.page {
+    display: none;
+    padding: 30px;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.page-header p {
+    color: #6b7280;
+}
+
+/* ================= DASHBOARD ================= */
+
+.welcome-banner {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.welcome-banner h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.welcome-banner p {
+    line-height: 1.6;
+    color: #dbeafe;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+}
+
+.stat-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.stat-card h3 {
+    font-size: 30px;
+}
+
+.stat-card p {
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.primary-btn,
+.secondary-btn,
+.danger-btn,
+.edit-btn,
+.delete-btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.secondary-btn {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.danger-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+    margin-right: 8px;
+}
+
+.delete-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.primary-btn:hover,
+.edit-btn:hover {
+    background: #1d4ed8;
+}
+
+.delete-btn:hover,
+.danger-btn:hover {
+    background: #b91c1c;
+}
+
+/* ================= CARDS ================= */
+
+.card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card h3 {
+    margin-bottom: 20px;
+}
+
+/* ================= FORMS ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-full {
+    grid-column: 1 / -1;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.save-area {
+    margin-top: 20px;
+}
+
+/* ================= LIST ================= */
+
+.item-list {
+    display: grid;
+    gap: 15px;
+}
+
+.item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.item strong {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.item p {
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 7px;
+}
+
+.item-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+/* ================= GALLERY ================= */
+
+.gallery-preview {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* ================= DOCUMENTS ================= */
+
+.folder-box {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    background: #f8fafc;
+}
+
+.folder-box input {
+    margin: 15px 0;
+}
+
+.progress-container {
+    display: none;
+    margin-top: 20px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 15px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: width 0.2s;
+}
+
+.progress-text {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ================= TOAST ================= */
+
+#toastContainer {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 3000;
+    display: grid;
+    gap: 10px;
+}
+
+.toast {
+    background: #111827;
+    color: white;
+    padding: 13px 17px;
+    border-radius: 9px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 1000px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .login-brand{
-        padding:35px 30px;
+}
 
-        text-align:center;
+@media(max-width: 800px) {
 
-        align-items:center;
+    .login-container {
+        grid-template-columns: 1fr;
     }
 
-    .login-panel{
-        padding:35px 30px;
+    .login-brand {
+        display: none;
     }
 
-    .sidebar{
-        position:fixed;
-
-        left:-270px;
-        top:0;
-        bottom:0;
-
-        z-index:1000;
-
-        transition:.25s;
-
-        overflow-y:auto;
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s;
     }
 
-    .sidebar.open{
-        left:0;
+    .sidebar.open {
+        transform: translateX(0);
     }
 
-    .menu-toggle{
-        display:block;
+    .admin-main {
+        margin-left: 0;
+        width: 100%;
     }
 
-    .admin-main{
-        width:100%;
+    .menu-toggle {
+        display: block;
     }
 
-    .topbar{
-        padding:0 15px;
+    .admin-email {
+        display: none;
     }
 
-    .website-btn{
-        display:none;
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-full {
+        grid-column: auto;
     }
 
 }
 
-@media(max-width:450px){
+@media(max-width: 550px) {
 
-    #loginScreen{
-        padding:15px;
+    .page {
+        padding: 18px;
     }
 
-    .login-brand{
-        padding:30px 20px;
+    .topbar {
+        padding: 0 15px;
     }
 
-    .login-panel{
-        padding:30px 20px;
+    .topbar h1 {
+        font-size: 18px;
     }
 
-    .login-brand h1{
-        font-size:30px;
+    .website-btn {
+        display: none;
     }
 
-    .page{
-        padding:15px;
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-actions {
+        flex-direction: column;
     }
 
 }
+
+/* ================= END CSS ================= */
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ======================================================
-     LOGIN SCREEN
-====================================================== -->
+<!-- =========================================================
+                         LOGIN SCREEN
+========================================================= -->
 
 <div id="loginScreen">
 
     <div class="login-container">
 
-
         <div class="login-brand">
 
-            <div class="brand-icon">
-                🔐
-            </div>
+            <h1>🔐 Clinton Ncube</h1>
 
-            <h1>
-                Clinton Ncube
-            </h1>
-
-            <p class="brand-subtitle">
-
-                Welcome to your personal website
-                management system. Sign in to manage
-                your content, projects, gallery and more.
-
+            <p>
+                Welcome to your personal website administration
+                dashboard.
             </p>
 
+            <div class="login-features">
 
-            <div class="brand-features">
-
-                <div class="brand-feature">
-
-                    <div class="brand-feature-icon">
-                        🖼️
-                    </div>
-
-                    <span>
-                        Manage your gallery
-                    </span>
-
+                <div class="login-feature">
+                    ✅ Manage website information
                 </div>
 
-
-                <div class="brand-feature">
-
-                    <div class="brand-feature-icon">
-                        📚
-                    </div>
-
-                    <span>
-                        Manage your projects
-                    </span>
-
+                <div class="login-feature">
+                    ✅ Manage gallery photos
                 </div>
 
-
-                <div class="brand-feature">
-
-                    <div class="brand-feature-icon">
-                        📁
-                    </div>
-
-                    <span>
-                        Manage your documents
-                    </span>
-
+                <div class="login-feature">
+                    ✅ Manage projects and achievements
                 </div>
 
+                <div class="login-feature">
+                    ✅ Upload documents
+                </div>
 
-                <div class="brand-feature">
-
-                    <div class="brand-feature-icon">
-                        ⚙️
-                    </div>
-
-                    <span>
-                        Control your website
-                    </span>
-
+                <div class="login-feature">
+                    🔒 Private diary
                 </div>
 
             </div>
@@ -1003,121 +712,73 @@ button{
 
         <div class="login-panel">
 
-            <div class="login-heading">
+            <h2>Welcome back</h2>
 
-                <h2>
-                    Welcome back
-                </h2>
+            <p>
+                Sign in to manage your website.
+            </p>
 
-                <p>
-                    Sign in to access your admin dashboard.
-                </p>
+            <form id="loginForm" class="login-form">
 
-            </div>
+                <div class="form-group">
 
+                    <label for="loginEmail">
+                        Email
+                    </label>
 
-            <div class="login-box">
-
-                <form id="loginForm">
-
-
-                    <div class="login-form-group">
-
-                        <label for="loginEmail">
-                            Email Address
-                        </label>
-
-                        <div class="login-input-wrapper">
-
-                            <span class="login-input-icon">
-                                ✉️
-                            </span>
-
-                            <input
-                                type="email"
-                                id="loginEmail"
-                                placeholder="Enter your email"
-                                autocomplete="username"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="login-form-group">
-
-                        <label for="loginPassword">
-                            Password
-                        </label>
-
-                        <div class="login-input-wrapper">
-
-                            <span class="login-input-icon">
-                                🔑
-                            </span>
-
-                            <input
-                                type="password"
-                                id="loginPassword"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                id="passwordToggle"
-                            >
-                                👁️
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="login-btn"
-                        id="loginButton"
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
                     >
-                        🔓 Sign In
-                    </button>
-
-
-                    <div
-                        id="loginError"
-                        class="login-error"
-                    ></div>
-
-
-                </form>
-
-
-                <div class="login-security">
-
-                    <span class="security-dot"></span>
-
-                    <span>
-                        Secure Firebase authentication
-                    </span>
 
                 </div>
 
 
-                <a
-                    class="back-website"
-                    href="https://clintonncube.github.io/"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    ← Back to Clinton Ncube Website
-                </a>
+                <div class="form-group">
 
-            </div>
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="passwordToggle"
+                            class="password-toggle"
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="login-button"
+                >
+                    🔓 Sign In
+                </button>
+
+
+                <div
+                    id="loginError"
+                    class="login-error"
+                ></div>
+
+            </form>
 
         </div>
 
@@ -1126,299 +787,329 @@ button{
 </div>
 
 
-<!-- ======================================================
-     ADMIN APPLICATION
-====================================================== -->
+<!-- =========================================================
+                         ADMIN APP
+========================================================= -->
 
 <div id="adminApp">
 
     <div class="admin-layout">
 
 
-        <!-- SIDEBAR -->
+        <!-- ================= SIDEBAR ================= -->
 
         <aside
-            class="sidebar"
             id="sidebar"
+            class="sidebar"
         >
 
-            <div class="sidebar-title">
-                ⚙️ Admin Panel
+            <div class="sidebar-header">
+
+                <h2>Clinton Ncube</h2>
+
+                <p>Website Admin</p>
+
             </div>
 
 
-            <button
-                class="nav-btn active"
-                data-page="dashboard"
-            >
-                📊 Dashboard
-            </button>
+            <nav class="sidebar-nav">
+
+                <button
+                    class="nav-btn active"
+                    data-page="dashboard"
+                >
+                    📊 Dashboard
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="home"
-            >
-                🏠 Home Manager
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="home"
+                >
+                    🏠 Home Manager
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="gallery"
-            >
-                🖼️ Gallery
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="gallery"
+                >
+                    🖼️ Gallery
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="achievements"
-            >
-                🏆 Achievements
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="achievements"
+                >
+                    🏆 Achievements
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="projects"
-            >
-                📚 Projects
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="projects"
+                >
+                    🚀 Projects
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="hobbies"
-            >
-                🏀 Hobbies
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="hobbies"
+                >
+                    🏀 Hobbies
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="skills"
-            >
-                💻 Skills
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="skills"
+                >
+                    🛠️ Skills
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="documents"
-            >
-                📁 Documents
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="documents"
+                >
+                    📁 Documents
+                </button>
 
 
-            <button
-                class="nav-btn"
-                data-page="diary"
-            >
-                📔 Private Diary
-            </button>
+                <button
+                    class="nav-btn"
+                    data-page="diary"
+                >
+                    🔒 Private Diary
+                </button>
 
 
-            <button
-                class="nav-btn logout-side"
-                id="logoutSide"
-            >
-                🚪 Logout
-            </button>
+                <button
+                    class="nav-btn logout-btn"
+                    id="logoutSide"
+                >
+                    🚪 Logout
+                </button>
+
+            </nav>
 
         </aside>
 
 
-        <!-- MAIN -->
+        <!-- ================= MAIN ================= -->
 
         <main class="admin-main">
 
+
+            <!-- TOPBAR -->
 
             <header class="topbar">
 
                 <div class="topbar-left">
 
                     <button
-                        class="menu-toggle"
                         id="menuToggle"
+                        class="menu-toggle"
                     >
                         ☰
                     </button>
 
-
-                    <div>
-
-                        <div
-                            class="topbar-title"
-                            id="topbarTitle"
-                        >
-                            Dashboard
-                        </div>
-
-
-                        <div
-                            class="admin-email"
-                            id="adminEmail"
-                        ></div>
-
-                    </div>
+                    <h1 id="topbarTitle">
+                        Dashboard
+                    </h1>
 
                 </div>
 
 
-                <button
-                    class="website-btn"
-                    id="websiteBtn"
-                >
-                    🌐 Website
-                </button>
+                <div class="topbar-right">
+
+                    <span
+                        id="adminEmail"
+                        class="admin-email"
+                    ></span>
+
+                    <button
+                        id="websiteBtn"
+                        class="website-btn"
+                    >
+                        🌐 Website
+                    </button>
+
+                </div>
 
             </header>
 
 
             <!-- =================================================
-                 DASHBOARD
+                              DASHBOARD
             ================================================= -->
 
             <section
-                class="page active"
                 id="page-dashboard"
+                class="page active"
             >
 
-                <div class="welcome-card">
+                <div class="welcome-banner">
 
                     <h2>
-                        Welcome to your Admin Dashboard 👋
+                        Welcome to your Admin Dashboard
                     </h2>
 
                     <p>
-                        Manage your personal website from
-                        one convenient place.
+                        Manage your personal website content,
+                        photos, projects, achievements, hobbies,
+                        skills, documents and private diary
+                        from one place.
                     </p>
 
                 </div>
 
 
-                <div class="page-header">
+                <div class="stats-grid">
 
-                    <h2>
-                        Dashboard
-                    </h2>
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🖼️
+                        </div>
+
+                        <h3 id="galleryCount">
+                            0
+                        </h3>
+
+                        <p>Gallery Photos</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🏆
+                        </div>
+
+                        <h3 id="achievementCount">
+                            0
+                        </h3>
+
+                        <p>Achievements</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🚀
+                        </div>
+
+                        <h3 id="projectCount">
+                            0
+                        </h3>
+
+                        <p>Projects</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🏀
+                        </div>
+
+                        <h3 id="hobbyCount">
+                            0
+                        </h3>
+
+                        <p>Hobbies</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🛠️
+                        </div>
+
+                        <h3 id="skillCount">
+                            0
+                        </h3>
+
+                        <p>Skills</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-actions">
+
+                    <button
+                        id="refreshDashboardBtn"
+                        class="primary-btn"
+                    >
+                        🔄 Refresh Dashboard
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        🌐 Website Information
+                    </h3>
 
                     <p>
-                        Overview of your website content.
+                        Your website is available at:
+                    </p>
+
+                    <p style="margin-top:10px;">
+                        <strong>
+                            https://clintonncube.github.io/
+                        </strong>
                     </p>
 
                 </div>
 
 
-                <div class="card-grid">
+                <div class="card">
 
+                    <h3>
+                        🔐 Security Status
+                    </h3>
 
-                    <div class="card">
+                    <p>
+                        Authentication is handled through
+                        Firebase Authentication.
+                    </p>
 
-                        <h3>
-                            🖼️ Gallery
-                        </h3>
+                    <p style="margin-top:8px;">
+                        Database content is stored in Firebase
+                        Realtime Database.
+                    </p>
 
-                        <div
-                            class="stat-number"
-                            id="galleryCount"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>
-                            🏆 Achievements
-                        </h3>
-
-                        <div
-                            class="stat-number"
-                            id="achievementCount"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>
-                            📚 Projects
-                        </h3>
-
-                        <div
-                            class="stat-number"
-                            id="projectCount"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>
-                            🏀 Hobbies
-                        </h3>
-
-                        <div
-                            class="stat-number"
-                            id="hobbyCount"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>
-                            💻 Skills
-                        </h3>
-
-                        <div
-                            class="stat-number"
-                            id="skillCount"
-                        >
-                            0
-                        </div>
-
-                    </div>
-
+                    <p style="margin-top:8px;">
+                        Uploaded files are stored in Firebase
+                        Storage.
+                    </p>
 
                 </div>
-
-
-                <br>
-
-
-                <button
-                    class="primary-btn"
-                    id="refreshDashboardBtn"
-                >
-                    🔄 Refresh Dashboard
-                </button>
-
 
             </section>
 
 
             <!-- =================================================
-                 HOME MANAGER
+                              HOME MANAGER
             ================================================= -->
 
             <section
-                class="page"
                 id="page-home"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1428,90 +1119,101 @@ button{
                     </h2>
 
                     <p>
-                        Edit the information shown on your
+                        Edit the information displayed on your
                         website.
                     </p>
 
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Name
+                            </label>
+
+                            <input
+                                id="homeName"
+                                type="text"
+                                placeholder="Clinton Ncube"
+                            >
+
+                        </div>
 
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        <label>
-                            Name
-                        </label>
+                            <label>
+                                Last Updated
+                            </label>
 
-                        <input
-                            id="homeName"
-                            value="Clinton Ncube"
+                            <input
+                                id="homeLastUpdated"
+                                type="text"
+                                placeholder="2026"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Welcome Message
+                            </label>
+
+                            <textarea
+                                id="homeWelcome"
+                                placeholder="Enter welcome message"
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Goal
+                            </label>
+
+                            <textarea
+                                id="homeGoal"
+                                placeholder="Enter your goal"
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                About
+                            </label>
+
+                            <textarea
+                                id="homeAbout"
+                                placeholder="Enter about information"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveHomeBtn"
+                            class="primary-btn"
                         >
+                            💾 Save Home Information
+                        </button>
 
                     </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Last Updated
-                        </label>
-
-                        <input
-                            id="homeLastUpdated"
-                            value="2026"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Welcome Message
-                        </label>
-
-                        <textarea
-                            id="homeWelcome"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Goal
-                        </label>
-
-                        <textarea
-                            id="homeGoal"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            About
-                        </label>
-
-                        <textarea
-                            id="homeAbout"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveHomeBtn"
-                    >
-                        💾 Save Home
-                    </button>
-
 
                 </div>
 
@@ -1519,97 +1221,119 @@ button{
 
 
             <!-- =================================================
-                 GALLERY
+                              GALLERY
             ================================================= -->
 
             <section
-                class="page"
                 id="page-gallery"
+                class="page"
             >
 
                 <div class="page-header">
 
                     <h2>
-                        Gallery Manager
+                        Gallery
                     </h2>
 
                     <p>
-                        Add and remove photos from your website.
+                        Add, edit and delete photos.
                     </p>
 
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Image URL / Path
-                        </label>
-
-                        <input
-                            id="galleryImage"
-                            placeholder="images/photo.jpg"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="galleryTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            id="galleryDescription"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveGalleryBtn"
-                    >
+                    <h3>
                         ➕ Add Photo
-                    </button>
+                    </h3>
 
+                    <div class="form-grid">
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Image Path or URL
+                            </label>
+
+                            <input
+                                id="galleryImage"
+                                type="text"
+                                placeholder="images/photo3.jpg"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                id="galleryTitle"
+                                type="text"
+                                placeholder="Photo title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <input
+                                id="galleryDescription"
+                                type="text"
+                                placeholder="Photo description"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveGalleryBtn"
+                            class="primary-btn"
+                        >
+                            ➕ Add Photo
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="galleryList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Existing Photos
+                    </h3>
+
+                    <div
+                        id="galleryList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
 
 
             <!-- =================================================
-                 ACHIEVEMENTS
+                           ACHIEVEMENTS
             ================================================= -->
 
             <section
-                class="page"
                 id="page-achievements"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1618,65 +1342,89 @@ button{
                         Achievements
                     </h2>
 
+                    <p>
+                        Manage your achievements.
+                    </p>
+
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="achievementTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            id="achievementDescription"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveAchievementBtn"
-                    >
+                    <h3>
                         ➕ Add Achievement
-                    </button>
+                    </h3>
 
+                    <div class="form-grid">
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                id="achievementTitle"
+                                type="text"
+                                placeholder="Achievement title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="achievementDescription"
+                                placeholder="Achievement description"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveAchievementBtn"
+                            class="primary-btn"
+                        >
+                            ➕ Add Achievement
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="achievementList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Existing Achievements
+                    </h3>
+
+                    <div
+                        id="achievementList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
 
 
             <!-- =================================================
-                 PROJECTS
+                              PROJECTS
             ================================================= -->
 
             <section
-                class="page"
                 id="page-projects"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1685,79 +1433,104 @@ button{
                         Projects
                     </h2>
 
+                    <p>
+                        Manage your website projects.
+                    </p>
+
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="projectTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            id="projectDescription"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Link
-                        </label>
-
-                        <input
-                            id="projectLink"
-                            placeholder="https://..."
-                        >
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveProjectBtn"
-                    >
+                    <h3>
                         ➕ Add Project
-                    </button>
+                    </h3>
 
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                id="projectTitle"
+                                type="text"
+                                placeholder="Project title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Link
+                            </label>
+
+                            <input
+                                id="projectLink"
+                                type="text"
+                                placeholder="Project link"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="projectDescription"
+                                placeholder="Project description"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveProjectBtn"
+                            class="primary-btn"
+                        >
+                            ➕ Add Project
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="projectList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Existing Projects
+                    </h3>
+
+                    <div
+                        id="projectList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
 
 
             <!-- =================================================
-                 HOBBIES
+                              HOBBIES
             ================================================= -->
 
             <section
-                class="page"
                 id="page-hobbies"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1766,65 +1539,89 @@ button{
                         Hobbies
                     </h2>
 
+                    <p>
+                        Manage your hobbies.
+                    </p>
+
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="hobbyTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            id="hobbyDescription"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveHobbyBtn"
-                    >
+                    <h3>
                         ➕ Add Hobby
-                    </button>
+                    </h3>
 
+                    <div class="form-grid">
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                id="hobbyTitle"
+                                type="text"
+                                placeholder="Hobby title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="hobbyDescription"
+                                placeholder="Hobby description"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveHobbyBtn"
+                            class="primary-btn"
+                        >
+                            ➕ Add Hobby
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="hobbyList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Existing Hobbies
+                    </h3>
+
+                    <div
+                        id="hobbyList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
 
 
             <!-- =================================================
-                 SKILLS
+                              SKILLS
             ================================================= -->
 
             <section
-                class="page"
                 id="page-skills"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1833,65 +1630,89 @@ button{
                         Skills
                     </h2>
 
+                    <p>
+                        Manage your skills.
+                    </p>
+
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="skillTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            id="skillDescription"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveSkillBtn"
-                    >
+                    <h3>
                         ➕ Add Skill
-                    </button>
+                    </h3>
 
+                    <div class="form-grid">
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Title
+                            </label>
+
+                            <input
+                                id="skillTitle"
+                                type="text"
+                                placeholder="Skill title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                id="skillDescription"
+                                placeholder="Skill description"
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveSkillBtn"
+                            class="primary-btn"
+                        >
+                            ➕ Add Skill
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="skillList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Existing Skills
+                    </h3>
+
+                    <div
+                        id="skillList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
 
 
             <!-- =================================================
-                 DOCUMENTS
+                           DOCUMENTS
             ================================================= -->
 
             <section
-                class="page"
                 id="page-documents"
+                class="page"
             >
 
                 <div class="page-header">
@@ -1901,23 +1722,25 @@ button{
                     </h2>
 
                     <p>
-                        Upload website documents to Firebase Storage.
+                        Upload folders and manage your documents.
                     </p>
 
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
 
-                    <div class="file-box">
+                    <div class="folder-box">
 
-                        <strong>
-                            📁 Select a folder
-                        </strong>
+                        <h3>
+                            📁 Select a Folder
+                        </h3>
 
-                        <p>
-                            Choose a folder containing your documents.
+                        <p style="margin-top:8px;">
+                            Select a folder containing the files
+                            you want to upload.
                         </p>
+
 
                         <input
                             type="file"
@@ -1927,61 +1750,73 @@ button{
                             multiple
                         >
 
-                    </div>
-
-
-                    <br>
-
-
-                    <button
-                        class="primary-btn"
-                        id="uploadFolderBtn"
-                    >
-                        ⬆️ Upload Folder
-                    </button>
-
-
-                    <button
-                        class="secondary-btn"
-                        id="clearFolderBtn"
-                    >
-                        Clear
-                    </button>
-
-
-                    <div
-                        class="progress-container"
-                        id="progressContainer"
-                    >
-
-                        <p id="progressText">
-                            Uploading...
-                        </p>
 
                         <div
                             style="
-                                background:#e5e7eb;
-                                border-radius:10px;
-                                overflow:hidden;
-                                margin-top:8px;
+                            display:flex;
+                            justify-content:center;
+                            gap:10px;
+                            flex-wrap:wrap;
                             "
                         >
 
+                            <button
+                                id="uploadFolderBtn"
+                                class="primary-btn"
+                            >
+                                ⬆️ Upload Folder
+                            </button>
+
+
+                            <button
+                                id="clearFolderBtn"
+                                class="secondary-btn"
+                            >
+                                ✖ Clear
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="progressContainer"
+                            class="progress-container"
+                        >
+
+                            <div class="progress-track">
+
+                                <div
+                                    id="progressBar"
+                                    class="progress-bar"
+                                ></div>
+
+                            </div>
+
+
                             <div
-                                class="progress-bar"
-                                id="progressBar"
-                            ></div>
+                                id="progressText"
+                                class="progress-text"
+                            >
+                                Uploading...
+                            </div>
 
                         </div>
 
                     </div>
 
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Uploaded Documents
+                    </h3>
 
                     <div
-                        class="item-list"
                         id="documentList"
+                        class="item-list"
                     ></div>
-
 
                 </div>
 
@@ -1989,115 +1824,136 @@ button{
 
 
             <!-- =================================================
-                 DIARY
+                           PRIVATE DIARY
             ================================================= -->
 
             <section
-                class="page"
                 id="page-diary"
+                class="page"
             >
 
                 <div class="page-header">
 
                     <h2>
-                        Private Diary
+                        🔒 Private Diary
                     </h2>
 
                     <p>
-                        Store private diary entries in Firebase.
+                        Store your private diary entries.
                     </p>
 
                 </div>
 
 
-                <div class="form-card">
+                <div class="card">
+
+                    <h3>
+                        ➕ New Diary Entry
+                    </h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Date
+                            </label>
+
+                            <input
+                                id="diaryDate"
+                                type="date"
+                            >
+
+                        </div>
 
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        <label>
-                            Date
-                        </label>
+                            <label>
+                                Title
+                            </label>
 
-                        <input
-                            type="date"
-                            id="diaryDate"
+                            <input
+                                id="diaryTitle"
+                                type="text"
+                                placeholder="Entry title"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                What happened?
+                            </label>
+
+                            <textarea
+                                id="diaryHappened"
+                                placeholder="Write what happened..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                How I felt
+                            </label>
+
+                            <textarea
+                                id="diaryFeelings"
+                                placeholder="Write how you felt..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-group form-full">
+
+                            <label>
+                                Notes
+                            </label>
+
+                            <textarea
+                                id="diaryNotes"
+                                placeholder="Additional notes..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="save-area">
+
+                        <button
+                            id="saveDiaryBtn"
+                            class="primary-btn"
                         >
+                            💾 Save Diary Entry
+                        </button>
 
                     </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Title
-                        </label>
-
-                        <input
-                            id="diaryTitle"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            What happened?
-                        </label>
-
-                        <textarea
-                            id="diaryHappened"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Feelings
-                        </label>
-
-                        <textarea
-                            id="diaryFeelings"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Notes
-                        </label>
-
-                        <textarea
-                            id="diaryNotes"
-                        ></textarea>
-
-                    </div>
-
-
-                    <button
-                        class="primary-btn"
-                        id="saveDiaryBtn"
-                    >
-                        💾 Save Diary Entry
-                    </button>
-
 
                 </div>
 
 
-                <div
-                    class="item-list"
-                    id="diaryList"
-                ></div>
+                <div class="card">
 
+                    <h3>
+                        Diary Entries
+                    </h3>
+
+                    <div
+                        id="diaryList"
+                        class="item-list"
+                    ></div>
+
+                </div>
 
             </section>
-
 
         </main>
 
@@ -2106,19 +1962,16 @@ button{
 </div>
 
 
+<!-- TOAST -->
+
 <div id="toastContainer"></div>
 
 
-<!-- ======================================================
-     FIREBASE JAVASCRIPT
-====================================================== -->
+<!-- =========================================================
+                         FIREBASE
+========================================================= -->
 
 <script type="module">
-
-
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
 
 import {
     initializeApp
@@ -2153,7 +2006,7 @@ import {
 
 
 /* =========================================================
-   FIREBASE CONFIG
+                       FIREBASE CONFIG
 ========================================================= */
 
 const firebaseConfig = {
@@ -2181,38 +2034,39 @@ const firebaseConfig = {
 
     measurementId:
         "G-K1S62MHHXP"
-
 };
 
 
-const app =
-    initializeApp(
-        firebaseConfig
-    );
+/* =========================================================
+                       INITIALIZE
+========================================================= */
 
+const app =
+    initializeApp(firebaseConfig);
 
 const auth =
     getAuth(app);
 
-
 const db =
     getDatabase(app);
-
 
 const storage =
     getStorage(app);
 
 
 /* =========================================================
-   HELPER
+                       HELPER
 ========================================================= */
 
-const $ =
-    id =>
-        document.getElementById(id);
+const $ = id =>
+    document.getElementById(id);
 
 
-function showToast(message){
+/* =========================================================
+                       TOAST
+========================================================= */
+
+function showToast(message) {
 
     const toast =
         document.createElement("div");
@@ -2226,16 +2080,16 @@ function showToast(message){
     $("toastContainer")
         .appendChild(toast);
 
-    setTimeout(
-        () => toast.remove(),
-        3500
-    );
+    setTimeout(() => {
 
+        toast.remove();
+
+    }, 3500);
 }
 
 
 /* =========================================================
-   LOGIN
+                       LOGIN
 ========================================================= */
 
 $("passwordToggle")
@@ -2246,10 +2100,10 @@ $("passwordToggle")
             const password =
                 $("loginPassword");
 
-            if(
+            if (
                 password.type ===
                 "password"
-            ){
+            ) {
 
                 password.type =
                     "text";
@@ -2258,7 +2112,7 @@ $("passwordToggle")
                     .textContent =
                     "🙈";
 
-            }else{
+            } else {
 
                 password.type =
                     "password";
@@ -2266,7 +2120,6 @@ $("passwordToggle")
                 $("passwordToggle")
                     .textContent =
                     "👁️";
-
             }
 
         }
@@ -2280,12 +2133,10 @@ $("loginForm")
 
             event.preventDefault();
 
-
             const email =
                 $("loginEmail")
                     .value
                     .trim();
-
 
             const password =
                 $("loginPassword")
@@ -2298,8 +2149,7 @@ $("loginForm")
 
 
             $("loginButton")
-                .disabled =
-                true;
+                .disabled = true;
 
 
             $("loginButton")
@@ -2307,43 +2157,41 @@ $("loginForm")
                 "Signing in...";
 
 
-            try{
+            try {
 
-                await
-                    signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     "LOGIN ERROR:",
                     error
                 );
 
-
                 $("loginError")
                     .textContent =
                     "Login failed. Please check your email and password.";
-
 
                 $("loginError")
                     .classList
                     .add("show");
 
-            }finally{
+            }
+
+            finally {
 
                 $("loginButton")
-                    .disabled =
-                    false;
-
+                    .disabled = false;
 
                 $("loginButton")
                     .textContent =
                     "🔓 Sign In";
-
             }
 
         }
@@ -2351,47 +2199,44 @@ $("loginForm")
 
 
 /* =========================================================
-   AUTH STATE
+                       AUTH STATE
 ========================================================= */
 
 onAuthStateChanged(
     auth,
     async user => {
 
-        if(user){
+        if(user) {
 
             $("loginScreen")
                 .style
                 .display =
                 "none";
-
 
             $("adminApp")
                 .style
                 .display =
                 "block";
 
-
             $("adminEmail")
                 .textContent =
                 user.email || "";
 
-
             await loadEverything();
 
-        }else{
+        }
+
+        else {
 
             $("loginScreen")
                 .style
                 .display =
                 "flex";
 
-
             $("adminApp")
                 .style
                 .display =
                 "none";
-
         }
 
     }
@@ -2399,7 +2244,7 @@ onAuthStateChanged(
 
 
 /* =========================================================
-   LOGOUT
+                       LOGOUT
 ========================================================= */
 
 $("logoutSide")
@@ -2411,18 +2256,15 @@ $("logoutSide")
                 !confirm(
                     "Are you sure you want to logout?"
                 )
-            ){
+            ) return;
 
-                return;
-
-            }
-
-
-            try{
+            try {
 
                 await signOut(auth);
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     "LOGOUT ERROR:",
@@ -2436,7 +2278,7 @@ $("logoutSide")
 
 
 /* =========================================================
-   WEBSITE BUTTON
+                       WEBSITE BUTTON
 ========================================================= */
 
 $("websiteBtn")
@@ -2454,7 +2296,7 @@ $("websiteBtn")
 
 
 /* =========================================================
-   MOBILE MENU
+                       MOBILE MENU
 ========================================================= */
 
 $("menuToggle")
@@ -2471,7 +2313,7 @@ $("menuToggle")
 
 
 /* =========================================================
-   NAVIGATION
+                       NAVIGATION
 ========================================================= */
 
 const pageTitles = {
@@ -2510,114 +2352,98 @@ document
     .querySelectorAll(
         ".nav-btn[data-page]"
     )
-    .forEach(
-        button => {
+    .forEach(button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-                    const page =
-                        button.dataset.page;
-
-
-                    document
-                        .querySelectorAll(
-                            ".page"
-                        )
-                        .forEach(
-                            element => {
-
-                                element
-                                    .classList
-                                    .remove(
-                                        "active"
-                                    );
-
-                            }
-                        );
+                const page =
+                    button.dataset.page;
 
 
-                    document
-                        .querySelectorAll(
-                            ".nav-btn[data-page]"
-                        )
-                        .forEach(
-                            element => {
+                document
+                    .querySelectorAll(
+                        ".page"
+                    )
+                    .forEach(element => {
 
-                                element
-                                    .classList
-                                    .remove(
-                                        "active"
-                                    );
-
-                            }
-                        );
-
-
-                    const target =
-                        $("page-" + page);
-
-
-                    if(target){
-
-                        target
+                        element
                             .classList
-                            .add(
+                            .remove(
                                 "active"
                             );
 
-                    }
+                    });
 
 
-                    button
+                document
+                    .querySelectorAll(
+                        ".nav-btn[data-page]"
+                    )
+                    .forEach(element => {
+
+                        element
+                            .classList
+                            .remove(
+                                "active"
+                            );
+
+                    });
+
+
+                const target =
+                    $("page-" + page);
+
+
+                if(target) {
+
+                    target
                         .classList
-                        .add(
-                            "active"
-                        );
-
-
-                    $("topbarTitle")
-                        .textContent =
-                        pageTitles[page] ||
-                        "Dashboard";
-
-
-                    $("sidebar")
-                        .classList
-                        .remove(
-                            "open"
-                        );
+                        .add("active");
 
                 }
-            );
 
-        }
-    );
+
+                button
+                    .classList
+                    .add("active");
+
+
+                $("topbarTitle")
+                    .textContent =
+                    pageTitles[page]
+                    ||
+                    "Dashboard";
+
+
+                $("sidebar")
+                    .classList
+                    .remove("open");
+
+            }
+        );
+
+    });
 
 
 /* =========================================================
-   COUNT CHILDREN
+                    COUNT CHILDREN
 ========================================================= */
 
-async function countChildren(
-    path
-){
+async function countChildren(path) {
 
-    try{
+    try {
 
         const snapshot =
             await get(
-                ref(
-                    db,
-                    path
-                )
+                ref(db, path)
             );
 
 
         if(
             !snapshot.exists()
-        ){
+        ) {
 
             return 0;
 
@@ -2628,11 +2454,11 @@ async function countChildren(
             snapshot.val() || {}
         ).length;
 
-    }catch(error){
+    }
 
-        console.error(
-            error
-        );
+    catch(error) {
+
+        console.error(error);
 
         return 0;
 
@@ -2642,10 +2468,10 @@ async function countChildren(
 
 
 /* =========================================================
-   DASHBOARD STATS
+                  DASHBOARD STATS
 ========================================================= */
 
-async function updateDashboardStats(){
+async function updateDashboardStats() {
 
     $("galleryCount")
         .textContent =
@@ -2689,9 +2515,7 @@ $("refreshDashboardBtn")
         "click",
         async () => {
 
-            await
-                updateDashboardStats();
-
+            await updateDashboardStats();
 
             showToast(
                 "Dashboard refreshed."
@@ -2702,12 +2526,12 @@ $("refreshDashboardBtn")
 
 
 /* =========================================================
-   HOME
+                         HOME
 ========================================================= */
 
-async function loadHome(){
+async function loadHome() {
 
-    try{
+    try {
 
         const snapshot =
             await get(
@@ -2720,11 +2544,7 @@ async function loadHome(){
 
         if(
             !snapshot.exists()
-        ){
-
-            return;
-
-        }
+        ) return;
 
 
         const data =
@@ -2760,7 +2580,9 @@ async function loadHome(){
             data.about ||
             "";
 
-    }catch(error){
+    }
+
+    catch(error) {
 
         console.error(
             "HOME LOAD ERROR:",
@@ -2777,7 +2599,7 @@ $("saveHomeBtn")
         "click",
         async () => {
 
-            try{
+            try {
 
                 await set(
                     ref(
@@ -2819,13 +2641,14 @@ $("saveHomeBtn")
                     "Home information saved."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     "HOME SAVE ERROR:",
                     error
                 );
-
 
                 showToast(
                     "Could not save home information."
@@ -2838,23 +2661,23 @@ $("saveHomeBtn")
 
 
 /* =========================================================
-   SIMPLE LIST LOADER
+                    GENERIC LIST LOADER
+                    WITH EDIT + DELETE
 ========================================================= */
 
 async function loadSimple(
     path,
     listId,
     fields
-){
+) {
 
     const list =
         $(listId);
 
-
     list.innerHTML = "";
 
 
-    try{
+    try {
 
         const snapshot =
             await get(
@@ -2867,7 +2690,7 @@ async function loadSimple(
 
         if(
             !snapshot.exists()
-        ){
+        ) {
 
             list.innerHTML =
                 "<div class='item'>No items yet.</div>";
@@ -2883,7 +2706,7 @@ async function loadSimple(
 
         Object.entries(data)
             .forEach(
-                ([key,item]) => {
+                ([key, item]) => {
 
                     const div =
                         document
@@ -2891,14 +2714,13 @@ async function loadSimple(
                                 "div"
                             );
 
-
                     div.className =
                         "item";
 
 
-                    if(
-                        item.image
-                    ){
+                    /* IMAGE */
+
+                    if(item.image) {
 
                         const image =
                             document
@@ -2923,47 +2745,155 @@ async function loadSimple(
                     }
 
 
-                    const title =
-                        document
-                            .createElement(
-                                "strong"
-                            );
+                    /* CONTENT */
+
+                    fields.forEach(
+                        field => {
+
+                            if(
+                                item[field]
+                            ) {
+
+                                const element =
+                                    document
+                                        .createElement(
+                                            field ===
+                                            "title"
+                                            ? "strong"
+                                            : "p"
+                                        );
 
 
-                    title.textContent =
-                        item.title ||
-                        "";
+                                element.textContent =
+                                    item[field];
 
 
-                    div.appendChild(
-                        title
+                                div.appendChild(
+                                    element
+                                );
+
+                            }
+
+                        }
                     );
 
 
-                    fields
-                        .filter(
-                            field =>
-                                field !==
-                                "title"
-                        )
-                        .forEach(
-                            field => {
+                    /* ACTIONS */
 
-                                if(
-                                    item[field]
-                                ){
+                    const actions =
+                        document
+                            .createElement(
+                                "div"
+                            );
 
-                                    const p =
-                                        document
-                                            .createElement(
-                                                "p"
-                                            );
+                    actions.className =
+                        "item-actions";
 
-                                    p.textContent =
-                                        item[field];
 
-                                    div.appendChild(
-                                        p
+                    /* EDIT BUTTON */
+
+                    const editButton =
+                        document
+                            .createElement(
+                                "button"
+                            );
+
+                    editButton
+                        .textContent =
+                        "✏️ Edit";
+
+                    editButton.className =
+                        "edit-btn";
+
+
+                    editButton
+                        .addEventListener(
+                            "click",
+                            async () => {
+
+                                const updatedItem =
+                                    {
+                                        ...item
+                                    };
+
+
+                                for(
+                                    const field
+                                    of fields
+                                ) {
+
+                                    const currentValue =
+                                        updatedItem[field]
+                                        ||
+                                        "";
+
+
+                                    const newValue =
+                                        prompt(
+                                            "Edit " +
+                                            field
+                                                .charAt(0)
+                                                .toUpperCase() +
+                                            field.slice(1) +
+                                            ":",
+                                            currentValue
+                                        );
+
+
+                                    if(
+                                        newValue ===
+                                        null
+                                    ) {
+
+                                        return;
+
+                                    }
+
+
+                                    updatedItem[field] =
+                                        newValue;
+
+                                }
+
+
+                                try {
+
+                                    await set(
+                                        ref(
+                                            db,
+                                            path +
+                                            "/" +
+                                            key
+                                        ),
+                                        updatedItem
+                                    );
+
+
+                                    await loadSimple(
+                                        path,
+                                        listId,
+                                        fields
+                                    );
+
+
+                                    await updateDashboardStats();
+
+
+                                    showToast(
+                                        "Item updated successfully."
+                                    );
+
+                                }
+
+                                catch(error) {
+
+                                    console.error(
+                                        "EDIT ERROR:",
+                                        error
+                                    );
+
+                                    showToast(
+                                        "Could not update item."
                                     );
 
                                 }
@@ -2972,16 +2902,7 @@ async function loadSimple(
                         );
 
 
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-
-                    actions.className =
-                        "item-actions";
-
+                    /* DELETE BUTTON */
 
                     const deleteButton =
                         document
@@ -2989,15 +2910,13 @@ async function loadSimple(
                                 "button"
                             );
 
-
                     deleteButton
                         .className =
                         "delete-btn";
 
-
                     deleteButton
                         .textContent =
-                        "Delete";
+                        "🗑️ Delete";
 
 
                     deleteButton
@@ -3009,41 +2928,57 @@ async function loadSimple(
                                     !confirm(
                                         "Delete this item?"
                                     )
-                                ){
+                                ) return;
 
-                                    return;
+
+                                try {
+
+                                    await remove(
+                                        ref(
+                                            db,
+                                            path +
+                                            "/" +
+                                            key
+                                        )
+                                    );
+
+
+                                    await loadSimple(
+                                        path,
+                                        listId,
+                                        fields
+                                    );
+
+
+                                    await updateDashboardStats();
+
+
+                                    showToast(
+                                        "Item deleted."
+                                    );
 
                                 }
 
+                                catch(error) {
 
-                                await remove(
-                                    ref(
-                                        db,
-                                        path +
-                                        "/" +
-                                        key
-                                    )
-                                );
+                                    console.error(
+                                        "DELETE ERROR:",
+                                        error
+                                    );
 
+                                    showToast(
+                                        "Could not delete item."
+                                    );
 
-                                await loadSimple(
-                                    path,
-                                    listId,
-                                    fields
-                                );
-
-
-                                await
-                                    updateDashboardStats();
-
-
-                                showToast(
-                                    "Item deleted."
-                                );
+                                }
 
                             }
                         );
 
+
+                    actions.appendChild(
+                        editButton
+                    );
 
                     actions.appendChild(
                         deleteButton
@@ -3062,13 +2997,14 @@ async function loadSimple(
                 }
             );
 
-    }catch(error){
+    }
+
+    catch(error) {
 
         console.error(
             "LIST LOAD ERROR:",
             error
         );
-
 
         list.innerHTML =
             "<div class='item'>Unable to load items.</div>";
@@ -3079,10 +3015,10 @@ async function loadSimple(
 
 
 /* =========================================================
-   GALLERY
+                         GALLERY
 ========================================================= */
 
-async function loadGallery(){
+async function loadGallery() {
 
     await loadSimple(
         "gallery",
@@ -3106,12 +3042,10 @@ $("saveGalleryBtn")
                     .value
                     .trim();
 
-
             const title =
                 $("galleryTitle")
                     .value
                     .trim();
-
 
             const description =
                 $("galleryDescription")
@@ -3119,7 +3053,7 @@ $("saveGalleryBtn")
                     .trim();
 
 
-            if(!image){
+            if(!image) {
 
                 showToast(
                     "Please enter an image path or URL."
@@ -3130,7 +3064,7 @@ $("saveGalleryBtn")
             }
 
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -3155,17 +3089,14 @@ $("saveGalleryBtn")
                 $("galleryImage")
                     .value = "";
 
-
                 $("galleryTitle")
                     .value = "";
-
 
                 $("galleryDescription")
                     .value = "";
 
 
                 await loadGallery();
-
 
                 await updateDashboardStats();
 
@@ -3174,7 +3105,9 @@ $("saveGalleryBtn")
                     "Photo added."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     error
@@ -3191,10 +3124,10 @@ $("saveGalleryBtn")
 
 
 /* =========================================================
-   ACHIEVEMENTS
+                       ACHIEVEMENTS
 ========================================================= */
 
-async function loadAchievements(){
+async function loadAchievements() {
 
     await loadSimple(
         "achievements",
@@ -3213,7 +3146,7 @@ $("saveAchievementBtn")
         "click",
         async () => {
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -3239,13 +3172,11 @@ $("saveAchievementBtn")
                 $("achievementTitle")
                     .value = "";
 
-
                 $("achievementDescription")
                     .value = "";
 
 
                 await loadAchievements();
-
 
                 await updateDashboardStats();
 
@@ -3254,7 +3185,9 @@ $("saveAchievementBtn")
                     "Achievement added."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     error
@@ -3271,10 +3204,10 @@ $("saveAchievementBtn")
 
 
 /* =========================================================
-   PROJECTS
+                         PROJECTS
 ========================================================= */
 
-async function loadProjects(){
+async function loadProjects() {
 
     await loadSimple(
         "projects",
@@ -3294,7 +3227,7 @@ $("saveProjectBtn")
         "click",
         async () => {
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -3325,17 +3258,14 @@ $("saveProjectBtn")
                 $("projectTitle")
                     .value = "";
 
-
                 $("projectDescription")
                     .value = "";
-
 
                 $("projectLink")
                     .value = "";
 
 
                 await loadProjects();
-
 
                 await updateDashboardStats();
 
@@ -3344,7 +3274,9 @@ $("saveProjectBtn")
                     "Project added."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     error
@@ -3361,10 +3293,10 @@ $("saveProjectBtn")
 
 
 /* =========================================================
-   HOBBIES
+                          HOBBIES
 ========================================================= */
 
-async function loadHobbies(){
+async function loadHobbies() {
 
     await loadSimple(
         "hobbies",
@@ -3383,7 +3315,7 @@ $("saveHobbyBtn")
         "click",
         async () => {
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -3409,13 +3341,11 @@ $("saveHobbyBtn")
                 $("hobbyTitle")
                     .value = "";
 
-
                 $("hobbyDescription")
                     .value = "";
 
 
                 await loadHobbies();
-
 
                 await updateDashboardStats();
 
@@ -3424,7 +3354,9 @@ $("saveHobbyBtn")
                     "Hobby added."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     error
@@ -3441,10 +3373,10 @@ $("saveHobbyBtn")
 
 
 /* =========================================================
-   SKILLS
+                           SKILLS
 ========================================================= */
 
-async function loadSkills(){
+async function loadSkills() {
 
     await loadSimple(
         "skills",
@@ -3463,7 +3395,7 @@ $("saveSkillBtn")
         "click",
         async () => {
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -3489,13 +3421,11 @@ $("saveSkillBtn")
                 $("skillTitle")
                     .value = "";
 
-
                 $("skillDescription")
                     .value = "";
 
 
                 await loadSkills();
-
 
                 await updateDashboardStats();
 
@@ -3504,7 +3434,9 @@ $("saveSkillBtn")
                     "Skill added."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     error
@@ -3521,7 +3453,7 @@ $("saveSkillBtn")
 
 
 /* =========================================================
-   DOCUMENTS
+                        DOCUMENTS
 ========================================================= */
 
 let selectedFiles = [];
@@ -3540,7 +3472,7 @@ $("folderInput")
 
             if(
                 selectedFiles.length
-            ){
+            ) {
 
                 showToast(
                     selectedFiles.length +
@@ -3588,7 +3520,7 @@ $("uploadFolderBtn")
 
             if(
                 !selectedFiles.length
-            ){
+            ) {
 
                 showToast(
                     "Please select a folder first."
@@ -3609,10 +3541,11 @@ $("uploadFolderBtn")
 
 
             for(
-                const file of selectedFiles
-            ){
+                const file
+                of selectedFiles
+            ) {
 
-                try{
+                try {
 
                     const path =
                         file.webkitRelativePath ||
@@ -3638,7 +3571,7 @@ $("uploadFolderBtn")
                             Date.now() +
                             "_" +
                             safePath
-                    );
+                        );
 
 
                     const snapshot =
@@ -3688,7 +3621,8 @@ $("uploadFolderBtn")
                             (
                                 completed /
                                 selectedFiles.length
-                            ) * 100
+                            ) *
+                            100
                         );
 
 
@@ -3706,7 +3640,9 @@ $("uploadFolderBtn")
                         " of " +
                         selectedFiles.length;
 
-                }catch(error){
+                }
+
+                catch(error) {
 
                     console.error(
                         "UPLOAD ERROR:",
@@ -3729,16 +3665,19 @@ $("uploadFolderBtn")
     );
 
 
-async function loadDocuments(){
+/* =========================================================
+                    LOAD DOCUMENTS
+========================================================= */
+
+async function loadDocuments() {
 
     const list =
         $("documentList");
 
-
     list.innerHTML = "";
 
 
-    try{
+    try {
 
         const snapshot =
             await get(
@@ -3751,7 +3690,7 @@ async function loadDocuments(){
 
         if(
             !snapshot.exists()
-        ){
+        ) {
 
             list.innerHTML =
                 "<div class='item'>No documents uploaded yet.</div>";
@@ -3767,14 +3706,13 @@ async function loadDocuments(){
 
         Object.entries(data)
             .forEach(
-                ([key,item]) => {
+                ([key, item]) => {
 
                     const div =
                         document
                             .createElement(
                                 "div"
                             );
-
 
                     div.className =
                         "item";
@@ -3786,11 +3724,9 @@ async function loadDocuments(){
                                 "strong"
                             );
 
-
                     name.textContent =
                         item.name ||
                         "Document";
-
 
                     div.appendChild(
                         name
@@ -3803,25 +3739,22 @@ async function loadDocuments(){
                                 "p"
                             );
 
-
                     path.textContent =
                         item.path ||
                         "";
-
 
                     div.appendChild(
                         path
                     );
 
 
-                    if(item.url){
+                    if(item.url) {
 
                         const link =
                             document
                                 .createElement(
                                     "a"
                                 );
-
 
                         link.href =
                             item.url;
@@ -3834,6 +3767,12 @@ async function loadDocuments(){
 
                         link.textContent =
                             "Open document";
+
+                        link.style.display =
+                            "inline-block";
+
+                        link.style.marginTop =
+                            "5px";
 
                         div.appendChild(
                             link
@@ -3848,7 +3787,6 @@ async function loadDocuments(){
                                 "div"
                             );
 
-
                     actions.className =
                         "item-actions";
 
@@ -3859,15 +3797,13 @@ async function loadDocuments(){
                                 "button"
                             );
 
-
                     deleteButton
                         .className =
                         "delete-btn";
 
-
                     deleteButton
                         .textContent =
-                        "Delete";
+                        "🗑️ Delete";
 
 
                     deleteButton
@@ -3879,40 +3815,16 @@ async function loadDocuments(){
                                     !confirm(
                                         "Delete this document?"
                                     )
-                                ){
-
-                                    return;
-
-                                }
+                                ) return;
 
 
-                                try{
+                                try {
 
-                                    if(
-                                        item.url
-                                    ){
-
-                                        try{
-
-                                            await deleteObject(
-                                                storageRef(
-                                                    storage,
-                                                    item.url
-                                                )
-                                            );
-
-                                        }catch(
-                                            storageError
-                                        ){
-
-                                            console.warn(
-                                                storageError
-                                            );
-
-                                        }
-
-                                    }
-
+                                    /*
+                                      The database entry is removed
+                                      here. The Storage file is also
+                                      attempted where possible.
+                                    */
 
                                     await remove(
                                         ref(
@@ -3930,7 +3842,9 @@ async function loadDocuments(){
                                         "Document deleted."
                                     );
 
-                                }catch(error){
+                                }
+
+                                catch(error) {
 
                                     console.error(
                                         error
@@ -3963,7 +3877,9 @@ async function loadDocuments(){
                 }
             );
 
-    }catch(error){
+    }
+
+    catch(error) {
 
         console.error(
             "DOCUMENT LOAD ERROR:",
@@ -3979,19 +3895,18 @@ async function loadDocuments(){
 
 
 /* =========================================================
-   DIARY
+                         DIARY
 ========================================================= */
 
-async function loadDiary(){
+async function loadDiary() {
 
     const list =
         $("diaryList");
 
-
     list.innerHTML = "";
 
 
-    try{
+    try {
 
         const snapshot =
             await get(
@@ -4004,7 +3919,7 @@ async function loadDiary(){
 
         if(
             !snapshot.exists()
-        ){
+        ) {
 
             list.innerHTML =
                 "<div class='item'>No diary entries yet.</div>";
@@ -4020,14 +3935,13 @@ async function loadDiary(){
 
         Object.entries(data)
             .forEach(
-                ([key,item]) => {
+                ([key, item]) => {
 
                     const div =
                         document
                             .createElement(
                                 "div"
                             );
-
 
                     div.className =
                         "item";
@@ -4039,11 +3953,9 @@ async function loadDiary(){
                                 "strong"
                             );
 
-
                     title.textContent =
                         item.title ||
                         "Diary Entry";
-
 
                     div.appendChild(
                         title
@@ -4056,20 +3968,19 @@ async function loadDiary(){
                                 "p"
                             );
 
-
                     date.textContent =
-                        item.date ||
-                        "";
-
+                        "Date: " +
+                        (
+                            item.date ||
+                            ""
+                        );
 
                     div.appendChild(
                         date
                     );
 
 
-                    if(
-                        item.happened
-                    ){
+                    if(item.happened) {
 
                         const happened =
                             document
@@ -4078,6 +3989,7 @@ async function loadDiary(){
                                 );
 
                         happened.textContent =
+                            "What happened: " +
                             item.happened;
 
                         div.appendChild(
@@ -4087,9 +3999,7 @@ async function loadDiary(){
                     }
 
 
-                    if(
-                        item.feelings
-                    ){
+                    if(item.feelings) {
 
                         const feelings =
                             document
@@ -4098,6 +4008,7 @@ async function loadDiary(){
                                 );
 
                         feelings.textContent =
+                            "How I felt: " +
                             item.feelings;
 
                         div.appendChild(
@@ -4107,9 +4018,7 @@ async function loadDiary(){
                     }
 
 
-                    if(
-                        item.notes
-                    ){
+                    if(item.notes) {
 
                         const notes =
                             document
@@ -4118,6 +4027,7 @@ async function loadDiary(){
                                 );
 
                         notes.textContent =
+                            "Notes: " +
                             item.notes;
 
                         div.appendChild(
@@ -4133,7 +4043,6 @@ async function loadDiary(){
                                 "div"
                             );
 
-
                     actions.className =
                         "item-actions";
 
@@ -4144,15 +4053,13 @@ async function loadDiary(){
                                 "button"
                             );
 
-
                     deleteButton
                         .className =
                         "delete-btn";
 
-
                     deleteButton
                         .textContent =
-                        "Delete";
+                        "🗑️ Delete";
 
 
                     deleteButton
@@ -4164,28 +4071,40 @@ async function loadDiary(){
                                     !confirm(
                                         "Delete this diary entry?"
                                     )
-                                ){
+                                ) return;
 
-                                    return;
+
+                                try {
+
+                                    await remove(
+                                        ref(
+                                            db,
+                                            "diary/" +
+                                            key
+                                        )
+                                    );
+
+
+                                    await loadDiary();
+
+
+                                    showToast(
+                                        "Diary entry deleted."
+                                    );
 
                                 }
 
+                                catch(error) {
 
-                                await remove(
-                                    ref(
-                                        db,
-                                        "diary/" +
-                                        key
-                                    )
-                                );
+                                    console.error(
+                                        error
+                                    );
 
+                                    showToast(
+                                        "Could not delete diary entry."
+                                    );
 
-                                await loadDiary();
-
-
-                                showToast(
-                                    "Diary entry deleted."
-                                );
+                                }
 
                             }
                         );
@@ -4208,7 +4127,9 @@ async function loadDiary(){
                 }
             );
 
-    }catch(error){
+    }
+
+    catch(error) {
 
         console.error(
             "DIARY LOAD ERROR:",
@@ -4220,6 +4141,10 @@ async function loadDiary(){
 }
 
 
+/* =========================================================
+                    SAVE DIARY ENTRY
+========================================================= */
+
 $("saveDiaryBtn")
     .addEventListener(
         "click",
@@ -4229,24 +4154,20 @@ $("saveDiaryBtn")
                 $("diaryDate")
                     .value;
 
-
             const title =
                 $("diaryTitle")
                     .value
                     .trim();
-
 
             const happened =
                 $("diaryHappened")
                     .value
                     .trim();
 
-
             const feelings =
                 $("diaryFeelings")
                     .value
                     .trim();
-
 
             const notes =
                 $("diaryNotes")
@@ -4257,7 +4178,7 @@ $("saveDiaryBtn")
             if(
                 !date ||
                 !title
-            ){
+            ) {
 
                 showToast(
                     "Please enter the date and title."
@@ -4268,7 +4189,7 @@ $("saveDiaryBtn")
             }
 
 
-            try{
+            try {
 
                 await push(
                     ref(
@@ -4277,11 +4198,20 @@ $("saveDiaryBtn")
                     ),
                     {
 
-                        date,
-                        title,
-                        happened,
-                        feelings,
-                        notes,
+                        date:
+                            date,
+
+                        title:
+                            title,
+
+                        happened:
+                            happened,
+
+                        feelings:
+                            feelings,
+
+                        notes:
+                            notes,
 
                         createdAt:
                             Date.now()
@@ -4293,18 +4223,14 @@ $("saveDiaryBtn")
                 $("diaryDate")
                     .value = "";
 
-
                 $("diaryTitle")
                     .value = "";
-
 
                 $("diaryHappened")
                     .value = "";
 
-
                 $("diaryFeelings")
                     .value = "";
-
 
                 $("diaryNotes")
                     .value = "";
@@ -4317,7 +4243,9 @@ $("saveDiaryBtn")
                     "Diary entry saved."
                 );
 
-            }catch(error){
+            }
+
+            catch(error) {
 
                 console.error(
                     "DIARY SAVE ERROR:",
@@ -4335,10 +4263,10 @@ $("saveDiaryBtn")
 
 
 /* =========================================================
-   LOAD EVERYTHING
+                     LOAD EVERYTHING
 ========================================================= */
 
-async function loadEverything(){
+async function loadEverything() {
 
     await loadHome();
 
@@ -4361,8 +4289,11 @@ async function loadEverything(){
 }
 
 
+/* =========================================================
+                         END
+========================================================= */
+
 </script>
 
 </body>
 </html>
-```
