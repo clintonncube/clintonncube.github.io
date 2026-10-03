@@ -2737,7 +2737,6 @@ function formatFileSize(bytes){
 
 }
 
-
 /* ================= PASSWORD VISIBILITY ================= */
 
 $("passwordToggle").addEventListener("click", () => {
@@ -2745,10 +2744,9 @@ $("passwordToggle").addEventListener("click", () => {
     const password = $("loginPassword");
     const toggle = $("passwordToggle");
 
-    if (password.type === "password") {
+    if(password.type === "password") {
 
         password.type = "text";
-
         toggle.textContent = "🙈";
 
         toggle.setAttribute(
@@ -2759,7 +2757,6 @@ $("passwordToggle").addEventListener("click", () => {
     } else {
 
         password.type = "password";
-
         toggle.textContent = "👁️";
 
         toggle.setAttribute(
@@ -2774,60 +2771,80 @@ $("passwordToggle").addEventListener("click", () => {
 
 /* ================= LOGIN ================= */
 
-$("loginForm").addEventListener(
-    "submit",
-    async event => {
+$("loginForm").addEventListener("submit", async event => {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        const email =
-            $("loginEmail").value.trim();
+    const email = $("loginEmail").value.trim();
+    const password = $("loginPassword").value;
 
-        const password =
-            $("loginPassword").value;
+    // Check that both fields contain something
+    if(!email || !password) {
 
         $("loginError").textContent =
-            "";
+            "Please enter your email and password.";
 
-        $("loginError").classList.remove("show");
+        $("loginError").classList.add("show");
 
-        $("loginButton").disabled =
-            true;
+        return;
+    }
 
-        $("loginButton").textContent =
-            "Logging in...";
+    $("loginError").textContent = "";
+    $("loginError").classList.remove("show");
 
-        try{
+    $("loginButton").disabled = true;
+    $("loginButton").textContent = "Signing in...";
 
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+    try {
 
-        }catch(error){
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
-            console.error(error);
+    } catch(error) {
 
-            $("loginError").textContent =
-                "Login failed. Check your email and password.";
+        console.error("Login error:", error);
 
-            $("loginError").classList.add("show");
+        $("loginError").textContent =
+            "Login failed. Check your email and password.";
 
-        }finally{
+        $("loginError").classList.add("show");
 
-            $("loginButton").disabled =
-                false;
+    } finally {
 
-            $("loginButton").textContent =
-                "Login";
-
-        }
+        $("loginButton").disabled = false;
+        $("loginButton").textContent = "🔓 Sign In";
 
     }
-);
+
+});
 
 
+/* ================= LOGOUT ================= */
+
+$("logoutSide").addEventListener("click", async () => {
+
+    if(!confirm("Are you sure you want to logout?")) return;
+
+    $("loginEmail").value = "";
+    $("loginPassword").value = "";
+
+    $("loginError").textContent = "";
+    $("loginError").classList.remove("show");
+
+    $("loginPassword").type = "password";
+    $("passwordToggle").textContent = "👁️";
+
+    $("passwordToggle").setAttribute(
+        "aria-label",
+        "Show password"
+    );
+
+    await signOut(auth);
+
+});
 /* ================= AUTH ================= */
 /* ================= AUTH ================= */
 
