@@ -28,6 +28,7 @@ button{
 }
 
 /* =========================================================
+ /* =========================================================
    MODERN LOGIN SCREEN
 ========================================================= */
 
@@ -45,15 +46,12 @@ button{
         linear-gradient(135deg,#080b12 0%,#111827 50%,#1f2937 100%);
 }
 
-/* Decorative background circles */
-
 #loginScreen::before,
 #loginScreen::after{
     content:"";
     position:absolute;
     border-radius:50%;
     pointer-events:none;
-    filter:blur(2px);
 }
 
 #loginScreen::before{
@@ -96,8 +94,6 @@ button{
         0 30px 80px rgba(0,0,0,.45),
         inset 0 1px 0 rgba(255,255,255,.08);
 }
-
-/* LEFT BRAND PANEL */
 
 .login-brand{
     position:relative;
@@ -176,8 +172,6 @@ button{
     border-radius:9px;
     background:rgba(255,255,255,.09);
 }
-
-/* RIGHT LOGIN PANEL */
 
 .login-panel{
     display:flex;
@@ -347,8 +341,6 @@ button{
     color:#7f1d1d;
 }
 
-/* LOGIN MOBILE */
-
 @media(max-width:800px){
 
     #loginScreen{
@@ -384,7 +376,6 @@ button{
     .login-panel{
         padding:35px 30px;
     }
-
 }
 
 @media(max-width:450px){
@@ -404,7 +395,6 @@ button{
     .login-heading h2{
         font-size:25px;
     }
-
 }
 /* ADMIN */
 
@@ -1117,12 +1107,160 @@ textarea{
 
     <div class="login-container">
 
-        <!-- LEFT BRANDING PANEL -->
         <div class="login-brand">
 
             <div class="brand-icon">
                 🔐
             </div>
+
+            <h1>Clinton Ncube</h1>
+
+            <p class="brand-subtitle">
+                Welcome to your personal website management
+                system. Sign in to manage your content,
+                projects, gallery and more.
+            </p>
+
+            <div class="brand-features">
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">🖼️</div>
+                    <span>Manage your gallery</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">📚</div>
+                    <span>Manage your projects</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">📁</div>
+                    <span>Manage your documents</span>
+                </div>
+
+                <div class="brand-feature">
+                    <div class="brand-feature-icon">⚙️</div>
+                    <span>Control your website</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="login-panel">
+
+            <div class="login-heading">
+
+                <h2>Welcome back</h2>
+
+                <p>
+                    Sign in to access your admin dashboard.
+                </p>
+
+            </div>
+
+            <div class="login-box">
+
+                <form id="loginForm">
+
+                    <div class="login-form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="Enter your email"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="login-form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="login-input-wrapper">
+
+                            <span class="login-input-icon">
+                                🔑
+                            </span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginButton"
+                    >
+                        🔓 Sign In
+                    </button>
+
+                    <div
+                        id="loginError"
+                        class="login-error"
+                    ></div>
+
+                </form>
+
+                <div class="login-security">
+
+                    <span class="security-dot"></span>
+
+                    <span>
+                        Secure Firebase authentication
+                    </span>
+
+                </div>
+
+                <a
+                    class="back-website"
+                    href="https://clintonncube.github.io/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ← Back to Clinton Ncube Website
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
             <h1>Clinton Ncube</h1>
 
