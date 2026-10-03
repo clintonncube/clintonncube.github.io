@@ -2844,8 +2844,7 @@ $("logoutSide").addEventListener("click", async () => {
 
     await signOut(auth);
 
-});
-/* ================= AUTH ================= */
+}) 
 /* ================= AUTH ================= */
 
 onAuthStateChanged(
@@ -2854,11 +2853,8 @@ onAuthStateChanged(
 
         if(user){
 
-            $("loginScreen").style.display =
-                "none";
-
-            $("adminApp").style.display =
-                "block";
+            $("loginScreen").style.display = "none";
+            $("adminApp").style.display = "block";
 
             $("adminEmail").textContent =
                 user.email || "";
@@ -2867,11 +2863,8 @@ onAuthStateChanged(
 
         }else{
 
-            $("loginScreen").style.display =
-                "flex";
-
-            $("adminApp").style.display =
-                "none";
+            $("loginScreen").style.display = "flex";
+            $("adminApp").style.display = "none";
 
         }
 
@@ -2879,6 +2872,38 @@ onAuthStateChanged(
 );
 
 
+/* ================= LOGOUT ================= */
+
+$("logoutSide").addEventListener("click", async () => {
+
+    if(!confirm("Are you sure you want to logout?")) return;
+
+    $("loginEmail").value = "";
+    $("loginPassword").value = "";
+
+    $("loginError").textContent = "";
+    $("loginError").classList.remove("show");
+
+    $("loginPassword").type = "password";
+
+    $("passwordToggle").textContent = "👁️";
+
+    $("passwordToggle").setAttribute(
+        "aria-label",
+        "Show password"
+    );
+
+    try {
+
+        await signOut(auth);
+
+    } catch(error) {
+
+        console.error("Logout error:", error);
+
+    }
+
+});
 /* ================= LOGOUT ================= */
 
 $("logoutSide").addEventListener("click", async () => {
