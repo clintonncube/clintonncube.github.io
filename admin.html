@@ -3,1369 +3,868 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Dashboard | Clinton Ncube</title>
+<title>Clinton Ncube - Admin Dashboard</title>
 
 <style>
-
-/* ================= RESET ================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f9;
-    color: #1f2937;
+body{
+    background:#f4f6f8;
+    color:#222;
 }
 
-button,
-input,
-textarea {
-    font-family: inherit;
+button,input,textarea,select{
+    font:inherit;
 }
 
-/* ================= LOGIN ================= */
-
-#loginScreen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #111827, #2563eb);
-    padding: 20px;
+button{
+    cursor:pointer;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 900px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+/* LOGIN */
+#loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#111827,#2563eb);
+    padding:20px;
 }
 
-.login-brand {
-    background: #111827;
-    color: white;
-    padding: 50px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 18px;
+.login-box{
+    width:100%;
+    max-width:420px;
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
 }
 
-.login-brand h1 {
-    font-size: 34px;
+.login-box h1{
+    text-align:center;
+    margin-bottom:8px;
 }
 
-.login-brand p {
-    color: #d1d5db;
-    line-height: 1.7;
+.login-box p{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
 }
 
-.login-features {
-    margin-top: 10px;
-    display: grid;
-    gap: 12px;
+.form-group{
+    margin-bottom:18px;
 }
 
-.login-feature {
-    color: #e5e7eb;
-}
-
-.login-panel {
-    padding: 50px 40px;
-}
-
-.login-panel h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.login-panel > p {
-    color: #6b7280;
-    margin-bottom: 30px;
-}
-
-.login-form {
-    display: grid;
-    gap: 18px;
-}
-
-.form-group {
-    display: grid;
-    gap: 8px;
-}
-
-.form-group label {
-    font-weight: 600;
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
 }
 
 .form-group input,
-.form-group textarea {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    padding: 13px;
-    outline: none;
-    font-size: 15px;
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
-    border-color: #2563eb;
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#2563eb;
 }
 
-.password-wrapper {
-    position: relative;
+.password-box{
+    position:relative;
 }
 
-.password-wrapper input {
-    padding-right: 50px;
+.password-box input{
+    padding-right:50px;
 }
 
-.password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 18px;
+.password-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    font-size:18px;
 }
 
-.login-button {
-    border: none;
-    border-radius: 10px;
-    background: #2563eb;
-    color: white;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+#loginButton{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
 }
 
-.login-button:hover {
-    background: #1d4ed8;
+#loginButton:hover{
+    background:#1d4ed8;
 }
 
-.login-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+#loginError{
+    margin-top:15px;
+    color:#dc2626;
+    text-align:center;
 }
 
-.login-error {
-    display: none;
-    background: #fee2e2;
-    color: #991b1b;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
+/* DASHBOARD */
+#dashboard{
+    display:none;
+    min-height:100vh;
 }
 
-.login-error.show {
-    display: block;
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+    background:#111827;
+    color:white;
+    padding:20px 15px;
+    overflow-y:auto;
 }
 
-/* ================= ADMIN APP ================= */
-
-#adminApp {
-    display: none;
-}
-
-.admin-layout {
-    min-height: 100vh;
-    display: flex;
-}
-
-/* ================= SIDEBAR ================= */
-
-.sidebar {
-    width: 260px;
-    background: #111827;
-    color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
-    z-index: 1000;
-}
-
-.sidebar-header {
-    padding: 25px 20px;
-    border-bottom: 1px solid #374151;
-}
-
-.sidebar-header h2 {
-    font-size: 21px;
-}
-
-.sidebar-header p {
-    color: #9ca3af;
-    margin-top: 5px;
-    font-size: 13px;
-}
-
-.sidebar-nav {
-    padding: 15px 10px;
-}
-
-.nav-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: none;
-    background: transparent;
-    color: #d1d5db;
-    padding: 13px 15px;
-    margin-bottom: 5px;
-    border-radius: 9px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 15px;
-}
-
-.nav-btn:hover {
-    background: #1f2937;
-    color: white;
-}
-
-.nav-btn.active {
-    background: #2563eb;
-    color: white;
-}
-
-.logout-btn {
-    color: #fca5a5;
-}
-
-.logout-btn:hover {
-    background: #7f1d1d;
-    color: white;
-}
-
-/* ================= MAIN ================= */
-
-.admin-main {
-    margin-left: 260px;
-    width: calc(100% - 260px);
-    min-height: 100vh;
-}
-
-.topbar {
-    height: 70px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-    position: sticky;
-    top: 0;
-    z-index: 900;
-}
-
-.topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.sidebar h2{
+    text-align:center;
+    margin-bottom:25px;
 }
 
-.topbar h1 {
-    font-size: 22px;
+.nav-btn{
+    width:100%;
+    padding:12px;
+    margin-bottom:7px;
+    border:none;
+    border-radius:7px;
+    background:transparent;
+    color:#d1d5db;
+    text-align:left;
 }
 
-.menu-toggle {
-    display: none;
-    border: none;
-    background: #f3f4f6;
-    padding: 9px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px;
+.nav-btn:hover,
+.nav-btn.active{
+    background:#2563eb;
+    color:white;
 }
 
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.main{
+    margin-left:250px;
+    min-height:100vh;
 }
 
-.admin-email {
-    color: #6b7280;
-    font-size: 14px;
+.topbar{
+    height:70px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    border-bottom:1px solid #e5e7eb;
 }
 
-.website-btn {
-    border: none;
-    background: #2563eb;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
+.topbar h1{
+    font-size:22px;
 }
 
-/* ================= PAGES ================= */
-
-.page {
-    display: none;
-    padding: 30px;
-}
-
-.page.active {
-    display: block;
+.top-actions{
+    display:flex;
+    gap:10px;
 }
 
-.page-header {
-    margin-bottom: 25px;
+.top-actions button{
+    border:none;
+    padding:9px 14px;
+    border-radius:7px;
 }
 
-.page-header h2 {
-    font-size: 28px;
-    margin-bottom: 7px;
+.website-btn{
+    background:#2563eb;
+    color:white;
 }
 
-.page-header p {
-    color: #6b7280;
+.logout-btn{
+    background:#dc2626;
+    color:white;
 }
 
-/* ================= DASHBOARD ================= */
-
-.welcome-banner {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
-    color: white;
-    padding: 30px;
-    border-radius: 16px;
-    margin-bottom: 25px;
+.mobile-menu{
+    display:none;
+    border:none;
+    background:#111827;
+    color:white;
+    padding:8px 12px;
+    border-radius:6px;
 }
 
-.welcome-banner h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
+.content{
+    padding:25px;
 }
 
-.welcome-banner p {
-    line-height: 1.6;
-    color: #dbeafe;
+.page{
+    display:none;
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
+.page.active{
+    display:block;
 }
 
-.stat-card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    border: 1px solid #e5e7eb;
+.page-title{
+    margin-bottom:20px;
 }
 
-.stat-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:18px;
+    margin-bottom:25px;
 }
 
-.stat-card h3 {
-    font-size: 30px;
+.card{
+    background:white;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.stat-card p {
-    color: #6b7280;
-    margin-top: 5px;
+.card h3{
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:10px;
 }
 
-.dashboard-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+.card .number{
+    font-size:30px;
+    font-weight:bold;
 }
 
-.primary-btn,
-.secondary-btn,
-.danger-btn,
-.edit-btn,
-.delete-btn {
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
+/* FORMS */
+.panel{
+    background:white;
+    padding:22px;
+    border-radius:12px;
+    margin-bottom:22px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 
-.primary-btn {
-    background: #2563eb;
-    color: white;
+.panel h2{
+    margin-bottom:18px;
 }
 
-.secondary-btn {
-    background: #e5e7eb;
-    color: #111827;
+.primary-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:11px 17px;
+    border-radius:7px;
 }
 
-.danger-btn {
-    background: #dc2626;
-    color: white;
+.primary-btn:hover{
+    background:#1d4ed8;
 }
 
-.edit-btn {
-    background: #2563eb;
-    color: white;
-    margin-right: 8px;
+.secondary-btn{
+    background:#6b7280;
+    color:white;
+    border:none;
+    padding:11px 17px;
+    border-radius:7px;
 }
 
-.delete-btn {
-    background: #dc2626;
-    color: white;
+.danger-btn{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
 }
 
-.primary-btn:hover,
-.edit-btn:hover {
-    background: #1d4ed8;
+.edit-btn{
+    background:#f59e0b;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
 }
 
-.delete-btn:hover,
-.danger-btn:hover {
-    background: #b91c1c;
+/* LISTS */
+.items-list{
+    display:grid;
+    gap:14px;
 }
 
-.primary-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.item{
+    border:1px solid #e5e7eb;
+    padding:15px;
+    border-radius:10px;
+    background:#fafafa;
 }
-
-/* ================= CARDS ================= */
 
-.card {
-    background: white;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-    padding: 25px;
-    margin-bottom: 25px;
+.item h3{
+    margin-bottom:7px;
 }
 
-.card h3 {
-    margin-bottom: 20px;
+.item p{
+    color:#555;
+    margin-bottom:6px;
 }
 
-/* ================= FORMS ================= */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+.item-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
 }
 
-.form-full {
-    grid-column: 1 / -1;
+.item img{
+    max-width:220px;
+    max-height:160px;
+    object-fit:cover;
+    border-radius:8px;
+    display:block;
+    margin-bottom:10px;
 }
 
-textarea {
-    min-height: 120px;
-    resize: vertical;
+/* GALLERY UPLOAD */
+.upload-area{
+    border:2px dashed #cbd5e1;
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+    background:#f8fafc;
+    margin-bottom:20px;
 }
 
-.save-area {
-    margin-top: 20px;
+.upload-area:hover{
+    border-color:#2563eb;
 }
 
-/* ================= LIST ================= */
-
-.item-list {
-    display: grid;
-    gap: 15px;
+.upload-area input[type="file"]{
+    width:100%;
+    padding:15px;
 }
 
-.item {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 18px;
+.preview-container{
+    display:none;
+    margin-top:20px;
 }
 
-.item strong {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 8px;
+.preview-container img{
+    max-width:100%;
+    max-height:300px;
+    border-radius:10px;
+    display:block;
+    margin:auto;
 }
 
-.item p {
-    color: #6b7280;
-    line-height: 1.5;
-    margin-bottom: 7px;
+.file-info{
+    text-align:center;
+    margin-top:10px;
+    color:#555;
 }
 
-.item-actions {
-    margin-top: 15px;
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
+.progress-container{
+    display:none;
+    margin-top:20px;
 }
-
-/* ================= GALLERY ================= */
 
-.gallery-preview {
-    width: 180px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    display: block;
+.progress-label{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
+    font-weight:bold;
 }
 
-.gallery-upload-preview {
-    width: 100%;
-    max-width: 500px;
-    height: 280px;
-    object-fit: contain;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    display: block;
-    margin-top: 5px;
+.progress-bar-bg{
+    width:100%;
+    height:18px;
+    background:#e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
 }
 
-/* ================= PROGRESS ================= */
-
-.progress-container {
-    display: none;
-    margin-top: 20px;
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:#2563eb;
+    transition:width .2s ease;
 }
 
-.progress-track {
-    width: 100%;
-    height: 15px;
-    background: #e5e7eb;
-    border-radius: 20px;
-    overflow: hidden;
+.upload-status{
+    margin-top:10px;
+    text-align:center;
+    font-weight:bold;
 }
 
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: #2563eb;
-    transition: width 0.2s;
+.upload-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
 }
 
-.progress-text {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #6b7280;
+/* DOCUMENTS */
+.progress{
+    width:100%;
+    height:12px;
+    background:#e5e7eb;
+    border-radius:10px;
+    overflow:hidden;
 }
 
-/* ================= TOAST ================= */
-
-#toastContainer {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 3000;
-    display: grid;
-    gap: 10px;
+.progress-inner{
+    height:100%;
+    width:0%;
+    background:#2563eb;
 }
 
-.toast {
-    background: #111827;
-    color: white;
-    padding: 13px 17px;
-    border-radius: 9px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+/* TOAST */
+#toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#111827;
+    color:white;
+    padding:13px 18px;
+    border-radius:8px;
+    display:none;
+    z-index:9999;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
 }
-
-/* ================= MOBILE ================= */
 
-@media(max-width: 1000px) {
+/* RESPONSIVE */
+@media(max-width:800px){
 
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+        z-index:1000;
     }
 
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .topbar h1{
+        font-size:18px;
+    }
+
+    .content{
+        padding:15px;
+    }
 }
-
-@media(max-width: 800px) {
-
-    .login-container {
-        grid-template-columns: 1fr;
-    }
-
-    .login-brand {
-        display: none;
-    }
-
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.25s;
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .admin-main {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .admin-email {
-        display: none;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .form-full {
-        grid-column: auto;
-    }
-
-}
-
-@media(max-width: 550px) {
-
-    .page {
-        padding: 18px;
-    }
-
-    .topbar {
-        padding: 0 15px;
-    }
-
-    .topbar h1 {
-        font-size: 18px;
-    }
-
-    .website-btn {
-        display: none;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-actions {
-        flex-direction: column;
-    }
-
-    .gallery-upload-preview {
-        height: 220px;
-    }
-
-}
-
-/* ================= END CSS ================= */
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
-                         LOGIN SCREEN
-========================================================= -->
+<!-- ================= LOGIN ================= -->
 
 <div id="loginScreen">
 
-    <div class="login-container">
+    <div class="login-box">
 
-        <div class="login-brand">
+        <h1>Admin Login</h1>
 
-            <h1>🔐 Clinton Ncube</h1>
+        <p>Clinton Ncube Website</p>
 
-            <p>
-                Welcome to your personal website administration
-                dashboard.
-            </p>
+        <div class="form-group">
+            <label>Email</label>
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter admin email"
+            >
+        </div>
 
-            <div class="login-features">
+        <div class="form-group">
 
-                <div class="login-feature">
-                    ✅ Manage website information
-                </div>
+            <label>Password</label>
 
-                <div class="login-feature">
-                    ✅ Manage gallery photos
-                </div>
+            <div class="password-box">
 
-                <div class="login-feature">
-                    ✅ Manage projects and achievements
-                </div>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                >
 
-                <div class="login-feature">
-                    ✅ Upload documents
-                </div>
-
-                <div class="login-feature">
-                    🔒 Private diary
-                </div>
+                <button
+                    type="button"
+                    class="password-toggle"
+                    id="passwordToggle"
+                >👁</button>
 
             </div>
 
         </div>
 
+        <button id="loginButton">
+            Login
+        </button>
 
-        <div class="login-panel">
-
-            <h2>Welcome back</h2>
-
-            <p>
-                Sign in to manage your website.
-            </p>
-
-            <form id="loginForm" class="login-form">
-
-                <div class="form-group">
-
-                    <label for="loginEmail">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="loginPassword">
-                        Password
-                    </label>
-
-                    <div class="password-wrapper">
-
-                        <input
-                            type="password"
-                            id="loginPassword"
-                            placeholder="Enter your password"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            id="passwordToggle"
-                            class="password-toggle"
-                        >
-                            👁️
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    id="loginButton"
-                    class="login-button"
-                >
-                    🔓 Sign In
-                </button>
-
-
-                <div
-                    id="loginError"
-                    class="login-error"
-                ></div>
-
-            </form>
-
-        </div>
+        <div id="loginError"></div>
 
     </div>
 
 </div>
 
 
-<!-- =========================================================
-                         ADMIN APP
-========================================================= -->
+<!-- ================= DASHBOARD ================= -->
 
-<div id="adminApp">
+<div id="dashboard">
 
-    <div class="admin-layout">
+    <!-- SIDEBAR -->
 
-        <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
 
-        <aside
-            id="sidebar"
-            class="sidebar"
-        >
+        <h2>Clinton Ncube</h2>
 
-            <div class="sidebar-header">
+        <button class="nav-btn active" data-page="dashboardPage">
+            🏠 Dashboard
+        </button>
 
-                <h2>Clinton Ncube</h2>
+        <button class="nav-btn" data-page="homePage">
+            🏡 Home Manager
+        </button>
 
-                <p>Website Admin</p>
+        <button class="nav-btn" data-page="galleryPage">
+            🖼️ Gallery
+        </button>
+
+        <button class="nav-btn" data-page="achievementsPage">
+            🏆 Achievements
+        </button>
+
+        <button class="nav-btn" data-page="projectsPage">
+            📁 Projects
+        </button>
+
+        <button class="nav-btn" data-page="hobbiesPage">
+            🏀 Hobbies
+        </button>
+
+        <button class="nav-btn" data-page="skillsPage">
+            💡 Skills
+        </button>
+
+        <button class="nav-btn" data-page="documentsPage">
+            📄 Documents
+        </button>
+
+        <button class="nav-btn" data-page="diaryPage">
+            🔒 Private Diary
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div style="display:flex;align-items:center;gap:12px">
+
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                >☰</button>
+
+                <h1 id="topTitle">
+                    Dashboard
+                </h1>
 
             </div>
 
-
-            <nav class="sidebar-nav">
-
-                <button
-                    class="nav-btn active"
-                    data-page="dashboard"
-                >
-                    📊 Dashboard
-                </button>
-
+            <div class="top-actions">
 
                 <button
-                    class="nav-btn"
-                    data-page="home"
+                    class="website-btn"
+                    id="websiteButton"
                 >
-                    🏠 Home Manager
+                    🌐 Website
                 </button>
-
 
                 <button
-                    class="nav-btn"
-                    data-page="gallery"
+                    class="logout-btn"
+                    id="logoutButton"
                 >
-                    🖼️ Gallery
+                    Logout
                 </button>
 
+            </div>
 
-                <button
-                    class="nav-btn"
-                    data-page="achievements"
-                >
-                    🏆 Achievements
-                </button>
+        </header>
 
 
-                <button
-                    class="nav-btn"
-                    data-page="projects"
-                >
-                    🚀 Projects
-                </button>
+        <div class="content">
 
-
-                <button
-                    class="nav-btn"
-                    data-page="hobbies"
-                >
-                    🏀 Hobbies
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="skills"
-                >
-                    🛠️ Skills
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="documents"
-                >
-                    📁 Documents
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="diary"
-                >
-                    🔒 Private Diary
-                </button>
-
-
-                <button
-                    class="nav-btn logout-btn"
-                    id="logoutSide"
-                >
-                    🚪 Logout
-                </button>
-
-            </nav>
-
-        </aside>
-
-
-        <!-- ================= MAIN ================= -->
-
-        <main class="admin-main">
-
-            <!-- TOPBAR -->
-
-            <header class="topbar">
-
-                <div class="topbar-left">
-
-                    <button
-                        id="menuToggle"
-                        class="menu-toggle"
-                    >
-                        ☰
-                    </button>
-
-                    <h1 id="topbarTitle">
-                        Dashboard
-                    </h1>
-
-                </div>
-
-
-                <div class="topbar-right">
-
-                    <span
-                        id="adminEmail"
-                        class="admin-email"
-                    ></span>
-
-                    <button
-                        id="websiteBtn"
-                        class="website-btn"
-                    >
-                        🌐 Website
-                    </button>
-
-                </div>
-
-            </header>
-
-
-            <!-- =================================================
-                              DASHBOARD
-            ================================================= -->
+            <!-- ================= DASHBOARD PAGE ================= -->
 
             <section
-                id="page-dashboard"
                 class="page active"
+                id="dashboardPage"
             >
 
-                <div class="welcome-banner">
+                <h1 class="page-title">
+                    Dashboard
+                </h1>
 
-                    <h2>
-                        Welcome to your Admin Dashboard
-                    </h2>
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>Gallery</h3>
+                        <div
+                            class="number"
+                            id="galleryCount"
+                        >0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Achievements</h3>
+                        <div
+                            class="number"
+                            id="achievementCount"
+                        >0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Projects</h3>
+                        <div
+                            class="number"
+                            id="projectCount"
+                        >0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Hobbies</h3>
+                        <div
+                            class="number"
+                            id="hobbyCount"
+                        >0</div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Skills</h3>
+                        <div
+                            class="number"
+                            id="skillCount"
+                        >0</div>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <h2>Welcome</h2>
 
                     <p>
-                        Manage your personal website content,
-                        photos, projects, achievements, hobbies,
-                        skills, documents and private diary
-                        from one place.
+                        Use the Admin Dashboard to update your website
+                        without editing the files manually.
                     </p>
 
                 </div>
 
+            </section>
 
-                <div class="stats-grid">
 
-                    <div class="stat-card">
+            <!-- ================= HOME ================= -->
 
-                        <div class="stat-icon">
-                            🖼️
-                        </div>
+            <section
+                class="page"
+                id="homePage"
+            >
 
-                        <h3 id="galleryCount">
-                            0
-                        </h3>
+                <h1 class="page-title">
+                    Home Manager
+                </h1>
 
-                        <p>Gallery Photos</p>
+                <div class="panel">
 
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input
+                            id="homeName"
+                            type="text"
+                        >
                     </div>
 
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🏆
-                        </div>
-
-                        <h3 id="achievementCount">
-                            0
-                        </h3>
-
-                        <p>Achievements</p>
-
+                    <div class="form-group">
+                        <label>Welcome Text</label>
+                        <textarea
+                            id="homeWelcome"
+                        ></textarea>
                     </div>
 
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🚀
-                        </div>
-
-                        <h3 id="projectCount">
-                            0
-                        </h3>
-
-                        <p>Projects</p>
-
+                    <div class="form-group">
+                        <label>Goal</label>
+                        <textarea
+                            id="homeGoal"
+                        ></textarea>
                     </div>
 
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🏀
-                        </div>
-
-                        <h3 id="hobbyCount">
-                            0
-                        </h3>
-
-                        <p>Hobbies</p>
-
+                    <div class="form-group">
+                        <label>About</label>
+                        <textarea
+                            id="homeAbout"
+                        ></textarea>
                     </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🛠️
-                        </div>
-
-                        <h3 id="skillCount">
-                            0
-                        </h3>
-
-                        <p>Skills</p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-actions">
 
                     <button
-                        id="refreshDashboardBtn"
                         class="primary-btn"
+                        id="saveHomeBtn"
                     >
-                        🔄 Refresh Dashboard
+                        Save Home
                     </button>
 
                 </div>
 
-
-                <div class="card">
-
-                    <h3>
-                        🌐 Website Information
-                    </h3>
-
-                    <p>
-                        Your website is available at:
-                    </p>
-
-                    <p style="margin-top:10px;">
-                        <strong>
-                            https://clintonncube.github.io/
-                        </strong>
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        🔐 Security Status
-                    </h3>
-
-                    <p>
-                        Authentication is handled through
-                        Firebase Authentication.
-                    </p>
-
-                    <p style="margin-top:8px;">
-                        Database content is stored in Firebase
-                        Realtime Database.
-                    </p>
-
-                    <p style="margin-top:8px;">
-                        Uploaded files are stored in Firebase
-                        Storage.
-                    </p>
-
-                </div>
-
             </section>
 
 
-            <!-- =================================================
-                              HOME MANAGER
-            ================================================= -->
+            <!-- ================= GALLERY ================= -->
 
             <section
-                id="page-home"
                 class="page"
+                id="galleryPage"
             >
 
-                <div class="page-header">
+                <h1 class="page-title">
+                    Gallery Manager
+                </h1>
+
+
+                <!-- NEW FILE UPLOAD -->
+
+                <div class="panel">
 
                     <h2>
-                        Home Manager
+                        Upload Photo From Your Laptop or Phone
                     </h2>
 
-                    <p>
-                        Edit the information displayed on your
-                        website.
-                    </p>
+                    <div class="upload-area">
 
-                </div>
+                        <p style="margin-bottom:15px">
+                            Choose an image from your device
+                        </p>
 
-
-                <div class="card">
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Name
-                            </label>
-
-                            <input
-                                id="homeName"
-                                type="text"
-                                placeholder="Clinton Ncube"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Last Updated
-                            </label>
-
-                            <input
-                                id="homeLastUpdated"
-                                type="text"
-                                placeholder="2026"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Welcome Message
-                            </label>
-
-                            <textarea
-                                id="homeWelcome"
-                                placeholder="Enter welcome message"
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Goal
-                            </label>
-
-                            <textarea
-                                id="homeGoal"
-                                placeholder="Enter your goal"
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                About
-                            </label>
-
-                            <textarea
-                                id="homeAbout"
-                                placeholder="Enter about information"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveHomeBtn"
-                            class="primary-btn"
+                        <input
+                            id="galleryFile"
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,image/gif"
                         >
-                            💾 Save Home Information
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              GALLERY
-            ================================================= -->
-
-            <section
-                id="page-gallery"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Gallery
-                    </h2>
-
-                    <p>
-                        Upload, edit and delete photos.
-                    </p>
-
-                </div>
-
-
-                <!-- ================= UPLOAD PHOTO ================= -->
-
-                <div class="card">
-
-                    <h3>
-                        📷 Upload Photo From Your Device
-                    </h3>
-
-
-                    <div class="form-grid">
-
-
-                        <!-- PHOTO SELECT -->
-
-                        <div class="form-group form-full">
-
-                            <label for="galleryFile">
-                                Choose a picture
-                            </label>
-
-                            <input
-                                id="galleryFile"
-                                type="file"
-                                accept="image/jpeg,image/png,image/webp,image/gif"
-                            >
-
-                            <p
-                                style="
-                                    margin-top:8px;
-                                    color:#6b7280;
-                                    font-size:14px;
-                                "
-                            >
-                                Choose a picture from your laptop
-                                or phone gallery.
-                            </p>
-
-                        </div>
-
-
-                        <!-- PREVIEW -->
 
                         <div
-                            class="form-group form-full"
-                            id="galleryUploadPreviewContainer"
-                            style="display:none;"
+                            class="preview-container"
+                            id="galleryPreviewContainer"
                         >
-
-                            <label>
-                                Photo Preview
-                            </label>
 
                             <img
                                 id="galleryUploadPreview"
-                                class="gallery-upload-preview"
                                 alt="Selected photo preview"
                             >
 
-                        </div>
-
-
-                        <!-- TITLE -->
-
-                        <div class="form-group">
-
-                            <label for="galleryTitle">
-                                Title
-                            </label>
-
-                            <input
-                                id="galleryTitle"
-                                type="text"
-                                placeholder="Photo title"
-                            >
-
-                        </div>
-
-
-                        <!-- DESCRIPTION -->
-
-                        <div class="form-group">
-
-                            <label for="galleryDescription">
-                                Description
-                            </label>
-
-                            <input
-                                id="galleryDescription"
-                                type="text"
-                                placeholder="Photo description"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- UPLOAD PROGRESS -->
-
-                    <div
-                        id="galleryUploadProgress"
-                        class="progress-container"
-                    >
-
-                        <div class="progress-track">
-
                             <div
-                                id="galleryProgressBar"
-                                class="progress-bar"
+                                class="file-info"
+                                id="galleryFileInfo"
                             ></div>
 
                         </div>
 
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Photo Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="galleryUploadTitle"
+                            placeholder="Enter photo title"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            id="galleryUploadDescription"
+                            placeholder="Enter photo description"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- REAL PROGRESS -->
+
+                    <div
+                        class="progress-container"
+                        id="galleryProgressContainer"
+                    >
+
+                        <div class="progress-label">
+
+                            <span id="galleryProgressText">
+                                Uploading...
+                            </span>
+
+                            <span id="galleryProgressPercent">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar-bg">
+
+                            <div
+                                class="progress-bar"
+                                id="galleryProgressBar"
+                            ></div>
+
+                        </div>
 
                         <div
-                            id="galleryProgressText"
-                            class="progress-text"
+                            class="upload-status"
+                            id="galleryUploadStatus"
                         >
                             Preparing upload...
                         </div>
@@ -1373,24 +872,20 @@ textarea {
                     </div>
 
 
-                    <!-- BUTTONS -->
-
-                    <div class="save-area">
+                    <div class="upload-buttons">
 
                         <button
-                            id="saveGalleryBtn"
                             class="primary-btn"
+                            id="uploadGalleryBtn"
                         >
-                            ☁️ Upload Photo
+                            📤 Upload Photo
                         </button>
 
-
                         <button
-                            id="clearGalleryBtn"
                             class="secondary-btn"
-                            style="margin-left:8px;"
+                            id="clearGalleryUploadBtn"
                         >
-                            ✖ Clear
+                            Clear
                         </button>
 
                     </div>
@@ -1398,749 +893,411 @@ textarea {
                 </div>
 
 
-                <!-- ================= OLD URL ADD ================= -->
+                <!-- OPTIONAL URL ADD -->
 
-                <div class="card">
-
-                    <h3>
-                        🔗 Add Photo Using URL
-                    </h3>
-
-                    <p
-                        style="
-                            color:#6b7280;
-                            margin-bottom:18px;
-                        "
-                    >
-                        You can still add an existing image path
-                        or image URL if you need to.
-                    </p>
-
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Image Path or URL
-                            </label>
-
-                            <input
-                                id="galleryImage"
-                                type="text"
-                                placeholder="images/photo3.jpg"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="galleryUrlTitle"
-                                type="text"
-                                placeholder="Photo title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <input
-                                id="galleryUrlDescription"
-                                type="text"
-                                placeholder="Photo description"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveGalleryUrlBtn"
-                            class="secondary-btn"
-                        >
-                            ➕ Add URL Photo
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= EXISTING PHOTOS ================= -->
-
-                <div class="card">
-
-                    <h3>
-                        Existing Photos
-                    </h3>
-
-                    <div
-                        id="galleryList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                           ACHIEVEMENTS
-            ================================================= -->
-
-            <section
-                id="page-achievements"
-                class="page"
-            >
-
-                <div class="page-header">
+                <div class="panel">
 
                     <h2>
-                        Achievements
+                        Add Photo Using URL
                     </h2>
 
-                    <p>
-                        Manage your achievements.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Achievement
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="achievementTitle"
-                                type="text"
-                                placeholder="Achievement title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="achievementDescription"
-                                placeholder="Achievement description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveAchievementBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Achievement
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Achievements
-                    </h3>
-
-                    <div
-                        id="achievementList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              PROJECTS
-            ================================================= -->
-
-            <section
-                id="page-projects"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Projects
-                    </h2>
-
-                    <p>
-                        Manage your website projects.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Project
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="projectTitle"
-                                type="text"
-                                placeholder="Project title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Link
-                            </label>
-
-                            <input
-                                id="projectLink"
-                                type="text"
-                                placeholder="Project link"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="projectDescription"
-                                placeholder="Project description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveProjectBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Project
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Projects
-                    </h3>
-
-                    <div
-                        id="projectList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              HOBBIES
-            ================================================= -->
-
-            <section
-                id="page-hobbies"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Hobbies
-                    </h2>
-
-                    <p>
-                        Manage your hobbies.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Hobby
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="hobbyTitle"
-                                type="text"
-                                placeholder="Hobby title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="hobbyDescription"
-                                placeholder="Hobby description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveHobbyBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Hobby
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Hobbies
-                    </h3>
-
-                    <div
-                        id="hobbyList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              SKILLS
-            ================================================= -->
-
-            <section
-                id="page-skills"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Skills
-                    </h2>
-
-                    <p>
-                        Manage your skills.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Skill
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="skillTitle"
-                                type="text"
-                                placeholder="Skill title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="skillDescription"
-                                placeholder="Skill description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveSkillBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Skill
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Skills
-                    </h3>
-
-                    <div
-                        id="skillList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                           DOCUMENTS
-            ================================================= -->
-
-            <section
-                id="page-documents"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Documents Manager
-                    </h2>
-
-                    <p>
-                        Upload folders and manage your documents.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="folder-box">
-
-                        <h3>
-                            📁 Select a Folder
-                        </h3>
-
-                        <p style="margin-top:8px;">
-                            Select a folder containing the files
-                            you want to upload.
-                        </p>
-
+                    <div class="form-group">
+
+                        <label>
+                            Image URL
+                        </label>
 
                         <input
-                            type="file"
-                            id="folderInput"
-                            webkitdirectory
-                            directory
-                            multiple
+                            id="galleryImage"
+                            type="text"
+                            placeholder="https://..."
                         >
-
-
-                        <div
-                            style="
-                            display:flex;
-                            justify-content:center;
-                            gap:10px;
-                            flex-wrap:wrap;
-                            "
-                        >
-
-                            <button
-                                id="uploadFolderBtn"
-                                class="primary-btn"
-                            >
-                                ⬆️ Upload Folder
-                            </button>
-
-
-                            <button
-                                id="clearFolderBtn"
-                                class="secondary-btn"
-                            >
-                                ✖ Clear
-                            </button>
-
-                        </div>
-
-
-                        <div
-                            id="progressContainer"
-                            class="progress-container"
-                        >
-
-                            <div class="progress-track">
-
-                                <div
-                                    id="progressBar"
-                                    class="progress-bar"
-                                ></div>
-
-                            </div>
-
-
-                            <div
-                                id="progressText"
-                                class="progress-text"
-                            >
-                                Uploading...
-                            </div>
-
-                        </div>
 
                     </div>
 
+                    <div class="form-group">
+
+                        <label>
+                            Title
+                        </label>
+
+                        <input
+                            id="galleryTitle"
+                            type="text"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Description
+                        </label>
+
+                        <textarea
+                            id="galleryDescription"
+                        ></textarea>
+
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveGalleryBtn"
+                    >
+                        Add Photo URL
+                    </button>
+
                 </div>
 
 
-                <div class="card">
-
-                    <h3>
-                        Uploaded Documents
-                    </h3>
-
-                    <div
-                        id="documentList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                           PRIVATE DIARY
-            ================================================= -->
-
-            <section
-                id="page-diary"
-                class="page"
-            >
-
-                <div class="page-header">
+                <div class="panel">
 
                     <h2>
-                        🔒 Private Diary
+                        Website Gallery Photos
                     </h2>
 
-                    <p>
-                        Store your private diary entries.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ New Diary Entry
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Date
-                            </label>
-
-                            <input
-                                id="diaryDate"
-                                type="date"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="diaryTitle"
-                                type="text"
-                                placeholder="Entry title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                What happened?
-                            </label>
-
-                            <textarea
-                                id="diaryHappened"
-                                placeholder="Write what happened..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                How I felt
-                            </label>
-
-                            <textarea
-                                id="diaryFeelings"
-                                placeholder="Write how you felt..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Notes
-                            </label>
-
-                            <textarea
-                                id="diaryNotes"
-                                placeholder="Additional notes..."
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveDiaryBtn"
-                            class="primary-btn"
-                        >
-                            💾 Save Diary Entry
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Diary Entries
-                    </h3>
-
                     <div
-                        id="diaryList"
-                        class="item-list"
+                        class="items-list"
+                        id="galleryList"
                     ></div>
 
                 </div>
 
             </section>
 
-        </main>
 
-    </div>
+            <!-- ================= ACHIEVEMENTS ================= -->
+
+            <section
+                class="page"
+                id="achievementsPage"
+            >
+
+                <h1 class="page-title">
+                    Achievements Manager
+                </h1>
+
+                <div class="panel">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input
+                            id="achievementTitle"
+                            type="text"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                            id="achievementDescription"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input
+                            id="achievementImage"
+                            type="text"
+                        >
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveAchievementBtn"
+                    >
+                        Add Achievement
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="items-list"
+                        id="achievementList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROJECTS ================= -->
+
+            <section
+                class="page"
+                id="projectsPage"
+            >
+
+                <h1 class="page-title">
+                    Projects Manager
+                </h1>
+
+                <div class="panel">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input
+                            id="projectTitle"
+                            type="text"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                            id="projectDescription"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input
+                            id="projectImage"
+                            type="text"
+                        >
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveProjectBtn"
+                    >
+                        Add Project
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="items-list"
+                        id="projectList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= HOBBIES ================= -->
+
+            <section
+                class="page"
+                id="hobbiesPage"
+            >
+
+                <h1 class="page-title">
+                    Hobbies Manager
+                </h1>
+
+                <div class="panel">
+
+                    <div class="form-group">
+                        <label>Hobby</label>
+                        <input
+                            id="hobbyTitle"
+                            type="text"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                            id="hobbyDescription"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input
+                            id="hobbyImage"
+                            type="text"
+                        >
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveHobbyBtn"
+                    >
+                        Add Hobby
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="items-list"
+                        id="hobbyList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SKILLS ================= -->
+
+            <section
+                class="page"
+                id="skillsPage"
+            >
+
+                <h1 class="page-title">
+                    Skills Manager
+                </h1>
+
+                <div class="panel">
+
+                    <div class="form-group">
+                        <label>Skill</label>
+                        <input
+                            id="skillTitle"
+                            type="text"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea
+                            id="skillDescription"
+                        ></textarea>
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveSkillBtn"
+                    >
+                        Add Skill
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="items-list"
+                        id="skillList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= DOCUMENTS ================= -->
+
+            <section
+                class="page"
+                id="documentsPage"
+            >
+
+                <h1 class="page-title">
+                    Documents Manager
+                </h1>
+
+                <div class="panel">
+
+                    <h2>
+                        Upload Documents
+                    </h2>
+
+                    <div class="form-group">
+
+                        <label>
+                            Choose File
+                        </label>
+
+                        <input
+                            id="documentFile"
+                            type="file"
+                        >
+
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="uploadDocumentBtn"
+                    >
+                        Upload Document
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <h2>
+                        Documents
+                    </h2>
+
+                    <div
+                        class="items-list"
+                        id="documentList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= DIARY ================= -->
+
+            <section
+                class="page"
+                id="diaryPage"
+            >
+
+                <h1 class="page-title">
+                    Private Diary
+                </h1>
+
+                <div class="panel">
+
+                    <div class="form-group">
+
+                        <label>
+                            Diary Entry
+                        </label>
+
+                        <textarea
+                            id="diaryText"
+                            placeholder="Write your private diary entry..."
+                        ></textarea>
+
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        id="saveDiaryBtn"
+                    >
+                        Save Diary Entry
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="items-list"
+                        id="diaryList"
+                    ></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
 
 </div>
 
 
-<!-- TOAST -->
-
-<div id="toastContainer"></div>
+<div id="toast"></div>
 
 
-<!-- =========================================================
-                         FIREBASE
-========================================================= -->
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
@@ -2148,14 +1305,12 @@ import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-
 import {
     getAuth,
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
 
 import {
     getDatabase,
@@ -2166,24 +1321,22 @@ import {
     remove
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
-
 import {
     getStorage,
     ref as storageRef,
     uploadBytes,
+    uploadBytesResumable,
     getDownloadURL,
     deleteObject
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
-/* =========================================================
-                       FIREBASE CONFIG
-========================================================= */
+/* ================= FIREBASE CONFIG ================= */
 
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+        "AIzaSyB66C1Tymv5lkTxY89HLX4S_QTpAZQVUE",
 
     authDomain:
         "clinton-ncube-website.firebaseapp.com",
@@ -2205,429 +1358,235 @@ const firebaseConfig = {
 
     measurementId:
         "G-K1S62MHHXP"
+
 };
 
 
-/* =========================================================
-                       INITIALIZE
-========================================================= */
+const app = initializeApp(firebaseConfig);
 
-const app =
-    initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const auth =
-    getAuth(app);
+const db = getDatabase(app);
 
-const db =
-    getDatabase(app);
-
-const storage =
-    getStorage(app);
+const storage = getStorage(app);
 
 
-/* =========================================================
-                       HELPER
-========================================================= */
+/* ================= HELPERS ================= */
 
-const $ = id =>
-    document.getElementById(id);
+const $ = id => document.getElementById(id);
 
 
-/* =========================================================
-                       TOAST
-========================================================= */
+function showToast(message){
 
-function showToast(message) {
+    const toast = $("toast");
 
-    const toast =
-        document.createElement("div");
+    toast.textContent = message;
 
-    toast.className =
-        "toast";
+    toast.style.display = "block";
 
-    toast.textContent =
-        message;
+    clearTimeout(window.toastTimer);
 
-    $("toastContainer")
-        .appendChild(toast);
+    window.toastTimer = setTimeout(() => {
 
-    setTimeout(() => {
+        toast.style.display = "none";
 
-        toast.remove();
+    },3000);
 
-    }, 3500);
 }
 
 
-/* =========================================================
-                       LOGIN
-========================================================= */
+/* ================= LOGIN ================= */
 
-$("passwordToggle")
-    .addEventListener(
-        "click",
-        () => {
+$("passwordToggle").addEventListener("click",() => {
 
-            const password =
-                $("loginPassword");
+    const password = $("loginPassword");
 
-            if (
-                password.type ===
-                "password"
-            ) {
+    if(password.type === "password"){
 
-                password.type =
-                    "text";
+        password.type = "text";
 
-                $("passwordToggle")
-                    .textContent =
-                    "🙈";
+        $("passwordToggle").textContent = "🙈";
 
-            } else {
+    }else{
 
-                password.type =
-                    "password";
+        password.type = "password";
 
-                $("passwordToggle")
-                    .textContent =
-                    "👁️";
-            }
-
-        }
-    );
-
-
-$("loginForm")
-    .addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-            const email =
-                $("loginEmail")
-                    .value
-                    .trim();
-
-            const password =
-                $("loginPassword")
-                    .value;
-
-
-            $("loginError")
-                .classList
-                .remove("show");
-
-
-            $("loginButton")
-                .disabled = true;
-
-
-            $("loginButton")
-                .textContent =
-                "Signing in...";
-
-
-            try {
-
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "LOGIN ERROR:",
-                    error
-                );
-
-                $("loginError")
-                    .textContent =
-                    "Login failed. Please check your email and password.";
-
-                $("loginError")
-                    .classList
-                    .add("show");
-
-            }
-
-            finally {
-
-                $("loginButton")
-                    .disabled = false;
-
-                $("loginButton")
-                    .textContent =
-                    "🔓 Sign In";
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                       AUTH STATE
-========================================================= */
-
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        if(user) {
-
-            $("loginScreen")
-                .style
-                .display =
-                "none";
-
-            $("adminApp")
-                .style
-                .display =
-                "block";
-
-            $("adminEmail")
-                .textContent =
-                user.email || "";
-
-            await loadEverything();
-
-        }
-
-        else {
-
-            $("loginScreen")
-                .style
-                .display =
-                "flex";
-
-            $("adminApp")
-                .style
-                .display =
-                "none";
-        }
+        $("passwordToggle").textContent = "👁";
 
     }
-);
+
+});
 
 
-/* =========================================================
-                       LOGOUT
-========================================================= */
+$("loginButton").addEventListener("click",async() => {
 
-$("logoutSide")
-    .addEventListener(
-        "click",
-        async () => {
+    const email =
+        $("loginEmail").value.trim();
 
-            if(
-                !confirm(
-                    "Are you sure you want to logout?"
-                )
-            ) return;
+    const password =
+        $("loginPassword").value;
 
-            try {
+    $("loginError").textContent = "";
 
-                await signOut(auth);
+    if(!email || !password){
 
-            }
+        $("loginError").textContent =
+            "Please enter your email and password.";
 
-            catch(error) {
+        return;
 
-                console.error(
-                    "LOGOUT ERROR:",
-                    error
-                );
+    }
 
-            }
+    const button = $("loginButton");
 
-        }
+    button.disabled = true;
+
+    button.textContent = "Logging in...";
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        $("loginError").textContent =
+            error.message;
+
+        button.disabled = false;
+
+        button.textContent = "Login";
+
+    }
+
+});
+
+
+onAuthStateChanged(auth,user => {
+
+    if(user){
+
+        $("loginScreen").style.display = "none";
+
+        $("dashboard").style.display = "block";
+
+        loadDashboard();
+
+        loadHome();
+
+        loadGallery();
+
+        loadAchievements();
+
+        loadProjects();
+
+        loadHobbies();
+
+        loadSkills();
+
+        loadDocuments();
+
+        loadDiary();
+
+    }else{
+
+        $("loginScreen").style.display = "flex";
+
+        $("dashboard").style.display = "none";
+
+    }
+
+});
+
+
+$("logoutButton").addEventListener("click",async() => {
+
+    await signOut(auth);
+
+});
+
+
+/* ================= WEBSITE ================= */
+
+$("websiteButton").addEventListener("click",() => {
+
+    window.open(
+        "https://clintonncube.github.io/",
+        "_blank"
     );
 
+});
 
-/* =========================================================
-                       WEBSITE BUTTON
-========================================================= */
 
-$("websiteBtn")
-    .addEventListener(
-        "click",
-        () => {
+/* ================= MOBILE MENU ================= */
 
-            window.open(
-                "https://clintonncube.github.io/",
-                "_blank"
+$("mobileMenu").addEventListener("click",() => {
+
+    $("sidebar").classList.toggle("open");
+
+});
+
+
+/* ================= NAVIGATION ================= */
+
+document.querySelectorAll(".nav-btn").forEach(button => {
+
+    button.addEventListener("click",() => {
+
+        document.querySelectorAll(".nav-btn")
+            .forEach(btn =>
+                btn.classList.remove("active")
             );
 
-        }
-    );
+        button.classList.add("active");
 
+        document.querySelectorAll(".page")
+            .forEach(page =>
+                page.classList.remove("active")
+            );
 
-/* =========================================================
-                       MOBILE MENU
-========================================================= */
+        const page =
+            $(button.dataset.page);
 
-$("menuToggle")
-    .addEventListener(
-        "click",
-        () => {
+        if(page){
 
-            $("sidebar")
-                .classList
-                .toggle("open");
+            page.classList.add("active");
 
         }
-    );
 
+        $("topTitle").textContent =
+            button.textContent.trim();
 
-/* =========================================================
-                       NAVIGATION
-========================================================= */
-
-const pageTitles = {
-
-    dashboard:
-        "Dashboard",
-
-    home:
-        "Home Manager",
-
-    gallery:
-        "Gallery",
-
-    achievements:
-        "Achievements",
-
-    projects:
-        "Projects",
-
-    hobbies:
-        "Hobbies",
-
-    skills:
-        "Skills",
-
-    documents:
-        "Documents Manager",
-
-    diary:
-        "Private Diary"
-
-};
-
-
-document
-    .querySelectorAll(
-        ".nav-btn[data-page]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const page =
-                    button.dataset.page;
-
-
-                document
-                    .querySelectorAll(
-                        ".page"
-                    )
-                    .forEach(element => {
-
-                        element
-                            .classList
-                            .remove(
-                                "active"
-                            );
-
-                    });
-
-
-                document
-                    .querySelectorAll(
-                        ".nav-btn[data-page]"
-                    )
-                    .forEach(element => {
-
-                        element
-                            .classList
-                            .remove(
-                                "active"
-                            );
-
-                    });
-
-
-                const target =
-                    $("page-" + page);
-
-
-                if(target) {
-
-                    target
-                        .classList
-                        .add("active");
-
-                }
-
-
-                button
-                    .classList
-                    .add("active");
-
-
-                $("topbarTitle")
-                    .textContent =
-                    pageTitles[page]
-                    ||
-                    "Dashboard";
-
-
-                $("sidebar")
-                    .classList
-                    .remove("open");
-
-            }
-        );
+        $("sidebar").classList.remove("open");
 
     });
 
+});
 
-/* =========================================================
-                    COUNT CHILDREN
-========================================================= */
 
-async function countChildren(path) {
+/* ================= DASHBOARD ================= */
 
-    try {
+async function countItems(path){
+
+    try{
 
         const snapshot =
-            await get(
-                ref(db, path)
-            );
+            await get(ref(db,path));
 
-
-        if(
-            !snapshot.exists()
-        ) {
+        if(!snapshot.exists()){
 
             return 0;
 
         }
 
+        return Object.keys(snapshot.val()).length;
 
-        return Object.keys(
-            snapshot.val() || {}
-        ).length;
-
-    }
-
-    catch(error) {
+    }catch(error){
 
         console.error(error);
 
@@ -2638,750 +1597,252 @@ async function countChildren(path) {
 }
 
 
-/* =========================================================
-                  DASHBOARD STATS
-========================================================= */
+async function loadDashboard(){
 
-async function updateDashboardStats() {
+    $("galleryCount").textContent =
+        await countItems("gallery");
 
-    $("galleryCount")
-        .textContent =
-        await countChildren(
-            "gallery"
-        );
+    $("achievementCount").textContent =
+        await countItems("achievements");
 
+    $("projectCount").textContent =
+        await countItems("projects");
 
-    $("achievementCount")
-        .textContent =
-        await countChildren(
-            "achievements"
-        );
+    $("hobbyCount").textContent =
+        await countItems("hobbies");
 
-
-    $("projectCount")
-        .textContent =
-        await countChildren(
-            "projects"
-        );
-
-
-    $("hobbyCount")
-        .textContent =
-        await countChildren(
-            "hobbies"
-        );
-
-
-    $("skillCount")
-        .textContent =
-        await countChildren(
-            "skills"
-        );
+    $("skillCount").textContent =
+        await countItems("skills");
 
 }
 
 
-$("refreshDashboardBtn")
-    .addEventListener(
-        "click",
-        async () => {
+/* ================= HOME ================= */
 
-            await updateDashboardStats();
+async function loadHome(){
 
-            showToast(
-                "Dashboard refreshed."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-                         HOME
-========================================================= */
-
-async function loadHome() {
-
-    try {
+    try{
 
         const snapshot =
-            await get(
-                ref(
-                    db,
-                    "websiteData"
-                )
-            );
+            await get(ref(db,"websiteData"));
 
+        if(!snapshot.exists()) return;
 
-        if(
-            !snapshot.exists()
-        ) return;
+        const data = snapshot.val();
 
+        $("homeName").value =
+            data.name || "Clinton Ncube";
 
-        const data =
-            snapshot.val() || {};
+        $("homeWelcome").value =
+            data.welcome || "";
 
+        $("homeGoal").value =
+            data.goal || "";
 
-        $("homeName")
-            .value =
-            data.name ||
-            "Clinton Ncube";
+        $("homeAbout").value =
+            data.about || "";
 
+    }catch(error){
 
-        $("homeLastUpdated")
-            .value =
-            data.lastUpdated ||
-            "2026";
-
-
-        $("homeWelcome")
-            .value =
-            data.welcome ||
-            "";
-
-
-        $("homeGoal")
-            .value =
-            data.goal ||
-            "";
-
-
-        $("homeAbout")
-            .value =
-            data.about ||
-            "";
+        console.error(error);
 
     }
 
-    catch(error) {
+}
 
-        console.error(
-            "HOME LOAD ERROR:",
-            error
+
+$("saveHomeBtn").addEventListener("click",async() => {
+
+    try{
+
+        await set(
+            ref(db,"websiteData"),
+            {
+
+                name:
+                    $("homeName").value,
+
+                welcome:
+                    $("homeWelcome").value,
+
+                goal:
+                    $("homeGoal").value,
+
+                about:
+                    $("homeAbout").value,
+
+                lastUpdated:
+                    new Date().getFullYear()
+
+            }
+        );
+
+        showToast("Home information saved.");
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            "Could not save Home information."
         );
 
     }
 
-}
+});
 
 
-$("saveHomeBtn")
-    .addEventListener(
-        "click",
-        async () => {
+/* ============================================================
+   GALLERY - REAL RESUMABLE UPLOAD
+   ============================================================ */
 
-            try {
 
-                await set(
-                    ref(
-                        db,
-                        "websiteData"
-                    ),
-                    {
+/* SELECTED FILE PREVIEW */
 
-                        name:
-                            $("homeName")
-                                .value
-                                .trim(),
+$("galleryFile").addEventListener("change",event => {
 
-                        lastUpdated:
-                            $("homeLastUpdated")
-                                .value
-                                .trim(),
+    const file =
+        event.target.files[0];
 
-                        welcome:
-                            $("homeWelcome")
-                                .value
-                                .trim(),
+    if(!file){
 
-                        goal:
-                            $("homeGoal")
-                                .value
-                                .trim(),
+        clearGalleryUpload();
 
-                        about:
-                            $("homeAbout")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                showToast(
-                    "Home information saved."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "HOME SAVE ERROR:",
-                    error
-                );
-
-                showToast(
-                    "Could not save home information."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                    GENERIC LIST LOADER
-                    WITH EDIT + DELETE
-========================================================= */
-
-async function loadSimple(
-    path,
-    listId,
-    fields
-) {
-
-    const list =
-        $(listId);
-
-    list.innerHTML = "";
-
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    path
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            list.innerHTML =
-                "<div class='item'>No items yet.</div>";
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.val() || {};
-
-
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
-
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    div.className =
-                        "item";
-
-
-                    /* IMAGE */
-
-                    if(item.image) {
-
-                        const image =
-                            document
-                                .createElement(
-                                    "img"
-                                );
-
-                        image.className =
-                            "gallery-preview";
-
-                        image.src =
-                            item.image;
-
-                        image.alt =
-                            item.title ||
-                            "Gallery image";
-
-                        image.loading =
-                            "lazy";
-
-                        div.appendChild(
-                            image
-                        );
-
-                    }
-
-
-                    /* CONTENT */
-
-                    fields.forEach(
-                        field => {
-
-                            if(
-                                item[field]
-                            ) {
-
-                                const element =
-                                    document
-                                        .createElement(
-                                            field ===
-                                            "title"
-                                            ? "strong"
-                                            : "p"
-                                        );
-
-
-                                element.textContent =
-                                    item[field];
-
-
-                                div.appendChild(
-                                    element
-                                );
-
-                            }
-
-                        }
-                    );
-
-
-                    /* ACTIONS */
-
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    actions.className =
-                        "item-actions";
-
-
-                    /* EDIT BUTTON */
-
-                    const editButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    editButton
-                        .textContent =
-                        "✏️ Edit";
-
-                    editButton.className =
-                        "edit-btn";
-
-
-                    editButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                const updatedItem =
-                                    {
-                                        ...item
-                                    };
-
-
-                                for(
-                                    const field
-                                    of fields
-                                ) {
-
-                                    const currentValue =
-                                        updatedItem[field]
-                                        ||
-                                        "";
-
-
-                                    const newValue =
-                                        prompt(
-                                            "Edit " +
-                                            field
-                                                .charAt(0)
-                                                .toUpperCase() +
-                                            field.slice(1) +
-                                            ":",
-                                            currentValue
-                                        );
-
-
-                                    if(
-                                        newValue ===
-                                        null
-                                    ) {
-
-                                        return;
-
-                                    }
-
-
-                                    updatedItem[field] =
-                                        newValue;
-
-                                }
-
-
-                                try {
-
-                                    await set(
-                                        ref(
-                                            db,
-                                            path +
-                                            "/" +
-                                            key
-                                        ),
-                                        updatedItem
-                                    );
-
-
-                                    await loadSimple(
-                                        path,
-                                        listId,
-                                        fields
-                                    );
-
-
-                                    await updateDashboardStats();
-
-
-                                    showToast(
-                                        "Item updated successfully."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        "EDIT ERROR:",
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not update item."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    /* DELETE BUTTON */
-
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
-
-
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                if(
-                                    !confirm(
-                                        "Delete this item?"
-                                    )
-                                ) return;
-
-
-                                try {
-
-                                    /* Delete database entry */
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            path +
-                                            "/" +
-                                            key
-                                        )
-                                    );
-
-
-                                    /* Delete Gallery Storage file */
-
-                                    if(
-                                        path ===
-                                        "gallery" &&
-                                        item.storagePath
-                                    ) {
-
-                                        try {
-
-                                            const imageStorageRef =
-                                                storageRef(
-                                                    storage,
-                                                    item.storagePath
-                                                );
-
-
-                                            await deleteObject(
-                                                imageStorageRef
-                                            );
-
-                                        }
-
-                                        catch(storageError) {
-
-                                            console.warn(
-                                                "Storage image could not be deleted:",
-                                                storageError
-                                            );
-
-                                        }
-
-                                    }
-
-
-                                    await loadSimple(
-                                        path,
-                                        listId,
-                                        fields
-                                    );
-
-
-                                    await updateDashboardStats();
-
-
-                                    showToast(
-                                        "Item deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        "DELETE ERROR:",
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete item."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    actions.appendChild(
-                        editButton
-                    );
-
-                    actions.appendChild(
-                        deleteButton
-                    );
-
-
-                    div.appendChild(
-                        actions
-                    );
-
-
-                    list.appendChild(
-                        div
-                    );
-
-                }
-            );
+        return;
 
     }
 
-    catch(error) {
 
-        console.error(
-            "LIST LOAD ERROR:",
-            error
+    const allowedTypes = [
+
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif"
+
+    ];
+
+
+    if(!allowedTypes.includes(file.type)){
+
+        showToast(
+            "Please choose a JPG, PNG, WEBP or GIF image."
         );
 
-        list.innerHTML =
-            "<div class='item'>Unable to load items.</div>";
+        event.target.value = "";
+
+        return;
 
     }
 
-}
+
+    const maxSize =
+        25 * 1024 * 1024;
 
 
-/* =========================================================
-                         GALLERY
-========================================================= */
+    if(file.size > maxSize){
+
+        showToast(
+            "Image is too large. Maximum size is 25 MB."
+        );
+
+        event.target.value = "";
+
+        return;
+
+    }
 
 
-/* ================= PHOTO PREVIEW ================= */
+    const preview =
+        $("galleryUploadPreview");
 
-$("galleryFile")
-    .addEventListener(
-        "change",
-        event => {
+    const previewContainer =
+        $("galleryPreviewContainer");
 
-            const file =
-                event.target.files[0];
-
-
-            if(!file) {
-
-                $("galleryUploadPreviewContainer")
-                    .style
-                    .display =
-                    "none";
-
-                return;
-
-            }
+    const info =
+        $("galleryFileInfo");
 
 
-            if(
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+    preview.src =
+        URL.createObjectURL(file);
 
-                showToast(
-                    "Please choose a valid image."
-                );
-
-                $("galleryFile")
-                    .value = "";
-
-                return;
-
-            }
+    previewContainer.style.display =
+        "block";
 
 
-            const reader =
-                new FileReader();
+    const sizeMB =
+        (file.size / (1024 * 1024))
+            .toFixed(2);
 
 
-            reader.onload =
-                function(e) {
+    info.textContent =
+        `${file.name} • ${sizeMB} MB`;
 
-                    $("galleryUploadPreview")
-                        .src =
-                        e.target.result;
+});
 
 
-                    $("galleryUploadPreviewContainer")
-                        .style
-                        .display =
-                        "block";
+/* CLEAR UPLOAD */
 
-                };
+function clearGalleryUpload(){
 
+    $("galleryFile").value = "";
 
-            reader.readAsDataURL(
-                file
-            );
+    $("galleryUploadTitle").value = "";
 
-        }
-    );
+    $("galleryUploadDescription").value = "";
 
+    $("galleryUploadPreview").src = "";
 
-/* ================= CLEAR GALLERY FORM ================= */
+    $("galleryPreviewContainer").style.display =
+        "none";
 
-$("clearGalleryBtn")
-    .addEventListener(
-        "click",
-        () => {
+    $("galleryProgressContainer").style.display =
+        "none";
 
-            $("galleryFile")
-                .value = "";
+    $("galleryProgressBar").style.width =
+        "0%";
 
-            $("galleryTitle")
-                .value = "";
+    $("galleryProgressPercent").textContent =
+        "0%";
 
-            $("galleryDescription")
-                .value = "";
+    $("galleryProgressText").textContent =
+        "Uploading...";
 
-            $("galleryUploadPreview")
-                .src = "";
-
-            $("galleryUploadPreviewContainer")
-                .style
-                .display =
-                "none";
-
-            $("galleryUploadProgress")
-                .style
-                .display =
-                "none";
-
-            $("galleryProgressBar")
-                .style
-                .width =
-                "0%";
-
-            $("galleryProgressText")
-                .textContent =
-                "Preparing upload...";
-
-        }
-    );
-
-
-/* ================= LOAD GALLERY ================= */
-
-async function loadGallery() {
-
-    await loadSimple(
-        "gallery",
-        "galleryList",
-        [
-            "title",
-            "description"
-        ]
-    );
+    $("galleryUploadStatus").textContent =
+        "Preparing upload...";
 
 }
 
 
-/* ================= UPLOAD PHOTO ================= */
-
-$("saveGalleryBtn")
+$("clearGalleryUploadBtn")
     .addEventListener(
         "click",
-        async () => {
+        clearGalleryUpload
+    );
+
+
+/* SAFE FILE NAME */
+
+function makeSafeFileName(fileName){
+
+    return fileName
+        .replace(/[^a-zA-Z0-9._-]/g,"_");
+
+}
+
+
+/* REAL FIREBASE UPLOAD */
+
+$("uploadGalleryBtn")
+    .addEventListener(
+        "click",
+        async() => {
 
             const file =
-                $("galleryFile")
-                    .files[0];
+                $("galleryFile").files[0];
 
 
-            const title =
-                $("galleryTitle")
-                    .value
-                    .trim();
-
-
-            const description =
-                $("galleryDescription")
-                    .value
-                    .trim();
-
-
-            if(!file) {
+            if(!file){
 
                 showToast(
                     "Please choose a photo first."
@@ -3392,14 +1853,22 @@ $("saveGalleryBtn")
             }
 
 
-            if(
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+            const title =
+                $("galleryUploadTitle")
+                    .value
+                    .trim();
+
+
+            const description =
+                $("galleryUploadDescription")
+                    .value
+                    .trim();
+
+
+            if(!title){
 
                 showToast(
-                    "Please choose a valid image."
+                    "Please enter a photo title."
                 );
 
                 return;
@@ -3407,142 +1876,428 @@ $("saveGalleryBtn")
             }
 
 
-            try {
-
-                $("saveGalleryBtn")
-                    .disabled =
-                    true;
-
-                $("saveGalleryBtn")
-                    .textContent =
-                    "☁️ Uploading...";
+            const button =
+                $("uploadGalleryBtn");
 
 
-                $("galleryUploadProgress")
-                    .style
-                    .display =
-                    "block";
+            button.disabled = true;
+
+            button.textContent =
+                "Uploading...";
 
 
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "10%";
+            const progressContainer =
+                $("galleryProgressContainer");
 
 
-                $("galleryProgressText")
-                    .textContent =
-                    "Preparing photo...";
+            const progressBar =
+                $("galleryProgressBar");
 
 
-                /* Safe filename */
+            const progressPercent =
+                $("galleryProgressPercent");
 
-                const originalName =
-                    file.name;
 
+            const progressText =
+                $("galleryProgressText");
+
+
+            const status =
+                $("galleryUploadStatus");
+
+
+            progressContainer.style.display =
+                "block";
+
+
+            progressBar.style.width =
+                "0%";
+
+
+            progressPercent.textContent =
+                "0%";
+
+
+            progressText.textContent =
+                "Uploading photo...";
+
+
+            status.textContent =
+                "Starting upload...";
+
+
+            try{
 
                 const safeName =
-                    originalName
-                        .replace(
-                            /[^a-zA-Z0-9._-]/g,
-                            "_"
-                        );
+                    makeSafeFileName(file.name);
 
 
                 const uniqueName =
-                    Date.now() +
-                    "_" +
-                    safeName;
+                    Date.now()
+                    + "_"
+                    + Math.random()
+                        .toString(36)
+                        .substring(2,8)
+                    + "_"
+                    + safeName;
 
 
-                /* Storage reference */
+                const path =
+                    "gallery/" + uniqueName;
 
-                const imageRef =
+
+                const fileRef =
                     storageRef(
                         storage,
-                        "gallery/" +
-                        uniqueName
+                        path
                     );
 
 
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "30%";
+                /*
+                 * IMPORTANT:
+                 * uploadBytesResumable gives us
+                 * the REAL Firebase upload progress.
+                 */
 
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Uploading photo to Firebase...";
-
-
-                /* Upload */
-
-                const snapshot =
-                    await uploadBytes(
-                        imageRef,
+                const uploadTask =
+                    uploadBytesResumable(
+                        fileRef,
                         file,
                         {
                             contentType:
-                                file.type
+                                file.type,
+
+                            cacheControl:
+                                "public,max-age=31536000"
                         }
                     );
 
 
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "70%";
+                uploadTask.on(
+
+                    "state_changed",
+
+                    snapshot => {
+
+                        const percentage =
+                            Math.round(
+                                (
+                                    snapshot.bytesTransferred /
+                                    snapshot.totalBytes
+                                ) * 100
+                            );
 
 
-                $("galleryProgressText")
-                    .textContent =
-                    "Getting photo URL...";
+                        progressBar.style.width =
+                            percentage + "%";
 
 
-                /* Download URL */
+                        progressPercent.textContent =
+                            percentage + "%";
 
-                const downloadURL =
-                    await getDownloadURL(
-                        snapshot.ref
+
+                        if(
+                            snapshot.state ===
+                            "paused"
+                        ){
+
+                            progressText.textContent =
+                                "Upload paused";
+
+                            status.textContent =
+                                "Firebase upload is paused.";
+
+                        }else{
+
+                            progressText.textContent =
+                                "Uploading photo...";
+
+                            status.textContent =
+                                `Uploaded ${percentage}%`;
+
+                        }
+
+                    },
+
+
+                    error => {
+
+                        console.error(
+                            "Gallery upload error:",
+                            error
+                        );
+
+
+                        button.disabled = false;
+
+                        button.textContent =
+                            "📤 Upload Photo";
+
+
+                        progressText.textContent =
+                            "Upload failed";
+
+
+                        status.textContent =
+                            getStorageErrorMessage(
+                                error
+                            );
+
+
+                        showToast(
+                            getStorageErrorMessage(
+                                error
+                            )
+                        );
+
+                    },
+
+
+                    async() => {
+
+                        try{
+
+                            progressBar.style.width =
+                                "100%";
+
+                            progressPercent.textContent =
+                                "100%";
+
+                            progressText.textContent =
+                                "Upload complete";
+
+                            status.textContent =
+                                "Saving photo to your website gallery...";
+
+
+                            const downloadURL =
+                                await getDownloadURL(
+                                    uploadTask.snapshot.ref
+                                );
+
+
+                            const galleryRecord = {
+
+                                image:
+                                    downloadURL,
+
+                                storagePath:
+                                    path,
+
+                                fileName:
+                                    file.name,
+
+                                title:
+                                    title,
+
+                                description:
+                                    description,
+
+                                uploadedAt:
+                                    Date.now()
+
+                            };
+
+
+                            await push(
+                                ref(db,"gallery"),
+                                galleryRecord
+                            );
+
+
+                            status.textContent =
+                                "Photo successfully added to your website!";
+
+
+                            showToast(
+                                "Photo uploaded successfully!"
+                            );
+
+
+                            button.disabled = false;
+
+                            button.textContent =
+                                "📤 Upload Photo";
+
+
+                            await loadGallery();
+
+                            await loadDashboard();
+
+
+                            setTimeout(() => {
+
+                                clearGalleryUpload();
+
+                            },1500);
+
+
+                        }catch(error){
+
+                            console.error(
+                                "Database save error:",
+                                error
+                            );
+
+
+                            button.disabled = false;
+
+                            button.textContent =
+                                "📤 Upload Photo";
+
+
+                            status.textContent =
+                                "Photo uploaded, but gallery information could not be saved.";
+
+
+                            showToast(
+                                "Upload finished but gallery save failed."
+                            );
+
+                        }
+
+                    }
+
+                );
+
+            }catch(error){
+
+                console.error(error);
+
+                button.disabled = false;
+
+                button.textContent =
+                    "📤 Upload Photo";
+
+                status.textContent =
+                    getStorageErrorMessage(
+                        error
                     );
 
+                showToast(
+                    getStorageErrorMessage(
+                        error
+                    )
+                );
 
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "85%";
+            }
+
+        }
+    );
 
 
-                $("galleryProgressText")
-                    .textContent =
-                    "Saving photo information...";
+/* STORAGE ERROR MESSAGE */
+
+function getStorageErrorMessage(error){
+
+    if(!error){
+
+        return "Upload failed.";
+
+    }
 
 
-                /* Database */
+    if(
+        error.code ===
+        "storage/unauthorized"
+    ){
+
+        return "Firebase Storage permission denied. Check your Storage Rules.";
+
+    }
+
+
+    if(
+        error.code ===
+        "storage/canceled"
+    ){
+
+        return "Upload was cancelled.";
+
+    }
+
+
+    if(
+        error.code ===
+        "storage/retry-limit-exceeded"
+    ){
+
+        return "Upload stopped because the connection could not be maintained.";
+
+    }
+
+
+    if(
+        error.code ===
+        "storage/network-request-failed"
+    ){
+
+        return "Network connection failed during upload.";
+
+    }
+
+
+    if(
+        error.code ===
+        "storage/quota-exceeded"
+    ){
+
+        return "Firebase Storage quota has been exceeded.";
+
+    }
+
+
+    return error.message ||
+        "Photo upload failed.";
+
+}
+
+
+/* URL GALLERY ADD */
+
+$("saveGalleryBtn")
+    .addEventListener(
+        "click",
+        async() => {
+
+            const image =
+                $("galleryImage")
+                    .value
+                    .trim();
+
+            const title =
+                $("galleryTitle")
+                    .value
+                    .trim();
+
+            const description =
+                $("galleryDescription")
+                    .value
+                    .trim();
+
+
+            if(!image){
+
+                showToast(
+                    "Please enter an image URL."
+                );
+
+                return;
+
+            }
+
+
+            try{
 
                 await push(
-                    ref(
-                        db,
-                        "gallery"
-                    ),
+                    ref(db,"gallery"),
                     {
 
-                        image:
-                            downloadURL,
+                        image,
 
-                        storagePath:
-                            "gallery/" +
-                            uniqueName,
+                        title,
 
-                        fileName:
-                            originalName,
-
-                        title:
-                            title,
-
-                        description:
-                            description,
+                        description,
 
                         uploadedAt:
                             Date.now()
@@ -3551,83 +2306,29 @@ $("saveGalleryBtn")
                 );
 
 
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "100%";
+                $("galleryImage").value = "";
+
+                $("galleryTitle").value = "";
+
+                $("galleryDescription").value = "";
 
 
-                $("galleryProgressText")
-                    .textContent =
-                    "Upload complete!";
+                showToast(
+                    "Gallery photo added."
+                );
 
-
-                /* Clear form */
-
-                $("galleryFile")
-                    .value = "";
-
-                $("galleryTitle")
-                    .value = "";
-
-                $("galleryDescription")
-                    .value = "";
-
-                $("galleryUploadPreview")
-                    .src = "";
-
-                $("galleryUploadPreviewContainer")
-                    .style
-                    .display =
-                    "none";
-
-
-                /* Refresh */
 
                 await loadGallery();
 
-                await updateDashboardStats();
+                await loadDashboard();
 
+            }catch(error){
 
-                showToast(
-                    "📷 Photo uploaded successfully!"
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "GALLERY UPLOAD ERROR:",
-                    error
-                );
-
-                console.error(
-                    "Error code:",
-                    error.code
-                );
-
-                console.error(
-                    "Error message:",
-                    error.message
-                );
-
+                console.error(error);
 
                 showToast(
-                    "Photo upload failed. Check Firebase Storage rules."
+                    "Could not add gallery photo."
                 );
-
-            }
-
-            finally {
-
-                $("saveGalleryBtn")
-                    .disabled =
-                    false;
-
-                $("saveGalleryBtn")
-                    .textContent =
-                    "☁️ Upload Photo";
 
             }
 
@@ -3635,35 +2336,589 @@ $("saveGalleryBtn")
     );
 
 
-/* ================= ADD PHOTO USING URL ================= */
+/* LOAD GALLERY */
 
-$("saveGalleryUrlBtn")
+async function loadGallery(){
+
+    const list =
+        $("galleryList");
+
+    list.innerHTML =
+        "Loading...";
+
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(db,"gallery")
+            );
+
+
+        list.innerHTML = "";
+
+
+        if(!snapshot.exists()){
+
+            list.innerHTML =
+                "<p>No gallery photos yet.</p>";
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        Object.entries(data)
+            .reverse()
+            .forEach(
+                ([key,item]) => {
+
+                    const div =
+                        document.createElement("div");
+
+                    div.className =
+                        "item";
+
+
+                    const image =
+                        document.createElement("img");
+
+                    image.src =
+                        item.image || "";
+
+                    image.alt =
+                        item.title || "Gallery photo";
+
+                    image.onerror =
+                        () => {
+                            image.style.display =
+                                "none";
+                        };
+
+
+                    const title =
+                        document.createElement("h3");
+
+                    title.textContent =
+                        item.title ||
+                        "Untitled photo";
+
+
+                    const description =
+                        document.createElement("p");
+
+                    description.textContent =
+                        item.description || "";
+
+
+                    const actions =
+                        document.createElement("div");
+
+                    actions.className =
+                        "item-actions";
+
+
+                    const edit =
+                        document.createElement("button");
+
+                    edit.className =
+                        "edit-btn";
+
+                    edit.textContent =
+                        "✏️ Edit";
+
+
+                    edit.addEventListener(
+                        "click",
+                        async() => {
+
+                            const newTitle =
+                                prompt(
+                                    "Photo title:",
+                                    item.title || ""
+                                );
+
+
+                            if(newTitle === null)
+                                return;
+
+
+                            const newDescription =
+                                prompt(
+                                    "Photo description:",
+                                    item.description || ""
+                                );
+
+
+                            if(newDescription === null)
+                                return;
+
+
+                            try{
+
+                                await set(
+                                    ref(
+                                        db,
+                                        "gallery/" + key
+                                    ),
+                                    {
+
+                                        ...item,
+
+                                        title:
+                                            newTitle,
+
+                                        description:
+                                            newDescription
+
+                                    }
+                                );
+
+
+                                showToast(
+                                    "Gallery photo updated."
+                                );
+
+
+                                loadGallery();
+
+                            }catch(error){
+
+                                console.error(error);
+
+                                showToast(
+                                    "Could not update photo."
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    const del =
+                        document.createElement("button");
+
+                    del.className =
+                        "danger-btn";
+
+                    del.textContent =
+                        "🗑️ Delete";
+
+
+                    del.addEventListener(
+                        "click",
+                        async() => {
+
+                            const confirmed =
+                                confirm(
+                                    "Delete this gallery photo?"
+                                );
+
+
+                            if(!confirmed)
+                                return;
+
+
+                            try{
+
+                                /*
+                                 * Delete the Storage
+                                 * file too if we have
+                                 * its storagePath.
+                                 */
+
+                                if(
+                                    item.storagePath
+                                ){
+
+                                    try{
+
+                                        await deleteObject(
+                                            storageRef(
+                                                storage,
+                                                item.storagePath
+                                            )
+                                        );
+
+                                    }catch(storageError){
+
+                                        console.warn(
+                                            "Storage delete failed:",
+                                            storageError
+                                        );
+
+                                    }
+
+                                }
+
+
+                                await remove(
+                                    ref(
+                                        db,
+                                        "gallery/" + key
+                                    )
+                                );
+
+
+                                showToast(
+                                    "Gallery photo deleted."
+                                );
+
+
+                                loadGallery();
+
+                                loadDashboard();
+
+                            }catch(error){
+
+                                console.error(error);
+
+                                showToast(
+                                    "Could not delete photo."
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    actions.appendChild(edit);
+
+                    actions.appendChild(del);
+
+
+                    div.appendChild(image);
+
+                    div.appendChild(title);
+
+                    div.appendChild(description);
+
+                    div.appendChild(actions);
+
+
+                    list.appendChild(div);
+
+                }
+            );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        list.innerHTML =
+            "<p>Could not load gallery.</p>";
+
+    }
+
+}
+
+
+/* ================= GENERIC LIST ================= */
+
+async function loadSimple(
+    path,
+    listId,
+    fields
+){
+
+    const list =
+        $(listId);
+
+    list.innerHTML =
+        "Loading...";
+
+
+    try{
+
+        const snapshot =
+            await get(
+                ref(db,path)
+            );
+
+
+        list.innerHTML = "";
+
+
+        if(!snapshot.exists()){
+
+            list.innerHTML =
+                "<p>No items yet.</p>";
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.val();
+
+
+        Object.entries(data)
+            .reverse()
+            .forEach(
+                ([key,item]) => {
+
+                    const div =
+                        document.createElement("div");
+
+                    div.className =
+                        "item";
+
+
+                    if(item.image){
+
+                        const image =
+                            document.createElement("img");
+
+                        image.src =
+                            item.image;
+
+                        image.alt =
+                            item.title || "";
+
+                        div.appendChild(image);
+
+                    }
+
+
+                    const title =
+                        document.createElement("h3");
+
+                    title.textContent =
+                        item.title ||
+                        item.name ||
+                        fields[0] ||
+                        "Item";
+
+
+                    div.appendChild(title);
+
+
+                    if(item.description){
+
+                        const description =
+                            document.createElement("p");
+
+                        description.textContent =
+                            item.description;
+
+                        div.appendChild(
+                            description
+                        );
+
+                    }
+
+
+                    const actions =
+                        document.createElement("div");
+
+                    actions.className =
+                        "item-actions";
+
+
+                    const edit =
+                        document.createElement("button");
+
+                    edit.className =
+                        "edit-btn";
+
+                    edit.textContent =
+                        "✏️ Edit";
+
+
+                    edit.addEventListener(
+                        "click",
+                        async() => {
+
+                            const updatedItem =
+                                {...item};
+
+
+                            for(
+                                const field
+                                of fields
+                            ){
+
+                                const current =
+                                    updatedItem[field] ||
+                                    "";
+
+                                const result =
+                                    prompt(
+                                        field +
+                                        ":",
+                                        current
+                                    );
+
+
+                                if(result === null){
+
+                                    return;
+
+                                }
+
+
+                                updatedItem[field] =
+                                    result;
+
+                            }
+
+
+                            try{
+
+                                await set(
+                                    ref(
+                                        db,
+                                        path + "/" + key
+                                    ),
+                                    updatedItem
+                                );
+
+
+                                showToast(
+                                    "Item updated."
+                                );
+
+
+                                loadSimple(
+                                    path,
+                                    listId,
+                                    fields
+                                );
+
+
+                            }catch(error){
+
+                                console.error(error);
+
+                                showToast(
+                                    "Could not update item."
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    const del =
+                        document.createElement("button");
+
+                    del.className =
+                        "danger-btn";
+
+                    del.textContent =
+                        "🗑️ Delete";
+
+
+                    del.addEventListener(
+                        "click",
+                        async() => {
+
+                            if(
+                                !confirm(
+                                    "Delete this item?"
+                                )
+                            ){
+
+                                return;
+
+                            }
+
+
+                            try{
+
+                                await remove(
+                                    ref(
+                                        db,
+                                        path + "/" + key
+                                    )
+                                );
+
+
+                                showToast(
+                                    "Item deleted."
+                                );
+
+
+                                loadSimple(
+                                    path,
+                                    listId,
+                                    fields
+                                );
+
+
+                                loadDashboard();
+
+                            }catch(error){
+
+                                console.error(error);
+
+                                showToast(
+                                    "Could not delete item."
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    actions.appendChild(edit);
+
+                    actions.appendChild(del);
+
+                    div.appendChild(actions);
+
+                    list.appendChild(div);
+
+                }
+            );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        list.innerHTML =
+            "<p>Could not load items.</p>";
+
+    }
+
+}
+
+
+/* ================= ACHIEVEMENTS ================= */
+
+$("saveAchievementBtn")
     .addEventListener(
         "click",
-        async () => {
-
-            const image =
-                $("galleryImage")
-                    .value
-                    .trim();
-
+        async() => {
 
             const title =
-                $("galleryUrlTitle")
-                    .value
-                    .trim();
-
+                $("achievementTitle")
+                    .value.trim();
 
             const description =
-                $("galleryUrlDescription")
-                    .value
-                    .trim();
+                $("achievementDescription")
+                    .value.trim();
+
+            const image =
+                $("achievementImage")
+                    .value.trim();
 
 
-            if(!image) {
+            if(!title){
 
                 showToast(
-                    "Please enter an image path or URL."
+                    "Enter an achievement title."
                 );
 
                 return;
@@ -3671,322 +2926,287 @@ $("saveGalleryUrlBtn")
             }
 
 
-            try {
+            await push(
+                ref(db,"achievements"),
+                {
 
-                await push(
-                    ref(
-                        db,
-                        "gallery"
-                    ),
-                    {
+                    title,
 
-                        image:
-                            image,
+                    description,
 
-                        title:
-                            title,
+                    image,
 
-                        description:
-                            description
+                    createdAt:
+                        Date.now()
 
-                    }
-                );
+                }
+            );
 
 
-                $("galleryImage")
-                    .value = "";
+            $("achievementTitle").value = "";
 
-                $("galleryUrlTitle")
-                    .value = "";
+            $("achievementDescription").value = "";
 
-                $("galleryUrlDescription")
-                    .value = "";
+            $("achievementImage").value = "";
 
 
-                await loadGallery();
+            showToast(
+                "Achievement added."
+            );
 
-                await updateDashboardStats();
 
+            loadAchievements();
 
-                showToast(
-                    "Photo added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "URL PHOTO ERROR:",
-                    error
-                );
-
-                showToast(
-                    "Could not add photo."
-                );
-
-            }
+            loadDashboard();
 
         }
     );
 
 
-/* =========================================================
-                       ACHIEVEMENTS
-========================================================= */
+function loadAchievements(){
 
-async function loadAchievements() {
-
-    await loadSimple(
+    return loadSimple(
         "achievements",
         "achievementList",
         [
             "title",
-            "description"
+            "description",
+            "image"
         ]
     );
 
 }
 
 
-$("saveAchievementBtn")
+/* ================= PROJECTS ================= */
+
+$("saveProjectBtn")
     .addEventListener(
         "click",
-        async () => {
+        async() => {
 
-            try {
+            const title =
+                $("projectTitle")
+                    .value.trim();
 
-                await push(
-                    ref(
-                        db,
-                        "achievements"
-                    ),
-                    {
+            const description =
+                $("projectDescription")
+                    .value.trim();
 
-                        title:
-                            $("achievementTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("achievementDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
+            const image =
+                $("projectImage")
+                    .value.trim();
 
 
-                $("achievementTitle")
-                    .value = "";
-
-                $("achievementDescription")
-                    .value = "";
-
-
-                await loadAchievements();
-
-                await updateDashboardStats();
-
+            if(!title){
 
                 showToast(
-                    "Achievement added."
+                    "Enter a project title."
                 );
+
+                return;
 
             }
 
-            catch(error) {
 
-                console.error(
-                    error
-                );
+            await push(
+                ref(db,"projects"),
+                {
 
-                showToast(
-                    "Could not add achievement."
-                );
+                    title,
 
-            }
+                    description,
+
+                    image,
+
+                    createdAt:
+                        Date.now()
+
+                }
+            );
+
+
+            $("projectTitle").value = "";
+
+            $("projectDescription").value = "";
+
+            $("projectImage").value = "";
+
+
+            showToast(
+                "Project added."
+            );
+
+
+            loadProjects();
+
+            loadDashboard();
 
         }
     );
 
 
-/* =========================================================
-                         PROJECTS
-========================================================= */
+function loadProjects(){
 
-async function loadProjects() {
-
-    await loadSimple(
+    return loadSimple(
         "projects",
         "projectList",
         [
             "title",
             "description",
-            "link"
+            "image"
         ]
     );
 
 }
 
 
-$("saveProjectBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "projects"
-                    ),
-                    {
-
-                        title:
-                            $("projectTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("projectDescription")
-                                .value
-                                .trim(),
-
-                        link:
-                            $("projectLink")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                $("projectTitle")
-                    .value = "";
-
-                $("projectDescription")
-                    .value = "";
-
-                $("projectLink")
-                    .value = "";
-
-
-                await loadProjects();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Project added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add project."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                          HOBBIES
-========================================================= */
-
-async function loadHobbies() {
-
-    await loadSimple(
-        "hobbies",
-        "hobbyList",
-        [
-            "title",
-            "description"
-        ]
-    );
-
-}
-
+/* ================= HOBBIES ================= */
 
 $("saveHobbyBtn")
     .addEventListener(
         "click",
-        async () => {
+        async() => {
 
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "hobbies"
-                    ),
-                    {
-
-                        title:
-                            $("hobbyTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("hobbyDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
+            const title =
                 $("hobbyTitle")
-                    .value = "";
+                    .value.trim();
 
+            const description =
                 $("hobbyDescription")
-                    .value = "";
+                    .value.trim();
+
+            const image =
+                $("hobbyImage")
+                    .value.trim();
 
 
-                await loadHobbies();
-
-                await updateDashboardStats();
-
+            if(!title){
 
                 showToast(
-                    "Hobby added."
+                    "Enter a hobby."
                 );
+
+                return;
 
             }
 
-            catch(error) {
 
-                console.error(
-                    error
-                );
+            await push(
+                ref(db,"hobbies"),
+                {
 
-                showToast(
-                    "Could not add hobby."
-                );
+                    title,
 
-            }
+                    description,
+
+                    image,
+
+                    createdAt:
+                        Date.now()
+
+                }
+            );
+
+
+            $("hobbyTitle").value = "";
+
+            $("hobbyDescription").value = "";
+
+            $("hobbyImage").value = "";
+
+
+            showToast(
+                "Hobby added."
+            );
+
+
+            loadHobbies();
+
+            loadDashboard();
 
         }
     );
 
 
-/* =========================================================
-                           SKILLS
-========================================================= */
+function loadHobbies(){
 
-async function loadSkills() {
+    return loadSimple(
+        "hobbies",
+        "hobbyList",
+        [
+            "title",
+            "description",
+            "image"
+        ]
+    );
 
-    await loadSimple(
+}
+
+
+/* ================= SKILLS ================= */
+
+$("saveSkillBtn")
+    .addEventListener(
+        "click",
+        async() => {
+
+            const title =
+                $("skillTitle")
+                    .value.trim();
+
+            const description =
+                $("skillDescription")
+                    .value.trim();
+
+
+            if(!title){
+
+                showToast(
+                    "Enter a skill."
+                );
+
+                return;
+
+            }
+
+
+            await push(
+                ref(db,"skills"),
+                {
+
+                    title,
+
+                    description,
+
+                    createdAt:
+                        Date.now()
+
+                }
+            );
+
+
+            $("skillTitle").value = "";
+
+            $("skillDescription").value = "";
+
+
+            showToast(
+                "Skill added."
+            );
+
+
+            loadSkills();
+
+            loadDashboard();
+
+        }
+    );
+
+
+function loadSkills(){
+
+    return loadSimple(
         "skills",
         "skillList",
         [
@@ -3998,140 +3218,22 @@ async function loadSkills() {
 }
 
 
-$("saveSkillBtn")
+/* ================= DOCUMENTS ================= */
+
+$("uploadDocumentBtn")
     .addEventListener(
         "click",
-        async () => {
+        async() => {
 
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "skills"
-                    ),
-                    {
-
-                        title:
-                            $("skillTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("skillDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
+            const file =
+                $("documentFile")
+                    .files[0];
 
 
-                $("skillTitle")
-                    .value = "";
-
-                $("skillDescription")
-                    .value = "";
-
-
-                await loadSkills();
-
-                await updateDashboardStats();
-
+            if(!file){
 
                 showToast(
-                    "Skill added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add skill."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                        DOCUMENTS
-========================================================= */
-
-let selectedFiles = [];
-
-
-$("folderInput")
-    .addEventListener(
-        "change",
-        event => {
-
-            selectedFiles =
-                Array.from(
-                    event.target.files
-                );
-
-
-            if(
-                selectedFiles.length
-            ) {
-
-                showToast(
-                    selectedFiles.length +
-                    " file(s) selected."
-                );
-
-            }
-
-        }
-    );
-
-
-$("clearFolderBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            selectedFiles = [];
-
-            $("folderInput")
-                .value = "";
-
-            $("progressContainer")
-                .style
-                .display =
-                "none";
-
-            $("progressBar")
-                .style
-                .width =
-                "0%";
-
-            $("progressText")
-                .textContent =
-                "Uploading...";
-
-        }
-    );
-
-
-$("uploadFolderBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            if(
-                !selectedFiles.length
-            ) {
-
-                showToast(
-                    "Please select a folder first."
+                    "Choose a document first."
                 );
 
                 return;
@@ -4139,690 +3241,281 @@ $("uploadFolderBtn")
             }
 
 
-            $("progressContainer")
-                .style
-                .display =
-                "block";
+            const button =
+                $("uploadDocumentBtn");
 
 
-            let completed = 0;
+            button.disabled = true;
+
+            button.textContent =
+                "Uploading...";
 
 
-            for(
-                const file
-                of selectedFiles
-            ) {
+            try{
 
-                try {
-
-                    const path =
-                        file.webkitRelativePath ||
-                        file.name;
+                const safeName =
+                    makeSafeFileName(
+                        file.name
+                    );
 
 
-                    const safePath =
+                const path =
+                    "documents/" +
+                    Date.now() +
+                    "_" +
+                    safeName;
+
+
+                const fileRef =
+                    storageRef(
+                        storage,
                         path
-                            .replace(
-                                /\.\./g,
-                                ""
-                            )
-                            .replace(
-                                /^\/+/,
-                                ""
-                            );
-
-
-                    const fileRef =
-                        storageRef(
-                            storage,
-                            "documents/" +
-                            Date.now() +
-                            "_" +
-                            safePath
-                        );
-
-
-                    const snapshot =
-                        await uploadBytes(
-                            fileRef,
-                            file
-                        );
-
-
-                    const url =
-                        await getDownloadURL(
-                            snapshot.ref
-                        );
-
-
-                    await push(
-                        ref(
-                            db,
-                            "documents"
-                        ),
-                        {
-
-                            name:
-                                file.name,
-
-                            path:
-                                safePath,
-
-                            url:
-                                url,
-
-                            storagePath:
-                                "documents/" +
-                                fileRef.name,
-
-                            size:
-                                file.size,
-
-                            uploadedAt:
-                                Date.now()
-
-                        }
                     );
 
 
-                    completed++;
+                await uploadBytes(
+                    fileRef,
+                    file
+                );
 
 
-                    const percent =
-                        Math.round(
-                            (
-                                completed /
-                                selectedFiles.length
-                            ) *
-                            100
-                        );
+                const url =
+                    await getDownloadURL(
+                        fileRef
+                    );
 
 
-                    $("progressBar")
-                        .style
-                        .width =
-                        percent +
-                        "%";
+                await push(
+                    ref(db,"documents"),
+                    {
+
+                        name:
+                            file.name,
+
+                        url,
+
+                        storagePath:
+                            path,
+
+                        uploadedAt:
+                            Date.now()
+
+                    }
+                );
 
 
-                    $("progressText")
-                        .textContent =
-                        "Uploaded " +
-                        completed +
-                        " of " +
-                        selectedFiles.length;
+                $("documentFile").value =
+                    "";
 
-                }
 
-                catch(error) {
+                showToast(
+                    "Document uploaded."
+                );
 
-                    console.error(
-                        "UPLOAD ERROR:",
+
+                loadDocuments();
+
+            }catch(error){
+
+                console.error(error);
+
+                showToast(
+                    getStorageErrorMessage(
                         error
-                    );
-
-                }
+                    )
+                );
 
             }
 
 
-            await loadDocuments();
+            button.disabled = false;
 
-
-            showToast(
-                "Folder upload completed."
-            );
+            button.textContent =
+                "Upload Document";
 
         }
     );
 
 
-/* =========================================================
-                    LOAD DOCUMENTS
-========================================================= */
-
-async function loadDocuments() {
+async function loadDocuments(){
 
     const list =
         $("documentList");
 
-    list.innerHTML = "";
+    list.innerHTML =
+        "Loading...";
 
 
-    try {
+    try{
 
         const snapshot =
             await get(
-                ref(
-                    db,
-                    "documents"
-                )
+                ref(db,"documents")
             );
 
 
-        if(
-            !snapshot.exists()
-        ) {
+        list.innerHTML = "";
+
+
+        if(!snapshot.exists()){
 
             list.innerHTML =
-                "<div class='item'>No documents uploaded yet.</div>";
+                "<p>No documents yet.</p>";
 
             return;
 
         }
 
 
-        const data =
-            snapshot.val() || {};
+        Object.entries(
+            snapshot.val()
+        )
+        .reverse()
+        .forEach(
+            ([key,item]) => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className =
+                    "item";
 
 
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
+                const link =
+                    document.createElement("a");
 
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
+                link.href =
+                    item.url;
 
-                    div.className =
-                        "item";
+                link.target =
+                    "_blank";
 
-
-                    const name =
-                        document
-                            .createElement(
-                                "strong"
-                            );
-
-                    name.textContent =
-                        item.name ||
-                        "Document";
-
-                    div.appendChild(
-                        name
-                    );
+                link.textContent =
+                    item.name ||
+                    "Open document";
 
 
-                    const path =
-                        document
-                            .createElement(
-                                "p"
-                            );
+                const del =
+                    document.createElement("button");
 
-                    path.textContent =
-                        item.path ||
-                        "";
+                del.className =
+                    "danger-btn";
 
-                    div.appendChild(
-                        path
-                    );
+                del.textContent =
+                    "🗑️ Delete";
 
 
-                    if(item.url) {
-
-                        const link =
-                            document
-                                .createElement(
-                                    "a"
-                                );
-
-                        link.href =
-                            item.url;
-
-                        link.target =
-                            "_blank";
-
-                        link.rel =
-                            "noopener";
-
-                        link.textContent =
-                            "Open document";
-
-                        link.style.display =
-                            "inline-block";
-
-                        link.style.marginTop =
-                            "5px";
-
-                        div.appendChild(
-                            link
-                        );
-
-                    }
+                del.style.marginLeft =
+                    "10px";
 
 
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
+                del.addEventListener(
+                    "click",
+                    async() => {
 
-                    actions.className =
-                        "item-actions";
+                        if(
+                            !confirm(
+                                "Delete this document?"
+                            )
+                        ){
 
+                            return;
 
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
+                        }
 
 
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
+                        try{
 
-                                if(
-                                    !confirm(
-                                        "Delete this document?"
-                                    )
-                                ) return;
+                            if(
+                                item.storagePath
+                            ){
 
+                                try{
 
-                                try {
-
-                                    /* Delete Storage file */
-
-                                    if(
-                                        item.storagePath
-                                    ) {
-
-                                        try {
-
-                                            const fileRef =
-                                                storageRef(
-                                                    storage,
-                                                    item.storagePath
-                                                );
-
-
-                                            await deleteObject(
-                                                fileRef
-                                            );
-
-                                        }
-
-                                        catch(storageError) {
-
-                                            console.warn(
-                                                "Storage file could not be deleted:",
-                                                storageError
-                                            );
-
-                                        }
-
-                                    }
-
-
-                                    /* Delete database entry */
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            "documents/" +
-                                            key
+                                    await deleteObject(
+                                        storageRef(
+                                            storage,
+                                            item.storagePath
                                         )
                                     );
 
+                                }catch(e){
 
-                                    await loadDocuments();
-
-
-                                    showToast(
-                                        "Document deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete document."
-                                    );
+                                    console.warn(e);
 
                                 }
 
                             }
-                        );
 
 
-                    actions.appendChild(
-                        deleteButton
-                    );
+                            await remove(
+                                ref(
+                                    db,
+                                    "documents/" +
+                                    key
+                                )
+                            );
 
 
-                    div.appendChild(
-                        actions
-                    );
+                            showToast(
+                                "Document deleted."
+                            );
 
 
-                    list.appendChild(
-                        div
-                    );
+                            loadDocuments();
 
-                }
-            );
+                        }catch(error){
 
-    }
+                            console.error(error);
 
-    catch(error) {
+                            showToast(
+                                "Could not delete document."
+                            );
 
-        console.error(
-            "DOCUMENT LOAD ERROR:",
-            error
+                        }
+
+                    }
+                );
+
+
+                div.appendChild(link);
+
+                div.appendChild(del);
+
+                list.appendChild(div);
+
+            }
         );
+
+
+    }catch(error){
+
+        console.error(error);
 
         list.innerHTML =
-            "<div class='item'>Unable to load documents.</div>";
+            "<p>Could not load documents.</p>";
 
     }
 
 }
 
 
-/* =========================================================
-                         DIARY
-========================================================= */
-
-async function loadDiary() {
-
-    const list =
-        $("diaryList");
-
-    list.innerHTML = "";
-
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "diary"
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            list.innerHTML =
-                "<div class='item'>No diary entries yet.</div>";
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.val() || {};
-
-
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
-
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    div.className =
-                        "item";
-
-
-                    const title =
-                        document
-                            .createElement(
-                                "strong"
-                            );
-
-                    title.textContent =
-                        item.title ||
-                        "Diary Entry";
-
-                    div.appendChild(
-                        title
-                    );
-
-
-                    const date =
-                        document
-                            .createElement(
-                                "p"
-                            );
-
-                    date.textContent =
-                        "Date: " +
-                        (
-                            item.date ||
-                            ""
-                        );
-
-                    div.appendChild(
-                        date
-                    );
-
-
-                    if(item.happened) {
-
-                        const happened =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        happened.textContent =
-                            "What happened: " +
-                            item.happened;
-
-                        div.appendChild(
-                            happened
-                        );
-
-                    }
-
-
-                    if(item.feelings) {
-
-                        const feelings =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        feelings.textContent =
-                            "How I felt: " +
-                            item.feelings;
-
-                        div.appendChild(
-                            feelings
-                        );
-
-                    }
-
-
-                    if(item.notes) {
-
-                        const notes =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        notes.textContent =
-                            "Notes: " +
-                            item.notes;
-
-                        div.appendChild(
-                            notes
-                        );
-
-                    }
-
-
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    actions.className =
-                        "item-actions";
-
-
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
-
-
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                if(
-                                    !confirm(
-                                        "Delete this diary entry?"
-                                    )
-                                ) return;
-
-
-                                try {
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            "diary/" +
-                                            key
-                                        )
-                                    );
-
-
-                                    await loadDiary();
-
-
-                                    showToast(
-                                        "Diary entry deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete diary entry."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    actions.appendChild(
-                        deleteButton
-                    );
-
-
-                    div.appendChild(
-                        actions
-                    );
-
-
-                    list.appendChild(
-                        div
-                    );
-
-                }
-            );
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "DIARY LOAD ERROR:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-                    SAVE DIARY ENTRY
-========================================================= */
+/* ================= DIARY ================= */
 
 $("saveDiaryBtn")
     .addEventListener(
         "click",
-        async () => {
+        async() => {
 
-            const date =
-                $("diaryDate")
-                    .value;
-
-            const title =
-                $("diaryTitle")
-                    .value
-                    .trim();
-
-            const happened =
-                $("diaryHappened")
-                    .value
-                    .trim();
-
-            const feelings =
-                $("diaryFeelings")
-                    .value
-                    .trim();
-
-            const notes =
-                $("diaryNotes")
-                    .value
-                    .trim();
+            const text =
+                $("diaryText")
+                    .value.trim();
 
 
-            if(
-                !date ||
-                !title
-            ) {
+            if(!text){
 
                 showToast(
-                    "Please enter the date and title."
+                    "Write something first."
                 );
 
                 return;
@@ -4830,29 +3523,13 @@ $("saveDiaryBtn")
             }
 
 
-            try {
+            try{
 
                 await push(
-                    ref(
-                        db,
-                        "diary"
-                    ),
+                    ref(db,"diary"),
                     {
 
-                        date:
-                            date,
-
-                        title:
-                            title,
-
-                        happened:
-                            happened,
-
-                        feelings:
-                            feelings,
-
-                        notes:
-                            notes,
+                        text,
 
                         createdAt:
                             Date.now()
@@ -4861,37 +3538,19 @@ $("saveDiaryBtn")
                 );
 
 
-                $("diaryDate")
-                    .value = "";
-
-                $("diaryTitle")
-                    .value = "";
-
-                $("diaryHappened")
-                    .value = "";
-
-                $("diaryFeelings")
-                    .value = "";
-
-                $("diaryNotes")
-                    .value = "";
-
-
-                await loadDiary();
+                $("diaryText").value = "";
 
 
                 showToast(
                     "Diary entry saved."
                 );
 
-            }
 
-            catch(error) {
+                loadDiary();
 
-                console.error(
-                    "DIARY SAVE ERROR:",
-                    error
-                );
+            }catch(error){
+
+                console.error(error);
 
                 showToast(
                     "Could not save diary entry."
@@ -4903,36 +3562,142 @@ $("saveDiaryBtn")
     );
 
 
-/* =========================================================
-                     LOAD EVERYTHING
-========================================================= */
+async function loadDiary(){
 
-async function loadEverything() {
+    const list =
+        $("diaryList");
 
-    await loadHome();
+    list.innerHTML =
+        "Loading...";
 
-    await loadGallery();
 
-    await loadAchievements();
+    try{
 
-    await loadProjects();
+        const snapshot =
+            await get(
+                ref(db,"diary")
+            );
 
-    await loadHobbies();
 
-    await loadSkills();
+        list.innerHTML = "";
 
-    await loadDocuments();
 
-    await loadDiary();
+        if(!snapshot.exists()){
 
-    await updateDashboardStats();
+            list.innerHTML =
+                "<p>No diary entries yet.</p>";
+
+            return;
+
+        }
+
+
+        Object.entries(
+            snapshot.val()
+        )
+        .reverse()
+        .forEach(
+            ([key,item]) => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className =
+                    "item";
+
+
+                const p =
+                    document.createElement("p");
+
+                p.textContent =
+                    item.text || "";
+
+
+                const date =
+                    document.createElement("small");
+
+                date.textContent =
+                    item.createdAt
+                    ? new Date(
+                        item.createdAt
+                    ).toLocaleString()
+                    : "";
+
+
+                const del =
+                    document.createElement("button");
+
+                del.className =
+                    "danger-btn";
+
+                del.textContent =
+                    "🗑️ Delete";
+
+
+                del.style.marginTop =
+                    "10px";
+
+
+                del.addEventListener(
+                    "click",
+                    async() => {
+
+                        if(
+                            !confirm(
+                                "Delete this diary entry?"
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        await remove(
+                            ref(
+                                db,
+                                "diary/" + key
+                            )
+                        );
+
+
+                        showToast(
+                            "Diary entry deleted."
+                        );
+
+
+                        loadDiary();
+
+                    }
+                );
+
+
+                div.appendChild(p);
+
+                div.appendChild(date);
+
+                div.appendChild(
+                    document.createElement("br")
+                );
+
+                div.appendChild(del);
+
+                list.appendChild(div);
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        list.innerHTML =
+            "<p>Could not load diary.</p>";
+
+    }
 
 }
-
-
-/* =========================================================
-                         END
-========================================================= */
 
 </script>
 
