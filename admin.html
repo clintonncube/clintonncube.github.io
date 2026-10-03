@@ -2738,11 +2738,6 @@ function formatFileSize(bytes){
 }
 
 
-/* ================= LOGIN ================= */
-
-$("loginForm").addEventListener(
-    "submit",
-    async event => {
 /* ================= PASSWORD VISIBILITY ================= */
 
 $("passwordToggle").addEventListener("click", () => {
@@ -2775,6 +2770,14 @@ $("passwordToggle").addEventListener("click", () => {
     }
 
 });
+
+
+/* ================= LOGIN ================= */
+
+$("loginForm").addEventListener(
+    "submit",
+    async event => {
+
         event.preventDefault();
 
         const email =
@@ -2785,6 +2788,8 @@ $("passwordToggle").addEventListener("click", () => {
 
         $("loginError").textContent =
             "";
+
+        $("loginError").classList.remove("show");
 
         $("loginButton").disabled =
             true;
@@ -2807,6 +2812,8 @@ $("passwordToggle").addEventListener("click", () => {
             $("loginError").textContent =
                 "Login failed. Check your email and password.";
 
+            $("loginError").classList.add("show");
+
         }finally{
 
             $("loginButton").disabled =
@@ -2821,6 +2828,7 @@ $("passwordToggle").addEventListener("click", () => {
 );
 
 
+/* ================= AUTH ================= */
 /* ================= AUTH ================= */
 
 onAuthStateChanged(
@@ -2856,14 +2864,30 @@ onAuthStateChanged(
 
 /* ================= LOGOUT ================= */
 
-$("logoutSide").addEventListener(
-    "click",
-    async () => {
+$("logoutSide").addEventListener("click", async () => {
 
-        if(!confirm("Logout?"))
-            return;
+    if(!confirm("Are you sure you want to logout?")) return;
 
-        await signOut(auth);
+    // Clear email and password
+    $("loginEmail").value = "";
+    $("loginPassword").value = "";
+
+    // Clear login error
+    $("loginError").textContent = "";
+    $("loginError").classList.remove("show");
+
+    // Reset password visibility
+    $("loginPassword").type = "password";
+    $("passwordToggle").textContent = "👁️";
+    $("passwordToggle").setAttribute(
+        "aria-label",
+        "Show password"
+    );
+
+    // Sign out of Firebase
+    await signOut(auth);
+
+});
 
     }
 );
