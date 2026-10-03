@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,34 +27,66 @@ button{
     cursor:pointer;
 }
 
-/* LOGIN */
+/* ================= ADMIN LOCKSCREEN ================= */
+
 #loginScreen{
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(135deg,#111827,#2563eb);
     padding:20px;
+    background:
+        radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#1e40af 0%,transparent 35%),
+        linear-gradient(135deg,#020617,#111827);
 }
 
 .login-box{
     width:100%;
-    max-width:420px;
-    background:white;
-    padding:35px;
-    border-radius:18px;
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    max-width:430px;
+    background:rgba(255,255,255,.98);
+    padding:38px;
+    border-radius:22px;
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    animation:loginAppear .35s ease;
+}
+
+@keyframes loginAppear{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.login-icon{
+    width:72px;
+    height:72px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    box-shadow:0 10px 25px rgba(37,99,235,.3);
 }
 
 .login-box h1{
     text-align:center;
-    margin-bottom:8px;
+    margin-bottom:7px;
+    color:#111827;
+    font-size:28px;
 }
 
-.login-box p{
+.login-subtitle{
     text-align:center;
-    color:#666;
-    margin-bottom:25px;
+    color:#6b7280;
+    margin-bottom:28px;
 }
 
 .form-group{
@@ -64,16 +97,19 @@ button{
     display:block;
     margin-bottom:7px;
     font-weight:bold;
+    color:#374151;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select{
     width:100%;
-    padding:12px;
+    padding:13px 14px;
     border:1px solid #d1d5db;
-    border-radius:8px;
+    border-radius:10px;
     outline:none;
+    background:white;
+    transition:.2s;
 }
 
 .form-group textarea{
@@ -85,6 +121,7 @@ button{
 .form-group textarea:focus,
 .form-group select:focus{
     border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.12);
 }
 
 .password-box{
@@ -92,40 +129,68 @@ button{
 }
 
 .password-box input{
-    padding-right:50px;
+    padding-right:52px;
 }
 
 .password-toggle{
     position:absolute;
-    right:10px;
+    right:8px;
     top:50%;
     transform:translateY(-50%);
+    width:38px;
+    height:38px;
     border:none;
-    background:none;
+    background:transparent;
+    border-radius:8px;
     font-size:18px;
+}
+
+.password-toggle:hover{
+    background:#f3f4f6;
 }
 
 #loginButton{
     width:100%;
-    padding:13px;
+    padding:14px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     background:#2563eb;
     color:white;
     font-weight:bold;
+    font-size:16px;
+    transition:.2s;
 }
 
 #loginButton:hover{
     background:#1d4ed8;
 }
 
-#loginError{
-    margin-top:15px;
-    color:#dc2626;
-    text-align:center;
+#loginButton:disabled{
+    opacity:.65;
+    cursor:not-allowed;
 }
 
-/* DASHBOARD */
+#loginError{
+    display:none;
+    margin-top:16px;
+    padding:11px 13px;
+    border-radius:9px;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#b91c1c;
+    text-align:center;
+    font-size:14px;
+}
+
+.login-footer{
+    margin-top:22px;
+    text-align:center;
+    color:#9ca3af;
+    font-size:12px;
+}
+
+/* ================= DASHBOARD ================= */
+
 #dashboard{
     display:none;
     min-height:100vh;
@@ -255,7 +320,8 @@ button{
     font-weight:bold;
 }
 
-/* FORMS */
+/* ================= FORMS ================= */
+
 .panel{
     background:white;
     padding:22px;
@@ -304,7 +370,8 @@ button{
     border-radius:6px;
 }
 
-/* LISTS */
+/* ================= LISTS ================= */
+
 .items-list{
     display:grid;
     gap:14px;
@@ -342,7 +409,8 @@ button{
     margin-bottom:10px;
 }
 
-/* GALLERY UPLOAD */
+/* ================= GALLERY UPLOAD ================= */
+
 .upload-area{
     border:2px dashed #cbd5e1;
     border-radius:12px;
@@ -420,7 +488,8 @@ button{
     margin-top:18px;
 }
 
-/* DOCUMENTS */
+/* ================= DOCUMENTS ================= */
+
 .progress{
     width:100%;
     height:12px;
@@ -435,7 +504,8 @@ button{
     background:#2563eb;
 }
 
-/* TOAST */
+/* ================= TOAST ================= */
+
 #toast{
     position:fixed;
     right:20px;
@@ -449,7 +519,8 @@ button{
     box-shadow:0 5px 20px rgba(0,0,0,.2);
 }
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
+
 @media(max-width:800px){
 
     .sidebar{
@@ -481,58 +552,94 @@ button{
     .content{
         padding:15px;
     }
+
+    .login-box{
+        padding:30px 22px;
+    }
+
+    .top-actions{
+        gap:5px;
+    }
+
+    .top-actions button{
+        padding:8px 9px;
+        font-size:13px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- ================= ADMIN LOCKSCREEN ================= -->
 
 <div id="loginScreen">
 
     <div class="login-box">
 
-        <h1>Admin Login</h1>
+        <div class="login-icon">
+            🔐
+        </div>
 
-        <p>Clinton Ncube Website</p>
+        <h1>Admin Lock Screen</h1>
+
+        <p class="login-subtitle">
+            Clinton Ncube Website
+        </p>
 
         <div class="form-group">
-            <label>Email</label>
+
+            <label for="loginEmail">
+                Admin Email
+            </label>
+
             <input
                 type="email"
                 id="loginEmail"
-                placeholder="Enter admin email"
+                placeholder="Enter your admin email"
+                autocomplete="username"
             >
+
         </div>
 
         <div class="form-group">
 
-            <label>Password</label>
+            <label for="loginPassword">
+                Password
+            </label>
 
             <div class="password-box">
 
                 <input
                     type="password"
                     id="loginPassword"
-                    placeholder="Enter password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
                 >
 
                 <button
                     type="button"
                     class="password-toggle"
                     id="passwordToggle"
-                >👁</button>
+                    aria-label="Show password"
+                >👁️</button>
 
             </div>
 
         </div>
 
-        <button id="loginButton">
-            Login
+        <button
+            type="button"
+            id="loginButton"
+        >
+            🔓 Unlock Dashboard
         </button>
 
         <div id="loginError"></div>
+
+        <div class="login-footer">
+            🔒 Secure access • Clinton Ncube Admin
+        </div>
 
     </div>
 
@@ -542,8 +649,6 @@ button{
 <!-- ================= DASHBOARD ================= -->
 
 <div id="dashboard">
-
-    <!-- SIDEBAR -->
 
     <aside class="sidebar" id="sidebar">
 
@@ -587,8 +692,6 @@ button{
 
     </aside>
 
-
-    <!-- MAIN -->
 
     <main class="main">
 
@@ -645,42 +748,27 @@ button{
 
                     <div class="card">
                         <h3>Gallery</h3>
-                        <div
-                            class="number"
-                            id="galleryCount"
-                        >0</div>
+                        <div class="number" id="galleryCount">0</div>
                     </div>
 
                     <div class="card">
                         <h3>Achievements</h3>
-                        <div
-                            class="number"
-                            id="achievementCount"
-                        >0</div>
+                        <div class="number" id="achievementCount">0</div>
                     </div>
 
                     <div class="card">
                         <h3>Projects</h3>
-                        <div
-                            class="number"
-                            id="projectCount"
-                        >0</div>
+                        <div class="number" id="projectCount">0</div>
                     </div>
 
                     <div class="card">
                         <h3>Hobbies</h3>
-                        <div
-                            class="number"
-                            id="hobbyCount"
-                        >0</div>
+                        <div class="number" id="hobbyCount">0</div>
                     </div>
 
                     <div class="card">
                         <h3>Skills</h3>
-                        <div
-                            class="number"
-                            id="skillCount"
-                        >0</div>
+                        <div class="number" id="skillCount">0</div>
                     </div>
 
                 </div>
@@ -701,10 +789,7 @@ button{
 
             <!-- ================= HOME ================= -->
 
-            <section
-                class="page"
-                id="homePage"
-            >
+            <section class="page" id="homePage">
 
                 <h1 class="page-title">
                     Home Manager
@@ -714,37 +799,25 @@ button{
 
                     <div class="form-group">
                         <label>Name</label>
-                        <input
-                            id="homeName"
-                            type="text"
-                        >
+                        <input id="homeName" type="text">
                     </div>
 
                     <div class="form-group">
                         <label>Welcome Text</label>
-                        <textarea
-                            id="homeWelcome"
-                        ></textarea>
+                        <textarea id="homeWelcome"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Goal</label>
-                        <textarea
-                            id="homeGoal"
-                        ></textarea>
+                        <textarea id="homeGoal"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>About</label>
-                        <textarea
-                            id="homeAbout"
-                        ></textarea>
+                        <textarea id="homeAbout"></textarea>
                     </div>
 
-                    <button
-                        class="primary-btn"
-                        id="saveHomeBtn"
-                    >
+                    <button class="primary-btn" id="saveHomeBtn">
                         Save Home
                     </button>
 
@@ -755,17 +828,11 @@ button{
 
             <!-- ================= GALLERY ================= -->
 
-            <section
-                class="page"
-                id="galleryPage"
-            >
+            <section class="page" id="galleryPage">
 
                 <h1 class="page-title">
                     Gallery Manager
                 </h1>
-
-
-                <!-- NEW FILE UPLOAD -->
 
                 <div class="panel">
 
@@ -804,7 +871,6 @@ button{
 
                     </div>
 
-
                     <div class="form-group">
 
                         <label>
@@ -819,7 +885,6 @@ button{
 
                     </div>
 
-
                     <div class="form-group">
 
                         <label>
@@ -832,9 +897,6 @@ button{
                         ></textarea>
 
                     </div>
-
-
-                    <!-- REAL PROGRESS -->
 
                     <div
                         class="progress-container"
@@ -871,7 +933,6 @@ button{
 
                     </div>
 
-
                     <div class="upload-buttons">
 
                         <button
@@ -892,8 +953,6 @@ button{
 
                 </div>
 
-
-                <!-- OPTIONAL URL ADD -->
 
                 <div class="panel">
 
@@ -968,10 +1027,7 @@ button{
 
             <!-- ================= ACHIEVEMENTS ================= -->
 
-            <section
-                class="page"
-                id="achievementsPage"
-            >
+            <section class="page" id="achievementsPage">
 
                 <h1 class="page-title">
                     Achievements Manager
@@ -981,25 +1037,17 @@ button{
 
                     <div class="form-group">
                         <label>Title</label>
-                        <input
-                            id="achievementTitle"
-                            type="text"
-                        >
+                        <input id="achievementTitle" type="text">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea
-                            id="achievementDescription"
-                        ></textarea>
+                        <textarea id="achievementDescription"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Image URL</label>
-                        <input
-                            id="achievementImage"
-                            type="text"
-                        >
+                        <input id="achievementImage" type="text">
                     </div>
 
                     <button
@@ -1025,10 +1073,7 @@ button{
 
             <!-- ================= PROJECTS ================= -->
 
-            <section
-                class="page"
-                id="projectsPage"
-            >
+            <section class="page" id="projectsPage">
 
                 <h1 class="page-title">
                     Projects Manager
@@ -1038,25 +1083,17 @@ button{
 
                     <div class="form-group">
                         <label>Title</label>
-                        <input
-                            id="projectTitle"
-                            type="text"
-                        >
+                        <input id="projectTitle" type="text">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea
-                            id="projectDescription"
-                        ></textarea>
+                        <textarea id="projectDescription"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Image URL</label>
-                        <input
-                            id="projectImage"
-                            type="text"
-                        >
+                        <input id="projectImage" type="text">
                     </div>
 
                     <button
@@ -1082,10 +1119,7 @@ button{
 
             <!-- ================= HOBBIES ================= -->
 
-            <section
-                class="page"
-                id="hobbiesPage"
-            >
+            <section class="page" id="hobbiesPage">
 
                 <h1 class="page-title">
                     Hobbies Manager
@@ -1095,25 +1129,17 @@ button{
 
                     <div class="form-group">
                         <label>Hobby</label>
-                        <input
-                            id="hobbyTitle"
-                            type="text"
-                        >
+                        <input id="hobbyTitle" type="text">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea
-                            id="hobbyDescription"
-                        ></textarea>
+                        <textarea id="hobbyDescription"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Image URL</label>
-                        <input
-                            id="hobbyImage"
-                            type="text"
-                        >
+                        <input id="hobbyImage" type="text">
                     </div>
 
                     <button
@@ -1139,10 +1165,7 @@ button{
 
             <!-- ================= SKILLS ================= -->
 
-            <section
-                class="page"
-                id="skillsPage"
-            >
+            <section class="page" id="skillsPage">
 
                 <h1 class="page-title">
                     Skills Manager
@@ -1152,17 +1175,12 @@ button{
 
                     <div class="form-group">
                         <label>Skill</label>
-                        <input
-                            id="skillTitle"
-                            type="text"
-                        >
+                        <input id="skillTitle" type="text">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea
-                            id="skillDescription"
-                        ></textarea>
+                        <textarea id="skillDescription"></textarea>
                     </div>
 
                     <button
@@ -1188,10 +1206,7 @@ button{
 
             <!-- ================= DOCUMENTS ================= -->
 
-            <section
-                class="page"
-                id="documentsPage"
-            >
+            <section class="page" id="documentsPage">
 
                 <h1 class="page-title">
                     Documents Manager
@@ -1243,10 +1258,7 @@ button{
 
             <!-- ================= DIARY ================= -->
 
-            <section
-                class="page"
-                id="diaryPage"
-            >
+            <section class="page" id="diaryPage">
 
                 <h1 class="page-title">
                     Private Diary
@@ -1395,53 +1407,114 @@ function showToast(message){
 }
 
 
-/* ================= LOGIN ================= */
+/* ================= ADMIN LOCKSCREEN ================= */
 
-$("passwordToggle").addEventListener("click",() => {
+const loginScreen = $("loginScreen");
 
-    const password = $("loginPassword");
+const loginEmail = $("loginEmail");
 
-    if(password.type === "password"){
+const loginPassword = $("loginPassword");
 
-        password.type = "text";
+const loginButton = $("loginButton");
 
-        $("passwordToggle").textContent = "🙈";
+const loginError = $("loginError");
+
+const passwordToggle = $("passwordToggle");
+
+
+function showLoginError(message){
+
+    loginError.textContent = message;
+
+    loginError.style.display = "block";
+
+}
+
+
+function clearLoginError(){
+
+    loginError.textContent = "";
+
+    loginError.style.display = "none";
+
+}
+
+
+/* SHOW / HIDE PASSWORD */
+
+passwordToggle.addEventListener("click",() => {
+
+    if(loginPassword.type === "password"){
+
+        loginPassword.type = "text";
+
+        passwordToggle.textContent = "🙈";
+
+        passwordToggle.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
 
     }else{
 
-        password.type = "password";
+        loginPassword.type = "password";
 
-        $("passwordToggle").textContent = "👁";
+        passwordToggle.textContent = "👁️";
+
+        passwordToggle.setAttribute(
+            "aria-label",
+            "Show password"
+        );
 
     }
 
 });
 
 
-$("loginButton").addEventListener("click",async() => {
+/* LOGIN */
+
+async function performLogin(){
 
     const email =
-        $("loginEmail").value.trim();
+        loginEmail.value.trim();
 
     const password =
-        $("loginPassword").value;
+        loginPassword.value;
 
-    $("loginError").textContent = "";
+    clearLoginError();
 
-    if(!email || !password){
 
-        $("loginError").textContent =
-            "Please enter your email and password.";
+    if(!email){
+
+        showLoginError(
+            "Please enter your admin email."
+        );
+
+        loginEmail.focus();
 
         return;
 
     }
 
-    const button = $("loginButton");
 
-    button.disabled = true;
+    if(!password){
 
-    button.textContent = "Logging in...";
+        showLoginError(
+            "Please enter your password."
+        );
+
+        loginPassword.focus();
+
+        return;
+
+    }
+
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+        "🔄 Unlocking...";
+
 
     try{
 
@@ -1453,62 +1526,226 @@ $("loginButton").addEventListener("click",async() => {
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Firebase login error:",
+            error
+        );
 
-        $("loginError").textContent =
-            error.message;
 
-        button.disabled = false;
+        let message =
+            "Login failed. Please check your email and password.";
 
-        button.textContent = "Login";
+
+        switch(error.code){
+
+            case "auth/invalid-credential":
+
+                message =
+                    "Incorrect email or password.";
+
+                break;
+
+
+            case "auth/invalid-email":
+
+                message =
+                    "Please enter a valid email address.";
+
+                break;
+
+
+            case "auth/user-disabled":
+
+                message =
+                    "This admin account has been disabled.";
+
+                break;
+
+
+            case "auth/too-many-requests":
+
+                message =
+                    "Too many unsuccessful attempts. Please wait and try again.";
+
+                break;
+
+
+            case "auth/network-request-failed":
+
+                message =
+                    "Network connection failed. Check your internet connection.";
+
+                break;
+
+
+            case "auth/user-not-found":
+
+                message =
+                    "No admin account was found with that email.";
+
+                break;
+
+
+            case "auth/wrong-password":
+
+                message =
+                    "Incorrect password.";
+
+                break;
+
+
+            default:
+
+                console.error(
+                    "Firebase error code:",
+                    error.code
+                );
+
+        }
+
+
+        showLoginError(message);
+
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+            "🔓 Unlock Dashboard";
 
     }
 
-});
+}
 
 
-onAuthStateChanged(auth,user => {
+loginButton.addEventListener(
+    "click",
+    performLogin
+);
 
-    if(user){
 
-        $("loginScreen").style.display = "none";
+/* ENTER KEY LOGIN */
 
-        $("dashboard").style.display = "block";
+loginEmail.addEventListener(
+    "keydown",
+    event => {
 
-        loadDashboard();
+        if(event.key === "Enter"){
 
-        loadHome();
+            performLogin();
 
-        loadGallery();
-
-        loadAchievements();
-
-        loadProjects();
-
-        loadHobbies();
-
-        loadSkills();
-
-        loadDocuments();
-
-        loadDiary();
-
-    }else{
-
-        $("loginScreen").style.display = "flex";
-
-        $("dashboard").style.display = "none";
+        }
 
     }
+);
 
-});
+
+loginPassword.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+
+            performLogin();
+
+        }
+
+    }
+);
 
 
-$("logoutButton").addEventListener("click",async() => {
+/* ================= AUTH STATE ================= */
 
-    await signOut(auth);
+onAuthStateChanged(
+    auth,
+    user => {
 
-});
+        if(user){
+
+            loginScreen.style.display =
+                "none";
+
+            $("dashboard").style.display =
+                "block";
+
+
+            loginButton.disabled =
+                false;
+
+            loginButton.textContent =
+                "🔓 Unlock Dashboard";
+
+            clearLoginError();
+
+
+            loadDashboard();
+
+            loadHome();
+
+            loadGallery();
+
+            loadAchievements();
+
+            loadProjects();
+
+            loadHobbies();
+
+            loadSkills();
+
+            loadDocuments();
+
+            loadDiary();
+
+        }else{
+
+            $("dashboard").style.display =
+                "none";
+
+            loginScreen.style.display =
+                "flex";
+
+        }
+
+    }
+);
+
+
+/* ================= LOGOUT ================= */
+
+$("logoutButton").addEventListener(
+    "click",
+    async() => {
+
+        try{
+
+            await signOut(auth);
+
+            loginEmail.value = "";
+
+            loginPassword.value = "";
+
+            clearLoginError();
+
+            loginPassword.type =
+                "password";
+
+            passwordToggle.textContent =
+                "👁️";
+
+        }catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            showToast(
+                "Could not log out."
+            );
+
+        }
+
+    }
+);
 
 
 /* ================= WEBSITE ================= */
@@ -1692,12 +1929,10 @@ $("saveHomeBtn").addEventListener("click",async() => {
 });
 
 
-/* ============================================================
-   GALLERY - REAL RESUMABLE UPLOAD
-   ============================================================ */
+/* ================= GALLERY ================= */
 
 
-/* SELECTED FILE PREVIEW */
+/* FILE PREVIEW */
 
 $("galleryFile").addEventListener("change",event => {
 
@@ -1831,7 +2066,7 @@ function makeSafeFileName(fileName){
 }
 
 
-/* REAL FIREBASE UPLOAD */
+/* REAL RESUMABLE FIREBASE UPLOAD */
 
 $("uploadGalleryBtn")
     .addEventListener(
@@ -1889,18 +2124,14 @@ $("uploadGalleryBtn")
             const progressContainer =
                 $("galleryProgressContainer");
 
-
             const progressBar =
                 $("galleryProgressBar");
-
 
             const progressPercent =
                 $("galleryProgressPercent");
 
-
             const progressText =
                 $("galleryProgressText");
-
 
             const status =
                 $("galleryUploadStatus");
@@ -1909,18 +2140,14 @@ $("uploadGalleryBtn")
             progressContainer.style.display =
                 "block";
 
-
             progressBar.style.width =
                 "0%";
-
 
             progressPercent.textContent =
                 "0%";
 
-
             progressText.textContent =
                 "Uploading photo...";
-
 
             status.textContent =
                 "Starting upload...";
@@ -1953,12 +2180,6 @@ $("uploadGalleryBtn")
                     );
 
 
-                /*
-                 * IMPORTANT:
-                 * uploadBytesResumable gives us
-                 * the REAL Firebase upload progress.
-                 */
-
                 const uploadTask =
                     uploadBytesResumable(
                         fileRef,
@@ -1990,7 +2211,6 @@ $("uploadGalleryBtn")
 
                         progressBar.style.width =
                             percentage + "%";
-
 
                         progressPercent.textContent =
                             percentage + "%";
@@ -2253,7 +2473,7 @@ function getStorageErrorMessage(error){
 }
 
 
-/* URL GALLERY ADD */
+/* ================= GALLERY URL ADD ================= */
 
 $("saveGalleryBtn")
     .addEventListener(
@@ -2336,7 +2556,7 @@ $("saveGalleryBtn")
     );
 
 
-/* LOAD GALLERY */
+/* ================= LOAD GALLERY ================= */
 
 async function loadGallery(){
 
@@ -2395,8 +2615,10 @@ async function loadGallery(){
 
                     image.onerror =
                         () => {
+
                             image.style.display =
                                 "none";
+
                         };
 
 
@@ -2526,12 +2748,6 @@ async function loadGallery(){
 
                             try{
 
-                                /*
-                                 * Delete the Storage
-                                 * file too if we have
-                                 * its storagePath.
-                                 */
-
                                 if(
                                     item.storagePath
                                 ){
@@ -2592,7 +2808,6 @@ async function loadGallery(){
 
                     actions.appendChild(del);
 
-
                     div.appendChild(image);
 
                     div.appendChild(title);
@@ -2600,7 +2815,6 @@ async function loadGallery(){
                     div.appendChild(description);
 
                     div.appendChild(actions);
-
 
                     list.appendChild(div);
 
@@ -2752,8 +2966,7 @@ async function loadSimple(
 
                                 const result =
                                     prompt(
-                                        field +
-                                        ":",
+                                        field + ":",
                                         current
                                     );
 
@@ -3703,3 +3916,4 @@ async function loadDiary(){
 
 </body>
 </html>
+```
