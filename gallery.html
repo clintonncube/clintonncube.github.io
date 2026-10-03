@@ -23,6 +23,164 @@
             line-height: 1.6;
         }
 
+        /* ================================
+           QUIZ GATE
+        ================================= */
+
+        .quiz-gate {
+            max-width: 750px;
+            margin: 0 auto 45px;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .quiz-header h2 {
+            margin-bottom: 8px;
+        }
+
+        .quiz-header p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .quiz-progress {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #5c0d24;
+        }
+
+        .question-box {
+            background: #f7f7f7;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .question-box h3 {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .answers {
+            display: grid;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .answer-button {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 15px;
+            transition: 0.25s ease;
+        }
+
+        .answer-button:hover {
+            border-color: #8b1638;
+            background: #faf4f6;
+        }
+
+        .answer-button.selected {
+            border-color: #5c0d24;
+            background: #f3e5ea;
+        }
+
+        .answer-button.correct {
+            background: #dff3e4;
+            border-color: #238636;
+        }
+
+        .answer-button.wrong {
+            background: #f8dddd;
+            border-color: #c62828;
+        }
+
+        .quiz-next {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 9px;
+            background: #5c0d24;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .quiz-next:hover {
+            background: #8b1638;
+        }
+
+        .quiz-next:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .quiz-score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .quiz-success {
+            color: #238636;
+        }
+
+        .quiz-failed {
+            color: #c62828;
+        }
+
+        .retry-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 9px;
+            background: #5c0d24;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .retry-button:hover {
+            background: #8b1638;
+        }
+
+        .gallery-locked {
+            text-align: center;
+            padding: 35px 20px;
+            background: #f4f4f4;
+            border-radius: 15px;
+            color: #555;
+        }
+
+        .gallery-locked .lock-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        /* ================================
+           GALLERY
+        ================================= */
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -195,6 +353,7 @@
         }
 
         @media (max-width: 600px) {
+
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
@@ -210,6 +369,10 @@
             .modal-image {
                 max-width: 100%;
             }
+
+            .quiz-gate {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -217,7 +380,9 @@
 <body>
 
     <!-- NAVIGATION -->
+
     <nav>
+
         <div class="logo">
             Clinton Ncube
         </div>
@@ -230,55 +395,151 @@
         </button>
 
         <ul class="nav-menu" id="navMenu">
+
             <li><a href="index.html">Home</a></li>
+
             <li><a href="about.html">About</a></li>
+
             <li><a href="projects.html">Projects</a></li>
+
             <li><a href="achievements.html">Achievements</a></li>
+
             <li><a href="skills.html">Skills</a></li>
+
             <li><a href="hobbies.html">Hobbies</a></li>
+
             <li><a href="gallery.html">Gallery</a></li>
+
             <li><a href="contact.html">Contact</a></li>
+
         </ul>
+
     </nav>
 
 
     <!-- PAGE HEADER -->
+
     <header class="page-header">
+
         <div class="container">
+
             <h1>My Gallery</h1>
 
             <p>
-                A collection of pictures and memories from my personal gallery.
+                Think you know Clinton Ncube?
+                Prove it before entering my gallery!
             </p>
+
         </div>
+
     </header>
 
 
-    <!-- GALLERY -->
+    <!-- QUIZ -->
+
     <section>
+
         <div class="container">
 
-            <div class="gallery-intro">
+            <div class="quiz-gate" id="quizGate">
 
-                <h2>My Pictures</h2>
+                <div class="quiz-header">
 
-                <p>
-                    Here you can see pictures from my personal gallery,
-                    activities and memorable moments.
-                </p>
+                    <h2>🧠 How Well Do You Know Me?</h2>
+
+                    <p>
+                        Answer 10 randomly selected questions about me.
+                        Get at least <strong>5 out of 10</strong> to unlock my gallery.
+                    </p>
+
+                </div>
+
+
+                <div id="quizArea">
+
+                    <div class="quiz-progress" id="quizProgress">
+                        Question 1 of 10
+                    </div>
+
+                    <div class="question-box">
+
+                        <h3 id="questionText">
+                            Loading question...
+                        </h3>
+
+                        <div
+                            class="answers"
+                            id="answers">
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="nextButton"
+                        class="quiz-next"
+                        disabled>
+
+                        Next Question
+
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <div id="galleryContainer" class="gallery-grid">
+            <!-- GALLERY -->
 
-                <div class="loading">
-                    Loading gallery...
+            <div id="gallerySection">
+
+                <div class="gallery-intro">
+
+                    <h2>My Pictures</h2>
+
+                    <p>
+                        Here you can see pictures from my personal gallery,
+                        activities and memorable moments.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="galleryLocked"
+                    class="gallery-locked">
+
+                    <div class="lock-icon">
+                        🔒
+                    </div>
+
+                    <h3>
+                        Gallery Locked
+                    </h3>
+
+                    <p>
+                        Complete the quiz and score at least
+                        <strong>5 out of 10</strong> to enter.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="galleryContainer"
+                    class="gallery-grid"
+                    style="display:none;">
+
+                    <div class="loading">
+                        Loading gallery...
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
@@ -292,8 +553,11 @@
         <span
             class="close-modal"
             onclick="closeImageModal(event)">
+
             &times;
+
         </span>
+
 
         <img
             id="modalImage"
@@ -301,13 +565,13 @@
             src=""
             alt="Full gallery image">
 
+
         <a
             id="modalDownload"
             class="modal-download"
             href="#"
             download>
 
-            <i class="fa-solid fa-download"></i>
             Download Image
 
         </a>
@@ -316,6 +580,7 @@
 
 
     <!-- FOOTER -->
+
     <footer>
 
         <div class="container">
@@ -330,6 +595,7 @@
 
 
     <!-- MOBILE MENU -->
+
     <script>
 
         function toggleMenu() {
@@ -344,12 +610,690 @@
     </script>
 
 
+    <!-- QUIZ SYSTEM -->
+
+    <script>
+
+        /*
+        =====================================================
+        HOW WELL DO YOU KNOW CLINTON?
+        =====================================================
+        */
+
+        const questionBank = [
+
+            {
+                question: "What is my name?",
+                answers: [
+                    "Clinton Ncube",
+                    "Clinton Smith",
+                    "Brian Ncube",
+                    "Thabang Smith"
+                ],
+                correct: "Clinton Ncube"
+            },
+
+            {
+                question: "What sport do I enjoy?",
+                answers: [
+                    "Basketball",
+                    "Golf",
+                    "Rugby",
+                    "Boxing"
+                ],
+                correct: "Basketball"
+            },
+
+            {
+                question: "Which of these is one of my hobbies?",
+                answers: [
+                    "Swimming",
+                    "Fishing",
+                    "Cooking",
+                    "Cycling"
+                ],
+                correct: "Swimming"
+            },
+
+            {
+                question: "Which activity do I enjoy?",
+                answers: [
+                    "Reading",
+                    "Sewing",
+                    "Painting houses",
+                    "Fishing"
+                ],
+                correct: "Reading"
+            },
+
+            {
+                question: "Which sport is listed among my hobbies?",
+                answers: [
+                    "Athletics",
+                    "Cricket",
+                    "Tennis",
+                    "Volleyball"
+                ],
+                correct: "Athletics"
+            },
+
+            {
+                question: "What is one of my goals?",
+                answers: [
+                    "Learning and improving my skills",
+                    "Avoiding new skills",
+                    "Stopping all projects",
+                    "Avoiding technology"
+                ],
+                correct: "Learning and improving my skills"
+            },
+
+            {
+                question: "What type of projects do I enjoy creating?",
+                answers: [
+                    "Useful and interesting projects",
+                    "Only cooking projects",
+                    "Only sports projects",
+                    "Only music projects"
+                ],
+                correct: "Useful and interesting projects"
+            },
+
+            {
+                question: "What kind of person does my About page describe me as?",
+                answers: [
+                    "A student",
+                    "A professional athlete",
+                    "A musician",
+                    "A chef"
+                ],
+                correct: "A student"
+            },
+
+            {
+                question: "What do I enjoy developing?",
+                answers: [
+                    "New skills",
+                    "Only video games",
+                    "Only recipes",
+                    "Only cars"
+                ],
+                correct: "New skills"
+            },
+
+            {
+                question: "Which of these is NOT listed as one of my hobbies?",
+                answers: [
+                    "Basketball",
+                    "Swimming",
+                    "Reading",
+                    "Football"
+                ],
+                correct: "Football"
+            },
+
+            {
+                question: "What is the purpose of my website?",
+                answers: [
+                    "To showcase my projects, hobbies and skills",
+                    "To sell cars",
+                    "To run a restaurant",
+                    "To teach driving"
+                ],
+                correct: "To showcase my projects, hobbies and skills"
+            },
+
+            {
+                question: "What year does my website information use for its latest update?",
+                answers: [
+                    "2026",
+                    "2022",
+                    "2024",
+                    "2030"
+                ],
+                correct: "2026"
+            },
+
+            {
+                question: "Which activity is included in my hobbies?",
+                answers: [
+                    "Athletics",
+                    "Horse racing",
+                    "Skateboarding",
+                    "Surfing"
+                ],
+                correct: "Athletics"
+            },
+
+            {
+                question: "What do I enjoy doing with my skills?",
+                answers: [
+                    "Developing new skills",
+                    "Ignoring them",
+                    "Selling them",
+                    "Hiding them"
+                ],
+                correct: "Developing new skills"
+            },
+
+            {
+                question: "What does my website contain?",
+                answers: [
+                    "Projects and achievements",
+                    "Only recipes",
+                    "Only football results",
+                    "Only news"
+                ],
+                correct: "Projects and achievements"
+            },
+
+            {
+                question: "Which page of my website contains my interests in activities?",
+                answers: [
+                    "Hobbies",
+                    "Contact",
+                    "Gallery",
+                    "Admin"
+                ],
+                correct: "Hobbies"
+            },
+
+            {
+                question: "Which of these best describes my approach to learning?",
+                answers: [
+                    "I enjoy learning new things",
+                    "I dislike learning",
+                    "I avoid new ideas",
+                    "I never try new skills"
+                ],
+                correct: "I enjoy learning new things"
+            },
+
+            {
+                question: "What kind of projects do I like?",
+                answers: [
+                    "Creative projects",
+                    "Only financial projects",
+                    "Only farming projects",
+                    "Only racing projects"
+                ],
+                correct: "Creative projects"
+            },
+
+            {
+                question: "Which of these is one of my interests?",
+                answers: [
+                    "Basketball",
+                    "Motorsport",
+                    "Fishing",
+                    "Hunting"
+                ],
+                correct: "Basketball"
+            },
+
+            {
+                question: "What can visitors find in my personal gallery?",
+                answers: [
+                    "Pictures and memories",
+                    "Only school timetables",
+                    "Only recipes",
+                    "Only advertisements"
+                ],
+                correct: "Pictures and memories"
+            },
+
+            {
+                question: "What is the name displayed on my website?",
+                answers: [
+                    "Clinton Ncube",
+                    "Clinton James",
+                    "Thabang Ncube",
+                    "Ncube Clinton Junior"
+                ],
+                correct: "Clinton Ncube"
+            },
+
+            {
+                question: "Which activity is part of my listed hobbies?",
+                answers: [
+                    "Swimming",
+                    "Chess",
+                    "Dancing",
+                    "Fishing"
+                ],
+                correct: "Swimming"
+            },
+
+            {
+                question: "What do I want to improve?",
+                answers: [
+                    "My skills",
+                    "My car",
+                    "My house",
+                    "My television"
+                ],
+                correct: "My skills"
+            },
+
+            {
+                question: "What type of memories can be found in my website?",
+                answers: [
+                    "Favourite memories",
+                    "Historical war records",
+                    "Movie scripts",
+                    "Weather reports"
+                ],
+                correct: "Favourite memories"
+            }
+
+        ];
+
+
+        /*
+        =====================================================
+        QUIZ VARIABLES
+        =====================================================
+        */
+
+        let selectedQuestions = [];
+
+        let currentQuestion = 0;
+
+        let score = 0;
+
+        let selectedAnswer = null;
+
+
+        /*
+        =====================================================
+        SHUFFLE
+        =====================================================
+        */
+
+        function shuffle(array) {
+
+            const copy =
+                [...array];
+
+            for (
+                let i = copy.length - 1;
+                i > 0;
+                i--
+            ) {
+
+                const j =
+                    Math.floor(
+                        Math.random() * (i + 1)
+                    );
+
+                [
+                    copy[i],
+                    copy[j]
+                ] =
+                [
+                    copy[j],
+                    copy[i]
+                ];
+
+            }
+
+            return copy;
+
+        }
+
+
+        /*
+        =====================================================
+        START QUIZ
+        =====================================================
+        */
+
+        function startQuiz() {
+
+            selectedQuestions =
+                shuffle(questionBank)
+                .slice(0, 10);
+
+            currentQuestion = 0;
+
+            score = 0;
+
+            selectedAnswer = null;
+
+            document.getElementById(
+                "quizArea"
+            ).style.display = "block";
+
+            showQuestion();
+
+        }
+
+
+        /*
+        =====================================================
+        SHOW QUESTION
+        =====================================================
+        */
+
+        function showQuestion() {
+
+            selectedAnswer = null;
+
+            const question =
+                selectedQuestions[
+                    currentQuestion
+                ];
+
+
+            document.getElementById(
+                "quizProgress"
+            ).textContent =
+                `Question ${currentQuestion + 1} of 10`;
+
+
+            document.getElementById(
+                "questionText"
+            ).textContent =
+                question.question;
+
+
+            const answersContainer =
+                document.getElementById(
+                    "answers"
+                );
+
+
+            answersContainer.innerHTML =
+                "";
+
+
+            const shuffledAnswers =
+                shuffle(
+                    question.answers
+                );
+
+
+            shuffledAnswers.forEach(
+                answer => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "answer-button";
+
+
+                    button.textContent =
+                        answer;
+
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            selectAnswer(
+                                button,
+                                answer
+                            );
+
+                        }
+                    );
+
+
+                    answersContainer.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+
+            const nextButton =
+                document.getElementById(
+                    "nextButton"
+                );
+
+
+            nextButton.disabled =
+                true;
+
+
+            nextButton.textContent =
+                currentQuestion === 9
+                    ? "Finish Quiz"
+                    : "Next Question";
+
+        }
+
+
+        /*
+        =====================================================
+        SELECT ANSWER
+        =====================================================
+        */
+
+        function selectAnswer(
+            button,
+            answer
+        ) {
+
+            const buttons =
+                document.querySelectorAll(
+                    ".answer-button"
+                );
+
+
+            buttons.forEach(
+                btn => {
+
+                    btn.classList.remove(
+                        "selected"
+                    );
+
+                }
+            );
+
+
+            button.classList.add(
+                "selected"
+            );
+
+
+            selectedAnswer =
+                answer;
+
+
+            document.getElementById(
+                "nextButton"
+            ).disabled = false;
+
+        }
+
+
+        /*
+        =====================================================
+        NEXT QUESTION
+        =====================================================
+        */
+
+        document.getElementById(
+            "nextButton"
+        ).addEventListener(
+            "click",
+            function() {
+
+                if (
+                    selectedAnswer === null
+                ) {
+
+                    return;
+
+                }
+
+
+                const question =
+                    selectedQuestions[
+                        currentQuestion
+                    ];
+
+
+                if (
+                    selectedAnswer ===
+                    question.correct
+                ) {
+
+                    score++;
+
+                }
+
+
+                currentQuestion++;
+
+
+                if (
+                    currentQuestion < 10
+                ) {
+
+                    showQuestion();
+
+                } else {
+
+                    showQuizResult();
+
+                }
+
+            }
+        );
+
+
+        /*
+        =====================================================
+        QUIZ RESULT
+        =====================================================
+        */
+
+        function showQuizResult() {
+
+            const quizArea =
+                document.getElementById(
+                    "quizArea"
+                );
+
+
+            if (score >= 5) {
+
+                quizArea.innerHTML = `
+
+                    <div class="quiz-result">
+
+                        <div class="quiz-score quiz-success">
+                            ${score}/10
+                        </div>
+
+                        <h2>
+                            🎉 Gallery Unlocked!
+                        </h2>
+
+                        <p>
+                            You know me well enough!
+                            You scored ${score} out of 10.
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                unlockGallery();
+
+            } else {
+
+                quizArea.innerHTML = `
+
+                    <div class="quiz-result">
+
+                        <div class="quiz-score quiz-failed">
+                            ${score}/10
+                        </div>
+
+                        <h2>
+                            🔒 Gallery Still Locked
+                        </h2>
+
+                        <p>
+                            You need at least 5 out of 10
+                            to unlock my gallery.
+                        </p>
+
+                        <button
+                            class="retry-button"
+                            onclick="startQuiz()">
+
+                            🔄 Try Again
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /*
+        =====================================================
+        UNLOCK GALLERY
+        =====================================================
+        */
+
+        function unlockGallery() {
+
+            document.getElementById(
+                "galleryLocked"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "galleryContainer"
+            ).style.display =
+                "grid";
+
+
+            loadGallery();
+
+        }
+
+
+        /*
+        =====================================================
+        START FIRST QUIZ
+        =====================================================
+        */
+
+        startQuiz();
+
+    </script>
+
+
     <!-- FIREBASE GALLERY -->
 
     <script type="module">
 
-        import { initializeApp }
-            from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import {
+            initializeApp
+        }
+        from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
 
         import {
             getDatabase,
@@ -384,11 +1328,15 @@
 
             measurementId:
                 "G-K1S62MHHXP"
+
         };
 
 
         const app =
-            initializeApp(firebaseConfig);
+            initializeApp(
+                firebaseConfig
+            );
+
 
         const database =
             getDatabase(app);
@@ -406,29 +1354,65 @@
 
             return String(value)
 
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
         }
 
 
         function fixImagePath(path) {
 
             if (!path) {
+
                 return "";
+
             }
+
 
             path =
                 String(path).trim();
 
 
             if (
-                path.startsWith("images/") ||
-                path.startsWith("http://") ||
-                path.startsWith("https://") ||
-                path.startsWith("data:")
+
+                path.startsWith(
+                    "images/"
+                ) ||
+
+                path.startsWith(
+                    "http://"
+                ) ||
+
+                path.startsWith(
+                    "https://"
+                ) ||
+
+                path.startsWith(
+                    "data:"
+                )
+
             ) {
 
                 return path;
@@ -437,6 +1421,7 @@
 
 
             return "images/" + path;
+
         }
 
 
@@ -457,18 +1442,26 @@
 
 
             const imagePath =
-                fixImagePath(item.file);
+                fixImagePath(
+                    item.file
+                );
 
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             card.className =
                 "gallery-card";
 
 
             const imageContainer =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             imageContainer.className =
                 "gallery-image-container";
@@ -477,16 +1470,22 @@
             if (imagePath) {
 
                 const image =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
+
 
                 image.className =
                     "gallery-image";
 
+
                 image.src =
                     imagePath;
 
+
                 image.alt =
                     title;
+
 
                 image.loading =
                     "lazy";
@@ -500,7 +1499,10 @@
 
 
                         const error =
-                            document.createElement("div");
+                            document.createElement(
+                                "div"
+                            );
+
 
                         error.className =
                             "image-error";
@@ -548,7 +1550,10 @@
 
 
             const content =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             content.className =
                 "gallery-content";
@@ -570,8 +1575,6 @@
                         class="gallery-button view-button"
                         type="button">
 
-                        <i class="fa-solid fa-eye"></i>
-
                         View
 
                     </button>
@@ -583,8 +1586,6 @@
                         download
                         target="_blank"
                         rel="noopener">
-
-                        <i class="fa-solid fa-download"></i>
 
                         Download
 
@@ -618,12 +1619,14 @@
                 imageContainer
             );
 
+
             card.appendChild(
                 content
             );
 
 
             return card;
+
         }
 
 
@@ -639,7 +1642,9 @@
 
 
                 const snapshot =
-                    await get(galleryRef);
+                    await get(
+                        galleryRef
+                    );
 
 
                 galleryContainer.innerHTML =
@@ -666,6 +1671,7 @@
                     `;
 
                     return;
+
                 }
 
 
@@ -684,7 +1690,9 @@
 
 
                         if (!item) {
+
                             return;
+
                         }
 
 
@@ -756,15 +1764,20 @@
         }
 
 
-        /* -----------------------------------
+        /* ===================================
            OPEN IMAGE
-        ----------------------------------- */
+        =================================== */
 
         window.openImageModal =
-            function(imagePath, title) {
+            function(
+                imagePath,
+                title
+            ) {
 
                 if (!imagePath) {
+
                     return;
+
                 }
 
 
@@ -791,7 +1804,8 @@
 
 
                 image.alt =
-                    title || "Gallery image";
+                    title ||
+                    "Gallery image";
 
 
                 download.href =
@@ -799,7 +1813,8 @@
 
 
                 download.download =
-                    title || "gallery-image";
+                    title ||
+                    "gallery-image";
 
 
                 modal.classList.add(
@@ -809,20 +1824,26 @@
             };
 
 
-        /* -----------------------------------
+        /* ===================================
            CLOSE IMAGE
-        ----------------------------------- */
+        =================================== */
 
         window.closeImageModal =
             function(event) {
 
                 if (
+
                     event &&
+
                     event.target &&
-                    event.target.id !== "imageModal" &&
+
+                    event.target.id !==
+                        "imageModal" &&
+
                     !event.target.classList.contains(
                         "close-modal"
                     )
+
                 ) {
 
                     return;
@@ -852,14 +1873,17 @@
             };
 
 
-        /* ESC KEY */
+        /* ===================================
+           ESCAPE KEY
+        =================================== */
 
         document.addEventListener(
             "keydown",
             function(event) {
 
                 if (
-                    event.key === "Escape"
+                    event.key ===
+                    "Escape"
                 ) {
 
                     const modal =
@@ -876,9 +1900,6 @@
 
             }
         );
-
-
-        loadGallery();
 
     </script>
 
