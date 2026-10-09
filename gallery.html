@@ -8,32 +8,79 @@
 
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/animations.css">
 
     <style>
-        * {
-            box-sizing: border-box;
+        * { box-sizing: border-box; }
+
+        :root {
+            --maroon: #8b1638;
+            --maroon-dark: #5c0d24;
+            --black: #050509;
+            --panel: #101016;
+            --cyan: #25f4ee;
+            --purple: #a855f7;
+            --text: #f5f5f5;
+            --muted: #b8b8c7;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            color: #222;
+            background:
+                radial-gradient(ellipse at top, #24101e 0%, #090910 45%, #030306 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            min-height: 100vh;
+            animation: pageFadeIn 0.8s ease both;
         }
 
         header {
-            background: #8b1638;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(120deg, #350817, #8b1638, #211027);
             color: white;
-            padding: 20px;
+            padding: 35px 20px;
             text-align: center;
+            border-bottom: 1px solid rgba(37, 244, 238, 0.45);
+            box-shadow: 0 8px 35px rgba(139, 22, 56, 0.28);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: -40%;
+            width: 35%;
+            height: 300%;
+            transform: rotate(25deg);
+            background: linear-gradient(
+                90deg, transparent, rgba(255,255,255,0.13), transparent
+            );
+            animation: headerShine 7s ease-in-out infinite;
+            pointer-events: none;
         }
 
         header h1 {
+            position: relative;
             margin: 0;
+            font-size: clamp(28px, 5vw, 42px);
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(37,244,238,0.4);
+            animation: titleRise 0.8s ease both;
+        }
+
+        header p {
+            position: relative;
+            margin-bottom: 0;
+            color: #f3dbe5;
+            animation: titleRise 1s ease both;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 20px;
         }
@@ -44,40 +91,55 @@
         }
 
         .quiz-intro {
-            background: white;
+            background: linear-gradient(145deg, #17131d, #0b0b11);
             padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(168,85,247,0.35);
+            border-radius: 18px;
+            box-shadow: 0 0 28px rgba(168,85,247,0.10);
             margin-bottom: 25px;
             text-align: center;
+            animation: cardEntrance 0.8s ease both;
         }
 
         .quiz-intro h2 {
-            color: #8b1638;
+            color: #ff5b92;
             margin-top: 0;
         }
 
         .quiz-intro p {
-            line-height: 1.6;
+            color: #dedee8;
+            line-height: 1.7;
         }
 
         .quiz-progress {
-            background: #8b1638;
+            background: linear-gradient(90deg, #5c0d24, #8b1638, #5c0d24);
+            background-size: 200% 100%;
             color: white;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
             text-align: center;
             margin-bottom: 20px;
             font-weight: bold;
+            animation: gradientFlow 5s ease infinite;
         }
 
         .question-box {
             background: #000 !important;
             color: #fff !important;
             padding: 22px;
-            border-radius: 12px;
+            border: 1px solid #333;
+            border-radius: 14px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            animation: questionEntrance 0.55s ease both;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease,
+                        transform 0.3s ease;
+        }
+
+        .question-box:hover {
+            border-color: var(--maroon);
+            box-shadow: 0 0 20px rgba(139,22,56,0.2);
         }
 
         .question-box h3 {
@@ -103,17 +165,22 @@
             text-align: left;
             font-size: 15px;
             font-weight: bold;
-            transition: 0.25s ease;
+            transition: transform 0.25s ease, border-color 0.25s ease,
+                        background 0.25s ease, box-shadow 0.25s ease;
+            animation: answerEntrance 0.45s ease both;
         }
 
         .answer-button:hover {
-            background: #222 !important;
-            border-color: #8b1638 !important;
+            background: #171017 !important;
+            border-color: #ff5b92 !important;
+            transform: translateX(5px);
+            box-shadow: 0 0 12px rgba(139,22,56,0.3);
         }
 
         .answer-button.selected {
             background: #5c0d24 !important;
-            border-color: #8b1638 !important;
+            border-color: #ff5b92 !important;
+            box-shadow: 0 0 15px rgba(139,22,56,0.3);
         }
 
         .submit-button,
@@ -121,19 +188,21 @@
             display: block;
             width: 100%;
             margin-top: 25px;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #8b1638;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 11px;
+            background: linear-gradient(100deg, #5c0d24, #a51d4b);
             color: white;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .submit-button:hover,
         .retry-button:hover {
-            background: #6d102c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(139,22,56,0.4);
         }
 
         #result {
@@ -144,6 +213,7 @@
             text-align: center;
             font-size: 18px;
             font-weight: bold;
+            animation: cardEntrance 0.5s ease both;
         }
 
         .pass-result {
@@ -164,11 +234,19 @@
 
         .gallery-heading {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            animation: titleRise 0.8s ease both;
         }
 
         .gallery-heading h2 {
-            color: #8b1638;
+            color: #ff5b92;
+            font-size: clamp(26px, 4vw, 36px);
+            text-shadow: 0 0 15px rgba(139,22,56,0.35);
+        }
+
+        .gallery-heading p {
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         #gallery-container {
@@ -178,15 +256,22 @@
         }
 
         .gallery-card {
-            background: white;
-            border-radius: 15px;
+            background: linear-gradient(145deg, #17171f, #0b0b10);
+            border: 1px solid rgba(168,85,247,0.25);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-            transition: 0.25s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+            opacity: 0;
+            animation: galleryCardEntrance 0.7s ease forwards;
+            transition: transform 0.35s ease, border-color 0.35s ease,
+                        box-shadow 0.35s ease;
         }
 
         .gallery-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.015);
+            border-color: var(--cyan);
+            box-shadow: 0 12px 32px rgba(37,244,238,0.13),
+                        0 0 15px rgba(168,85,247,0.12);
         }
 
         .gallery-card img {
@@ -195,6 +280,12 @@
             object-fit: cover;
             display: block;
             cursor: pointer;
+            transition: transform 0.6s ease, filter 0.4s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.055);
+            filter: brightness(1.08);
         }
 
         .gallery-info {
@@ -203,24 +294,32 @@
 
         .gallery-info h3 {
             margin-top: 0;
-            color: #8b1638;
+            color: #ff6c9c;
         }
 
         .gallery-info p {
-            line-height: 1.5;
+            color: #d2d2df;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
         }
 
         .loading {
             text-align: center;
             padding: 30px;
             font-size: 18px;
+            color: var(--cyan);
+            animation: softPulse 1.5s ease-in-out infinite;
         }
 
         .empty-gallery {
             text-align: center;
             padding: 30px;
-            background: white;
+            background: #111118;
+            border: 1px solid #333;
             border-radius: 15px;
+            color: white;
+            grid-column: 1 / -1;
+            animation: cardEntrance 0.6s ease both;
         }
 
         #imageModal {
@@ -230,40 +329,110 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0,0,0,0.94);
             justify-content: center;
             align-items: center;
             padding: 20px;
+            backdrop-filter: blur(7px);
         }
 
         #modalImage {
             max-width: 90%;
             max-height: 85vh;
-            border-radius: 10px;
+            border: 1px solid rgba(37,244,238,0.5);
+            border-radius: 12px;
+            box-shadow: 0 0 35px rgba(37,244,238,0.15);
+            animation: modalZoom 0.3s ease both;
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 35px;
+            top: 15px;
+            right: 25px;
             color: white;
-            font-size: 40px;
+            background: transparent;
+            border: none;
+            font-size: 42px;
             cursor: pointer;
-            font-weight: bold;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--cyan);
+            transform: rotate(90deg);
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes titleRise {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(22px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes questionEntrance {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes answerEntrance {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes galleryCardEntrance {
+            from { opacity: 0; transform: translateY(28px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes modalZoom {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes softPulse {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes headerShine {
+            0%, 15% { left: -40%; }
+            55%, 100% { left: 130%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .gallery-card { opacity: 1; }
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-            }
-
-            .question-box h3 {
-                font-size: 17px;
-            }
-
-            .answer-button {
-                font-size: 14px;
-            }
+            .container { padding: 12px; }
+            header { padding: 28px 15px; }
+            .question-box { padding: 17px; }
+            .question-box h3 { font-size: 17px; }
+            .answer-button { font-size: 14px; }
+            #gallery-container { grid-template-columns: 1fr; }
+            .gallery-card img { height: 250px; }
+            .close-modal { right: 15px; top: 10px; }
         }
     </style>
 </head>
@@ -285,15 +454,12 @@
             <p>You need at least <strong>5/10</strong> to unlock the Gallery.</p>
         </div>
 
-        <div class="quiz-progress" id="quiz-progress">
-            Loading quiz...
-        </div>
-
+        <div class="quiz-progress" id="quiz-progress">Loading quiz...</div>
         <div id="quiz-container"></div>
 
-        <button class="submit-button" id="submit-quiz">Submit Quiz</button>
+        <button class="submit-button" id="submit-quiz" type="button">Submit Quiz</button>
         <div id="result"></div>
-        <button class="retry-button" id="retry-button" style="display:none;">Try Again</button>
+        <button class="retry-button" id="retry-button" type="button" style="display:none;">Try Again</button>
     </section>
 
     <section id="gallery-section">
@@ -310,7 +476,7 @@
 </div>
 
 <div id="imageModal" role="dialog" aria-modal="true" aria-label="Expanded gallery image">
-    <button class="close-modal" type="button" onclick="closeImageModal()" aria-label="Close image">&times;</button>
+    <button class="close-modal" type="button" id="close-modal" aria-label="Close image">&times;</button>
     <img id="modalImage" src="" alt="Gallery image">
 </div>
 
@@ -392,12 +558,10 @@
 
     function shuffle(array) {
         const result = [...array];
-
         for (let i = result.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [result[i], result[j]] = [result[j], result[i]];
         }
-
         return result;
     }
 
@@ -405,7 +569,10 @@
         selectedQuestions = shuffle(questionBank).slice(0, 10);
         userAnswers = new Array(10).fill(null);
 
-        document.getElementById("result").style.display = "none";
+        const result = document.getElementById("result");
+        result.style.display = "none";
+        result.className = "";
+
         document.getElementById("retry-button").style.display = "none";
         document.getElementById("submit-quiz").style.display = "block";
 
@@ -419,6 +586,7 @@
         selectedQuestions.forEach((question, index) => {
             const questionBox = document.createElement("div");
             questionBox.className = "question-box";
+            questionBox.style.animationDelay = `${index * 70}ms`;
 
             const questionTitle = document.createElement("h3");
             questionTitle.textContent = `${index + 1}. ${question.question}`;
@@ -427,11 +595,12 @@
             const answersDiv = document.createElement("div");
             answersDiv.className = "answers";
 
-            shuffle(question.options).forEach(option => {
+            shuffle(question.options).forEach((option, optionIndex) => {
                 const button = document.createElement("button");
                 button.className = "answer-button";
                 button.textContent = option;
                 button.type = "button";
+                button.style.animationDelay = `${optionIndex * 60}ms`;
 
                 button.addEventListener("click", () => {
                     answersDiv.querySelectorAll(".answer-button").forEach(btn => {
@@ -471,7 +640,8 @@
 
         if (score >= 5) {
             result.className = "pass-result";
-            result.textContent = `Congratulations! You scored ${score}/10. You passed the quiz and the Gallery is now unlocked.`;
+            result.textContent =
+                `Congratulations! You scored ${score}/10. You passed the quiz and the Gallery is now unlocked.`;
 
             document.getElementById("quiz-section").style.display = "none";
             document.getElementById("gallery-section").style.display = "block";
@@ -480,7 +650,8 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
             result.className = "fail-result";
-            result.textContent = `Quiz not passed. You scored ${score}/10. You need at least 5/10 to unlock the Gallery.`;
+            result.textContent =
+                `Quiz not passed. You scored ${score}/10. You need at least 5/10 to unlock the Gallery.`;
             document.getElementById("retry-button").style.display = "block";
         }
     });
@@ -489,15 +660,6 @@
         startQuiz();
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
-    function escapeHTML(value) {
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
 
     function fixImagePath(path) {
         if (!path) return "";
@@ -513,9 +675,10 @@
         return `images/${path}`;
     }
 
-    function createGalleryCard(item) {
+    function createGalleryCard(item, index) {
         const card = document.createElement("div");
         card.className = "gallery-card";
+        card.style.animationDelay = `${Math.min(index * 100, 900)}ms`;
 
         const imagePath = fixImagePath(item.file || item.image || item.url || "");
         const title = item.title || "Untitled";
@@ -567,10 +730,9 @@
 
             const data = snapshot.val();
             const items = Array.isArray(data) ? data : Object.values(data);
+            const validItems = items.filter(item => item && typeof item === "object");
 
             galleryContainer.innerHTML = "";
-
-            const validItems = items.filter(item => item && typeof item === "object");
 
             if (validItems.length === 0) {
                 galleryContainer.innerHTML = `
@@ -580,8 +742,8 @@
                 return;
             }
 
-            validItems.forEach(item => {
-                galleryContainer.appendChild(createGalleryCard(item));
+            validItems.forEach((item, index) => {
+                galleryContainer.appendChild(createGalleryCard(item, index));
             });
         } catch (error) {
             console.error("Error loading gallery:", error);
@@ -607,6 +769,8 @@
         document.getElementById("modalImage").src = "";
     };
 
+    document.getElementById("close-modal").addEventListener("click", window.closeImageModal);
+
     document.getElementById("imageModal").addEventListener("click", event => {
         if (event.target.id === "imageModal") {
             window.closeImageModal();
@@ -622,6 +786,7 @@
     startQuiz();
 </script>
 
+<script src="js/animations.js" defer></script>
 </body>
 </html>
 ```
