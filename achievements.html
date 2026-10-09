@@ -1,255 +1,342 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Achievements | Clinton Ncube</title>
+    <meta name="description" content="Explore the academic and personal achievements of Clinton Ncube.">
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" href="images/favicon.png">
 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background: #070b16;
+            background-image:
+                radial-gradient(ellipse at 15% 15%, rgba(37,244,238,.12), transparent 35%),
+                radial-gradient(ellipse at 85% 35%, rgba(168,85,247,.13), transparent 35%);
+            background-attachment: fixed;
+            color: #edf4ff;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5,9,20,.96);
+            border-bottom: 1px solid rgba(37,244,238,.3);
+            box-shadow: 0 5px 25px rgba(0,0,0,.3);
+            backdrop-filter: blur(14px);
+        }
+
+        .logo {
+            color: #25f4ee;
+            text-shadow: 0 0 15px rgba(37,244,238,.4);
+        }
+
+        .nav-menu a {
+            transition: color .3s, text-shadow .3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #25f4ee;
+            text-shadow: 0 0 12px rgba(37,244,238,.45);
+        }
+
+        .menu-toggle {
+            color: #25f4ee;
+            cursor: pointer;
+        }
+
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 75px 20px;
+            background: linear-gradient(135deg, rgba(16,23,42,.96), rgba(32,20,59,.96));
+            border-bottom: 1px solid rgba(37,244,238,.3);
+        }
+
+        .page-header h1 {
+            color: #fff;
+            font-size: clamp(32px, 5vw, 48px);
+            text-shadow: 0 0 18px rgba(37,244,238,.35),
+                         0 0 35px rgba(168,85,247,.2);
+            animation: achievementTitle .8s ease-out both;
+        }
+
+        .page-header p {
+            color: #bdc9df;
+            margin-top: 12px;
+            font-size: 17px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 45px auto;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .cards .card {
+            padding: 28px;
+            border-radius: 16px;
+            background: rgba(16,23,42,.9);
+            border: 1px solid rgba(115,151,220,.25);
+            box-shadow: 0 8px 28px rgba(0,0,0,.22);
+            color: #edf4ff;
+            transition: transform .3s, border-color .3s, box-shadow .3s;
+            overflow-wrap: anywhere;
+        }
+
+        .cards .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(37,244,238,.65);
+            box-shadow: 0 12px 30px rgba(0,0,0,.3),
+                        0 0 24px rgba(37,244,238,.1);
+        }
+
+        .cards .card h3 {
+            color: #25f4ee;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .cards .card p {
+            color: #bdc9df;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .loading,
+        .empty {
+            grid-column: 1 / -1;
+            padding: 35px;
+            text-align: center;
+            border-radius: 14px;
+            background: rgba(16,23,42,.9);
+            border: 1px solid rgba(115,151,220,.25);
+            color: #bdc9df;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 25px 15px;
+            text-align: center;
+            background: #050914;
+            border-top: 1px solid rgba(37,244,238,.2);
+            color: #a9b7d0;
+        }
+
+        @keyframes achievementTitle {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 55px 18px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <nav>
-
-    <a href="index.html" class="logo">
-        Clinton Ncube
-    </a>
+    <a href="index.html" class="logo">Clinton Ncube</a>
 
     <button
         class="menu-toggle"
         id="menuToggle"
+        type="button"
         aria-label="Open navigation menu"
-        aria-expanded="false">
+        aria-expanded="false"
+        aria-controls="navMenu">
         ☰
     </button>
 
     <ul class="nav-menu" id="navMenu">
-
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
-        <li><a href="achievements.html">Achievements</a></li>
+        <li><a href="achievements.html" class="active" aria-current="page">Achievements</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact</a></li>
-
     </ul>
-
 </nav>
 
 <header class="page-header">
-
     <h1>My Achievements</h1>
-
-    <p>
-        Some of my academic and personal achievements.
-    </p>
-
+    <p>Some of my academic and personal achievements.</p>
 </header>
 
-<section>
-
-    <div class="container">
-
-        <div
-            id="achievementsContainer"
-            class="cards">
-
-            <div class="loading">
-                Loading achievements...
+<main>
+    <section>
+        <div class="container">
+            <div id="achievementsContainer" class="cards">
+                <div class="loading">Loading achievements...</div>
             </div>
-
         </div>
-
-    </div>
-
-</section>
+    </section>
+</main>
 
 <footer>
-
-    <p>
-        © 2026 Clinton Ncube. All rights reserved.
-    </p>
-
-    <p>
-        Personal Portfolio Website
-    </p>
-
+    <p>© 2026 Clinton Ncube. All rights reserved.</p>
+    <p>Personal Portfolio Website</p>
 </footer>
 
+<!-- FIREBASE ACHIEVEMENTS -->
 <script type="module">
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        onValue
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
-import {
-    getDatabase,
-    ref,
-    onValue
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+    const firebaseConfig = {
+        apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+        authDomain: "clinton-ncube-website.firebaseapp.com",
+        databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+        projectId: "clinton-ncube-website",
+        storageBucket: "clinton-ncube-website.firebasestorage.app",
+        messagingSenderId: "946671700613",
+        appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+        measurementId: "G-K1S62MHHXP"
+    };
 
-const firebaseConfig = {
+    const container = document.getElementById("achievementsContainer");
 
-    apiKey:
-        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    try {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const achievementsRef = ref(db, "achievements");
 
-    authDomain:
-        "clinton-ncube-website.firebaseapp.com",
+        onValue(
+            achievementsRef,
+            (snapshot) => {
+                container.replaceChildren();
 
-    databaseURL:
-        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+                const data = snapshot.val();
 
-    projectId:
-        "clinton-ncube-website",
+                if (!data || Object.keys(data).length === 0) {
+                    const empty = document.createElement("div");
+                    empty.className = "empty";
+                    empty.textContent = "No achievements have been added yet.";
+                    container.appendChild(empty);
+                    return;
+                }
 
-    storageBucket:
-        "clinton-ncube-website.firebasestorage.app",
+                Object.values(data).forEach((achievement) => {
+                    const card = document.createElement("article");
+                    card.className = "card";
 
-    messagingSenderId:
-        "946671700613",
+                    const title = document.createElement("h3");
+                    title.textContent = "🏆 " + (achievement.title || "Achievement");
 
-    appId:
-        "1:946671700613:web:5d74536df1dbb0d35e77ec",
+                    const description = document.createElement("p");
+                    description.textContent = achievement.description || "";
 
-    measurementId:
-        "G-K1S62MHHXP"
-};
+                    card.append(title, description);
+                    container.appendChild(card);
+                });
+            },
+            (error) => {
+                console.error("Firebase achievements error:", error);
+                container.replaceChildren();
 
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getDatabase(app);
-
-const achievementsRef =
-    ref(db, "achievements");
-
-const container =
-    document.getElementById(
-        "achievementsContainer"
-    );
-
-onValue(
-    achievementsRef,
-    (snapshot) => {
-
-        container.innerHTML = "";
-
-        const data =
-            snapshot.val();
-
-        if (!data) {
-
-            container.innerHTML = `
-                <div class="empty">
-                    No achievements have been added yet.
-                </div>
-            `;
-
-            return;
-        }
-
-        Object.values(data)
-            .forEach(achievement => {
-
-                const card =
-                    document.createElement("div");
-
-                card.className = "card";
-
-                const title =
-                    document.createElement("h3");
-
-                title.textContent =
-                    "🏆 " +
-                    (achievement.title ||
-                    "Achievement");
-
-                const description =
-                    document.createElement("p");
-
-                description.textContent =
-                    achievement.description || "";
-
-                card.appendChild(title);
-
-                card.appendChild(description);
-
-                container.appendChild(card);
-
-            });
-
-    },
-    (error) => {
-
-        container.innerHTML = `
-            <div class="empty">
-                Unable to load achievements.
-            </div>
-        `;
-
-        console.error(error);
-
+                const message = document.createElement("div");
+                message.className = "empty";
+                message.textContent = "Unable to load achievements. Please try again later.";
+                container.appendChild(message);
+            }
+        );
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
+        container.innerHTML = '<div class="empty">Unable to connect to achievements.</div>';
     }
-);
-
 </script>
 
+<!-- MOBILE NAVIGATION -->
 <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
 
-const menuToggle =
-    document.getElementById("menuToggle");
+    menuToggle.addEventListener("click", () => {
+        const isOpen = navMenu.classList.toggle("active");
 
-const navMenu =
-    document.getElementById("navMenu");
-
-menuToggle.addEventListener("click", () => {
-
-    navMenu.classList.toggle("active");
-
-    const isOpen =
-        navMenu.classList.contains("active");
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        isOpen
-    );
-
-    menuToggle.textContent =
-        isOpen ? "✕" : "☰";
-});
-
-document.querySelectorAll(".nav-menu a")
-    .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navMenu.classList.remove("active");
-
-            menuToggle.textContent = "☰";
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        });
-
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+        menuToggle.textContent = isOpen ? "✕" : "☰";
     });
 
+    navMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navMenu.classList.remove("active");
+            menuToggle.textContent = "☰";
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Open navigation menu");
+        });
+    });
 </script>
+
+<script src="js/animations.js" defer></script>
 
 </body>
 </html>
+```
