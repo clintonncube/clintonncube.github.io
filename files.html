@@ -1,626 +1,1079 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Documents | Clinton Ncube</title>
+  <title>Documents | Clinton Ncube</title>
 
-    <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <meta name="description"
+        content="Browse and download documents, projects and other files from Clinton Ncube's personal website.">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta name="theme-color" content="#070b16">
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
 
-        nav {
-            background: #000;
-            padding: 15px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 24px;
-            font-weight: bold;
-        }
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
+  <style>
+    :root {
+      --bg: #070b16;
+      --card: rgba(16, 23, 42, 0.92);
+      --cyan: #00e5ff;
+      --purple: #9b5cff;
+      --text: #f5f7ff;
+      --muted: #a8b4ca;
+      --border: rgba(148, 163, 184, 0.2);
+    }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #d4af37;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .menu-btn {
-            display: none;
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(0, 229, 255, .12), transparent 38%),
+        radial-gradient(ellipse at 95% 40%, rgba(155, 92, 255, .13), transparent 40%),
+        var(--bg);
+    }
 
-        .hero {
-            min-height: 35vh;
-            background:
-                linear-gradient(
-                    rgba(0,0,0,.7),
-                    rgba(0,0,0,.8)
-                ),
-                url('images/court%20of%20gold.jfif');
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-            background-size: cover;
-            background-position: center;
+    /* NAVIGATION */
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      background: rgba(5, 8, 18, .96);
+      border-bottom: 1px solid rgba(0, 229, 255, .22);
+      backdrop-filter: blur(15px);
+    }
 
-            color: white;
-            padding: 40px 20px;
-        }
+    .logo {
+      color: #fff;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
 
-        .hero h1 {
-            font-size: 50px;
-            text-transform: uppercase;
-        }
+    .logo span {
+      color: var(--cyan);
+      text-shadow: 0 0 15px rgba(0, 229, 255, .5);
+    }
 
-        .hero p {
-            margin-top: 10px;
-            color: #ddd;
-            font-size: 18px;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 45px auto;
-        }
+    .nav-links a {
+      color: #d4dbea;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color .25s ease;
+    }
 
-        .top-section {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 229, 255, .4);
+    }
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .menu-btn {
+      display: none;
+      padding: 6px;
+      border: 0;
+      background: transparent;
+      color: var(--cyan);
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-        .top-section h2 {
-            font-size: 25px;
-        }
+    /* HERO */
 
-        .upload-btn {
-            background: #111;
-            color: white;
-            padding: 13px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-        }
+    .hero {
+      min-height: 310px;
+      padding: 65px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        linear-gradient(rgba(4, 8, 18, .78), rgba(4, 8, 18, .92)),
+        url('images/court%20of%20gold.jfif') center / cover no-repeat;
+      border-bottom: 1px solid rgba(0, 229, 255, .17);
+    }
 
-        .upload-btn:hover {
-            background: #d4af37;
-            color: #111;
-        }
+    .hero-content {
+      max-width: 800px;
+      animation: fadeInUp .8s ease both;
+    }
 
-        .search {
-            margin: 25px 0;
-        }
+    .hero-icon {
+      color: var(--cyan);
+      font-size: 40px;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 0 14px rgba(0, 229, 255, .6));
+    }
 
-        .search input {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 3px 15px rgba(0,0,0,.08);
-            font-size: 15px;
-            outline: none;
-        }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(35px, 6vw, 58px);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      text-shadow: 0 0 25px rgba(0, 229, 255, .25);
+    }
 
-        #filesContainer {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
+    .hero p {
+      margin: 18px auto 0;
+      max-width: 600px;
+      color: #cbd5e1;
+      font-size: 16px;
+      line-height: 1.8;
+    }
 
-        .file-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 18px rgba(0,0,0,.08);
+    .hero-line {
+      width: 100px;
+      height: 3px;
+      margin: 23px auto 0;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      box-shadow: 0 0 15px rgba(0, 229, 255, .5);
+    }
 
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
+    /* MAIN CONTENT */
 
-        .file-icon {
-            width: 60px;
-            height: 60px;
-            min-width: 60px;
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: 45px auto 70px;
+    }
 
-            background: #111;
-            color: #d4af37;
+    .top-section {
+      padding: 27px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .22);
+      animation: fadeInUp .65s ease both;
+    }
 
-            border-radius: 12px;
+    .top-section h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #fff;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    .top-section h2 i {
+      margin-right: 9px;
+      color: var(--cyan);
+    }
 
-            font-size: 25px;
-        }
+    .section-subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
 
-        .file-info {
-            flex: 1;
-        }
+    .upload-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 9px;
+      background: linear-gradient(110deg, #00cde8, #9b5cff);
+      color: #050816;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
 
-        .file-info h3 {
-            font-size: 18px;
-            word-break: break-word;
-        }
+    .upload-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 22px rgba(0, 229, 255, .3);
+    }
 
-        .file-info p {
-            color: #777;
-            font-size: 13px;
-            margin-top: 5px;
-        }
+    /* SEARCH */
 
-        .download {
-            display: inline-block;
-            margin-top: 12px;
-            background: #111;
-            color: white;
-            padding: 9px 14px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-size: 13px;
-        }
+    .search {
+      position: relative;
+      margin: 27px 0;
+    }
 
-        .download:hover {
-            background: #d4af37;
-            color: #111;
-        }
+    .search i {
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      transform: translateY(-50%);
+      color: var(--cyan);
+      pointer-events: none;
+    }
 
-        .empty {
-            grid-column: 1 / -1;
-            background: white;
-            padding: 60px 20px;
-            border-radius: 15px;
-            text-align: center;
-            color: #777;
-        }
+    .search input {
+      width: 100%;
+      padding: 17px 18px 17px 50px;
+      background: rgba(16, 23, 42, .92);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
 
-        .empty i {
-            font-size: 50px;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
+    .search input::placeholder {
+      color: #8b98ae;
+    }
 
-        footer {
-            background: #000;
-            color: #aaa;
-            text-align: center;
-            padding: 25px;
-            margin-top: 60px;
-        }
+    .search input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 18px rgba(0, 229, 255, .12);
+    }
 
-        footer strong {
-            color: white;
-        }
+    .results-count {
+      margin: 0 0 18px 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
-        @media(max-width:800px) {
+    /* DOCUMENT CARDS */
 
-            .menu-btn {
-                display: block;
-            }
+    #filesContainer {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
 
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 65px;
-                left: 0;
-                width: 100%;
-                background: #000;
-                flex-direction: column;
-                gap: 0;
-                text-align: center;
-            }
+    .file-card {
+      min-width: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .18);
+      animation: fadeInUp .5s ease both;
+      transition: transform .25s ease, border-color .25s ease,
+                  box-shadow .25s ease;
+    }
 
-            .nav-links.active {
-                display: flex;
-            }
+    .file-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 229, 255, .55);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .25),
+                  0 0 18px rgba(0, 229, 255, .07);
+    }
 
-            .nav-links li {
-                padding: 15px;
-                border-top: 1px solid #222;
-            }
+    .file-icon {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 14px;
+      background: rgba(0, 229, 255, .09);
+      border: 1px solid rgba(0, 229, 255, .22);
+      color: var(--cyan);
+      font-size: 25px;
+    }
 
-            .hero h1 {
-                font-size: 36px;
-            }
+    .file-icon.pdf {
+      color: #ff707c;
+      background: rgba(255, 112, 124, .1);
+      border-color: rgba(255, 112, 124, .25);
+    }
 
-            #filesContainer {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .file-icon.word {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, .1);
+    }
+
+    .file-icon.excel {
+      color: #4ade80;
+      background: rgba(74, 222, 128, .1);
+    }
+
+    .file-icon.powerpoint {
+      color: #fb923c;
+      background: rgba(251, 146, 60, .1);
+    }
+
+    .file-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-info h3 {
+      margin: 2px 0 8px;
+      color: #fff;
+      font-size: 18px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .file-info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .file-type {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 8px;
+      border-radius: 5px;
+      background: rgba(0, 229, 255, .08);
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(0, 229, 255, .1);
+      border: 1px solid rgba(0, 229, 255, .35);
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .download:hover {
+      background: var(--cyan);
+      color: #06101a;
+    }
+
+    /* LOADING, EMPTY AND ERROR STATES */
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 60px 20px;
+      text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      color: var(--muted);
+    }
+
+    .empty > i {
+      margin-bottom: 18px;
+      color: var(--cyan);
+      font-size: 45px;
+    }
+
+    .empty h3 {
+      margin: 0 0 10px;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .empty p {
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .retry-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 10px 16px;
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--cyan);
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 28px 20px;
+      margin-top: 60px;
+      text-align: center;
+      background: rgba(5, 8, 18, .95);
+      border-top: 1px solid rgba(0, 229, 255, .18);
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    footer strong {
+      color: #fff;
+    }
+
+    footer .footer-glow {
+      color: var(--cyan);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 1050px) {
+      nav {
+        padding-left: 4%;
+        padding-right: 4%;
+      }
+
+      .nav-links {
+        gap: 11px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 8px 0;
+        background: rgba(5, 8, 18, .98);
+        border-bottom: 1px solid rgba(0, 229, 255, .2);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        padding: 15px 20px;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, .06);
+      }
+
+      .nav-links a {
+        display: block;
+        font-size: 14px;
+      }
+
+      #filesContainer {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 270px;
+      }
+
+      .container {
+        width: 92%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        padding: 14px 5%;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .hero {
+        padding: 50px 18px;
+      }
+
+      .hero h1 {
+        letter-spacing: 1.5px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .container {
+        margin-top: 25px;
+      }
+
+      .top-section {
+        padding: 20px;
+      }
+
+      .top-section h2 {
+        font-size: 21px;
+      }
+
+      .upload-btn {
+        width: 100%;
+      }
+
+      .file-card {
+        padding: 18px;
+        gap: 13px;
+      }
+
+      .file-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 21px;
+      }
+
+      .file-info h3 {
+        font-size: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* Fallback animation if animations.css is unavailable */
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
+  <!-- NAVIGATION -->
 
+  <nav>
     <a href="index.html" class="logo">
-        Clinton Ncube
+      Clinton <span>Ncube</span>
     </a>
 
-    <div class="menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
+    <button class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-controls="navLinks"
+            aria-expanded="false">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
 
     <ul class="nav-links" id="navLinks">
-
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="achievements.html">Achievements</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="hobbies.html">Hobbies</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="files.html" class="active">Files</a></li>
-        <li><a href="contact.html">Contact</a></li>
-
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="hobbies.html">Hobbies</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="files.html" class="active" aria-current="page">Files</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
+  </nav>
 
-</nav>
+  <!-- HERO -->
 
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-icon">
+        <i class="fas fa-folder-open" aria-hidden="true"></i>
+      </div>
 
-<section class="hero">
+      <h1>Documents</h1>
 
-    <div>
-        <h1>Documents</h1>
+      <p>
+        Explore and download documents, school projects and other
+        resources shared on my personal website.
+      </p>
 
-        <p>
-            Download documents, projects and other files.
-        </p>
+      <div class="hero-line"></div>
     </div>
+  </section>
 
-</section>
+  <!-- MAIN CONTENT -->
 
+  <main class="container">
 
-<div class="container">
-
-    <div class="top-section">
-
+    <section class="top-section">
+      <div>
         <h2>
-            <i class="fas fa-folder-open"></i>
-            My Documents
+          <i class="fas fa-folder-open" aria-hidden="true"></i>
+          My Documents
         </h2>
 
-        <!--
-            This button is kept here for you.
-            Uploading should be done from the admin dashboard.
-        -->
+        <p class="section-subtitle">
+          Browse available files or search by document name.
+        </p>
+      </div>
 
-        <button
-            class="upload-btn"
-            onclick="window.location.href='admin.html'">
+      <a class="upload-btn" href="admin.html">
+        <i class="fas fa-upload" aria-hidden="true"></i>
+        Add Files
+      </a>
+    </section>
 
-            <i class="fas fa-upload"></i>
-            Add Files
-
-        </button>
-
-    </div>
-
+    <!-- SEARCH -->
 
     <div class="search">
+      <i class="fas fa-search" aria-hidden="true"></i>
 
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search documents..."
-            oninput="displayFiles()">
-
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search documents by name or description..."
+        aria-label="Search documents"
+        autocomplete="off">
     </div>
 
-
-    <div id="filesContainer">
-
-        <div class="empty">
-
-            <i class="fas fa-spinner fa-spin"></i>
-
-            <h3>Loading documents...</h3>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<footer>
-
-    <p>
-        © 2026 <strong>Clinton Ncube</strong>.
-        All Rights Reserved.
+    <p class="results-count" id="resultsCount" aria-live="polite">
+      Loading documents...
     </p>
 
-</footer>
+    <!-- DOCUMENTS -->
 
+    <section id="filesContainer" aria-label="Available documents">
+      <div class="empty">
+        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+        <h3>Loading documents...</h3>
+        <p>Please wait while your documents are loaded.</p>
+      </div>
+    </section>
 
-<!-- FIREBASE -->
+  </main>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <!-- FOOTER -->
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <footer>
+    <p>
+      &copy; 2026 <strong>Clinton Ncube</strong>.
+      All rights reserved.
+    </p>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+    <p class="footer-glow">
+      Learning, creating and building my future.
+    </p>
+  </footer>
 
+  <!-- FIREBASE COMPAT LIBRARIES -->
 
-<script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-const firebaseConfig = {
+  <script>
+    "use strict";
 
-    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    /* FIREBASE CONFIGURATION */
 
-    authDomain: "clinton-ncube-website.firebaseapp.com",
+    const firebaseConfig = {
+      apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+      authDomain: "clinton-ncube-website.firebaseapp.com",
+      databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+      projectId: "clinton-ncube-website",
+      storageBucket: "clinton-ncube-website.firebasestorage.app",
+      messagingSenderId: "946671700613",
+      appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+      measurementId: "G-K1S62MHHXP"
+    };
 
-    databaseURL:
-        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+    let files = [];
+    let databaseReady = false;
+    let databaseError = false;
 
-    projectId: "clinton-ncube-website",
+    const filesContainer = document.getElementById("filesContainer");
+    const searchInput = document.getElementById("searchInput");
+    const resultsCount = document.getElementById("resultsCount");
 
-    storageBucket:
-        "clinton-ncube-website.firebasestorage.app",
+    /* MOBILE MENU */
 
-    messagingSenderId: "946671700613",
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
 
-    appId:
-        "1:946671700613:web:5d74536df1dbb0d35e77ec",
+    menuBtn.addEventListener("click", function () {
+      const isOpen = navLinks.classList.toggle("active");
 
-    measurementId: "G-K1S62MHHXP"
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+      menuBtn.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
 
-};
+      const icon = menuBtn.querySelector("i");
 
-
-firebase.initializeApp(firebaseConfig);
-
-
-const database =
-    firebase.database();
-
-const filesRef =
-    database.ref("documents");
-
-
-let files = [];
-
-
-/* LOAD DOCUMENTS */
-
-filesRef.on("value", snapshot => {
-
-    files = [];
-
-    snapshot.forEach(child => {
-
-        files.push({
-
-            id: child.key,
-
-            ...child.val()
-
-        });
-
+      icon.className = isOpen
+        ? "fas fa-times"
+        : "fas fa-bars";
     });
 
-    displayFiles();
+    navLinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navLinks.classList.remove("active");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Open navigation menu");
+        menuBtn.querySelector("i").className = "fas fa-bars";
+      });
+    });
 
-});
+    /* INITIALISE FIREBASE */
 
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
 
-/* DISPLAY */
+      const database = firebase.database();
+      const filesRef = database.ref("documents");
 
-function displayFiles() {
+      /* LOAD DOCUMENTS */
 
-    const container =
-        document.getElementById("filesContainer");
+      filesRef.on(
+        "value",
+        function (snapshot) {
+          files = [];
 
-    const search =
-        document
-            .getElementById("searchInput")
-            .value
-            .toLowerCase();
+          snapshot.forEach(function (child) {
+            const value = child.val();
 
-    container.innerHTML = "";
+            if (value && typeof value === "object") {
+              files.push({
+                id: child.key,
+                name: typeof value.name === "string" ? value.name : "",
+                description:
+                  typeof value.description === "string"
+                    ? value.description
+                    : "",
+                url: typeof value.url === "string" ? value.url : ""
+              });
+            }
+          });
 
+          databaseReady = true;
+          databaseError = false;
+          displayFiles();
+        },
+        function (error) {
+          console.error("Could not load documents:", error);
 
-    const filtered =
-        files.filter(file => {
+          databaseError = true;
+          resultsCount.textContent = "Documents could not be loaded.";
 
-            const name =
-                (file.name || "").toLowerCase();
+          showMessage(
+            "Unable to load documents",
+            "Please check your internet connection and try again later.",
+            "fa-triangle-exclamation"
+          );
+        }
+      );
 
-            const description =
-                (file.description || "").toLowerCase();
+    } catch (error) {
+      console.error("Firebase initialisation failed:", error);
 
-            return (
-                name.includes(search) ||
-                description.includes(search)
-            );
+      databaseError = true;
+      resultsCount.textContent = "Connection error.";
 
-        });
-
-
-    if (filtered.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <i class="fas fa-folder-open"></i>
-
-                <h3>No documents available</h3>
-
-                <p>
-                    Documents uploaded by the administrator
-                    will appear here.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
+      showMessage(
+        "Connection error",
+        "The document service could not be started. Please try again later.",
+        "fa-triangle-exclamation"
+      );
     }
 
+    /* FILE ICONS */
 
-    filtered.forEach(file => {
+    function getFileType(filename) {
+      const parts = String(filename || "").split(".");
+      return parts.length > 1 ? parts.pop().toLowerCase() : "";
+    }
 
-        const extension =
-            (file.name || "")
-                .split(".")
-                .pop()
-                .toUpperCase();
+    function getIconInfo(extension) {
+      const types = {
+        pdf: {
+          icon: "fa-file-pdf",
+          className: "pdf"
+        },
+        doc: {
+          icon: "fa-file-word",
+          className: "word"
+        },
+        docx: {
+          icon: "fa-file-word",
+          className: "word"
+        },
+        xls: {
+          icon: "fa-file-excel",
+          className: "excel"
+        },
+        xlsx: {
+          icon: "fa-file-excel",
+          className: "excel"
+        },
+        csv: {
+          icon: "fa-file-csv",
+          className: "excel"
+        },
+        ppt: {
+          icon: "fa-file-powerpoint",
+          className: "powerpoint"
+        },
+        pptx: {
+          icon: "fa-file-powerpoint",
+          className: "powerpoint"
+        },
+        txt: {
+          icon: "fa-file-lines",
+          className: ""
+        },
+        jpg: {
+          icon: "fa-file-image",
+          className: ""
+        },
+        jpeg: {
+          icon: "fa-file-image",
+          className: ""
+        },
+        png: {
+          icon: "fa-file-image",
+          className: ""
+        },
+        zip: {
+          icon: "fa-file-zipper",
+          className: ""
+        }
+      };
 
+      return types[extension] || {
+        icon: "fa-file",
+        className: ""
+      };
+    }
 
-        let icon = "fa-file";
+    /* SAFER DOWNLOAD URL VALIDATION */
 
-        if (extension === "PDF")
-            icon = "fa-file-pdf";
+    function getSafeDownloadURL(value) {
+      if (typeof value !== "string" || !value.trim()) {
+        return null;
+      }
 
-        else if (
-            extension === "DOC" ||
-            extension === "DOCX"
-        )
-            icon = "fa-file-word";
+      try {
+        const url = new URL(value, window.location.href);
 
-        else if (
-            extension === "XLS" ||
-            extension === "XLSX"
-        )
-            icon = "fa-file-excel";
+        if (url.protocol !== "https:" && url.protocol !== "http:") {
+          return null;
+        }
 
-        else if (
-            extension === "PPT" ||
-            extension === "PPTX"
-        )
-            icon = "fa-file-powerpoint";
+        return url.href;
+      } catch (error) {
+        return null;
+      }
+    }
 
+    /* CREATE DOCUMENT CARD */
 
-        const card =
-            document.createElement("div");
+    function createFileCard(file) {
+      const name = file.name.trim() || "Document";
+      const description = file.description.trim() || "Document";
+      const extension = getFileType(name);
+      const iconInfo = getIconInfo(extension);
+      const safeURL = getSafeDownloadURL(file.url);
 
-        card.className = "file-card";
+      const card = document.createElement("article");
+      card.className = "file-card";
 
+      const iconBox = document.createElement("div");
+      iconBox.className = "file-icon";
 
-        card.innerHTML = `
+      if (iconInfo.className) {
+        iconBox.classList.add(iconInfo.className);
+      }
 
-            <div class="file-icon">
+      const icon = document.createElement("i");
+      icon.className = "fas " + iconInfo.icon;
+      icon.setAttribute("aria-hidden", "true");
+      iconBox.appendChild(icon);
 
-                <i class="fas ${icon}"></i>
+      const info = document.createElement("div");
+      info.className = "file-info";
 
-            </div>
+      const heading = document.createElement("h3");
+      heading.textContent = name;
 
+      const descriptionElement = document.createElement("p");
+      descriptionElement.textContent = description;
 
-            <div class="file-info">
+      info.appendChild(heading);
+      info.appendChild(descriptionElement);
 
-                <h3>
-                    ${escapeHTML(file.name || "Document")}
-                </h3>
+      if (extension) {
+        const type = document.createElement("span");
+        type.className = "file-type";
+        type.textContent = extension.toUpperCase() + " FILE";
+        info.appendChild(type);
+      }
 
-                <p>
-                    ${escapeHTML(
-                        file.description || "Document"
-                    )}
-                </p>
+      if (safeURL) {
+        const download = document.createElement("a");
+        download.className = "download";
+        download.href = safeURL;
+        download.target = "_blank";
+        download.rel = "noopener noreferrer";
+        download.setAttribute("aria-label", "Download " + name);
 
+        const downloadIcon = document.createElement("i");
+        downloadIcon.className = "fas fa-download";
+        downloadIcon.setAttribute("aria-hidden", "true");
 
-                <a
-                    class="download"
-                    href="${file.url}"
-                    download="${escapeHTML(file.name || "document")}"
-                    target="_blank">
+        const downloadText = document.createElement("span");
+        downloadText.textContent = "Download";
 
-                    <i class="fas fa-download"></i>
-                    Download
+        download.appendChild(downloadIcon);
+        download.appendChild(downloadText);
+        info.appendChild(download);
+      } else {
+        const unavailable = document.createElement("p");
+        unavailable.style.marginTop = "12px";
+        unavailable.style.color = "#fca5a5";
+        unavailable.textContent = "Download link unavailable.";
+        info.appendChild(unavailable);
+      }
 
-                </a>
+      card.appendChild(iconBox);
+      card.appendChild(info);
 
-            </div>
+      return card;
+    }
 
-        `;
+    /* DISPLAY EMPTY OR ERROR MESSAGE */
 
+    function showMessage(title, message, iconClass) {
+      filesContainer.replaceChildren();
 
-        container.appendChild(card);
+      const box = document.createElement("div");
+      box.className = "empty";
 
-    });
+      const icon = document.createElement("i");
+      icon.className = "fas " + iconClass;
+      icon.setAttribute("aria-hidden", "true");
 
-}
+      const heading = document.createElement("h3");
+      heading.textContent = title;
 
+      const paragraph = document.createElement("p");
+      paragraph.textContent = message;
 
-/* SECURITY */
+      box.appendChild(icon);
+      box.appendChild(heading);
+      box.appendChild(paragraph);
 
-function escapeHTML(text) {
+      filesContainer.appendChild(box);
+    }
 
-    const div =
-        document.createElement("div");
+    /* SEARCH AND DISPLAY */
 
-    div.textContent = text;
+    function displayFiles() {
+      if (!databaseReady || databaseError) {
+        return;
+      }
 
-    return div.innerHTML;
+      const search = searchInput.value.trim().toLowerCase();
 
-}
+      const filtered = files.filter(function (file) {
+        const name = file.name.toLowerCase();
+        const description = file.description.toLowerCase();
 
+        return name.includes(search) || description.includes(search);
+      });
 
-/* MENU */
+      filesContainer.replaceChildren();
 
-function toggleMenu() {
+      resultsCount.textContent =
+        filtered.length + (filtered.length === 1
+          ? " document found"
+          : " documents found");
 
-    document
-        .getElementById("navLinks")
-        .classList.toggle("active");
+      if (filtered.length === 0) {
+        showMessage(
+          files.length === 0
+            ? "No documents available"
+            : "No matching documents",
+          files.length === 0
+            ? "Documents uploaded by the administrator will appear here."
+            : "Try another search term to find a document.",
+          "fa-folder-open"
+        );
 
-}
+        return;
+      }
 
-</script>
+      filtered.forEach(function (file) {
+        filesContainer.appendChild(createFileCard(file));
+      });
+    }
+
+    searchInput.addEventListener("input", displayFiles);
+  </script>
+
+  <script src="js/animations.js" defer></script>
 
 </body>
 </html>
+```
