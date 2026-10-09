@@ -1,642 +1,521 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Clinton Ncube</title>
+  <meta name="description" content="Learn about Clinton Ncube, his interests, skills, projects and goals.">
 
-    <title>About Me | Clinton Ncube</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
 
-    <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #070b16;
+      background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(37,244,238,.12), transparent 35%),
+        radial-gradient(ellipse at 85% 35%, rgba(168,85,247,.13), transparent 35%);
+      background-attachment: fixed;
+      color: #edf4ff;
+      line-height: 1.7;
+      animation: pageEntrance .8s ease-out both;
+    }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-            line-height: 1.7;
-        }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5,9,20,.96);
+      border-bottom: 1px solid rgba(37,244,238,.3);
+      box-shadow: 0 5px 25px rgba(0,0,0,.3);
+      backdrop-filter: blur(14px);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* NAVIGATION */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: #000;
-            padding: 15px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .logo {
+      color: #25f4ee;
+      font-size: 23px;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0 0 15px rgba(37,244,238,.45);
+    }
 
-        .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
+    .nav-links {
+      display: flex;
+      gap: 17px;
+      list-style: none;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            list-style: none;
-        }
+    .nav-links a {
+      color: #e4ebfa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .3s, text-shadow .3s;
+    }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            transition: 0.3s;
-        }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #25f4ee;
+      text-shadow: 0 0 12px rgba(37,244,238,.5);
+    }
 
-        .nav-links a:hover,
-        .nav-links .active {
-            color: #d4af37;
-        }
+    .menu-btn {
+      display: none;
+      color: #25f4ee;
+      background: transparent;
+      border: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-        .menu-btn {
-            display: none;
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
-        }
+    .hero {
+      min-height: 55vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      background:
+        linear-gradient(rgba(5,9,20,.65), rgba(5,9,20,.88)),
+        url('images/court%20of%20gold.jfif') center/cover no-repeat;
+      border-bottom: 1px solid rgba(37,244,238,.3);
+    }
 
-        /* HERO */
-        .hero {
-            min-height: 55vh;
-            background:
-                linear-gradient(
-                    rgba(0,0,0,0.65),
-                    rgba(0,0,0,0.75)
-                ),
-                url('images/court%20of%20gold.jfif');
+    .hero-content {
+      max-width: 850px;
+      animation: heroEntrance 1s ease-out both;
+    }
 
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px 20px;
-        }
+    .hero-content h1 {
+      font-size: clamp(35px, 6vw, 55px);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(37,244,238,.4),
+                   0 0 35px rgba(168,85,247,.3);
+    }
 
-        .hero-content {
-            color: white;
-            max-width: 850px;
-        }
+    .hero-content p {
+      color: #d0daee;
+      font-size: 19px;
+    }
 
-        .hero-content h1 {
-            font-size: 55px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-        }
+    .container {
+      width: 90%;
+      max-width: 1150px;
+      margin: 55px auto;
+    }
 
-        .hero-content p {
-            font-size: 20px;
-            color: #ddd;
-        }
+    .intro, .card, .social-section {
+      background: rgba(16,23,42,.9);
+      color: #edf4ff;
+      border: 1px solid rgba(115,151,220,.23);
+      border-radius: 15px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.22);
+      backdrop-filter: blur(12px);
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
 
-        /* MAIN */
-        .container {
-            width: 90%;
-            max-width: 1150px;
-            margin: 60px auto;
-        }
+    .intro {
+      padding: 35px;
+      margin-bottom: 30px;
+    }
 
-        .intro {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            margin-bottom: 35px;
-        }
+    .intro:hover, .card:hover, .social-section:hover {
+      transform: translateY(-5px);
+      border-color: rgba(37,244,238,.65);
+      box-shadow: 0 12px 32px rgba(0,0,0,.3),
+                  0 0 20px rgba(37,244,238,.1);
+    }
 
-        .intro h2 {
-            color: #111;
-            margin-bottom: 20px;
-            font-size: 30px;
-        }
+    .intro h2, .card h2, .social-section h2 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
 
-        .intro h2::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: #d4af37;
-            margin-top: 8px;
-        }
+    .intro h2 { font-size: 30px; }
 
-        .intro p {
-            font-size: 17px;
-            color: #444;
-        }
+    .intro h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 4px;
+      margin-top: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #25f4ee, #a855f7);
+    }
 
-        /* CARDS */
-        .section-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
+    .intro p, .card p, .highlight p {
+      color: #bdc9df;
+    }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        }
+    .card { padding: 30px; }
 
-        .card-icon {
-            width: 55px;
-            height: 55px;
-            background: #111;
-            color: #d4af37;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            margin-bottom: 18px;
-        }
+    .card-icon {
+      width: 55px;
+      height: 55px;
+      background: linear-gradient(135deg, #13243a, #251747);
+      color: #25f4ee;
+      border: 1px solid rgba(37,244,238,.25);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 18px rgba(37,244,238,.12);
+      transition: transform .3s;
+    }
 
-        .card h2 {
-            font-size: 25px;
-            margin-bottom: 12px;
-            color: #111;
-        }
+    .card:hover .card-icon {
+      transform: scale(1.08) rotate(-5deg);
+    }
 
-        .card p {
-            color: #555;
-            font-size: 16px;
-        }
+    .card h2 { font-size: 24px; }
 
-        /* HIGHLIGHT */
-        .highlight {
-            margin-top: 35px;
-            padding: 45px;
-            background: linear-gradient(135deg, #111, #292929);
-            color: white;
-            border-radius: 15px;
-            text-align: center;
-        }
+    .highlight {
+      margin-top: 35px;
+      padding: 40px;
+      background: linear-gradient(135deg, #10172a, #20143b);
+      border: 1px solid rgba(168,85,247,.35);
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(168,85,247,.1);
+      transition: transform .3s, box-shadow .3s;
+    }
 
-        .highlight h2 {
-            color: #d4af37;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+    .highlight:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 35px rgba(168,85,247,.2);
+    }
 
-        .highlight p {
-            max-width: 850px;
-            margin: auto;
-            color: #eee;
-            font-size: 17px;
-        }
+    .highlight h2 {
+      color: #25f4ee;
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
 
-        /* SOCIALS */
-        .social-section {
-            text-align: center;
-            margin-top: 45px;
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-        }
+    .highlight p { max-width: 850px; margin: auto; }
 
-        .social-section h2 {
-            margin-bottom: 20px;
-        }
+    .social-section {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px;
+    }
 
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-        }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
 
-        .social-icons a {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: #111;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+    .social-icons a {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #151e35;
+      color: #fff;
+      border: 1px solid rgba(115,151,220,.25);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: .3s;
+    }
 
-        .social-icons a:hover {
-            background: #d4af37;
-            color: #111;
-            transform: translateY(-4px);
-        }
+    .social-icons a:hover {
+      background: #25f4ee;
+      color: #070b16;
+      border-color: #25f4ee;
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 0 22px rgba(37,244,238,.35);
+    }
 
-        /* FOOTER */
-        footer {
-            background: #000;
-            color: #aaa;
-            text-align: center;
-            padding: 25px 15px;
-            margin-top: 60px;
-        }
+    .tiktok-svg {
+      width: 21px;
+      height: 21px;
+      display: block;
+    }
 
-        footer strong {
-            color: white;
-        }
+    footer {
+      margin-top: 60px;
+      padding: 25px 15px;
+      text-align: center;
+      background: #050914;
+      border-top: 1px solid rgba(37,244,238,.2);
+      color: #a9b7d0;
+    }
 
-        /* MOBILE */
-        @media (max-width: 800px) {
+    footer strong { color: #25f4ee; }
 
-            .menu-btn {
-                display: block;
-            }
+    @keyframes heroEntrance {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-            .nav-links {
-                position: absolute;
-                top: 65px;
-                left: 0;
-                width: 100%;
-                background: #000;
-                flex-direction: column;
-                text-align: center;
-                gap: 0;
-                display: none;
-            }
+    @keyframes pageEntrance {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-            .nav-links.active {
-                display: flex;
-            }
+    @media (max-width: 900px) {
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 13px; }
+    }
 
-            .nav-links li {
-                padding: 15px;
-                border-top: 1px solid #222;
-            }
+    @media (max-width: 760px) {
+      .menu-btn { display: block; }
 
-            .hero-content h1 {
-                font-size: 38px;
-            }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 5%;
+        background: rgba(5,9,20,.98);
+        border-bottom: 1px solid rgba(37,244,238,.3);
+      }
 
-            .hero-content p {
-                font-size: 17px;
-            }
+      .nav-links.active { display: flex; }
 
-            .section-grid {
-                grid-template-columns: 1fr;
-            }
+      .nav-links li {
+        padding: 11px 0;
+        border-bottom: 1px solid rgba(115,151,220,.12);
+      }
 
-            .intro,
-            .card,
-            .highlight,
-            .social-section {
-                padding: 25px;
-            }
-        }
-    </style>
+      .section-grid { grid-template-columns: 1fr; }
+
+      .hero { min-height: 42vh; }
+
+      .hero-content h1 {
+        font-size: 36px;
+        letter-spacing: 1px;
+      }
+
+      .hero-content p { font-size: 17px; }
+
+      .intro, .card, .highlight, .social-section {
+        padding: 25px;
+      }
+
+      .container { margin: 35px auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <nav>
+    <a href="index.html" class="logo">Clinton Ncube</a>
 
-<!-- NAVIGATION -->
-<nav>
-
-    <a href="index.html" class="logo">
-        Clinton Ncube
-    </a>
-
-    <div class="menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
+    <button class="menu-btn" id="menuButton"
+            type="button" aria-label="Toggle navigation"
+            aria-expanded="false" aria-controls="navLinks">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
 
     <ul class="nav-links" id="navLinks">
-
-        <li><a href="index.html">Home</a></li>
-
-        <li>
-            <a href="about.html" class="active">About</a>
-        </li>
-
-        <li><a href="projects.html">Projects</a></li>
-
-        <li><a href="achievements.html">Achievements</a></li>
-
-        <li><a href="skills.html">Skills</a></li>
-
-        <li><a href="hobbies.html">Hobbies</a></li>
-
-        <li><a href="gallery.html">Gallery</a></li>
-
-        <li><a href="contact.html">Contact</a></li>
-
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active" aria-current="page">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="hobbies.html">Hobbies</a></li>
+      <li><a href="achievements.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
+  </nav>
 
-</nav>
-
-
-<!-- HERO -->
-<section class="hero">
-
+  <header class="hero">
     <div class="hero-content">
-
-        <h1>About Me</h1>
-
-        <p>
-            Get to know more about who I am, my journey,
-            my interests, my goals and my vision for the future.
-        </p>
-
+      <h1>About Me</h1>
+      <p>Discover my journey, interests, ambitions and the person behind the projects.</p>
     </div>
+  </header>
 
-</section>
-
-
-<!-- MAIN CONTENT -->
-<div class="container">
-
-
-    <!-- INTRODUCTION -->
+  <main class="container">
     <section class="intro">
-
-        <h2>Who I Am</h2>
-
-        <p>
-            My name is <strong>Thabang Clinton Ncube</strong>.
-            I am a student at <strong>Silveira High School</strong>.
-            I was born on <strong>21 September 2008</strong>.
-            I consider myself to be patient, reasonable and cautious.
-            I believe in learning from experience, facing challenges
-            and becoming a better and more mature person every day.
-        </p>
-
+      <h2>Who Am I?</h2>
+      <p>
+        My name is Clinton Ncube. I am a student who enjoys learning,
+        developing new skills and working on creative projects. I believe
+        that every new experience is an opportunity to grow, improve and
+        discover something useful. This website is my personal portfolio,
+        where I share my interests, projects, skills, hobbies and achievements.
+      </p>
     </section>
 
-
-    <!-- SECTIONS -->
     <div class="section-grid">
+      <article class="card">
+        <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+        <h2>My Education</h2>
+        <p>
+          Education is an important part of my journey. I enjoy learning new
+          ideas, solving problems and developing knowledge that can help me
+          in my future studies and career.
+        </p>
+      </article>
 
+      <article class="card">
+        <div class="card-icon"><i class="fas fa-basketball"></i></div>
+        <h2>My Interests</h2>
+        <p>
+          My interests include basketball, swimming, reading and athletics.
+          These activities help me explore my abilities, learn discipline
+          and make good use of my free time.
+        </p>
+      </article>
 
-        <!-- MY STORY -->
-        <div class="card">
+      <article class="card">
+        <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+        <h2>My Skills</h2>
+        <p>
+          I am interested in improving my digital skills, creativity,
+          communication and problem-solving abilities. I enjoy learning
+          through practical activities and personal projects.
+        </p>
+      </article>
 
-            <div class="card-icon">
-                <i class="fas fa-road"></i>
-            </div>
-
-            <h2>My Story</h2>
-
-            <p>
-                My journey has been shaped by my experiences in school,
-                sports, technology and everyday life. I developed a strong
-                interest in basketball and computers because they give me
-                ways to focus, learn and relieve stress. Along the way,
-                I have learned to be more careful about the decisions I make
-                and to become more responsible and mature.
-            </p>
-
-        </div>
-
-
-        <!-- MY INTERESTS -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-heart"></i>
-            </div>
-
-            <h2>My Interests</h2>
-
-            <p>
-                My main interests include playing basketball, swimming
-                and reading. Basketball is especially important to me
-                because it is not only something I enjoy, but also a
-                possible backup career. These activities give me time
-                to relax, improve myself and relieve stress.
-            </p>
-
-        </div>
-
-
-        <!-- MY SKILLS -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-laptop-code"></i>
-            </div>
-
-            <h2>My Skills</h2>
-
-            <p>
-                I have developed skills in website creation, refereeing
-                basketball and coaching basketball. I am also interested
-                in learning how to become more mature and how to care for
-                other people. I believe that continuously developing my
-                skills will help me prepare for my future.
-            </p>
-
-        </div>
-
-
-        <!-- SCHOOL LIFE -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-school"></i>
-            </div>
-
-            <h2>My School Life</h2>
-
-            <p>
-                I am a Form 4 student at <strong>Silveira High School</strong>
-                in 2026. Some of the subjects I enjoy include Mathematics,
-                Physical Education and Pure Mathematics. I enjoy helping
-                others and participating in sports occasions and other
-                school activities.
-            </p>
-
-        </div>
-
-
-        <!-- MY PROJECTS -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-project-diagram"></i>
-            </div>
-
-            <h2>My Projects</h2>
-
-            <p>
-                I have been involved in different projects and activities,
-                including the Mathematics Olympiad, developing a school
-                website and taking part in a school trip tour. One project
-                I am particularly proud of is the Mathematics Olympiad
-                because it gave me an opportunity to prove that
-                <strong>consistency is the basis of success</strong>.
-                My projects have also helped me develop my learning skills.
-            </p>
-
-        </div>
-
-
-        <!-- PERSONALITY -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-user"></i>
-            </div>
-
-            <h2>My Personality</h2>
-
-            <p>
-                I would describe myself as a person who tries to remain
-                calm, reasonable and cautious. When I face a difficult
-                challenge, I believe in facing it rather than running away
-                from it. I value consistency and prayer, and I believe that
-                both can help me remain focused when working toward my goals.
-            </p>
-
-        </div>
-
-
-        <!-- FAVOURITE THINGS -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-star"></i>
-            </div>
-
-            <h2>My Favourite Things</h2>
-
-            <p>
-                I enjoy snacks, basketball and mathematics. Basketball is
-                one of my favourite activities, and I also follow the
-                <strong>San Antonio Spurs</strong>. I enjoy playing
-                basketball because it is exciting, challenging and gives
-                me an opportunity to improve my skills.
-            </p>
-
-        </div>
-
-
-        <!-- GOALS -->
-        <div class="card">
-
-            <div class="card-icon">
-                <i class="fas fa-bullseye"></i>
-            </div>
-
-            <h2>My Goals</h2>
-
-            <p>
-                One of my main goals is to become a doctor. I want to
-                continue learning new skills, develop myself academically
-                and eventually work in medicine to help sick people.
-                At the same time, I want to continue developing my
-                basketball abilities and keep the possibility of becoming
-                a professional basketball player open.
-            </p>
-
-        </div>
-
+      <article class="card">
+        <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+        <h2>My Goals</h2>
+        <p>
+          My goal is to keep learning, improve my abilities and create useful
+          and interesting projects. I want to use the knowledge I gain to
+          open up opportunities for my future.
+        </p>
+      </article>
     </div>
 
-
-    <!-- FUTURE VISION -->
     <section class="highlight">
-
-        <h2>My Future Vision</h2>
-
-        <p>
-            In the future, I see myself working in medicine as a doctor
-            while continuing to develop my basketball career. My strongest
-            ambition is to study medicine and become a doctor who helps
-            people in need. Basketball will always remain an important
-            part of my life and may become another career path for me.
-            I am working toward my future by studying, developing my skills,
-            staying consistent and learning from every experience.
-        </p>
-
+      <h2>My Future Vision</h2>
+      <p>
+        I believe that progress comes through learning, persistence,
+        creativity and being willing to try new things. I want to continue
+        developing my skills, exploring my interests and building projects
+        that reflect my growth. Every step is an opportunity to become more
+        knowledgeable and better prepared for the future.
+      </p>
     </section>
 
-
-    <!-- SOCIAL MEDIA -->
     <section class="social-section">
+      <h2>Connect With Me</h2>
+      <p>Visit my social platforms and follow my journey.</p>
 
-        <h2>Connect With Me</h2>
+      <div class="social-icons">
+        <a href="https://www.tiktok.com/@silveirahighsportsdesk"
+           target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <svg class="tiktok-svg" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="#25F4EE"
+              d="M19.6 7.2a7.1 7.1 0 0 1-4.3-1.5v9.1a6.1 6.1 0 1 1-5.3-6.05v3.2a2.95 2.95 0 1 0 2.1 2.85V2.5h3.2a7.05 7.05 0 0 0 4.3 4.7z"
+              transform="translate(-1 1)"/>
+            <path fill="#FE2C55"
+              d="M18.3 6.1a7.1 7.1 0 0 1-4.3-1.5v9.1a6.1 6.1 0 1 1-5.3-6.05v3.2a2.95 2.95 0 1 0 2.1 2.85V1.4H14a7.05 7.05 0 0 0 4.3 4.7z"
+              transform="translate(1 1)"/>
+            <path fill="#FFFFFF"
+              d="M18.8 6.8a7.1 7.1 0 0 1-4.3-1.5v9.1a6.1 6.1 0 1 1-5.3-6.05v3.2a2.95 2.95 0 1 0 2.1 2.85V2.1h3.2a7.05 7.05 0 0 0 4.3 4.7z"/>
+          </svg>
+        </a>
 
-        <div class="social-icons">
+        <a href="https://wa.me/2637728040490"
+           target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
 
-            <a href="https://www.instagram.com/vixeny19/"
-               target="_blank"
-               title="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
+        <a href="https://www.facebook.com/profile.php?id=61586134052388"
+           target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
 
-            <a href="https://www.tiktok.com/@silveirahighsportsdesk"
-               target="_blank"
-               title="TikTok">
-                <i class="fab fa-tiktok"></i>
-            </a>
+        <a href="https://www.youtube.com/@TCN-CLINTON"
+           target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
 
-            <a href="https://www.youtube.com/@TCN-CLINTON"
-               target="_blank"
-               title="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
+        <a href="https://www.instagram.com/vixeny19/"
+           target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
 
-            <a href="https://www.facebook.com/profile.php?id=61586134052388"
-               target="_blank"
-               title="Facebook">
-                <i class="fab fa-facebook"></i>
-            </a>
+        <a href="https://x.com/VixenyNcu96414"
+           target="_blank" rel="noopener noreferrer" aria-label="X">
+          <i class="fab fa-x-twitter"></i>
+        </a>
 
-        </div>
+        <a href="https://www.snapchat.com/add/Vixeny25"
+           target="_blank" rel="noopener noreferrer" aria-label="Snapchat">
+          <i class="fab fa-snapchat"></i>
+        </a>
 
+        <a href="https://www.linkedin.com/in/thabangncube23/"
+           target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+
+        <a href="mailto:thabangncube78@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
     </section>
+  </main>
 
-</div>
+  <footer>
+    <p>&copy; 2026 <strong>Clinton Ncube</strong>. All rights reserved.</p>
+  </footer>
 
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
 
-<!-- FOOTER -->
-<footer>
+    menuButton.addEventListener("click", function () {
+      const isOpen = navLinks.classList.toggle("active");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
 
-    <p>
-        © 2026 <strong>Clinton Ncube</strong>.
-        All Rights Reserved.
-    </p>
+    navLinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navLinks.classList.remove("active");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
 
-</footer>
-
-
-<!-- MOBILE MENU SCRIPT -->
-<script>
-
-function toggleMenu() {
-
-    document
-        .getElementById("navLinks")
-        .classList.toggle("active");
-
-}
-
-</script>
-
+  <script src="js/animations.js" defer></script>
 </body>
 </html>
+```
