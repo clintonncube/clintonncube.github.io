@@ -1,24 +1,38 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050711">
 
     <title>Clinton Ncube | Personal Website</title>
+    <meta name="description" content="Welcome to Clinton Ncube's personal website. Explore projects, achievements, skills, hobbies and memorable moments.">
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="apple-touch-icon" href="images/favicon.png">
 
-    <!-- Firebase -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Optional shared animations -->
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- Firebase: existing Realtime Database visitor counter -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
     <style>
+        :root {
+            --background: #050711;
+            --surface: #0b1020;
+            --surface-light: #111a30;
+            --cyan: #00eaff;
+            --purple: #9d4dff;
+            --text: #f4f7ff;
+            --muted: #b9c6df;
+            --border: rgba(0, 234, 255, 0.23);
+            --glow: 0 0 25px rgba(0, 234, 255, 0.15);
+        }
 
         * {
             margin: 0;
@@ -28,1232 +42,1051 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
-            color: #222;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 15% 10%, rgba(0, 234, 255, 0.09), transparent 38%),
+                radial-gradient(ellipse at 85% 30%, rgba(157, 77, 255, 0.12), transparent 38%),
+                radial-gradient(ellipse at 50% 90%, rgba(0, 234, 255, 0.05), transparent 42%);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 5px;
+        }
+
+        /* NAVIGATION */
 
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-
-            background: rgba(0, 0, 0, 0.95);
-
+            min-height: 72px;
+            padding: 12px 6%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            padding: 0 6%;
-
+            gap: 24px;
             z-index: 1000;
+            background: rgba(5, 7, 17, 0.88);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            animation: navEntrance 0.8s ease both;
         }
 
         .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
+            color: var(--text);
             text-decoration: none;
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--cyan);
+            text-shadow: 0 0 15px rgba(0, 234, 255, 0.55);
         }
 
         .nav-links {
             display: flex;
+            align-items: center;
+            gap: 20px;
             list-style: none;
-            gap: 25px;
         }
 
         .nav-links a {
-            color: white;
+            display: inline-block;
+            color: var(--muted);
             text-decoration: none;
-            font-size: 15px;
-            transition: 0.3s;
+            font-size: 14px;
+            transition: color 0.25s ease, transform 0.25s ease;
         }
 
-        .nav-links a:hover {
-            color: #d4af37;
+        .nav-links a:hover,
+        .nav-links a[aria-current="page"] {
+            color: var(--cyan);
+            transform: translateY(-2px);
         }
 
         .menu-btn {
             display: none;
-            color: white;
-            font-size: 25px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+            color: var(--cyan);
+            font-size: 21px;
             cursor: pointer;
         }
 
-        /* =========================
-           HERO
-        ========================= */
+        /* HERO */
 
         .hero {
-
+            position: relative;
             min-height: 100vh;
-
-            background-image:
-
-                linear-gradient(
-                    rgba(0, 0, 0, 0.35),
-                    rgba(0, 0, 0, 0.65)
-                ),
-
-                url('images/court%20of%20gold.jfif');
-
-            background-size: cover;
-
-            background-position: center;
-
-            background-repeat: no-repeat;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
+            padding: 125px 6% 80px;
             text-align: center;
+            isolation: isolate;
+            background:
+                linear-gradient(135deg, rgba(5, 7, 17, 0.78), rgba(5, 7, 17, 0.45)),
+                linear-gradient(0deg, var(--background), transparent 45%),
+                url("images/court%20of%20gold.jfif") center / cover no-repeat;
+        }
 
-            padding: 100px 20px 50px;
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at center, rgba(0, 234, 255, 0.11), transparent 55%),
+                linear-gradient(90deg, rgba(157, 77, 255, 0.09), transparent 50%, rgba(0, 234, 255, 0.08));
         }
 
         .hero-content {
-            color: white;
-            max-width: 900px;
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeUp 1s 0.15s ease both;
         }
 
-        .hero-content h1 {
-
-            font-size: clamp(45px, 8vw, 95px);
-
-            font-weight: 900;
-
-            text-transform: uppercase;
-
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 22px;
+            padding: 8px 16px;
+            color: var(--cyan);
+            border: 1px solid rgba(0, 234, 255, 0.42);
+            background: rgba(5, 7, 17, 0.72);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: bold;
             letter-spacing: 3px;
-
-            margin-bottom: 20px;
-
-            text-shadow:
-                3px 3px 10px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+            box-shadow: 0 0 24px rgba(0, 234, 255, 0.12);
         }
 
-        .hero-content p {
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 92px);
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(0, 234, 255, 0.22);
+        }
 
-            font-size: 22px;
-
-            margin-bottom: 35px;
-
+        .hero h1 span {
+            display: block;
+            color: var(--cyan);
             text-shadow:
-                2px 2px 6px rgba(0,0,0,0.8);
+                0 0 10px rgba(0, 234, 255, 0.5),
+                0 0 35px rgba(0, 234, 255, 0.22);
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 0 auto 32px;
+            color: #e1e8f7;
+            font-size: clamp(17px, 2.5vw, 22px);
+            text-shadow: 0 2px 10px #000;
         }
 
         .hero-buttons {
-
             display: flex;
-
             justify-content: center;
-
-            gap: 15px;
-
             flex-wrap: wrap;
+            gap: 16px;
         }
 
         .btn {
-
-            display: inline-block;
-
-            padding: 14px 25px;
-
-            border-radius: 30px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            transition: 0.3s;
-        }
-
-        .btn-primary {
-
-            background: #d4af37;
-
-            color: black;
-        }
-
-        .btn-primary:hover {
-
-            transform: translateY(-3px);
-
-            background: white;
-        }
-
-        .btn-secondary {
-
-            background: rgba(0,0,0,0.6);
-
-            color: white;
-
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-
-            background: white;
-
-            color: black;
-        }
-
-        /* =========================
-           GENERAL SECTIONS
-        ========================= */
-
-        section {
-
-            padding: 80px 8%;
-        }
-
-        .section-title {
-
-            text-align: center;
-
-            font-size: 40px;
-
-            margin-bottom: 20px;
-
-            color: #222;
-        }
-
-        .section-description {
-
-            max-width: 800px;
-
-            margin: 0 auto 45px;
-
-            text-align: center;
-
-            line-height: 1.8;
-
-            color: #666;
-        }
-
-        /* =========================
-           ABOUT
-        ========================= */
-
-        .about {
-
-            background: white;
-        }
-
-        .about-content {
-
-            max-width: 900px;
-
-            margin: auto;
-
-            text-align: center;
-
-            line-height: 1.9;
-
-            font-size: 17px;
-        }
-
-        /* =========================
-           GOAL
-        ========================= */
-
-        .goal {
-
-            background: #111;
-
-            color: white;
-
-            text-align: center;
-        }
-
-        .goal .section-title {
-
-            color: white;
-        }
-
-        .goal p {
-
-            max-width: 850px;
-
-            margin: auto;
-
-            line-height: 1.9;
-
-            font-size: 18px;
-        }
-
-        /* =========================
-           CARDS
-        ========================= */
-
-        .explore {
-
-            background: #f5f5f5;
-        }
-
-        .cards {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-
-            gap: 25px;
-
-            max-width: 1200px;
-
-            margin: auto;
-        }
-
-        .card {
-
-            background: white;
-
-            padding: 35px 25px;
-
-            text-align: center;
-
-            border-radius: 15px;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.08);
-
-            transition: 0.3s;
-        }
-
-        .card:hover {
-
-            transform: translateY(-8px);
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .card i {
-
-            font-size: 40px;
-
-            margin-bottom: 20px;
-
-            color: #d4af37;
-        }
-
-        .card h3 {
-
-            margin-bottom: 12px;
-
-            font-size: 22px;
-        }
-
-        .card p {
-
-            color: #666;
-
-            line-height: 1.6;
-
-            margin-bottom: 20px;
-        }
-
-        .card a {
-
-            display: inline-block;
-
-            text-decoration: none;
-
-            background: #111;
-
-            color: white;
-
-            padding: 10px 18px;
-
-            border-radius: 20px;
-
-            transition: 0.3s;
-        }
-
-        .card a:hover {
-
-            background: #d4af37;
-
-            color: black;
-        }
-
-        /* =========================
-           VISITOR COUNTER
-        ========================= */
-
-        .visitors {
-
-            background: white;
-
-            text-align: center;
-        }
-
-        .visitor-box {
-
-            display: inline-block;
-
-            padding: 30px 50px;
-
-            border-radius: 15px;
-
-            background: #111;
-
-            color: white;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.15);
-        }
-
-        .visitor-box i {
-
-            font-size: 35px;
-
-            margin-bottom: 15px;
-
-            color: #d4af37;
-        }
-
-        #visitorCount {
-
-            font-size: 40px;
-
-            font-weight: bold;
-
-            color: #d4af37;
-
-            margin-top: 10px;
-        }
-
-        /* =========================
-           THANK YOU
-        ========================= */
-
-        .thanks {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #111,
-                    #222
-                );
-
-            color: white;
-
-            text-align: center;
-        }
-
-        .thanks h2 {
-
-            font-size: 45px;
-
-            margin-bottom: 20px;
-        }
-
-        .thanks p {
-
-            max-width: 700px;
-
-            margin: auto;
-
-            line-height: 1.8;
-
-            font-size: 18px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-
-            background: black;
-
-            color: white;
-
-            text-align: center;
-
-            padding: 35px 20px;
-        }
-
-        .social-icons {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 20px;
-
-            margin-bottom: 20px;
-
-            flex-wrap: wrap;
-        }
-
-        .social-icons a {
-
-            width: 45px;
-
-            height: 45px;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            justify-content: center;
-
+            display: inline-flex;
             align-items: center;
-
-            background: #222;
-
-            color: white;
-
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 25px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            font-weight: bold;
             text-decoration: none;
-
-            font-size: 20px;
-
-            transition: 0.3s;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
 
-        .social-icons a:hover {
-
-            background: #d4af37;
-
-            color: black;
-
+        .btn:hover {
             transform: translateY(-4px);
         }
 
-        footer p {
-
-            color: #aaa;
+        .btn-primary {
+            color: #041017;
+            background: var(--cyan);
+            box-shadow: 0 0 25px rgba(0, 234, 255, 0.24);
         }
 
-        /* =========================
-           MOBILE
-        ========================= */
+        .btn-primary:hover {
+            box-shadow: 0 0 35px rgba(0, 234, 255, 0.5);
+            background: #8af7ff;
+        }
 
-        @media (max-width: 900px) {
+        .btn-secondary {
+            color: white;
+            background: rgba(10, 14, 30, 0.76);
+            border-color: var(--purple);
+            box-shadow: 0 0 20px rgba(157, 77, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(157, 77, 255, 0.2);
+            box-shadow: 0 0 28px rgba(157, 77, 255, 0.28);
+        }
+
+        .scroll-hint {
+            margin-top: 55px;
+            color: var(--muted);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint i {
+            display: block;
+            margin-top: 8px;
+            color: var(--cyan);
+            animation: floatDown 1.5s ease-in-out infinite;
+        }
+
+        /* GENERAL SECTIONS */
+
+        section.content-section {
+            padding: 90px 8%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 18px;
+            font-size: clamp(29px, 4vw, 43px);
+            line-height: 1.25;
+        }
+
+        .section-heading span {
+            color: var(--cyan);
+            text-shadow: 0 0 18px rgba(0, 234, 255, 0.2);
+        }
+
+        .section-description {
+            max-width: 780px;
+            margin: 0 auto 45px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        .section-kicker {
+            margin-bottom: 12px;
+            color: var(--purple);
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: linear-gradient(180deg, rgba(10, 15, 30, 0.92), rgba(5, 7, 17, 0.78));
+            border-top: 1px solid rgba(0, 234, 255, 0.08);
+            border-bottom: 1px solid rgba(157, 77, 255, 0.12);
+        }
+
+        .about-panel {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: clamp(25px, 5vw, 48px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(17, 26, 48, 0.96), rgba(8, 12, 27, 0.98));
+            box-shadow: var(--glow);
+            text-align: center;
+        }
+
+        .about-panel p {
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.95;
+        }
+
+        .about-panel p + p {
+            margin-top: 18px;
+        }
+
+        .about-panel strong {
+            color: var(--cyan);
+        }
+
+        /* GOAL */
+
+        .goal {
+            position: relative;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(157, 77, 255, 0.1), transparent 45%),
+                radial-gradient(ellipse at 80% 50%, rgba(0, 234, 255, 0.07), transparent 45%);
+        }
+
+        .goal-panel {
+            max-width: 900px;
+            margin: auto;
+            padding: 38px;
+            border: 1px solid rgba(157, 77, 255, 0.3);
+            border-radius: 20px;
+            background: rgba(11, 16, 32, 0.8);
+            box-shadow: 0 0 30px rgba(157, 77, 255, 0.08);
+        }
+
+        .goal-panel p {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        /* EXPLORE CARDS */
+
+        .explore {
+            background: rgba(8, 12, 25, 0.72);
+            border-top: 1px solid rgba(0, 234, 255, 0.12);
+            border-bottom: 1px solid rgba(0, 234, 255, 0.12);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+            gap: 24px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(18, 27, 48, 0.96), rgba(8, 12, 27, 0.98));
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            animation: cardEntrance 0.7s ease both;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+            opacity: 0.8;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 234, 255, 0.75);
+            box-shadow: 0 12px 38px rgba(0, 234, 255, 0.1);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            border: 1px solid rgba(0, 234, 255, 0.25);
+            border-radius: 20px;
+            color: var(--cyan);
+            background: rgba(0, 234, 255, 0.07);
+            font-size: 29px;
+            box-shadow: 0 0 22px rgba(0, 234, 255, 0.07);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.07) rotate(-3deg);
+            background: rgba(0, 234, 255, 0.13);
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .card p {
+            min-height: 78px;
+            margin-bottom: 20px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 17px;
+            color: var(--cyan);
+            border: 1px solid rgba(0, 234, 255, 0.32);
+            border-radius: 10px;
+            background: rgba(0, 234, 255, 0.05);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.25s ease;
+        }
+
+        .card-link:hover {
+            color: #041017;
+            background: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.24);
+        }
+
+        /* VISITOR COUNTER */
+
+        .visitors {
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 234, 255, 0.06), transparent 60%);
+        }
+
+        .visitor-box {
+            display: inline-block;
+            min-width: 245px;
+            padding: 32px 45px;
+            border: 1px solid rgba(0, 234, 255, 0.32);
+            border-radius: 20px;
+            background: linear-gradient(145deg, #111a30, #080c1b);
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.12);
+        }
+
+        .visitor-box > i {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--cyan);
+            font-size: 34px;
+        }
+
+        .visitor-label {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        #visitorCount {
+            margin-top: 5px;
+            color: var(--cyan);
+            font-size: 42px;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(0, 234, 255, 0.25);
+        }
+
+        /* THANK YOU */
+
+        .thanks {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(17, 12, 35, 0.95), rgba(5, 13, 29, 0.98));
+            border-top: 1px solid rgba(157, 77, 255, 0.22);
+        }
+
+        .thanks h2 {
+            margin-bottom: 20px;
+            font-size: clamp(30px, 5vw, 46px);
+        }
+
+        .thanks h2 span {
+            color: var(--cyan);
+        }
+
+        .thanks p {
+            max-width: 740px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        .thanks .btn {
+            margin-top: 28px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 38px 20px;
+            text-align: center;
+            background: #03050c;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-name {
+            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .footer-name span {
+            color: var(--cyan);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 22px 0;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            color: var(--muted);
+            border: 1px solid rgba(0, 234, 255, 0.22);
+            border-radius: 14px;
+            background: var(--surface);
+            text-decoration: none;
+            font-size: 19px;
+            transition: transform 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.2);
+        }
+
+        footer p {
+            color: #8996af;
+            font-size: 13px;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 18px;
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes navEntrance {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 234, 255, 0.38), 0 0 30px rgba(0, 234, 255, 0.15); }
+            50% { text-shadow: 0 0 18px rgba(0, 234, 255, 0.65), 0 0 45px rgba(157, 77, 255, 0.22); }
+        }
+
+        @keyframes floatDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1050px) {
+            nav {
+                padding: 12px 5%;
+            }
 
             .menu-btn {
-
-                display: block;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .nav-links {
-
                 position: absolute;
-
-                top: 70px;
-
+                top: calc(100% + 1px);
                 left: 0;
-
-                width: 100%;
-
-                background:
-                    rgba(0,0,0,0.98);
-
-                flex-direction: column;
-
-                align-items: center;
-
-                padding: 25px 0;
-
+                right: 0;
                 display: none;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 12px 5% 22px;
+                background: rgba(5, 7, 17, 0.98);
+                border-bottom: 1px solid var(--border);
+                backdrop-filter: blur(18px);
             }
 
             .nav-links.active {
-
                 display: flex;
+                animation: fadeUp 0.25s ease both;
             }
 
             .nav-links li {
-
-                margin: 8px 0;
+                width: 100%;
             }
 
-            .hero-content h1 {
-
-                font-size: 50px;
+            .nav-links a {
+                display: block;
+                padding: 11px 5px;
+                font-size: 15px;
             }
 
-            .hero-content p {
-
-                font-size: 18px;
-            }
-
-            section {
-
-                padding: 65px 6%;
-            }
-
-            .section-title {
-
-                font-size: 32px;
+            section.content-section {
+                padding: 75px 6%;
             }
         }
 
-        @media (max-width: 500px) {
-
+        @media (max-width: 600px) {
             nav {
-
-                padding: 0 5%;
+                min-height: 66px;
+                padding: 10px 5%;
             }
 
             .logo {
-
-                font-size: 20px;
+                font-size: 19px;
             }
 
-            .hero-content h1 {
-
-                font-size: 38px;
-
-                letter-spacing: 1px;
+            .hero {
+                min-height: 90vh;
+                padding: 110px 6% 60px;
+                background-position: center;
             }
 
-            .hero-content p {
+            .hero h1 {
+                font-size: clamp(37px, 11vw, 58px);
+                letter-spacing: -1px;
+            }
 
+            .hero p {
                 font-size: 16px;
             }
 
-            .btn {
+            .eyebrow {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
 
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn {
                 width: 100%;
+                max-width: 270px;
+            }
 
-                max-width: 250px;
+            .scroll-hint {
+                margin-top: 35px;
+            }
+
+            section.content-section {
+                padding: 65px 5%;
+            }
+
+            .section-description {
+                margin-bottom: 32px;
+            }
+
+            .about-panel,
+            .goal-panel {
+                padding: 25px 20px;
+            }
+
+            .about-panel p,
+            .goal-panel p,
+            .thanks p {
+                font-size: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .card p {
+                min-height: auto;
             }
 
             .visitor-box {
-
-                padding: 25px 35px;
+                width: 100%;
+                max-width: 300px;
+                padding: 28px 25px;
             }
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
-
 </head>
 
-<body>
+<body id="top">
 
-
-    <!-- =========================
-         NAVIGATION
-    ========================= -->
-
-    <nav>
-
+    <!-- NAVIGATION -->
+    <nav aria-label="Main navigation">
         <a href="index.html" class="logo">
-            Clinton Ncube
+            Clinton <span>Ncube</span>
         </a>
 
-        <div class="menu-btn"
-             onclick="toggleMenu()">
+        <button class="menu-btn" id="menuToggle"
+                type="button" aria-label="Open navigation menu"
+                aria-controls="navLinks" aria-expanded="false">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
 
-            <i class="fas fa-bars"></i>
-
-        </div>
-
-        <ul class="nav-links"
-            id="navLinks">
-
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-
-            <li>
-                <a href="about.html">About</a>
-            </li>
-
-            <li>
-                <a href="projects.html">Projects</a>
-            </li>
-
-            <li>
-                <a href="achievements.html">
-                    Achievements
-                </a>
-            </li>
-
-            <li>
-                <a href="skills.html">Skills</a>
-            </li>
-
-            <li>
-                <a href="hobbies.html">Hobbies</a>
-            </li>
-
-            <li>
-                <a href="gallery.html">Gallery</a>
-            </li>
-
-            <li>
-                <a href="contact.html">Contact</a>
-            </li>
-
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" aria-current="page">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="hobbies.html">Hobbies</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
-
     </nav>
 
+    <main>
+        <!-- HERO -->
+        <section class="hero" aria-labelledby="heroTitle">
+            <div class="hero-content">
+                <div class="eyebrow">
+                    <i class="fas fa-circle-nodes" aria-hidden="true"></i>
+                    My Digital World
+                </div>
 
-    <!-- =========================
-         HERO
-    ========================= -->
+                <h1 id="heroTitle">
+                    Clinton
+                    <span>Ncube</span>
+                </h1>
 
-    <section class="hero">
+                <p>
+                    Welcome to my personal website — a place for my projects,
+                    achievements, interests, creativity and journey of learning.
+                </p>
 
-        <div class="hero-content">
+                <div class="hero-buttons">
+                    <a href="about.html" class="btn btn-primary">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        About Me
+                    </a>
 
-            <h1>
-                Clinton Ncube
-            </h1>
+                    <a href="gallery.html" class="btn btn-secondary">
+                        <i class="fas fa-images" aria-hidden="true"></i>
+                        View Gallery
+                    </a>
+                </div>
 
-            <p>
-                Welcome to my personal website
+                <div class="scroll-hint">
+                    Discover More
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="content-section about" id="about">
+            <div class="section-kicker">A Little About Me</div>
+            <h2 class="section-heading">Welcome to <span>My World</span></h2>
+
+            <p class="section-description">
+                This is where I bring together my projects, achievements,
+                skills, hobbies and memorable moments.
             </p>
 
-            <div class="hero-buttons">
+            <div class="about-panel">
+                <p>
+                    My name is <strong>Clinton Ncube</strong>. I am a student
+                    interested in technology, sports, creativity and learning
+                    new skills.
+                </p>
 
-                <a href="about.html"
-                   class="btn btn-primary">
-
-                    <i class="fas fa-user"></i>
-
-                    About Me
-
-                </a>
-
-                <a href="gallery.html"
-                   class="btn btn-secondary">
-
-                    <i class="fas fa-images"></i>
-
-                    View Gallery
-
-                </a>
-
+                <p>
+                    This website brings together some of the things I have
+                    worked on and the activities that are important to me.
+                    It is a place to share my progress and keep exploring new ideas.
+                </p>
             </div>
+        </section>
 
-        </div>
+        <!-- GOAL -->
+        <section class="content-section goal" id="goal">
+            <div class="section-kicker">Looking Ahead</div>
+            <h2 class="section-heading">My <span>Goal</span></h2>
 
-    </section>
+            <div class="goal-panel">
+                <p>
+                    My goal is to continue learning, developing my skills,
+                    exploring technology and using creativity to build useful
+                    projects. I also want to keep improving through education,
+                    sports and practical experiences.
+                </p>
+            </div>
+        </section>
 
+        <!-- EXPLORE -->
+        <section class="content-section explore" id="explore">
+            <div class="section-kicker">Explore</div>
+            <h2 class="section-heading">Explore <span>My Website</span></h2>
 
-    <!-- =========================
-         ABOUT
-    ========================= -->
-
-    <section class="about">
-
-        <h2 class="section-title">
-            About Me
-        </h2>
-
-        <p class="section-description">
-
-            Welcome to my personal website.
-            This is a place where I showcase
-            my projects, achievements, skills,
-            hobbies and memorable moments.
-
-        </p>
-
-        <div class="about-content">
-
-            <p>
-
-                My name is
-                <strong>Clinton Ncube</strong>.
-                I am a student interested in
-                technology, sports, creativity
-                and learning new skills.
-
+            <p class="section-description">
+                Choose a section below to discover more about what I do,
+                what I enjoy and what I am learning.
             </p>
 
-            <br>
+            <div class="cards">
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-user" aria-hidden="true"></i></div>
+                    <h3>About Me</h3>
+                    <p>Learn more about me, my background and my interests.</p>
+                    <a class="card-link" href="about.html">Learn More <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
 
-            <p>
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+                    <h3>Projects</h3>
+                    <p>Explore projects and work I have created or developed.</p>
+                    <a class="card-link" href="projects.html">View Projects <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
 
-                This website brings together
-                some of the things I have worked
-                on and the activities that are
-                important to me.
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+                    <h3>Achievements</h3>
+                    <p>Discover milestones and accomplishments along my journey.</p>
+                    <a class="card-link" href="achievements.html">View Achievements <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
 
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+                    <h3>Skills</h3>
+                    <p>See the abilities I am building through learning and practice.</p>
+                    <a class="card-link" href="skills.html">View Skills <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-heart" aria-hidden="true"></i></div>
+                    <h3>Hobbies</h3>
+                    <p>Explore the activities I enjoy, including sports and reading.</p>
+                    <a class="card-link" href="hobbies.html">View Hobbies <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-images" aria-hidden="true"></i></div>
+                    <h3>Gallery</h3>
+                    <p>Visit my collection of photographs and memorable moments.</p>
+                    <a class="card-link" href="gallery.html">Open Gallery <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+                    <h3>Contact</h3>
+                    <p>Find my contact information and social media links.</p>
+                    <a class="card-link" href="contact.html">Contact Me <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                </article>
+            </div>
+        </section>
+
+        <!-- VISITOR COUNTER -->
+        <section class="content-section visitors" id="visitors">
+            <div class="section-kicker">Community</div>
+            <h2 class="section-heading">Website <span>Visitors</span></h2>
+
+            <p class="section-description">
+                Thank you to everyone who takes the time to visit my website.
             </p>
 
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MY GOAL
-    ========================= -->
-
-    <section class="goal">
-
-        <h2 class="section-title">
-            My Goal
-        </h2>
-
-        <p>
-
-            My goal is to continue learning,
-            developing my skills, exploring
-            technology and using creativity
-            to build useful projects. I also
-            want to continue improving myself
-            through education, sports and
-            practical experiences.
-
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         EXPLORE
-    ========================= -->
-
-    <section class="explore">
-
-        <h2 class="section-title">
-            Explore My Website
-        </h2>
-
-        <p class="section-description">
-
-            Explore the different sections
-            of my website.
-
-        </p>
-
-        <div class="cards">
-
-
-            <!-- ABOUT -->
-
-            <div class="card">
-
-                <i class="fas fa-user"></i>
-
-                <h3>
-                    About
-                </h3>
-
-                <p>
-                    Learn more about me
-                    and my interests.
-                </p>
-
-                <a href="about.html">
-                    Visit
-                </a>
-
+            <div class="visitor-box">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <div class="visitor-label">Total Visitors</div>
+                <div id="visitorCount" aria-live="polite">Loading...</div>
             </div>
-
-
-            <!-- PROJECTS -->
-
-            <div class="card">
-
-                <i class="fas fa-code"></i>
-
-                <h3>
-                    Projects
-                </h3>
-
-                <p>
-                    View projects and work
-                    that I have created.
-                </p>
-
-                <a href="projects.html">
-                    View Projects
-                </a>
-
-            </div>
-
-
-            <!-- ACHIEVEMENTS -->
-
-            <div class="card">
-
-                <i class="fas fa-trophy"></i>
-
-                <h3>
-                    Achievements
-                </h3>
-
-                <p>
-                    See some of my achievements
-                    and accomplishments.
-                </p>
-
-                <a href="achievements.html">
-                    View
-                </a>
-
-            </div>
-
-
-            <!-- SKILLS -->
-
-            <div class="card">
-
-                <i class="fas fa-lightbulb"></i>
-
-                <h3>
-                    Skills
-                </h3>
-
-                <p>
-                    Discover the skills
-                    I am developing.
-                </p>
-
-                <a href="skills.html">
-                    View Skills
-                </a>
-
-            </div>
-
-
-            <!-- HOBBIES -->
-
-            <div class="card">
-
-                <i class="fas fa-heart"></i>
-
-                <h3>
-                    Hobbies
-                </h3>
-
-                <p>
-                    Explore the activities
-                    I enjoy.
-                </p>
-
-                <a href="hobbies.html">
-                    View
-                </a>
-
-            </div>
-
-
-            <!-- GALLERY -->
-
-            <div class="card">
-
-                <i class="fas fa-images"></i>
-
-                <h3>
-                    Gallery
-                </h3>
-
-                <p>
-                    View pictures and
-                    memorable moments.
-                </p>
-
-                <a href="gallery.html">
-                    Open Gallery
-                </a>
-
-            </div>
-
-
-            <!-- CONTACT -->
-
-            <div class="card">
-
-                <i class="fas fa-envelope"></i>
-
-                <h3>
-                    Contact
-                </h3>
-
-                <p>
-                    Find my contact and
-                    social media information.
-                </p>
-
-                <a href="contact.html">
-                    Contact Me
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         VISITOR COUNTER
-    ========================= -->
-
-    <section class="visitors">
-
-        <h2 class="section-title">
-            Website Visitors
-        </h2>
-
-        <p class="section-description">
-
-            Thank you to everyone who
-            visits my website.
-
-        </p>
-
-        <div class="visitor-box">
-
-            <i class="fas fa-users"></i>
-
-            <div>
-                Total Visitors
-            </div>
-
-            <div id="visitorCount">
-                Loading...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         THANK YOU
-    ========================= -->
-
-    <section class="thanks">
-
-        <h2>
-            Thanks for Visiting!
-        </h2>
-
-        <p>
-
-            Thank you for taking the time
-            to visit my personal website.
-            Feel free to explore the different
-            sections and learn more about my
-            work, interests, projects and
-            achievements.
-
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
-
+        </section>
+
+        <!-- THANK YOU -->
+        <section class="content-section thanks">
+            <div class="section-kicker">Endless Possibilities</div>
+            <h2>Thanks for <span>Visiting!</span></h2>
+
+            <p>
+                Thank you for taking the time to visit my personal website.
+                Feel free to explore the different sections and learn more about
+                my work, interests, projects and achievements. This is a journey
+                of learning, creativity and continuous improvement.
+            </p>
+
+            <a href="projects.html" class="btn btn-primary">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+                Explore My Projects
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
     <footer>
+        <div class="footer-name">Clinton <span>Ncube</span></div>
+        <p>Learning. Creating. Growing.</p>
 
         <div class="social-icons">
-
-
-            <!-- INSTAGRAM -->
-
             <a href="https://www.instagram.com/vixeny19/"
-               target="_blank"
-               aria-label="Instagram">
-
-                <i class="fab fa-instagram"></i>
-
+               target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
             </a>
-
-
-            <!-- TIKTOK -->
 
             <a href="https://www.tiktok.com/@silveirahighsportsdesk"
-               target="_blank"
-               aria-label="TikTok">
-
-                <i class="fab fa-tiktok"></i>
-
+               target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <i class="fab fa-tiktok" aria-hidden="true"></i>
             </a>
-
-
-            <!-- YOUTUBE -->
 
             <a href="https://www.youtube.com/@TCN-CLINTON"
-               target="_blank"
-               aria-label="YouTube">
-
-                <i class="fab fa-youtube"></i>
-
+               target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
             </a>
-
-
-            <!-- FACEBOOK -->
 
             <a href="https://www.facebook.com/profile.php?id=61586134052388"
-               target="_blank"
-               aria-label="Facebook">
-
-                <i class="fab fa-facebook"></i>
-
+               target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
             </a>
-
         </div>
 
-        <p>
-
-            © 2026 Clinton Ncube.
-            All Rights Reserved.
-
-        </p>
-
+        <p>&copy; 2026 Clinton Ncube. All Rights Reserved.</p>
+        <a class="back-to-top" href="#top">
+            Back to Top <i class="fas fa-arrow-up" aria-hidden="true"></i>
+        </a>
     </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
+    <!-- SHARED ANIMATIONS, IF PRESENT -->
+    <script src="js/animations.js" defer></script>
 
     <script>
+        /* MOBILE NAVIGATION */
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const menuIcon = menuToggle.querySelector("i");
 
+        menuToggle.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("active");
 
-        /* =========================
-           MOBILE MENU
-        ========================= */
-
-        function toggleMenu() {
-
-            const navLinks =
-                document.getElementById("navLinks");
-
-            navLinks.classList.toggle("active");
-
-        }
-
-
-        /* Close menu after clicking */
-
-        document
-            .querySelectorAll(".nav-links a")
-            .forEach(function(link) {
-
-                link.addEventListener(
-                    "click",
-                    function() {
-
-                        document
-                            .getElementById("navLinks")
-                            .classList
-                            .remove("active");
-
-                    }
-                );
-
-            });
-
-
-        /* =========================
-           FIREBASE CONFIGURATION
-        ========================= */
-
-        const firebaseConfig = {
-
-            apiKey:
-                "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-
-            authDomain:
-                "clinton-ncube-website.firebaseapp.com",
-
-            databaseURL:
-                "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-
-            projectId:
-                "clinton-ncube-website",
-
-            storageBucket:
-                "clinton-ncube-website.firebasestorage.app",
-
-            messagingSenderId:
-                "946671700613",
-
-            appId:
-                "1:946671700613:web:5d74536df1dbb0d35e77ec",
-
-            measurementId:
-                "G-K1S62MHHXP"
-
-        };
-
-
-        /* =========================
-           INITIALIZE FIREBASE
-        ========================= */
-
-        firebase.initializeApp(
-            firebaseConfig
-        );
-
-
-        /* =========================
-           VISITOR COUNTER
-        ========================= */
-
-        const database =
-            firebase.database();
-
-        const visitorRef =
-            database.ref("websiteVisitors");
-
-
-        visitorRef.transaction(
-            function(currentValue) {
-
-                return (currentValue || 0) + 1;
-
-            }
-        )
-        .then(function(result) {
-
-            if (result.committed) {
-
-                document
-                    .getElementById(
-                        "visitorCount"
-                    )
-                    .textContent =
-                    result.snapshot.val();
-
-            }
-
-        })
-        .catch(function(error) {
-
-            console.error(
-                "Visitor counter error:",
-                error
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
             );
 
-            document
-                .getElementById(
-                    "visitorCount"
-                )
-                .textContent = "—";
-
+            menuIcon.classList.toggle("fa-bars", !isOpen);
+            menuIcon.classList.toggle("fa-xmark", isOpen);
         });
 
-    </script>
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+                menuIcon.classList.add("fa-bars");
+                menuIcon.classList.remove("fa-xmark");
+            });
+        });
 
+        /* FIREBASE CONFIGURATION */
+        const firebaseConfig = {
+            apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+            authDomain: "clinton-ncube-website.firebaseapp.com",
+            databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+            projectId: "clinton-ncube-website",
+            storageBucket: "clinton-ncube-website.firebasestorage.app",
+            messagingSenderId: "946671700613",
+            appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+            measurementId: "G-K1S62MHHXP"
+        };
+
+        /* INITIALIZE FIREBASE WITHOUT DUPLICATE APP ERRORS */
+        const visitorDisplay = document.getElementById("visitorCount");
+
+        try {
+            if (typeof firebase === "undefined") {
+                throw new Error("Firebase scripts did not load.");
+            }
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            const database = firebase.database();
+            const visitorRef = database.ref("websiteVisitors");
+
+            /*
+             * Retains the existing websiteVisitors counter.
+             * A transaction helps avoid lost increments when
+             * multiple visitors arrive at nearly the same time.
+             */
+            visitorRef.transaction(function (currentValue) {
+                const currentCount = Number(currentValue) || 0;
+                return currentCount + 1;
+            }).then(function (result) {
+                if (result.committed && result.snapshot) {
+                    visitorDisplay.textContent =
+                        Number(result.snapshot.val()).toLocaleString();
+                } else {
+                    visitorDisplay.textContent = "—";
+                }
+            }).catch(function (error) {
+                console.error("Visitor counter error:", error);
+                visitorDisplay.textContent = "—";
+            });
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+            visitorDisplay.textContent = "—";
+        }
+    </script>
 </body>
 </html>
+```
