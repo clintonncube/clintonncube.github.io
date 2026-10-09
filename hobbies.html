@@ -14,9 +14,17 @@
 
     <style>
         :root {
-            --neon-cyan: #25f4ee;
+            --neon-cyan: #00eaff;
             --neon-purple: #a855f7;
-            --neon-pink: #ff4f91;
+            --background: #050711;
+            --card-background: #10182c;
+            --text-main: #f4f7ff;
+            --text-muted: #b9c6df;
+            --border-color: rgba(0, 234, 255, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         html {
@@ -24,101 +32,211 @@
         }
 
         body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text-main);
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(0, 225, 255, 0.09),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 65%,
+                    rgba(145, 0, 255, 0.10),
+                    transparent 35%
+                ),
+                var(--background);
             animation: pageFadeIn 0.8s ease both;
         }
 
+        /* Navigation */
         nav {
-            animation: slideDown 0.7s ease both;
+            animation: navEntrance 0.8s ease both;
         }
 
+        .logo {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 12px rgba(0, 234, 255, 0.65);
+        }
+
+        .nav-menu a {
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a[aria-current="page"] {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 12px rgba(0, 234, 255, 0.6);
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+        }
+
+        /* Page heading */
         .page-header {
             position: relative;
+            text-align: center;
+            padding: 85px 20px 55px;
             overflow: hidden;
             animation: fadeUp 0.9s ease both;
         }
 
         .page-header h1 {
+            color: var(--neon-cyan);
+            font-size: clamp(2.3rem, 6vw, 4rem);
+            text-shadow:
+                0 0 10px rgba(0, 234, 255, 0.75),
+                0 0 30px rgba(0, 234, 255, 0.25);
             animation: titleGlow 3s ease-in-out infinite alternate;
         }
 
+        .page-header p {
+            margin-top: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Hobbies section */
+        section {
+            padding: 25px 20px 75px;
+        }
+
         .container {
-            padding-top: 20px;
-            padding-bottom: 35px;
+            width: min(1150px, 100%);
+            margin: 0 auto;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         #hobbiesContainer {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(min(100%, 270px), 1fr));
             gap: 25px;
         }
 
+        /* Matching Projects and Skills cards */
         #hobbiesContainer .card {
             position: relative;
+            isolation: isolate;
             overflow: hidden;
+            min-width: 0;
+            padding: 28px;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            background: linear-gradient(
+                145deg,
+                rgba(18, 27, 48, 0.96),
+                rgba(8, 12, 27, 0.98)
+            );
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
             opacity: 0;
-            animation: hobbyCardEnter 0.7s ease forwards;
+            animation: cardEntrance 0.7s ease forwards;
             transition:
                 transform 0.35s ease,
-                box-shadow 0.35s ease,
-                border-color 0.35s ease;
-            will-change: transform;
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
         }
 
         #hobbiesContainer .card::before {
             content: "";
             position: absolute;
+            z-index: -1;
             top: 0;
             left: -120%;
             width: 70%;
             height: 100%;
             pointer-events: none;
+            transform: skewX(-20deg);
             background: linear-gradient(
-                100deg,
+                90deg,
                 transparent,
-                rgba(37, 244, 238, 0.09),
+                rgba(0, 234, 255, 0.08),
                 transparent
             );
-            transition: left 0.65s ease;
+            transition: left 0.7s ease;
         }
 
         #hobbiesContainer .card:hover {
-            transform: translateY(-9px) scale(1.02);
+            transform: translateY(-9px);
             border-color: var(--neon-cyan);
             box-shadow:
-                0 12px 30px rgba(37, 244, 238, 0.12),
-                0 0 18px rgba(168, 85, 247, 0.16);
+                0 12px 35px rgba(0, 234, 255, 0.13),
+                0 0 18px rgba(0, 234, 255, 0.10);
         }
 
         #hobbiesContainer .card:hover::before {
-            left: 140%;
+            left: 150%;
         }
 
         #hobbiesContainer .card h3 {
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            margin: 0 0 15px;
+            color: var(--neon-cyan);
+            font-size: 1.35rem;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+            transition: text-shadow 0.3s ease;
         }
 
         #hobbiesContainer .card:hover h3 {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 12px rgba(37, 244, 238, 0.25);
+            text-shadow: 0 0 12px rgba(0, 234, 255, 0.25);
         }
 
         #hobbiesContainer .card p {
+            margin: 0;
+            color: #c4cee2;
             line-height: 1.8;
+            overflow-wrap: anywhere;
         }
 
+        /* Loading and empty states */
         #hobbiesContainer .loading,
         #hobbiesContainer .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--text-muted);
+            padding: 35px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.7);
+            line-height: 1.8;
             animation: fadeUp 0.7s ease both;
         }
 
+        #hobbiesContainer .loading::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 18px auto 0;
+            border: 3px solid rgba(0, 234, 255, 0.2);
+            border-top-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Footer */
         footer {
+            border-top: 1px solid rgba(0, 234, 255, 0.18);
+            padding: 25px 15px;
+            color: #9daac3;
+            text-align: center;
             animation: fadeUp 0.8s ease both;
         }
 
+        footer p {
+            margin: 7px 0;
+        }
+
+        /* Animations */
         @keyframes pageFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes slideDown {
+        @keyframes navEntrance {
             from {
                 opacity: 0;
                 transform: translateY(-18px);
@@ -132,7 +250,7 @@
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(22px);
+                transform: translateY(25px);
             }
             to {
                 opacity: 1;
@@ -140,25 +258,52 @@
             }
         }
 
-        @keyframes hobbyCardEnter {
+        @keyframes cardEntrance {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.96);
+                transform: translateY(25px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
             }
         }
 
         @keyframes titleGlow {
             from {
-                text-shadow: 0 0 5px rgba(37, 244, 238, 0.2);
+                text-shadow: 0 0 8px rgba(0, 234, 255, 0.45);
             }
             to {
                 text-shadow:
-                    0 0 12px rgba(37, 244, 238, 0.5),
-                    0 0 24px rgba(168, 85, 247, 0.25);
+                    0 0 16px rgba(0, 234, 255, 0.85),
+                    0 0 35px rgba(0, 234, 255, 0.3);
+            }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile screens */
+        @media (max-width: 600px) {
+            .page-header {
+                padding: 65px 18px 35px;
+            }
+
+            section {
+                padding: 20px 16px 55px;
+            }
+
+            #hobbiesContainer {
+                gap: 18px;
+            }
+
+            #hobbiesContainer .card {
+                padding: 22px;
+            }
+
+            #hobbiesContainer .card:hover {
+                transform: translateY(-3px);
             }
         }
 
@@ -176,16 +321,6 @@
                 opacity: 1;
             }
         }
-
-        @media (max-width: 600px) {
-            #hobbiesContainer {
-                gap: 18px;
-            }
-
-            #hobbiesContainer .card:hover {
-                transform: translateY(-3px);
-            }
-        }
     </style>
 </head>
 
@@ -199,6 +334,7 @@
         id="menuToggle"
         aria-label="Open navigation menu"
         aria-expanded="false"
+        aria-controls="navMenu"
         type="button">
         ☰
     </button>
@@ -209,7 +345,7 @@
         <li><a href="projects.html">Projects</a></li>
         <li><a href="achievements.html">Achievements</a></li>
         <li><a href="skills.html">Skills</a></li>
-        <li><a href="hobbies.html">Hobbies</a></li>
+        <li><a href="hobbies.html" aria-current="page">Hobbies</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -222,7 +358,7 @@
 
 <section>
     <div class="container">
-        <div id="hobbiesContainer" class="cards">
+        <div id="hobbiesContainer" aria-live="polite">
             <div class="loading">Loading hobbies...</div>
         </div>
     </div>
@@ -263,7 +399,7 @@ const container = document.getElementById("hobbiesContainer");
 onValue(
     hobbiesRef,
     (snapshot) => {
-        container.innerHTML = "";
+        container.replaceChildren();
 
         const data = snapshot.val();
 
@@ -278,9 +414,10 @@ onValue(
         Object.values(data).forEach((hobby, index) => {
             if (!hobby || typeof hobby !== "object") return;
 
-            const card = document.createElement("div");
+            const card = document.createElement("article");
             card.className = "card";
-            card.style.animationDelay = `${Math.min(index * 130, 1000)}ms`;
+            card.style.animationDelay =
+                `${Math.min(index * 100, 700)}ms`;
 
             const title = document.createElement("h3");
             title.textContent = "🏀 " + (hobby.title || "Hobby");
@@ -300,11 +437,12 @@ onValue(
         }
     },
     (error) => {
-        container.innerHTML = "";
+        container.replaceChildren();
 
         const message = document.createElement("div");
         message.className = "empty";
-        message.textContent = "Unable to load hobbies. Please check your connection.";
+        message.textContent =
+            "Unable to load hobbies. Please check your connection.";
 
         container.appendChild(message);
         console.error("Firebase hobbies error:", error);
@@ -317,20 +455,17 @@ const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-
-    const isOpen = navMenu.classList.contains("active");
+    const isOpen = navMenu.classList.toggle("active");
 
     menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute(
         "aria-label",
         isOpen ? "Close navigation menu" : "Open navigation menu"
     );
-
     menuToggle.textContent = isOpen ? "✕" : "☰";
 });
 
-document.querySelectorAll(".nav-menu a").forEach(link => {
+document.querySelectorAll(".nav-menu a").forEach((link) => {
     link.addEventListener("click", () => {
         navMenu.classList.remove("active");
         menuToggle.textContent = "☰";
