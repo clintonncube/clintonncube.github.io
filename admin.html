@@ -1,4942 +1,1652 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070914">
 
-<title>Admin Dashboard | Clinton Ncube</title>
+    <title>Clinton Ncube | Personal Portfolio</title>
+    <meta name="description" content="Welcome to the personal portfolio of Clinton Ncube. Explore my projects, skills, hobbies, achievements and interests.">
+    <meta name="author" content="Clinton Ncube">
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-<style>
-
-/* ================= RESET ================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f9;
-    color: #1f2937;
-}
-
-button,
-input,
-textarea {
-    font-family: inherit;
-}
-
-/* ================= LOGIN ================= */
-
-#loginScreen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #111827, #2563eb);
-    padding: 20px;
-}
-
-.login-container {
-    width: 100%;
-    max-width: 900px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-}
-
-.login-brand {
-    background: #111827;
-    color: white;
-    padding: 50px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 18px;
-}
-
-.login-brand h1 {
-    font-size: 34px;
-}
-
-.login-brand p {
-    color: #d1d5db;
-    line-height: 1.7;
-}
-
-.login-features {
-    margin-top: 10px;
-    display: grid;
-    gap: 12px;
-}
-
-.login-feature {
-    color: #e5e7eb;
-}
-
-.login-panel {
-    padding: 50px 40px;
-}
-
-.login-panel h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.login-panel > p {
-    color: #6b7280;
-    margin-bottom: 30px;
-}
-
-.login-form {
-    display: grid;
-    gap: 18px;
-}
-
-.form-group {
-    display: grid;
-    gap: 8px;
-}
-
-.form-group label {
-    font-weight: 600;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    padding: 13px;
-    outline: none;
-    font-size: 15px;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #2563eb;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.password-wrapper input {
-    padding-right: 50px;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.login-button {
-    border: none;
-    border-radius: 10px;
-    background: #2563eb;
-    color: white;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.login-button:hover {
-    background: #1d4ed8;
-}
-
-.login-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.login-error {
-    display: none;
-    background: #fee2e2;
-    color: #991b1b;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.login-error.show {
-    display: block;
-}
-
-/* ================= ADMIN APP ================= */
-
-#adminApp {
-    display: none;
-}
-
-.admin-layout {
-    min-height: 100vh;
-    display: flex;
-}
-
-/* ================= SIDEBAR ================= */
-
-.sidebar {
-    width: 260px;
-    background: #111827;
-    color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
-    z-index: 1000;
-}
-
-.sidebar-header {
-    padding: 25px 20px;
-    border-bottom: 1px solid #374151;
-}
-
-.sidebar-header h2 {
-    font-size: 21px;
-}
-
-.sidebar-header p {
-    color: #9ca3af;
-    margin-top: 5px;
-    font-size: 13px;
-}
-
-.sidebar-nav {
-    padding: 15px 10px;
-}
-
-.nav-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: none;
-    background: transparent;
-    color: #d1d5db;
-    padding: 13px 15px;
-    margin-bottom: 5px;
-    border-radius: 9px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 15px;
-}
-
-.nav-btn:hover {
-    background: #1f2937;
-    color: white;
-}
-
-.nav-btn.active {
-    background: #2563eb;
-    color: white;
-}
-
-.logout-btn {
-    color: #fca5a5;
-}
-
-.logout-btn:hover {
-    background: #7f1d1d;
-    color: white;
-}
-
-/* ================= MAIN ================= */
-
-.admin-main {
-    margin-left: 260px;
-    width: calc(100% - 260px);
-    min-height: 100vh;
-}
-
-.topbar {
-    height: 70px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-    position: sticky;
-    top: 0;
-    z-index: 900;
-}
-
-.topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.topbar h1 {
-    font-size: 22px;
-}
-
-.menu-toggle {
-    display: none;
-    border: none;
-    background: #f3f4f6;
-    padding: 9px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.admin-email {
-    color: #6b7280;
-    font-size: 14px;
-}
-
-.website-btn {
-    border: none;
-    background: #2563eb;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-/* ================= PAGES ================= */
-
-.page {
-    display: none;
-    padding: 30px;
-}
-
-.page.active {
-    display: block;
-}
-
-.page-header {
-    margin-bottom: 25px;
-}
-
-.page-header h2 {
-    font-size: 28px;
-    margin-bottom: 7px;
-}
-
-.page-header p {
-    color: #6b7280;
-}
-
-/* ================= DASHBOARD ================= */
-
-.welcome-banner {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
-    color: white;
-    padding: 30px;
-    border-radius: 16px;
-    margin-bottom: 25px;
-}
-
-.welcome-banner h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.welcome-banner p {
-    line-height: 1.6;
-    color: #dbeafe;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
-
-.stat-card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    border: 1px solid #e5e7eb;
-}
-
-.stat-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.stat-card h3 {
-    font-size: 30px;
-}
-
-.stat-card p {
-    color: #6b7280;
-    margin-top: 5px;
-}
-
-.dashboard-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.primary-btn,
-.secondary-btn,
-.danger-btn,
-.edit-btn,
-.delete-btn {
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.primary-btn {
-    background: #2563eb;
-    color: white;
-}
-
-.secondary-btn {
-    background: #e5e7eb;
-    color: #111827;
-}
-
-.danger-btn {
-    background: #dc2626;
-    color: white;
-}
-
-.edit-btn {
-    background: #2563eb;
-    color: white;
-    margin-right: 8px;
-}
-
-.delete-btn {
-    background: #dc2626;
-    color: white;
-}
-
-.primary-btn:hover,
-.edit-btn:hover {
-    background: #1d4ed8;
-}
-
-.delete-btn:hover,
-.danger-btn:hover {
-    background: #b91c1c;
-}
-
-.primary-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* ================= CARDS ================= */
-
-.card {
-    background: white;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-    padding: 25px;
-    margin-bottom: 25px;
-}
-
-.card h3 {
-    margin-bottom: 20px;
-}
-
-/* ================= FORMS ================= */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.form-full {
-    grid-column: 1 / -1;
-}
-
-textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.save-area {
-    margin-top: 20px;
-}
-
-/* ================= LIST ================= */
-
-.item-list {
-    display: grid;
-    gap: 15px;
-}
-
-.item {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 18px;
-}
-
-.item strong {
-    display: block;
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-.item p {
-    color: #6b7280;
-    line-height: 1.5;
-    margin-bottom: 7px;
-}
-
-.item-actions {
-    margin-top: 15px;
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-/* ================= GALLERY ================= */
-
-.gallery-preview {
-    width: 180px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    display: block;
-}
-
-.gallery-upload-preview {
-    width: 100%;
-    max-width: 500px;
-    height: 280px;
-    object-fit: contain;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    display: block;
-    margin-top: 5px;
-}
-
-/* ================= PROGRESS ================= */
-
-.progress-container {
-    display: none;
-    margin-top: 20px;
-}
-
-.progress-track {
-    width: 100%;
-    height: 15px;
-    background: #e5e7eb;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: #2563eb;
-    transition: width 0.2s;
-}
-
-.progress-text {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #6b7280;
-}
-
-/* ================= TOAST ================= */
-
-#toastContainer {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 3000;
-    display: grid;
-    gap: 10px;
-}
-
-.toast {
-    background: #111827;
-    color: white;
-    padding: 13px 17px;
-    border-radius: 9px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width: 1000px) {
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media(max-width: 800px) {
-
-    .login-container {
-        grid-template-columns: 1fr;
-    }
-
-    .login-brand {
-        display: none;
-    }
-
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.25s;
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    .admin-main {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .admin-email {
-        display: none;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .form-full {
-        grid-column: auto;
-    }
-
-}
-
-@media(max-width: 550px) {
-
-    .page {
-        padding: 18px;
-    }
-
-    .topbar {
-        padding: 0 15px;
-    }
-
-    .topbar h1 {
-        font-size: 18px;
-    }
-
-    .website-btn {
-        display: none;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-actions {
-        flex-direction: column;
-    }
-
-    .gallery-upload-preview {
-        height: 220px;
-    }
-
-}
-
-/* ================= END CSS ================= */
-
-</style>
+    <link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="canonical" href="https://clintonncube.github.io/">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        /* =========================
+           FUTURISTIC THEME
+        ========================= */
+
+        :root {
+            --bg: #070914;
+            --bg-light: #0c1020;
+            --panel: rgba(17, 24, 45, 0.82);
+            --panel-solid: #10162a;
+            --cyan: #00f5ff;
+            --purple: #a855f7;
+            --pink: #f472b6;
+            --text: #f4f7ff;
+            --muted: #a6b0c8;
+            --border: rgba(0, 245, 255, 0.19);
+            --glow: 0 0 25px rgba(0, 245, 255, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse at 10% 10%, rgba(0, 245, 255, 0.09), transparent 35%),
+                radial-gradient(ellipse at 90% 35%, rgba(168, 85, 247, 0.11), transparent 35%),
+                var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.16;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.08) 1px, transparent 1px);
+            background-size: 45px 45px;
+            mask-image: linear-gradient(to bottom, black, transparent 85%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--cyan);
+            outline-offset: 4px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            width: min(1150px, 92%);
+            margin-inline: auto;
+        }
+
+        .section {
+            padding: 90px 0;
+            scroll-margin-top: 80px;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin: 0 auto 45px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--cyan);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 15px;
+            font-size: clamp(2rem, 5vw, 3.1rem);
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            color: var(--cyan);
+            background: linear-gradient(90deg, var(--cyan), #a5b4fc, var(--purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-heading p,
+        .muted {
+            color: var(--muted);
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.12);
+            background: rgba(7, 9, 20, 0.88);
+            backdrop-filter: blur(18px);
+        }
+
+        .navbar {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--cyan);
+            border-radius: 12px;
+            color: var(--cyan);
+            background: rgba(0, 245, 255, 0.08);
+            box-shadow: 0 0 18px rgba(0, 245, 255, 0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            padding: 9px 11px;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            transition: color 0.25s, background 0.25s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--cyan);
+            background: rgba(0, 245, 255, 0.08);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--cyan);
+            cursor: pointer;
+            font-size: 1.4rem;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 12px 21px;
+            border: 1px solid var(--cyan);
+            border-radius: 10px;
+            background: linear-gradient(110deg, rgba(0, 245, 255, 0.15), rgba(168, 85, 247, 0.13));
+            color: white;
+            font-weight: 700;
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                background 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 245, 255, 0.22);
+            background: rgba(0, 245, 255, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(110deg, #00bccc, #7951db);
+            border-color: transparent;
+            box-shadow: 0 5px 25px rgba(0, 245, 255, 0.13);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(110deg, #00dbe8, #9263f7);
+        }
+
+        .btn-secondary {
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            position: relative;
+            min-height: 650px;
+            display: grid;
+            align-items: center;
+            padding: 90px 0 105px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: rgba(0, 245, 255, 0.05);
+            color: #d8faff;
+            font-size: 0.83rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan);
+            animation: pulse 1.8s infinite;
+        }
+
+        .hero h1 {
+            max-width: 760px;
+            margin-bottom: 22px;
+            font-size: clamp(2.8rem, 6.7vw, 5.4rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.06;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+        }
+
+        .hero-description {
+            max-width: 650px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.12rem);
+            line-height: 1.9;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 370px;
+        }
+
+        .orbit {
+            position: absolute;
+            width: min(340px, 80vw);
+            aspect-ratio: 1;
+            border: 1px solid rgba(0, 245, 255, 0.23);
+            border-radius: 50%;
+            animation: orbitSpin 18s linear infinite;
+        }
+
+        .orbit::before,
+        .orbit::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 20px var(--cyan);
+        }
+
+        .orbit::before {
+            top: 15%;
+            left: 16%;
+        }
+
+        .orbit::after {
+            right: 9%;
+            bottom: 28%;
+            background: var(--purple);
+            box-shadow: 0 0 20px var(--purple);
+        }
+
+        .hero-core {
+            position: relative;
+            z-index: 1;
+            width: 230px;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(0, 245, 255, 0.5);
+            border-radius: 35% 65% 57% 43% / 44% 43% 57% 56%;
+            background:
+                radial-gradient(circle at 30% 25%, rgba(0, 245, 255, 0.24), transparent 48%),
+                linear-gradient(145deg, rgba(168, 85, 247, 0.17), rgba(0, 245, 255, 0.05));
+            box-shadow:
+                0 0 50px rgba(0, 245, 255, 0.12),
+                inset 0 0 35px rgba(168, 85, 247, 0.13);
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        .hero-initials {
+            color: white;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: -5px;
+            text-shadow: 0 0 25px rgba(0, 245, 255, 0.7);
+        }
+
+        .floating-label {
+            position: absolute;
+            z-index: 2;
+            padding: 10px 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(12, 16, 32, 0.94);
+            color: #d9faff;
+            font-size: 0.8rem;
+            box-shadow: var(--glow);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .label-one {
+            top: 15%;
+            right: 0;
+        }
+
+        .label-two {
+            bottom: 12%;
+            left: 0;
+            animation-delay: -2s;
+        }
+
+        /* =========================
+           HIGHLIGHT STRIP
+        ========================= */
+
+        .highlight-strip {
+            border-block: 1px solid rgba(0, 245, 255, 0.12);
+            background: rgba(12, 16, 32, 0.7);
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .highlight {
+            padding: 27px 18px;
+            text-align: center;
+        }
+
+        .highlight + .highlight {
+            border-left: 1px solid rgba(0, 245, 255, 0.12);
+        }
+
+        .highlight strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--cyan);
+            font-size: 1.08rem;
+        }
+
+        .highlight span {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            align-items: start;
+            gap: 45px;
+        }
+
+        .about-panel,
+        .content-card,
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--panel);
+            box-shadow: var(--glow);
+            backdrop-filter: blur(12px);
+        }
+
+        .about-panel {
+            min-height: 270px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px;
+        }
+
+        .about-symbol {
+            margin-bottom: 18px;
+            color: var(--cyan);
+            font-size: 3rem;
+        }
+
+        .about-panel h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .about-panel p,
+        .about-copy p {
+            color: var(--muted);
+        }
+
+        .about-copy p + p {
+            margin-top: 17px;
+        }
+
+        .goal-box {
+            margin-top: 24px;
+            padding: 20px;
+            border-left: 3px solid var(--purple);
+            border-radius: 0 12px 12px 0;
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        .goal-box h3 {
+            margin-bottom: 7px;
+            color: #d8b4fe;
+            font-size: 1rem;
+        }
+
+        /* =========================
+           CONTENT CARDS
+        ========================= */
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .content-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 215px;
+            padding: 25px;
+            transition:
+                transform 0.3s,
+                border-color 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .content-card::before,
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            transition: left 0.6s;
+        }
+
+        .content-card:hover,
+        .feature-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(0, 245, 255, 0.6);
+            box-shadow: 0 12px 35px rgba(0, 245, 255, 0.1);
+        }
+
+        .content-card:hover::before,
+        .feature-card:hover::before {
+            left: 130%;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            border: 1px solid rgba(0, 245, 255, 0.25);
+            border-radius: 13px;
+            background: rgba(0, 245, 255, 0.07);
+            color: var(--cyan);
+            font-size: 1.4rem;
+        }
+
+        .content-card h3 {
+            margin-bottom: 9px;
+            font-size: 1.15rem;
+            overflow-wrap: anywhere;
+        }
+
+        .content-card p {
+            flex: 1;
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 0.93rem;
+            overflow-wrap: anywhere;
+            white-space: pre-line;
+        }
+
+        .card-link {
+            align-self: flex-start;
+            color: var(--cyan);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .card-link:hover {
+            color: #c4b5fd;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 30px;
+            border: 1px dashed rgba(0, 245, 255, 0.22);
+            border-radius: 14px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .section-action {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        /* =========================
+           FEATURE CARDS
+        ========================= */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 27px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card .card-icon {
+            font-size: 1.65rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 0.93rem;
+        }
+
+        /* =========================
+           CALL TO ACTION
+        ========================= */
+
+        .cta-panel {
+            position: relative;
+            overflow: hidden;
+            padding: 55px 30px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 22px;
+            background:
+                radial-gradient(ellipse at top left, rgba(0, 245, 255, 0.13), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.17), transparent 50%),
+                var(--panel-solid);
+            text-align: center;
+        }
+
+        .cta-panel h2 {
+            margin-bottom: 15px;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        }
+
+        .cta-panel p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            color: var(--muted);
+        }
+
+        .cta-panel .button-row {
+            justify-content: center;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .site-footer {
+            margin-top: 70px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(0, 245, 255, 0.13);
+            background: rgba(5, 7, 16, 0.7);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .footer-inner p {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 17px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .last-updated {
+            margin-top: 7px;
+            color: #76829e;
+            font-size: 0.78rem;
+        }
+
+        /* =========================
+           REVEAL ANIMATIONS
+        ========================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.75);
+            }
+        }
+
+        @keyframes orbitSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes morph {
+            0%, 100% {
+                border-radius: 35% 65% 57% 43% / 44% 43% 57% 56%;
+            }
+            50% {
+                border-radius: 58% 42% 38% 62% / 52% 60% 40% 48%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 0 rgba(0, 245, 255, 0);
+            }
+            to {
+                text-shadow: 0 0 22px rgba(0, 245, 255, 0.12);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+        @media (max-width: 950px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 14px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                align-items: stretch;
+                flex-direction: column;
+                padding: 10px 0 5px;
+            }
+
+            .nav-links.open {
+                display: flex;
+                animation: menuAppear 0.25s ease;
+            }
+
+            .nav-links a {
+                padding: 12px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            .hero-visual {
+                min-height: 340px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-grid,
+            .feature-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @keyframes menuAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-7px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section {
+                padding: 65px 0;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 65px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .hero-visual {
+                min-height: 300px;
+            }
+
+            .hero-core {
+                width: 185px;
+            }
+
+            .hero-initials {
+                font-size: 3.7rem;
+            }
+
+            .orbit {
+                width: 270px;
+            }
+
+            .label-one {
+                right: 0;
+            }
+
+            .label-two {
+                left: 0;
+            }
+
+            .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight + .highlight {
+                border-left: 0;
+                border-top: 1px solid rgba(0, 245, 255, 0.12);
+            }
+
+            .card-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-card {
+                min-height: 180px;
+            }
+
+            .cta-panel {
+                padding: 40px 20px;
+            }
+
+            .button-row .btn {
+                width: 100%;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =========================================================
-                         LOGIN SCREEN
-========================================================= -->
-
-<div id="loginScreen">
-
-    <div class="login-container">
-
-        <div class="login-brand">
-
-            <h1>🔐 Clinton Ncube</h1>
-
-            <p>
-                Welcome to your personal website administration
-                dashboard.
-            </p>
-
-            <div class="login-features">
-
-                <div class="login-feature">
-                    ✅ Manage website information
-                </div>
-
-                <div class="login-feature">
-                    ✅ Manage gallery photos
-                </div>
-
-                <div class="login-feature">
-                    ✅ Manage projects and achievements
-                </div>
-
-                <div class="login-feature">
-                    ✅ Upload documents
-                </div>
-
-                <div class="login-feature">
-                    🔒 Private diary
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="login-panel">
-
-            <h2>Welcome back</h2>
-
-            <p>
-                Sign in to manage your website.
-            </p>
-
-            <form id="loginForm" class="login-form">
-
-                <div class="form-group">
-
-                    <label for="loginEmail">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="loginPassword">
-                        Password
-                    </label>
-
-                    <div class="password-wrapper">
-
-                        <input
-                            type="password"
-                            id="loginPassword"
-                            placeholder="Enter your password"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            id="passwordToggle"
-                            class="password-toggle"
-                        >
-                            👁️
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    id="loginButton"
-                    class="login-button"
-                >
-                    🔓 Sign In
-                </button>
-
-
-                <div
-                    id="loginError"
-                    class="login-error"
-                ></div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-                         ADMIN APP
-========================================================= -->
-
-<div id="adminApp">
-
-    <div class="admin-layout">
-
-        <!-- ================= SIDEBAR ================= -->
-
-        <aside
-            id="sidebar"
-            class="sidebar"
-        >
-
-            <div class="sidebar-header">
-
-                <h2>Clinton Ncube</h2>
-
-                <p>Website Admin</p>
-
-            </div>
-
-
-            <nav class="sidebar-nav">
-
-                <button
-                    class="nav-btn active"
-                    data-page="dashboard"
-                >
-                    📊 Dashboard
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="home"
-                >
-                    🏠 Home Manager
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="gallery"
-                >
-                    🖼️ Gallery
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="achievements"
-                >
-                    🏆 Achievements
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="projects"
-                >
-                    🚀 Projects
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="hobbies"
-                >
-                    🏀 Hobbies
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="skills"
-                >
-                    🛠️ Skills
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="documents"
-                >
-                    📁 Documents
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    data-page="diary"
-                >
-                    🔒 Private Diary
-                </button>
-
-
-                <button
-                    class="nav-btn logout-btn"
-                    id="logoutSide"
-                >
-                    🚪 Logout
-                </button>
-
+    <!-- =========================
+         HEADER AND NAVIGATION
+    ========================== -->
+
+    <header class="site-header">
+        <div class="container navbar">
+
+            <a href="index.html" class="brand" aria-label="Clinton Ncube homepage">
+                <span class="brand-mark">CN</span>
+                <span>CLINTON <span class="gradient-text">NCUBE</span></span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >☰</button>
+
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="achievements.html">Achievements</a>
+                <a href="skills.html">Skills</a>
+                <a href="hobbies.html">Hobbies</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
             </nav>
 
-        </aside>
+        </div>
+    </header>
 
 
-        <!-- ================= MAIN ================= -->
+    <main>
 
-        <main class="admin-main">
+        <!-- =========================
+             HERO SECTION
+        ========================== -->
 
-            <!-- TOPBAR -->
+        <section class="hero">
+            <div class="container hero-grid">
 
-            <header class="topbar">
+                <div class="hero-content">
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        <span>WELCOME TO MY DIGITAL WORLD</span>
+                    </div>
 
-                <div class="topbar-left">
+                    <p class="eyebrow">PERSONAL PORTFOLIO</p>
 
-                    <button
-                        id="menuToggle"
-                        class="menu-toggle"
-                    >
-                        ☰
-                    </button>
-
-                    <h1 id="topbarTitle">
-                        Dashboard
+                    <h1>
+                        Hello, I'm
+                        <span class="gradient-text" id="heroName">Clinton Ncube</span>
                     </h1>
 
+                    <p class="hero-description" id="heroWelcome">
+                        Welcome to my personal portfolio. Explore my projects,
+                        skills, hobbies, achievements and the experiences that
+                        continue to shape my journey.
+                    </p>
+
+                    <div class="button-row">
+                        <a href="projects.html" class="btn btn-primary">
+                            Explore My Projects <span aria-hidden="true">↗</span>
+                        </a>
+
+                        <a href="about.html" class="btn btn-secondary">
+                            Discover My Story
+                        </a>
+                    </div>
                 </div>
 
+                <div class="hero-visual" aria-label="Clinton Ncube initials graphic">
+                    <div class="orbit"></div>
 
-                <div class="topbar-right">
+                    <div class="hero-core">
+                        <span class="hero-initials" id="heroInitials">CN</span>
+                    </div>
 
-                    <span
-                        id="adminEmail"
-                        class="admin-email"
-                    ></span>
-
-                    <button
-                        id="websiteBtn"
-                        class="website-btn"
-                    >
-                        🌐 Website
-                    </button>
-
+                    <div class="floating-label label-one">✦ Creativity</div>
+                    <div class="floating-label label-two">⌘ Learning &amp; Growth</div>
                 </div>
 
-            </header>
+            </div>
+        </section>
 
 
-            <!-- =================================================
-                              DASHBOARD
-            ================================================= -->
+        <!-- =========================
+             QUICK HIGHLIGHTS
+        ========================== -->
 
-            <section
-                id="page-dashboard"
-                class="page active"
-            >
+        <section class="highlight-strip" aria-label="Portfolio highlights">
+            <div class="container highlight-grid">
 
-                <div class="welcome-banner">
+                <div class="highlight">
+                    <strong>Continuous Learning</strong>
+                    <span>Building knowledge and new abilities</span>
+                </div>
 
-                    <h2>
-                        Welcome to your Admin Dashboard
-                    </h2>
+                <div class="highlight">
+                    <strong>Creative Projects</strong>
+                    <span>Turning ideas into useful work</span>
+                </div>
 
+                <div class="highlight">
+                    <strong>Personal Growth</strong>
+                    <span>Learning through experience</span>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             ABOUT SECTION
+        ========================== -->
+
+        <section class="section" id="about">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="eyebrow">GET TO KNOW ME</span>
+                    <h2>A little <span class="gradient-text">about me</span></h2>
                     <p>
-                        Manage your personal website content,
-                        photos, projects, achievements, hobbies,
-                        skills, documents and private diary
-                        from one place.
+                        Get to know my interests, goals and the ideas that
+                        inspire my personal and learning journey.
                     </p>
-
                 </div>
 
+                <div class="about-grid">
 
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🖼️
-                        </div>
-
-                        <h3 id="galleryCount">
-                            0
-                        </h3>
-
-                        <p>Gallery Photos</p>
-
+                    <div class="about-panel reveal">
+                        <div class="about-symbol" aria-hidden="true">◈</div>
+                        <h3 id="aboutCardName">Clinton Ncube</h3>
+                        <p>
+                            A student who enjoys learning, developing skills
+                            and working on creative projects.
+                        </p>
                     </div>
 
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🏆
-                        </div>
-
-                        <h3 id="achievementCount">
-                            0
-                        </h3>
-
-                        <p>Achievements</p>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🚀
-                        </div>
-
-                        <h3 id="projectCount">
-                            0
-                        </h3>
-
-                        <p>Projects</p>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🏀
-                        </div>
-
-                        <h3 id="hobbyCount">
-                            0
-                        </h3>
-
-                        <p>Hobbies</p>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon">
-                            🛠️
-                        </div>
-
-                        <h3 id="skillCount">
-                            0
-                        </h3>
-
-                        <p>Skills</p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-actions">
-
-                    <button
-                        id="refreshDashboardBtn"
-                        class="primary-btn"
-                    >
-                        🔄 Refresh Dashboard
-                    </button>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        🌐 Website Information
-                    </h3>
-
-                    <p>
-                        Your website is available at:
-                    </p>
-
-                    <p style="margin-top:10px;">
-                        <strong>
-                            https://clintonncube.github.io/
-                        </strong>
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        🔐 Security Status
-                    </h3>
-
-                    <p>
-                        Authentication is handled through
-                        Firebase Authentication.
-                    </p>
-
-                    <p style="margin-top:8px;">
-                        Database content is stored in Firebase
-                        Realtime Database.
-                    </p>
-
-                    <p style="margin-top:8px;">
-                        Uploaded files are stored in Firebase
-                        Storage.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              HOME MANAGER
-            ================================================= -->
-
-            <section
-                id="page-home"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Home Manager
-                    </h2>
-
-                    <p>
-                        Edit the information displayed on your
-                        website.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Name
-                            </label>
-
-                            <input
-                                id="homeName"
-                                type="text"
-                                placeholder="Clinton Ncube"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Last Updated
-                            </label>
-
-                            <input
-                                id="homeLastUpdated"
-                                type="text"
-                                placeholder="2026"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Welcome Message
-                            </label>
-
-                            <textarea
-                                id="homeWelcome"
-                                placeholder="Enter welcome message"
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Goal
-                            </label>
-
-                            <textarea
-                                id="homeGoal"
-                                placeholder="Enter your goal"
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                About
-                            </label>
-
-                            <textarea
-                                id="homeAbout"
-                                placeholder="Enter about information"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveHomeBtn"
-                            class="primary-btn"
-                        >
-                            💾 Save Home Information
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              GALLERY
-            ================================================= -->
-
-            <section
-                id="page-gallery"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Gallery
-                    </h2>
-
-                    <p>
-                        Upload, edit and delete photos.
-                    </p>
-
-                </div>
-
-
-                <!-- ================= UPLOAD PHOTO ================= -->
-
-                <div class="card">
-
-                    <h3>
-                        📷 Upload Photo From Your Device
-                    </h3>
-
-
-                    <div class="form-grid">
-
-
-                        <!-- PHOTO SELECT -->
-
-                        <div class="form-group form-full">
-
-                            <label for="galleryFile">
-                                Choose a picture
-                            </label>
-
-                            <input
-                                id="galleryFile"
-                                type="file"
-                                accept="image/jpeg,image/png,image/webp,image/gif"
-                            >
-
-                            <p
-                                style="
-                                    margin-top:8px;
-                                    color:#6b7280;
-                                    font-size:14px;
-                                "
-                            >
-                                Choose a picture from your laptop
-                                or phone gallery.
-                            </p>
-
-                        </div>
-
-
-                        <!-- PREVIEW -->
-
-                        <div
-                            class="form-group form-full"
-                            id="galleryUploadPreviewContainer"
-                            style="display:none;"
-                        >
-
-                            <label>
-                                Photo Preview
-                            </label>
-
-                            <img
-                                id="galleryUploadPreview"
-                                class="gallery-upload-preview"
-                                alt="Selected photo preview"
-                            >
-
-                        </div>
-
-
-                        <!-- TITLE -->
-
-                        <div class="form-group">
-
-                            <label for="galleryTitle">
-                                Title
-                            </label>
-
-                            <input
-                                id="galleryTitle"
-                                type="text"
-                                placeholder="Photo title"
-                            >
-
-                        </div>
-
-
-                        <!-- DESCRIPTION -->
-
-                        <div class="form-group">
-
-                            <label for="galleryDescription">
-                                Description
-                            </label>
-
-                            <input
-                                id="galleryDescription"
-                                type="text"
-                                placeholder="Photo description"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- UPLOAD PROGRESS -->
-
-                    <div
-                        id="galleryUploadProgress"
-                        class="progress-container"
-                    >
-
-                        <div class="progress-track">
-
-                            <div
-                                id="galleryProgressBar"
-                                class="progress-bar"
-                            ></div>
-
-                        </div>
-
-
-                        <div
-                            id="galleryProgressText"
-                            class="progress-text"
-                        >
-                            Preparing upload...
-                        </div>
-
-                    </div>
-
-
-                    <!-- BUTTONS -->
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveGalleryBtn"
-                            class="primary-btn"
-                        >
-                            ☁️ Upload Photo
-                        </button>
-
-
-                        <button
-                            id="clearGalleryBtn"
-                            class="secondary-btn"
-                            style="margin-left:8px;"
-                        >
-                            ✖ Clear
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= OLD URL ADD ================= -->
-
-                <div class="card">
-
-                    <h3>
-                        🔗 Add Photo Using URL
-                    </h3>
-
-                    <p
-                        style="
-                            color:#6b7280;
-                            margin-bottom:18px;
-                        "
-                    >
-                        You can still add an existing image path
-                        or image URL if you need to.
-                    </p>
-
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Image Path or URL
-                            </label>
-
-                            <input
-                                id="galleryImage"
-                                type="text"
-                                placeholder="images/photo3.jpg"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="galleryUrlTitle"
-                                type="text"
-                                placeholder="Photo title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <input
-                                id="galleryUrlDescription"
-                                type="text"
-                                placeholder="Photo description"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveGalleryUrlBtn"
-                            class="secondary-btn"
-                        >
-                            ➕ Add URL Photo
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= EXISTING PHOTOS ================= -->
-
-                <div class="card">
-
-                    <h3>
-                        Existing Photos
-                    </h3>
-
-                    <div
-                        id="galleryList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                           ACHIEVEMENTS
-            ================================================= -->
-
-            <section
-                id="page-achievements"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Achievements
-                    </h2>
-
-                    <p>
-                        Manage your achievements.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Achievement
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="achievementTitle"
-                                type="text"
-                                placeholder="Achievement title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="achievementDescription"
-                                placeholder="Achievement description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveAchievementBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Achievement
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Achievements
-                    </h3>
-
-                    <div
-                        id="achievementList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              PROJECTS
-            ================================================= -->
-
-            <section
-                id="page-projects"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Projects
-                    </h2>
-
-                    <p>
-                        Manage your website projects.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Project
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="projectTitle"
-                                type="text"
-                                placeholder="Project title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Link
-                            </label>
-
-                            <input
-                                id="projectLink"
-                                type="text"
-                                placeholder="Project link"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="projectDescription"
-                                placeholder="Project description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveProjectBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Project
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Projects
-                    </h3>
-
-                    <div
-                        id="projectList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              HOBBIES
-            ================================================= -->
-
-            <section
-                id="page-hobbies"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Hobbies
-                    </h2>
-
-                    <p>
-                        Manage your hobbies.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Hobby
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="hobbyTitle"
-                                type="text"
-                                placeholder="Hobby title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="hobbyDescription"
-                                placeholder="Hobby description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveHobbyBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Hobby
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Hobbies
-                    </h3>
-
-                    <div
-                        id="hobbyList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                              SKILLS
-            ================================================= -->
-
-            <section
-                id="page-skills"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Skills
-                    </h2>
-
-                    <p>
-                        Manage your skills.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        ➕ Add Skill
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="skillTitle"
-                                type="text"
-                                placeholder="Skill title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Description
-                            </label>
-
-                            <textarea
-                                id="skillDescription"
-                                placeholder="Skill description"
-                            ></textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveSkillBtn"
-                            class="primary-btn"
-                        >
-                            ➕ Add Skill
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        Existing Skills
-                    </h3>
-
-                    <div
-                        id="skillList"
-                        class="item-list"
-                    ></div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                           DOCUMENTS
-            ================================================= -->
-
-            <section
-                id="page-documents"
-                class="page"
-            >
-
-                <div class="page-header">
-
-                    <h2>
-                        Documents Manager
-                    </h2>
-
-                    <p>
-                        Upload folders and manage your documents.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <div class="folder-box">
-
-                        <h3>
-                            📁 Select a Folder
-                        </h3>
-
-                        <p style="margin-top:8px;">
-                            Select a folder containing the files
-                            you want to upload.
+                    <div class="about-copy reveal">
+                        <p id="heroAbout">
+                            I am a student who enjoys learning, developing
+                            skills and exploring creative projects. This
+                            portfolio brings together my interests, work
+                            and experiences in one place.
                         </p>
 
-
-                        <input
-                            type="file"
-                            id="folderInput"
-                            webkitdirectory
-                            directory
-                            multiple
-                        >
-
-
-                        <div
-                            style="
-                            display:flex;
-                            justify-content:center;
-                            gap:10px;
-                            flex-wrap:wrap;
-                            "
-                        >
-
-                            <button
-                                id="uploadFolderBtn"
-                                class="primary-btn"
-                            >
-                                ⬆️ Upload Folder
-                            </button>
-
-
-                            <button
-                                id="clearFolderBtn"
-                                class="secondary-btn"
-                            >
-                                ✖ Clear
-                            </button>
-
+                        <div class="goal-box">
+                            <h3>✧ My Goal</h3>
+                            <p id="heroGoal">
+                                My goal is to keep learning, improve my skills
+                                and create useful and interesting projects.
+                            </p>
                         </div>
 
-
-                        <div
-                            id="progressContainer"
-                            class="progress-container"
-                        >
-
-                            <div class="progress-track">
-
-                                <div
-                                    id="progressBar"
-                                    class="progress-bar"
-                                ></div>
-
-                            </div>
-
-
-                            <div
-                                id="progressText"
-                                class="progress-text"
-                            >
-                                Uploading...
-                            </div>
-
+                        <div class="button-row" style="margin-top: 25px;">
+                            <a href="about.html" class="btn">
+                                More About Me <span aria-hidden="true">→</span>
+                            </a>
                         </div>
-
                     </div>
 
                 </div>
+            </div>
+        </section>
 
 
-                <div class="card">
+        <!-- =========================
+             PROJECTS SECTION
+        ========================== -->
 
-                    <h3>
-                        Uploaded Documents
-                    </h3>
+        <section class="section" id="projects">
+            <div class="container">
 
-                    <div
-                        id="documentList"
-                        class="item-list"
-                    ></div>
-
+                <div class="section-heading reveal">
+                    <span class="eyebrow">WHAT I'M BUILDING</span>
+                    <h2>Featured <span class="gradient-text">projects</span></h2>
+                    <p>
+                        Explore some of the projects and ideas I have been
+                        working on. Project information can be managed from
+                        the website administration dashboard.
+                    </p>
                 </div>
 
-            </section>
+                <div class="card-grid" id="homeProjects">
+                    <div class="empty-state">Loading projects...</div>
+                </div>
+
+                <div class="section-action reveal">
+                    <a href="projects.html" class="btn">
+                        View All Projects <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
 
 
-            <!-- =================================================
-                           PRIVATE DIARY
-            ================================================= -->
+        <!-- =========================
+             SKILLS SECTION
+        ========================== -->
 
-            <section
-                id="page-diary"
-                class="page"
-            >
+        <section class="section" id="skills">
+            <div class="container">
 
-                <div class="page-header">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">WHAT I'M DEVELOPING</span>
+                    <h2>My <span class="gradient-text">skills</span></h2>
+                    <p>
+                        Skills grow with practice, curiosity and a willingness
+                        to learn from every experience.
+                    </p>
+                </div>
+
+                <div class="card-grid" id="homeSkills">
+                    <div class="empty-state">Loading skills...</div>
+                </div>
+
+                <div class="section-action reveal">
+                    <a href="skills.html" class="btn">
+                        Explore My Skills <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             HOBBIES SECTION
+        ========================== -->
+
+        <section class="section" id="hobbies">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="eyebrow">BEYOND THE SCREEN</span>
+                    <h2>Things I <span class="gradient-text">enjoy</span></h2>
+                    <p>
+                        My hobbies give me opportunities to stay active,
+                        explore interests and keep developing as a person.
+                    </p>
+                </div>
+
+                <div class="card-grid" id="homeHobbies">
+                    <div class="empty-state">Loading hobbies...</div>
+                </div>
+
+                <div class="section-action reveal">
+                    <a href="hobbies.html" class="btn">
+                        Discover My Hobbies <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             ACHIEVEMENTS SECTION
+        ========================== -->
+
+        <section class="section" id="achievements">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="eyebrow">MILESTONES</span>
+                    <h2>My <span class="gradient-text">achievements</span></h2>
+                    <p>
+                        A collection of milestones, accomplishments and
+                        experiences worth remembering.
+                    </p>
+                </div>
+
+                <div class="card-grid" id="homeAchievements">
+                    <div class="empty-state">Loading achievements...</div>
+                </div>
+
+                <div class="section-action reveal">
+                    <a href="achievements.html" class="btn">
+                        View Achievements <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             EXPLORE THE WEBSITE
+        ========================== -->
+
+        <section class="section">
+            <div class="container">
+
+                <div class="section-heading reveal">
+                    <span class="eyebrow">EXPLORE MORE</span>
+                    <h2>Inside my <span class="gradient-text">world</span></h2>
+                    <p>
+                        Each section tells a different part of my story.
+                    </p>
+                </div>
+
+                <div class="feature-grid">
+
+                    <a href="gallery.html" class="feature-card reveal">
+                        <div class="card-icon" aria-hidden="true">▧</div>
+                        <h3>Photo Gallery</h3>
+                        <p>
+                            Explore photographs and memorable moments
+                            collected in my personal gallery.
+                        </p>
+                        <span class="card-link" style="display:inline-block;margin-top:18px;">
+                            Explore Gallery →
+                        </span>
+                    </a>
+
+                    <a href="about.html" class="feature-card reveal">
+                        <div class="card-icon" aria-hidden="true">◎</div>
+                        <h3>My Story</h3>
+                        <p>
+                            Learn more about my background, interests,
+                            goals and personal journey.
+                        </p>
+                        <span class="card-link" style="display:inline-block;margin-top:18px;">
+                            Read My Story →
+                        </span>
+                    </a>
+
+                    <a href="contact.html" class="feature-card reveal">
+                        <div class="card-icon" aria-hidden="true">⌁</div>
+                        <h3>Get in Touch</h3>
+                        <p>
+                            Visit my contact page to find my listed
+                            contact details and social links.
+                        </p>
+                        <span class="card-link" style="display:inline-block;margin-top:18px;">
+                            Contact Me →
+                        </span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================
+             CALL TO ACTION
+        ========================== -->
+
+        <section class="section">
+            <div class="container">
+
+                <div class="cta-panel reveal">
+                    <span class="eyebrow">THANKS FOR VISITING</span>
 
                     <h2>
-                        🔒 Private Diary
+                        Every idea starts with
+                        <span class="gradient-text">curiosity.</span>
                     </h2>
 
                     <p>
-                        Store your private diary entries.
+                        Thank you for exploring my portfolio. Take a look
+                        around, discover my work and follow my journey of
+                        learning, creativity and growth.
                     </p>
 
-                </div>
+                    <div class="button-row">
+                        <a href="projects.html" class="btn btn-primary">
+                            Explore Projects
+                        </a>
 
-
-                <div class="card">
-
-                    <h3>
-                        ➕ New Diary Entry
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-
-                            <label>
-                                Date
-                            </label>
-
-                            <input
-                                id="diaryDate"
-                                type="date"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="diaryTitle"
-                                type="text"
-                                placeholder="Entry title"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                What happened?
-                            </label>
-
-                            <textarea
-                                id="diaryHappened"
-                                placeholder="Write what happened..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                How I felt
-                            </label>
-
-                            <textarea
-                                id="diaryFeelings"
-                                placeholder="Write how you felt..."
-                            ></textarea>
-
-                        </div>
-
-
-                        <div class="form-group form-full">
-
-                            <label>
-                                Notes
-                            </label>
-
-                            <textarea
-                                id="diaryNotes"
-                                placeholder="Additional notes..."
-                            ></textarea>
-
-                        </div>
-
+                        <a href="contact.html" class="btn btn-secondary">
+                            Get in Touch
+                        </a>
                     </div>
-
-
-                    <div class="save-area">
-
-                        <button
-                            id="saveDiaryBtn"
-                            class="primary-btn"
-                        >
-                            💾 Save Diary Entry
-                        </button>
-
-                    </div>
-
                 </div>
 
+            </div>
+        </section>
 
-                <div class="card">
+    </main>
 
-                    <h3>
-                        Diary Entries
-                    </h3>
 
-                    <div
-                        id="diaryList"
-                        class="item-list"
-                    ></div>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
-                </div>
+    <footer class="site-footer">
+        <div class="container footer-inner">
 
-            </section>
+            <div>
+                <a href="index.html" class="brand">
+                    <span class="brand-mark">CN</span>
+                    <span>CLINTON <span class="gradient-text">NCUBE</span></span>
+                </a>
 
-        </main>
+                <p style="margin-top:10px;">
+                    Learning. Creating. Growing.
+                </p>
 
-    </div>
+                <p class="last-updated">
+                    Last updated: <span id="lastUpdated">2026</span>
+                </p>
+            </div>
 
-</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
 
+            <p>
+                © <span id="currentYear">2026</span> Clinton Ncube.
+                All rights reserved.
+            </p>
 
-<!-- TOAST -->
+        </div>
+    </footer>
 
-<div id="toastContainer"></div>
 
+    <!-- =========================
+         FIREBASE AND PAGE SCRIPT
+    ========================== -->
 
-<!-- =========================================================
-                         FIREBASE
-========================================================= -->
+    <script type="module">
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-<script type="module">
+        import {
+            getDatabase,
+            ref,
+            onValue
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
+        /* Keep this configuration in sync with admin.html. */
 
-import {
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+            authDomain: "clinton-ncube-website.firebaseapp.com",
+            databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+            projectId: "clinton-ncube-website",
+            storageBucket: "clinton-ncube-website.firebasestorage.app",
+            messagingSenderId: "946671700613",
+            appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+            measurementId: "G-K1S62MHHXP"
+        };
 
 
-import {
-    getDatabase,
-    ref,
-    get,
-    set,
-    push,
-    remove
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+        const $ = id => document.getElementById(id);
 
+        $("currentYear").textContent = new Date().getFullYear();
 
-import {
-    getStorage,
-    ref as storageRef,
-    uploadBytes,
-    getDownloadURL,
-    deleteObject
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
+        /* =========================
+           MOBILE NAVIGATION
+        ========================= */
 
-/* =========================================================
-                       FIREBASE CONFIG
-========================================================= */
+        const menuToggle = $("menuToggle");
+        const navLinks = $("navLinks");
 
-const firebaseConfig = {
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("open");
 
-    apiKey:
-        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-
-    authDomain:
-        "clinton-ncube-website.firebaseapp.com",
-
-    databaseURL:
-        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-
-    projectId:
-        "clinton-ncube-website",
-
-    storageBucket:
-        "clinton-ncube-website.firebasestorage.app",
-
-    messagingSenderId:
-        "946671700613",
-
-    appId:
-        "1:946671700613:web:5d74536df1dbb0d35e77ec",
-
-    measurementId:
-        "G-K1S62MHHXP"
-};
-
-
-/* =========================================================
-                       INITIALIZE
-========================================================= */
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const db =
-    getDatabase(app);
-
-const storage =
-    getStorage(app);
-
-
-/* =========================================================
-                       HELPER
-========================================================= */
-
-const $ = id =>
-    document.getElementById(id);
-
-
-/* =========================================================
-                       TOAST
-========================================================= */
-
-function showToast(message) {
-
-    const toast =
-        document.createElement("div");
-
-    toast.className =
-        "toast";
-
-    toast.textContent =
-        message;
-
-    $("toastContainer")
-        .appendChild(toast);
-
-    setTimeout(() => {
-
-        toast.remove();
-
-    }, 3500);
-}
-
-
-/* =========================================================
-                       LOGIN
-========================================================= */
-
-$("passwordToggle")
-    .addEventListener(
-        "click",
-        () => {
-
-            const password =
-                $("loginPassword");
-
-            if (
-                password.type ===
-                "password"
-            ) {
-
-                password.type =
-                    "text";
-
-                $("passwordToggle")
-                    .textContent =
-                    "🙈";
-
-            } else {
-
-                password.type =
-                    "password";
-
-                $("passwordToggle")
-                    .textContent =
-                    "👁️";
-            }
-
-        }
-    );
-
-
-$("loginForm")
-    .addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
-
-            const email =
-                $("loginEmail")
-                    .value
-                    .trim();
-
-            const password =
-                $("loginPassword")
-                    .value;
-
-
-            $("loginError")
-                .classList
-                .remove("show");
-
-
-            $("loginButton")
-                .disabled = true;
-
-
-            $("loginButton")
-                .textContent =
-                "Signing in...";
-
-
-            try {
-
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "LOGIN ERROR:",
-                    error
-                );
-
-                $("loginError")
-                    .textContent =
-                    "Login failed. Please check your email and password.";
-
-                $("loginError")
-                    .classList
-                    .add("show");
-
-            }
-
-            finally {
-
-                $("loginButton")
-                    .disabled = false;
-
-                $("loginButton")
-                    .textContent =
-                    "🔓 Sign In";
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                       AUTH STATE
-========================================================= */
-
-onAuthStateChanged(
-    auth,
-    async user => {
-
-        if(user) {
-
-            $("loginScreen")
-                .style
-                .display =
-                "none";
-
-            $("adminApp")
-                .style
-                .display =
-                "block";
-
-            $("adminEmail")
-                .textContent =
-                user.email || "";
-
-            await loadEverything();
-
-        }
-
-        else {
-
-            $("loginScreen")
-                .style
-                .display =
-                "flex";
-
-            $("adminApp")
-                .style
-                .display =
-                "none";
-        }
-
-    }
-);
-
-
-/* =========================================================
-                       LOGOUT
-========================================================= */
-
-$("logoutSide")
-    .addEventListener(
-        "click",
-        async () => {
-
-            if(
-                !confirm(
-                    "Are you sure you want to logout?"
-                )
-            ) return;
-
-            try {
-
-                await signOut(auth);
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "LOGOUT ERROR:",
-                    error
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                       WEBSITE BUTTON
-========================================================= */
-
-$("websiteBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            window.open(
-                "https://clintonncube.github.io/",
-                "_blank"
+            menuToggle.textContent = isOpen ? "✕" : "☰";
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
             );
-
-        }
-    );
-
-
-/* =========================================================
-                       MOBILE MENU
-========================================================= */
-
-$("menuToggle")
-    .addEventListener(
-        "click",
-        () => {
-
-            $("sidebar")
-                .classList
-                .toggle("open");
-
-        }
-    );
-
-
-/* =========================================================
-                       NAVIGATION
-========================================================= */
-
-const pageTitles = {
-
-    dashboard:
-        "Dashboard",
-
-    home:
-        "Home Manager",
-
-    gallery:
-        "Gallery",
-
-    achievements:
-        "Achievements",
-
-    projects:
-        "Projects",
-
-    hobbies:
-        "Hobbies",
-
-    skills:
-        "Skills",
-
-    documents:
-        "Documents Manager",
-
-    diary:
-        "Private Diary"
-
-};
-
-
-document
-    .querySelectorAll(
-        ".nav-btn[data-page]"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const page =
-                    button.dataset.page;
-
-
-                document
-                    .querySelectorAll(
-                        ".page"
-                    )
-                    .forEach(element => {
-
-                        element
-                            .classList
-                            .remove(
-                                "active"
-                            );
-
-                    });
-
-
-                document
-                    .querySelectorAll(
-                        ".nav-btn[data-page]"
-                    )
-                    .forEach(element => {
-
-                        element
-                            .classList
-                            .remove(
-                                "active"
-                            );
-
-                    });
-
-
-                const target =
-                    $("page-" + page);
-
-
-                if(target) {
-
-                    target
-                        .classList
-                        .add("active");
-
-                }
-
-
-                button
-                    .classList
-                    .add("active");
-
-
-                $("topbarTitle")
-                    .textContent =
-                    pageTitles[page]
-                    ||
-                    "Dashboard";
-
-
-                $("sidebar")
-                    .classList
-                    .remove("open");
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-                    COUNT CHILDREN
-========================================================= */
-
-async function countChildren(path) {
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(db, path)
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            return 0;
-
-        }
-
-
-        return Object.keys(
-            snapshot.val() || {}
-        ).length;
-
-    }
-
-    catch(error) {
-
-        console.error(error);
-
-        return 0;
-
-    }
-
-}
-
-
-/* =========================================================
-                  DASHBOARD STATS
-========================================================= */
-
-async function updateDashboardStats() {
-
-    $("galleryCount")
-        .textContent =
-        await countChildren(
-            "gallery"
-        );
-
-
-    $("achievementCount")
-        .textContent =
-        await countChildren(
-            "achievements"
-        );
-
-
-    $("projectCount")
-        .textContent =
-        await countChildren(
-            "projects"
-        );
-
-
-    $("hobbyCount")
-        .textContent =
-        await countChildren(
-            "hobbies"
-        );
-
-
-    $("skillCount")
-        .textContent =
-        await countChildren(
-            "skills"
-        );
-
-}
-
-
-$("refreshDashboardBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            await updateDashboardStats();
-
-            showToast(
-                "Dashboard refreshed."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-                         HOME
-========================================================= */
-
-async function loadHome() {
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "websiteData"
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) return;
-
-
-        const data =
-            snapshot.val() || {};
-
-
-        $("homeName")
-            .value =
-            data.name ||
-            "Clinton Ncube";
-
-
-        $("homeLastUpdated")
-            .value =
-            data.lastUpdated ||
-            "2026";
-
-
-        $("homeWelcome")
-            .value =
-            data.welcome ||
-            "";
-
-
-        $("homeGoal")
-            .value =
-            data.goal ||
-            "";
-
-
-        $("homeAbout")
-            .value =
-            data.about ||
-            "";
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "HOME LOAD ERROR:",
-            error
-        );
-
-    }
-
-}
-
-
-$("saveHomeBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await set(
-                    ref(
-                        db,
-                        "websiteData"
-                    ),
-                    {
-
-                        name:
-                            $("homeName")
-                                .value
-                                .trim(),
-
-                        lastUpdated:
-                            $("homeLastUpdated")
-                                .value
-                                .trim(),
-
-                        welcome:
-                            $("homeWelcome")
-                                .value
-                                .trim(),
-
-                        goal:
-                            $("homeGoal")
-                                .value
-                                .trim(),
-
-                        about:
-                            $("homeAbout")
-                                .value
-                                .trim()
-
+        });
+
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                menuToggle.textContent = "☰";
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+            });
+        });
+
+
+        /* =========================
+           SCROLL REVEAL ANIMATIONS
+        ========================= */
+
+        const revealElements = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+            const revealObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        revealObserver.unobserve(entry.target);
                     }
-                );
+                });
+            }, {
+                threshold: 0.12
+            });
 
-
-                showToast(
-                    "Home information saved."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "HOME SAVE ERROR:",
-                    error
-                );
-
-                showToast(
-                    "Could not save home information."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                    GENERIC LIST LOADER
-                    WITH EDIT + DELETE
-========================================================= */
-
-async function loadSimple(
-    path,
-    listId,
-    fields
-) {
-
-    const list =
-        $(listId);
-
-    list.innerHTML = "";
-
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    path
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            list.innerHTML =
-                "<div class='item'>No items yet.</div>";
-
-            return;
-
+            revealElements.forEach(element => revealObserver.observe(element));
+        } else {
+            revealElements.forEach(element => element.classList.add("visible"));
         }
 
 
-        const data =
-            snapshot.val() || {};
-
-
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
-
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    div.className =
-                        "item";
-
-
-                    /* IMAGE */
-
-                    if(item.image) {
-
-                        const image =
-                            document
-                                .createElement(
-                                    "img"
-                                );
-
-                        image.className =
-                            "gallery-preview";
-
-                        image.src =
-                            item.image;
-
-                        image.alt =
-                            item.title ||
-                            "Gallery image";
-
-                        image.loading =
-                            "lazy";
-
-                        div.appendChild(
-                            image
-                        );
-
-                    }
-
-
-                    /* CONTENT */
-
-                    fields.forEach(
-                        field => {
-
-                            if(
-                                item[field]
-                            ) {
-
-                                const element =
-                                    document
-                                        .createElement(
-                                            field ===
-                                            "title"
-                                            ? "strong"
-                                            : "p"
-                                        );
-
-
-                                element.textContent =
-                                    item[field];
-
-
-                                div.appendChild(
-                                    element
-                                );
-
-                            }
-
-                        }
-                    );
-
-
-                    /* ACTIONS */
-
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    actions.className =
-                        "item-actions";
-
-
-                    /* EDIT BUTTON */
-
-                    const editButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    editButton
-                        .textContent =
-                        "✏️ Edit";
-
-                    editButton.className =
-                        "edit-btn";
-
-
-                    editButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                const updatedItem =
-                                    {
-                                        ...item
-                                    };
-
-
-                                for(
-                                    const field
-                                    of fields
-                                ) {
-
-                                    const currentValue =
-                                        updatedItem[field]
-                                        ||
-                                        "";
-
-
-                                    const newValue =
-                                        prompt(
-                                            "Edit " +
-                                            field
-                                                .charAt(0)
-                                                .toUpperCase() +
-                                            field.slice(1) +
-                                            ":",
-                                            currentValue
-                                        );
-
-
-                                    if(
-                                        newValue ===
-                                        null
-                                    ) {
-
-                                        return;
-
-                                    }
-
-
-                                    updatedItem[field] =
-                                        newValue;
-
-                                }
-
-
-                                try {
-
-                                    await set(
-                                        ref(
-                                            db,
-                                            path +
-                                            "/" +
-                                            key
-                                        ),
-                                        updatedItem
-                                    );
-
-
-                                    await loadSimple(
-                                        path,
-                                        listId,
-                                        fields
-                                    );
-
-
-                                    await updateDashboardStats();
-
-
-                                    showToast(
-                                        "Item updated successfully."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        "EDIT ERROR:",
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not update item."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    /* DELETE BUTTON */
-
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
-
-
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                if(
-                                    !confirm(
-                                        "Delete this item?"
-                                    )
-                                ) return;
-
-
-                                try {
-
-                                    /* Delete database entry */
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            path +
-                                            "/" +
-                                            key
-                                        )
-                                    );
-
-
-                                    /* Delete Gallery Storage file */
-
-                                    if(
-                                        path ===
-                                        "gallery" &&
-                                        item.storagePath
-                                    ) {
-
-                                        try {
-
-                                            const imageStorageRef =
-                                                storageRef(
-                                                    storage,
-                                                    item.storagePath
-                                                );
-
-
-                                            await deleteObject(
-                                                imageStorageRef
-                                            );
-
-                                        }
-
-                                        catch(storageError) {
-
-                                            console.warn(
-                                                "Storage image could not be deleted:",
-                                                storageError
-                                            );
-
-                                        }
-
-                                    }
-
-
-                                    await loadSimple(
-                                        path,
-                                        listId,
-                                        fields
-                                    );
-
-
-                                    await updateDashboardStats();
-
-
-                                    showToast(
-                                        "Item deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        "DELETE ERROR:",
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete item."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    actions.appendChild(
-                        editButton
-                    );
-
-                    actions.appendChild(
-                        deleteButton
-                    );
-
-
-                    div.appendChild(
-                        actions
-                    );
-
-
-                    list.appendChild(
-                        div
-                    );
-
+        /* =========================
+           SAFE TEXT HELPERS
+        ========================= */
+
+        function setText(id, value) {
+            if (typeof value === "string" && value.trim()) {
+                $(id).textContent = value;
+            }
+        }
+
+        function initialsFromName(name) {
+            const words = String(name || "Clinton Ncube")
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+            return words
+                .slice(0, 2)
+                .map(word => word.charAt(0).toUpperCase())
+                .join("") || "CN";
+        }
+
+
+        /* =========================
+           FIREBASE INITIALIZATION
+        ========================= */
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+
+
+            /* =========================
+               HOME INFORMATION
+               Matches admin.html:
+               websiteData
+            ========================= */
+
+            onValue(
+                ref(db, "websiteData"),
+                snapshot => {
+                    if (!snapshot.exists()) return;
+
+                    const data = snapshot.val() || {};
+                    const name = data.name || "Clinton Ncube";
+
+                    document.title = `${name} | Personal Portfolio`;
+
+                    setText("heroName", name);
+                    setText("aboutCardName", name);
+                    setText("heroWelcome", data.welcome);
+                    setText("heroGoal", data.goal);
+                    setText("heroAbout", data.about);
+
+                    $("heroInitials").textContent = initialsFromName(name);
+
+                    setText("lastUpdated", data.lastUpdated);
+                },
+                error => {
+                    console.error("Could not load homepage information:", error);
                 }
             );
 
-    }
 
-    catch(error) {
+            /* =========================
+               DYNAMIC CONTENT CARDS
+            ========================= */
 
-        console.error(
-            "LIST LOAD ERROR:",
-            error
-        );
+            function createCard(item, type, index) {
+                const card = document.createElement("article");
+                card.className = "content-card reveal";
+                card.style.transitionDelay = `${Math.min(index, 5) * 70}ms`;
 
-        list.innerHTML =
-            "<div class='item'>Unable to load items.</div>";
+                const icon = document.createElement("div");
+                icon.className = "card-icon";
 
-    }
-
-}
-
-
-/* =========================================================
-                         GALLERY
-========================================================= */
-
-
-/* ================= PHOTO PREVIEW ================= */
-
-$("galleryFile")
-    .addEventListener(
-        "change",
-        event => {
-
-            const file =
-                event.target.files[0];
-
-
-            if(!file) {
-
-                $("galleryUploadPreviewContainer")
-                    .style
-                    .display =
-                    "none";
-
-                return;
-
-            }
-
-
-            if(
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                showToast(
-                    "Please choose a valid image."
-                );
-
-                $("galleryFile")
-                    .value = "";
-
-                return;
-
-            }
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function(e) {
-
-                    $("galleryUploadPreview")
-                        .src =
-                        e.target.result;
-
-
-                    $("galleryUploadPreviewContainer")
-                        .style
-                        .display =
-                        "block";
-
+                const icons = {
+                    projects: "⌘",
+                    skills: "✧",
+                    hobbies: "◉",
+                    achievements: "★"
                 };
 
+                icon.textContent = icons[type] || "✦";
+                card.appendChild(icon);
 
-            reader.readAsDataURL(
-                file
-            );
+                const title = document.createElement("h3");
+                title.textContent = item.title || "Untitled";
+                card.appendChild(title);
 
-        }
-    );
+                const description = document.createElement("p");
+                description.textContent =
+                    item.description || "Explore this part of my portfolio.";
+                card.appendChild(description);
 
+                if (type === "projects" && item.link) {
+                    const link = document.createElement("a");
+                    link.className = "card-link";
+                    link.textContent = "View Project →";
 
-/* ================= CLEAR GALLERY FORM ================= */
-
-$("clearGalleryBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            $("galleryFile")
-                .value = "";
-
-            $("galleryTitle")
-                .value = "";
-
-            $("galleryDescription")
-                .value = "";
-
-            $("galleryUploadPreview")
-                .src = "";
-
-            $("galleryUploadPreviewContainer")
-                .style
-                .display =
-                "none";
-
-            $("galleryUploadProgress")
-                .style
-                .display =
-                "none";
-
-            $("galleryProgressBar")
-                .style
-                .width =
-                "0%";
-
-            $("galleryProgressText")
-                .textContent =
-                "Preparing upload...";
-
-        }
-    );
-
-
-/* ================= LOAD GALLERY ================= */
-
-async function loadGallery() {
-
-    await loadSimple(
-        "gallery",
-        "galleryList",
-        [
-            "title",
-            "description"
-        ]
-    );
-
-}
-
-
-/* ================= UPLOAD PHOTO ================= */
-
-$("saveGalleryBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const file =
-                $("galleryFile")
-                    .files[0];
-
-
-            const title =
-                $("galleryTitle")
-                    .value
-                    .trim();
-
-
-            const description =
-                $("galleryDescription")
-                    .value
-                    .trim();
-
-
-            if(!file) {
-
-                showToast(
-                    "Please choose a photo first."
-                );
-
-                return;
-
-            }
-
-
-            if(
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                showToast(
-                    "Please choose a valid image."
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                $("saveGalleryBtn")
-                    .disabled =
-                    true;
-
-                $("saveGalleryBtn")
-                    .textContent =
-                    "☁️ Uploading...";
-
-
-                $("galleryUploadProgress")
-                    .style
-                    .display =
-                    "block";
-
-
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "10%";
-
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Preparing photo...";
-
-
-                /* Safe filename */
-
-                const originalName =
-                    file.name;
-
-
-                const safeName =
-                    originalName
-                        .replace(
-                            /[^a-zA-Z0-9._-]/g,
-                            "_"
+                    try {
+                        const destination = new URL(
+                            item.link,
+                            window.location.origin
                         );
 
-
-                const uniqueName =
-                    Date.now() +
-                    "_" +
-                    safeName;
-
-
-                /* Storage reference */
-
-                const imageRef =
-                    storageRef(
-                        storage,
-                        "gallery/" +
-                        uniqueName
-                    );
-
-
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "30%";
-
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Uploading photo to Firebase...";
-
-
-                /* Upload */
-
-                const snapshot =
-                    await uploadBytes(
-                        imageRef,
-                        file,
-                        {
-                            contentType:
-                                file.type
+                        if (
+                            destination.protocol === "https:" ||
+                            destination.protocol === "http:"
+                        ) {
+                            link.href = destination.href;
+                            link.target = "_blank";
+                            link.rel = "noopener noreferrer";
+                            card.appendChild(link);
                         }
-                    );
-
-
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "70%";
-
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Getting photo URL...";
-
-
-                /* Download URL */
-
-                const downloadURL =
-                    await getDownloadURL(
-                        snapshot.ref
-                    );
-
-
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "85%";
-
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Saving photo information...";
-
-
-                /* Database */
-
-                await push(
-                    ref(
-                        db,
-                        "gallery"
-                    ),
-                    {
-
-                        image:
-                            downloadURL,
-
-                        storagePath:
-                            "gallery/" +
-                            uniqueName,
-
-                        fileName:
-                            originalName,
-
-                        title:
-                            title,
-
-                        description:
-                            description,
-
-                        uploadedAt:
-                            Date.now()
-
+                    } catch (error) {
+                        console.warn("Skipped an invalid project link.", error);
                     }
-                );
+                }
 
-
-                $("galleryProgressBar")
-                    .style
-                    .width =
-                    "100%";
-
-
-                $("galleryProgressText")
-                    .textContent =
-                    "Upload complete!";
-
-
-                /* Clear form */
-
-                $("galleryFile")
-                    .value = "";
-
-                $("galleryTitle")
-                    .value = "";
-
-                $("galleryDescription")
-                    .value = "";
-
-                $("galleryUploadPreview")
-                    .src = "";
-
-                $("galleryUploadPreviewContainer")
-                    .style
-                    .display =
-                    "none";
-
-
-                /* Refresh */
-
-                await loadGallery();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "📷 Photo uploaded successfully!"
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "GALLERY UPLOAD ERROR:",
-                    error
-                );
-
-                console.error(
-                    "Error code:",
-                    error.code
-                );
-
-                console.error(
-                    "Error message:",
-                    error.message
-                );
-
-
-                showToast(
-                    "Photo upload failed. Check Firebase Storage rules."
-                );
-
-            }
-
-            finally {
-
-                $("saveGalleryBtn")
-                    .disabled =
-                    false;
-
-                $("saveGalleryBtn")
-                    .textContent =
-                    "☁️ Upload Photo";
-
-            }
-
-        }
-    );
-
-
-/* ================= ADD PHOTO USING URL ================= */
-
-$("saveGalleryUrlBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const image =
-                $("galleryImage")
-                    .value
-                    .trim();
-
-
-            const title =
-                $("galleryUrlTitle")
-                    .value
-                    .trim();
-
-
-            const description =
-                $("galleryUrlDescription")
-                    .value
-                    .trim();
-
-
-            if(!image) {
-
-                showToast(
-                    "Please enter an image path or URL."
-                );
-
-                return;
-
+                return card;
             }
 
 
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "gallery"
-                    ),
-                    {
-
-                        image:
-                            image,
-
-                        title:
-                            title,
-
-                        description:
-                            description
-
-                    }
-                );
-
-
-                $("galleryImage")
-                    .value = "";
-
-                $("galleryUrlTitle")
-                    .value = "";
-
-                $("galleryUrlDescription")
-                    .value = "";
-
-
-                await loadGallery();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Photo added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "URL PHOTO ERROR:",
-                    error
-                );
-
-                showToast(
-                    "Could not add photo."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                       ACHIEVEMENTS
-========================================================= */
-
-async function loadAchievements() {
-
-    await loadSimple(
-        "achievements",
-        "achievementList",
-        [
-            "title",
-            "description"
-        ]
-    );
-
-}
-
-
-$("saveAchievementBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "achievements"
-                    ),
-                    {
-
-                        title:
-                            $("achievementTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("achievementDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                $("achievementTitle")
-                    .value = "";
-
-                $("achievementDescription")
-                    .value = "";
-
-
-                await loadAchievements();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Achievement added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add achievement."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                         PROJECTS
-========================================================= */
-
-async function loadProjects() {
-
-    await loadSimple(
-        "projects",
-        "projectList",
-        [
-            "title",
-            "description",
-            "link"
-        ]
-    );
-
-}
-
-
-$("saveProjectBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "projects"
-                    ),
-                    {
-
-                        title:
-                            $("projectTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("projectDescription")
-                                .value
-                                .trim(),
-
-                        link:
-                            $("projectLink")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                $("projectTitle")
-                    .value = "";
-
-                $("projectDescription")
-                    .value = "";
-
-                $("projectLink")
-                    .value = "";
-
-
-                await loadProjects();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Project added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add project."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                          HOBBIES
-========================================================= */
-
-async function loadHobbies() {
-
-    await loadSimple(
-        "hobbies",
-        "hobbyList",
-        [
-            "title",
-            "description"
-        ]
-    );
-
-}
-
-
-$("saveHobbyBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "hobbies"
-                    ),
-                    {
-
-                        title:
-                            $("hobbyTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("hobbyDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                $("hobbyTitle")
-                    .value = "";
-
-                $("hobbyDescription")
-                    .value = "";
-
-
-                await loadHobbies();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Hobby added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add hobby."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                           SKILLS
-========================================================= */
-
-async function loadSkills() {
-
-    await loadSimple(
-        "skills",
-        "skillList",
-        [
-            "title",
-            "description"
-        ]
-    );
-
-}
-
-
-$("saveSkillBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "skills"
-                    ),
-                    {
-
-                        title:
-                            $("skillTitle")
-                                .value
-                                .trim(),
-
-                        description:
-                            $("skillDescription")
-                                .value
-                                .trim()
-
-                    }
-                );
-
-
-                $("skillTitle")
-                    .value = "";
-
-                $("skillDescription")
-                    .value = "";
-
-
-                await loadSkills();
-
-                await updateDashboardStats();
-
-
-                showToast(
-                    "Skill added."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    error
-                );
-
-                showToast(
-                    "Could not add skill."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                        DOCUMENTS
-========================================================= */
-
-let selectedFiles = [];
-
-
-$("folderInput")
-    .addEventListener(
-        "change",
-        event => {
-
-            selectedFiles =
-                Array.from(
-                    event.target.files
-                );
-
-
-            if(
-                selectedFiles.length
-            ) {
-
-                showToast(
-                    selectedFiles.length +
-                    " file(s) selected."
-                );
-
-            }
-
-        }
-    );
-
-
-$("clearFolderBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            selectedFiles = [];
-
-            $("folderInput")
-                .value = "";
-
-            $("progressContainer")
-                .style
-                .display =
-                "none";
-
-            $("progressBar")
-                .style
-                .width =
-                "0%";
-
-            $("progressText")
-                .textContent =
-                "Uploading...";
-
-        }
-    );
-
-
-$("uploadFolderBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            if(
-                !selectedFiles.length
-            ) {
-
-                showToast(
-                    "Please select a folder first."
-                );
-
-                return;
-
-            }
-
-
-            $("progressContainer")
-                .style
-                .display =
-                "block";
-
-
-            let completed = 0;
-
-
-            for(
-                const file
-                of selectedFiles
-            ) {
-
-                try {
-
-                    const path =
-                        file.webkitRelativePath ||
-                        file.name;
-
-
-                    const safePath =
-                        path
-                            .replace(
-                                /\.\./g,
-                                ""
-                            )
-                            .replace(
-                                /^\/+/,
-                                ""
-                            );
-
-
-                    const fileRef =
-                        storageRef(
-                            storage,
-                            "documents/" +
-                            Date.now() +
-                            "_" +
-                            safePath
-                        );
-
-
-                    const snapshot =
-                        await uploadBytes(
-                            fileRef,
-                            file
-                        );
-
-
-                    const url =
-                        await getDownloadURL(
-                            snapshot.ref
-                        );
-
-
-                    await push(
-                        ref(
-                            db,
-                            "documents"
-                        ),
-                        {
-
-                            name:
-                                file.name,
-
-                            path:
-                                safePath,
-
-                            url:
-                                url,
-
-                            storagePath:
-                                "documents/" +
-                                fileRef.name,
-
-                            size:
-                                file.size,
-
-                            uploadedAt:
-                                Date.now()
-
+            function loadCollection(path, containerId, type, limit = 3) {
+                const container = $(containerId);
+
+                onValue(
+                    ref(db, path),
+                    snapshot => {
+                        container.replaceChildren();
+
+                        if (!snapshot.exists()) {
+                            const empty = document.createElement("div");
+                            empty.className = "empty-state";
+                            empty.textContent =
+                                `No ${type} have been added yet. Please check back later.`;
+                            container.appendChild(empty);
+                            return;
                         }
-                    );
 
-
-                    completed++;
-
-
-                    const percent =
-                        Math.round(
-                            (
-                                completed /
-                                selectedFiles.length
-                            ) *
-                            100
-                        );
-
-
-                    $("progressBar")
-                        .style
-                        .width =
-                        percent +
-                        "%";
-
-
-                    $("progressText")
-                        .textContent =
-                        "Uploaded " +
-                        completed +
-                        " of " +
-                        selectedFiles.length;
-
-                }
-
-                catch(error) {
-
-                    console.error(
-                        "UPLOAD ERROR:",
-                        error
-                    );
-
-                }
-
-            }
-
-
-            await loadDocuments();
-
-
-            showToast(
-                "Folder upload completed."
-            );
-
-        }
-    );
-
-
-/* =========================================================
-                    LOAD DOCUMENTS
-========================================================= */
-
-async function loadDocuments() {
-
-    const list =
-        $("documentList");
-
-    list.innerHTML = "";
-
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "documents"
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            list.innerHTML =
-                "<div class='item'>No documents uploaded yet.</div>";
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.val() || {};
-
-
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
-
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    div.className =
-                        "item";
-
-
-                    const name =
-                        document
-                            .createElement(
-                                "strong"
-                            );
-
-                    name.textContent =
-                        item.name ||
-                        "Document";
-
-                    div.appendChild(
-                        name
-                    );
-
-
-                    const path =
-                        document
-                            .createElement(
-                                "p"
-                            );
-
-                    path.textContent =
-                        item.path ||
-                        "";
-
-                    div.appendChild(
-                        path
-                    );
-
-
-                    if(item.url) {
-
-                        const link =
-                            document
-                                .createElement(
-                                    "a"
-                                );
-
-                        link.href =
-                            item.url;
-
-                        link.target =
-                            "_blank";
-
-                        link.rel =
-                            "noopener";
-
-                        link.textContent =
-                            "Open document";
-
-                        link.style.display =
-                            "inline-block";
-
-                        link.style.marginTop =
-                            "5px";
-
-                        div.appendChild(
-                            link
-                        );
-
-                    }
-
-
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    actions.className =
-                        "item-actions";
-
-
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
-
-
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                if(
-                                    !confirm(
-                                        "Delete this document?"
-                                    )
-                                ) return;
-
-
-                                try {
-
-                                    /* Delete Storage file */
-
-                                    if(
-                                        item.storagePath
-                                    ) {
-
-                                        try {
-
-                                            const fileRef =
-                                                storageRef(
-                                                    storage,
-                                                    item.storagePath
-                                                );
-
-
-                                            await deleteObject(
-                                                fileRef
-                                            );
-
-                                        }
-
-                                        catch(storageError) {
-
-                                            console.warn(
-                                                "Storage file could not be deleted:",
-                                                storageError
-                                            );
-
-                                        }
-
-                                    }
-
-
-                                    /* Delete database entry */
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            "documents/" +
-                                            key
-                                        )
-                                    );
-
-
-                                    await loadDocuments();
-
-
-                                    showToast(
-                                        "Document deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete document."
-                                    );
-
-                                }
-
+                        const data = snapshot.val() || {};
+
+                        const items = Object.entries(data)
+                            .filter(([, item]) => item && typeof item === "object")
+                            .map(([key, item]) => ({ ...item, _key: key }))
+                            .reverse()
+                            .slice(0, limit);
+
+                        if (!items.length) {
+                            const empty = document.createElement("div");
+                            empty.className = "empty-state";
+                            empty.textContent = `No ${type} available yet.`;
+                            container.appendChild(empty);
+                            return;
+                        }
+
+                        items.forEach((item, index) => {
+                            const card = createCard(item, type, index);
+                            container.appendChild(card);
+
+                            if ("IntersectionObserver" in window) {
+                                requestAnimationFrame(() => {
+                                    card.classList.add("visible");
+                                });
+                            } else {
+                                card.classList.add("visible");
                             }
-                        );
+                        });
+                    },
+                    error => {
+                        console.error(`Could not load ${path}:`, error);
+
+                        container.replaceChildren();
+
+                        const message = document.createElement("div");
+                        message.className = "empty-state";
+                        message.textContent =
+                            "This section could not be loaded right now.";
+                        container.appendChild(message);
+                    }
+                );
+            }
 
 
-                    actions.appendChild(
-                        deleteButton
-                    );
+            loadCollection("projects", "homeProjects", "projects");
+            loadCollection("skills", "homeSkills", "skills");
+            loadCollection("hobbies", "homeHobbies", "hobbies");
+            loadCollection("achievements", "homeAchievements", "achievements");
 
-
-                    div.appendChild(
-                        actions
-                    );
-
-
-                    list.appendChild(
-                        div
-                    );
-
-                }
-            );
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "DOCUMENT LOAD ERROR:",
-            error
-        );
-
-        list.innerHTML =
-            "<div class='item'>Unable to load documents.</div>";
-
-    }
-
-}
-
-
-/* =========================================================
-                         DIARY
-========================================================= */
-
-async function loadDiary() {
-
-    const list =
-        $("diaryList");
-
-    list.innerHTML = "";
-
-
-    try {
-
-        const snapshot =
-            await get(
-                ref(
-                    db,
-                    "diary"
-                )
-            );
-
-
-        if(
-            !snapshot.exists()
-        ) {
-
-            list.innerHTML =
-                "<div class='item'>No diary entries yet.</div>";
-
-            return;
-
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
         }
+    </script>
 
-
-        const data =
-            snapshot.val() || {};
-
-
-        Object.entries(data)
-            .forEach(
-                ([key, item]) => {
-
-                    const div =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    div.className =
-                        "item";
-
-
-                    const title =
-                        document
-                            .createElement(
-                                "strong"
-                            );
-
-                    title.textContent =
-                        item.title ||
-                        "Diary Entry";
-
-                    div.appendChild(
-                        title
-                    );
-
-
-                    const date =
-                        document
-                            .createElement(
-                                "p"
-                            );
-
-                    date.textContent =
-                        "Date: " +
-                        (
-                            item.date ||
-                            ""
-                        );
-
-                    div.appendChild(
-                        date
-                    );
-
-
-                    if(item.happened) {
-
-                        const happened =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        happened.textContent =
-                            "What happened: " +
-                            item.happened;
-
-                        div.appendChild(
-                            happened
-                        );
-
-                    }
-
-
-                    if(item.feelings) {
-
-                        const feelings =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        feelings.textContent =
-                            "How I felt: " +
-                            item.feelings;
-
-                        div.appendChild(
-                            feelings
-                        );
-
-                    }
-
-
-                    if(item.notes) {
-
-                        const notes =
-                            document
-                                .createElement(
-                                    "p"
-                                );
-
-                        notes.textContent =
-                            "Notes: " +
-                            item.notes;
-
-                        div.appendChild(
-                            notes
-                        );
-
-                    }
-
-
-                    const actions =
-                        document
-                            .createElement(
-                                "div"
-                            );
-
-                    actions.className =
-                        "item-actions";
-
-
-                    const deleteButton =
-                        document
-                            .createElement(
-                                "button"
-                            );
-
-                    deleteButton
-                        .className =
-                        "delete-btn";
-
-                    deleteButton
-                        .textContent =
-                        "🗑️ Delete";
-
-
-                    deleteButton
-                        .addEventListener(
-                            "click",
-                            async () => {
-
-                                if(
-                                    !confirm(
-                                        "Delete this diary entry?"
-                                    )
-                                ) return;
-
-
-                                try {
-
-                                    await remove(
-                                        ref(
-                                            db,
-                                            "diary/" +
-                                            key
-                                        )
-                                    );
-
-
-                                    await loadDiary();
-
-
-                                    showToast(
-                                        "Diary entry deleted."
-                                    );
-
-                                }
-
-                                catch(error) {
-
-                                    console.error(
-                                        error
-                                    );
-
-                                    showToast(
-                                        "Could not delete diary entry."
-                                    );
-
-                                }
-
-                            }
-                        );
-
-
-                    actions.appendChild(
-                        deleteButton
-                    );
-
-
-                    div.appendChild(
-                        actions
-                    );
-
-
-                    list.appendChild(
-                        div
-                    );
-
-                }
-            );
-
-    }
-
-    catch(error) {
-
-        console.error(
-            "DIARY LOAD ERROR:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-                    SAVE DIARY ENTRY
-========================================================= */
-
-$("saveDiaryBtn")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const date =
-                $("diaryDate")
-                    .value;
-
-            const title =
-                $("diaryTitle")
-                    .value
-                    .trim();
-
-            const happened =
-                $("diaryHappened")
-                    .value
-                    .trim();
-
-            const feelings =
-                $("diaryFeelings")
-                    .value
-                    .trim();
-
-            const notes =
-                $("diaryNotes")
-                    .value
-                    .trim();
-
-
-            if(
-                !date ||
-                !title
-            ) {
-
-                showToast(
-                    "Please enter the date and title."
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                await push(
-                    ref(
-                        db,
-                        "diary"
-                    ),
-                    {
-
-                        date:
-                            date,
-
-                        title:
-                            title,
-
-                        happened:
-                            happened,
-
-                        feelings:
-                            feelings,
-
-                        notes:
-                            notes,
-
-                        createdAt:
-                            Date.now()
-
-                    }
-                );
-
-
-                $("diaryDate")
-                    .value = "";
-
-                $("diaryTitle")
-                    .value = "";
-
-                $("diaryHappened")
-                    .value = "";
-
-                $("diaryFeelings")
-                    .value = "";
-
-                $("diaryNotes")
-                    .value = "";
-
-
-                await loadDiary();
-
-
-                showToast(
-                    "Diary entry saved."
-                );
-
-            }
-
-            catch(error) {
-
-                console.error(
-                    "DIARY SAVE ERROR:",
-                    error
-                );
-
-                showToast(
-                    "Could not save diary entry."
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-                     LOAD EVERYTHING
-========================================================= */
-
-async function loadEverything() {
-
-    await loadHome();
-
-    await loadGallery();
-
-    await loadAchievements();
-
-    await loadProjects();
-
-    await loadHobbies();
-
-    await loadSkills();
-
-    await loadDocuments();
-
-    await loadDiary();
-
-    await updateDashboardStats();
-
-}
-
-
-/* =========================================================
-                         END
-========================================================= */
-
-</script>
+    <script src="js/animations.js" defer></script>
 
 </body>
 </html>
+```
