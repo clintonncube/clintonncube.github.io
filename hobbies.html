@@ -1,40 +1,209 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Hobbies | Clinton Ncube</title>
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
 
+    <style>
+        :root {
+            --neon-cyan: #25f4ee;
+            --neon-purple: #a855f7;
+            --neon-pink: #ff4f91;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            animation: pageFadeIn 0.8s ease both;
+        }
+
+        nav {
+            animation: slideDown 0.7s ease both;
+        }
+
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .page-header h1 {
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .container {
+            padding-top: 20px;
+            padding-bottom: 35px;
+        }
+
+        #hobbiesContainer {
+            gap: 25px;
+        }
+
+        #hobbiesContainer .card {
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: hobbyCardEnter 0.7s ease forwards;
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+            will-change: transform;
+        }
+
+        #hobbiesContainer .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(
+                100deg,
+                transparent,
+                rgba(37, 244, 238, 0.09),
+                transparent
+            );
+            transition: left 0.65s ease;
+        }
+
+        #hobbiesContainer .card:hover {
+            transform: translateY(-9px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow:
+                0 12px 30px rgba(37, 244, 238, 0.12),
+                0 0 18px rgba(168, 85, 247, 0.16);
+        }
+
+        #hobbiesContainer .card:hover::before {
+            left: 140%;
+        }
+
+        #hobbiesContainer .card h3 {
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        #hobbiesContainer .card:hover h3 {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 12px rgba(37, 244, 238, 0.25);
+        }
+
+        #hobbiesContainer .card p {
+            line-height: 1.8;
+        }
+
+        #hobbiesContainer .loading,
+        #hobbiesContainer .empty {
+            animation: fadeUp 0.7s ease both;
+        }
+
+        footer {
+            animation: fadeUp 0.8s ease both;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes hobbyCardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 5px rgba(37, 244, 238, 0.2);
+            }
+            to {
+                text-shadow:
+                    0 0 12px rgba(37, 244, 238, 0.5),
+                    0 0 24px rgba(168, 85, 247, 0.25);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            #hobbiesContainer .card {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #hobbiesContainer {
+                gap: 18px;
+            }
+
+            #hobbiesContainer .card:hover {
+                transform: translateY(-3px);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <nav>
-
-    <a href="index.html" class="logo">
-        Clinton Ncube
-    </a>
+    <a href="index.html" class="logo">Clinton Ncube</a>
 
     <button
         class="menu-toggle"
         id="menuToggle"
         aria-label="Open navigation menu"
-        aria-expanded="false">
+        aria-expanded="false"
+        type="button">
         ☰
     </button>
 
     <ul class="nav-menu" id="navMenu">
-
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -43,53 +212,28 @@
         <li><a href="hobbies.html">Hobbies</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact</a></li>
-
     </ul>
-
 </nav>
 
 <header class="page-header">
-
     <h1>My Hobbies</h1>
-
-    <p>
-        Activities I enjoy in my free time.
-    </p>
-
+    <p>Activities I enjoy in my free time.</p>
 </header>
 
 <section>
-
     <div class="container">
-
-        <div
-            id="hobbiesContainer"
-            class="cards">
-
-            <div class="loading">
-                Loading hobbies...
-            </div>
-
+        <div id="hobbiesContainer" class="cards">
+            <div class="loading">Loading hobbies...</div>
         </div>
-
     </div>
-
 </section>
 
 <footer>
-
-    <p>
-        © 2026 Clinton Ncube. All rights reserved.
-    </p>
-
-    <p>
-        Personal Portfolio Website
-    </p>
-
+    <p>© 2026 Clinton Ncube. All rights reserved.</p>
+    <p>Personal Portfolio Website</p>
 </footer>
 
 <script type="module">
-
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -101,154 +245,103 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-
-    authDomain:
-        "clinton-ncube-website.firebaseapp.com",
-
-    databaseURL:
-        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-
-    projectId:
-        "clinton-ncube-website",
-
-    storageBucket:
-        "clinton-ncube-website.firebasestorage.app",
-
-    messagingSenderId:
-        "946671700613",
-
-    appId:
-        "1:946671700613:web:5d74536df1dbb0d35e77ec",
-
-    measurementId:
-        "G-K1S62MHHXP"
+    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    authDomain: "clinton-ncube-website.firebaseapp.com",
+    databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+    projectId: "clinton-ncube-website",
+    storageBucket: "clinton-ncube-website.firebasestorage.app",
+    messagingSenderId: "946671700613",
+    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+    measurementId: "G-K1S62MHHXP"
 };
 
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getDatabase(app);
-
-const hobbiesRef =
-    ref(db, "hobbies");
-
-const container =
-    document.getElementById(
-        "hobbiesContainer"
-    );
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const hobbiesRef = ref(db, "hobbies");
+const container = document.getElementById("hobbiesContainer");
 
 onValue(
     hobbiesRef,
     (snapshot) => {
-
         container.innerHTML = "";
 
-        const data =
-            snapshot.val();
+        const data = snapshot.val();
 
         if (!data) {
-
-            container.innerHTML = `
-                <div class="empty">
-                    No hobbies have been added yet.
-                </div>
-            `;
-
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "No hobbies have been added yet.";
+            container.appendChild(empty);
             return;
         }
 
-        Object.values(data)
-            .forEach(hobby => {
+        Object.values(data).forEach((hobby, index) => {
+            if (!hobby || typeof hobby !== "object") return;
 
-                const card =
-                    document.createElement("div");
+            const card = document.createElement("div");
+            card.className = "card";
+            card.style.animationDelay = `${Math.min(index * 130, 1000)}ms`;
 
-                card.className = "card";
+            const title = document.createElement("h3");
+            title.textContent = "🏀 " + (hobby.title || "Hobby");
 
-                const title =
-                    document.createElement("h3");
+            const description = document.createElement("p");
+            description.textContent = hobby.description || "";
 
-                title.textContent =
-                    "🏀 " +
-                    (hobby.title || "Hobby");
+            card.append(title, description);
+            container.appendChild(card);
+        });
 
-                const description =
-                    document.createElement("p");
-
-                description.textContent =
-                    hobby.description || "";
-
-                card.appendChild(title);
-
-                card.appendChild(description);
-
-                container.appendChild(card);
-
-            });
-
+        if (!container.children.length) {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "No hobbies have been added yet.";
+            container.appendChild(empty);
+        }
     },
     (error) => {
+        container.innerHTML = "";
 
-        container.innerHTML = `
-            <div class="empty">
-                Unable to load hobbies.
-            </div>
-        `;
+        const message = document.createElement("div");
+        message.className = "empty";
+        message.textContent = "Unable to load hobbies. Please check your connection.";
 
-        console.error(error);
-
+        container.appendChild(message);
+        console.error("Firebase hobbies error:", error);
     }
 );
-
 </script>
 
 <script>
-
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const navMenu =
-    document.getElementById("navMenu");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
 
 menuToggle.addEventListener("click", () => {
-
     navMenu.classList.toggle("active");
 
-    const isOpen =
-        navMenu.classList.contains("active");
+    const isOpen = navMenu.classList.contains("active");
 
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute(
-        "aria-expanded",
-        isOpen
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
     );
 
-    menuToggle.textContent =
-        isOpen ? "✕" : "☰";
+    menuToggle.textContent = isOpen ? "✕" : "☰";
 });
 
-document.querySelectorAll(".nav-menu a")
-    .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navMenu.classList.remove("active");
-
-            menuToggle.textContent = "☰";
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        });
-
+document.querySelectorAll(".nav-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        menuToggle.textContent = "☰";
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
     });
-
+});
 </script>
+
+<script src="js/animations.js" defer></script>
 
 </body>
 </html>
+```
