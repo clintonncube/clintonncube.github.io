@@ -1,13 +1,14 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Gallery - Clinton Ncube</title>
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
+
     <style>
         * {
             box-sizing: border-box;
@@ -36,10 +37,6 @@
             margin: 30px auto;
             padding: 20px;
         }
-
-        /* =========================
-           QUIZ LOCK SCREEN
-        ========================== */
 
         #quiz-section {
             max-width: 750px;
@@ -74,11 +71,9 @@
             font-weight: bold;
         }
 
-        /* BLACK QUESTION BOX */
-
         .question-box {
-            background: #000000 !important;
-            color: #ffffff !important;
+            background: #000 !important;
+            color: #fff !important;
             padding: 22px;
             border-radius: 12px;
             margin-bottom: 20px;
@@ -86,8 +81,8 @@
         }
 
         .question-box h3 {
-            color: #ffffff !important;
-            margin: 0;
+            color: #fff !important;
+            margin: 0 0 18px;
             font-size: 20px;
             line-height: 1.5;
         }
@@ -97,15 +92,13 @@
             gap: 12px;
         }
 
-        /* BLACK ANSWER BUTTONS */
-
         .answer-button {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid #333333 !important;
+            border: 2px solid #333 !important;
             border-radius: 10px;
-            background: #000000 !important;
-            color: #ffffff !important;
+            background: #000 !important;
+            color: #fff !important;
             cursor: pointer;
             text-align: left;
             font-size: 15px;
@@ -114,27 +107,13 @@
         }
 
         .answer-button:hover {
-            background: #222222 !important;
+            background: #222 !important;
             border-color: #8b1638 !important;
-            color: #ffffff !important;
         }
 
         .answer-button.selected {
             background: #5c0d24 !important;
             border-color: #8b1638 !important;
-            color: #ffffff !important;
-        }
-
-        .answer-button.correct {
-            background: #238636 !important;
-            border-color: #238636 !important;
-            color: #ffffff !important;
-        }
-
-        .answer-button.wrong {
-            background: #c62828 !important;
-            border-color: #c62828 !important;
-            color: #ffffff !important;
         }
 
         .submit-button,
@@ -178,10 +157,6 @@
             color: #9b1c1c;
             border: 2px solid #c62828;
         }
-
-        /* =========================
-           GALLERY
-        ========================== */
 
         #gallery-section {
             display: none;
@@ -248,16 +223,11 @@
             border-radius: 15px;
         }
 
-        /* =========================
-           IMAGE MODAL
-        ========================== */
-
         #imageModal {
             display: none;
             position: fixed;
             z-index: 9999;
-            left: 0;
-            top: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
@@ -307,101 +277,46 @@
 
 <div class="container">
 
-    <!-- =========================
-         QUIZ
-    ========================== -->
-
     <section id="quiz-section">
-
         <div class="quiz-intro">
             <h2>🔐 Gallery Access Quiz</h2>
-
-            <p>
-                Before you can view my Gallery, you must answer a short quiz
-                about me and my website.
-            </p>
-
-            <p>
-                There are <strong>50 questions in the question bank</strong>,
-                but only <strong>10 questions</strong> will be randomly selected
-                for each attempt.
-            </p>
-
-            <p>
-                You need at least <strong>5/10</strong> to unlock the Gallery.
-            </p>
+            <p>Before you can view my Gallery, you must answer a short quiz about me and my website.</p>
+            <p>There are <strong>50 questions in the question bank</strong>, but only <strong>10 questions</strong> will be randomly selected for each attempt.</p>
+            <p>You need at least <strong>5/10</strong> to unlock the Gallery.</p>
         </div>
 
         <div class="quiz-progress" id="quiz-progress">
-            Question 1 of 10
+            Loading quiz...
         </div>
 
         <div id="quiz-container"></div>
 
-        <button class="submit-button" id="submit-quiz">
-            Submit Quiz
-        </button>
-
+        <button class="submit-button" id="submit-quiz">Submit Quiz</button>
         <div id="result"></div>
-
-        <button class="retry-button" id="retry-button" style="display:none;">
-            Try Again
-        </button>
-
+        <button class="retry-button" id="retry-button" style="display:none;">Try Again</button>
     </section>
 
-
-    <!-- =========================
-         GALLERY
-    ========================== -->
-
     <section id="gallery-section">
-
         <div class="gallery-heading">
             <h2>📸 My Gallery</h2>
             <p>Welcome to my personal collection of pictures and memories.</p>
         </div>
 
         <div id="gallery-container">
-            <div class="loading">
-                Loading Gallery...
-            </div>
+            <div class="loading">Loading Gallery...</div>
         </div>
-
     </section>
 
 </div>
 
-
-<!-- =========================
-     IMAGE MODAL
-========================== -->
-
-<div id="imageModal">
-    <span class="close-modal" onclick="closeImageModal()">&times;</span>
+<div id="imageModal" role="dialog" aria-modal="true" aria-label="Expanded gallery image">
+    <button class="close-modal" type="button" onclick="closeImageModal()" aria-label="Close image">&times;</button>
     <img id="modalImage" src="" alt="Gallery image">
 </div>
 
-
-<!-- =========================
-     FIREBASE + QUIZ JAVASCRIPT
-========================== -->
-
 <script type="module">
-
-    import { initializeApp }
-        from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-    import {
-        getDatabase,
-        ref,
-        get
-    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-
-
-    /* =========================
-       FIREBASE CONFIG
-    ========================== */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
@@ -417,627 +332,77 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
 
-
-    /* =========================
-       50 QUESTION BANK
-    ========================== */
-
     const questionBank = [
-
-        {
-            question: "What is my full name?",
-            options: [
-                "Thabang Clinton Ncube",
-                "Clinton James Ncube",
-                "Thabang Ncube Junior",
-                "Clinton Thabo Ncube"
-            ],
-            answer: "Thabang Clinton Ncube"
-        },
-
-        {
-            question: "What nickname do I use?",
-            options: [
-                "Vixeny",
-                "Clinty",
-                "CJ",
-                "TNC"
-            ],
-            answer: "Vixeny"
-        },
-
-        {
-            question: "How old am I?",
-            options: [
-                "16",
-                "17",
-                "18",
-                "19"
-            ],
-            answer: "18"
-        },
-
-        {
-            question: "When is my birthday?",
-            options: [
-                "21 September",
-                "21 October",
-                "12 September",
-                "2 September"
-            ],
-            answer: "21 September"
-        },
-
-        {
-            question: "What is my favourite colour?",
-            options: [
-                "Blue",
-                "Red",
-                "Black",
-                "Green"
-            ],
-            answer: "Red"
-        },
-
-        {
-            question: "What is my favourite food?",
-            options: [
-                "Pizza",
-                "Rice",
-                "Spaghetti",
-                "Chicken"
-            ],
-            answer: "Spaghetti"
-        },
-
-        {
-            question: "What is my favourite drink?",
-            options: [
-                "Fanta",
-                "Coke",
-                "Sprite",
-                "Mazoe"
-            ],
-            answer: "Coke"
-        },
-
-        {
-            question: "What is my favourite school subject?",
-            options: [
-                "Biology",
-                "Chemistry",
-                "Mathematics",
-                "English"
-            ],
-            answer: "Mathematics"
-        },
-
-        {
-            question: "Which subject do I find most challenging?",
-            options: [
-                "Mathematics",
-                "Biology",
-                "English",
-                "Heritage"
-            ],
-            answer: "Biology"
-        },
-
-        {
-            question: "What is my favourite school activity?",
-            options: [
-                "Playing basketball",
-                "Debating",
-                "Singing",
-                "Chess"
-            ],
-            answer: "Playing basketball"
-        },
-
-        {
-            question: "What is my favourite sport?",
-            options: [
-                "Football",
-                "Athletics",
-                "Basketball",
-                "Swimming"
-            ],
-            answer: "Basketball"
-        },
-
-        {
-            question: "Who is my favourite basketball player?",
-            options: [
-                "Stephen Curry",
-                "LeBron James",
-                "Kevin Durant",
-                "Michael Jordan"
-            ],
-            answer: "LeBron James"
-        },
-
-        {
-            question: "What is my favourite basketball team?",
-            options: [
-                "Los Angeles Lakers",
-                "Golden State Warriors",
-                "San Antonio Spurs",
-                "Boston Celtics"
-            ],
-            answer: "San Antonio Spurs"
-        },
-
-        {
-            question: "Which other sports do I enjoy?",
-            options: [
-                "Swimming and athletics",
-                "Football and rugby",
-                "Tennis and golf",
-                "Boxing and cricket"
-            ],
-            answer: "Swimming and athletics"
-        },
-
-        {
-            question: "What are my hobbies?",
-            options: [
-                "Basketball, swimming, reading and athletics",
-                "Football, gaming and music",
-                "Swimming, football and chess",
-                "Reading, rugby and cricket"
-            ],
-            answer: "Basketball, swimming, reading and athletics"
-        },
-
-        {
-            question: "Do I enjoy swimming?",
-            options: [
-                "Yes",
-                "No",
-                "Sometimes",
-                "I don't know"
-            ],
-            answer: "Yes"
-        },
-
-        {
-            question: "Do I enjoy reading?",
-            options: [
-                "Yes",
-                "No",
-                "Only at school",
-                "Rarely"
-            ],
-            answer: "Yes"
-        },
-
-        {
-            question: "Do I enjoy athletics?",
-            options: [
-                "Yes",
-                "No",
-                "Only during Sports Day",
-                "I have never tried it"
-            ],
-            answer: "Yes"
-        },
-
-        {
-            question: "What is my favourite book or type of book?",
-            options: [
-                "One",
-                "Novels",
-                "Science books",
-                "Biographies"
-            ],
-            answer: "One"
-        },
-
-        {
-            question: "What do I usually do in my free time?",
-            options: [
-                "Play basketball, swim, read and do athletics",
-                "Watch television all day",
-                "Only play video games",
-                "Only study"
-            ],
-            answer: "Play basketball, swim, read and do athletics"
-        },
-
-        {
-            question: "What school do I attend?",
-            options: [
-                "Silveira High School",
-                "Mpopoma High School",
-                "Milton High School",
-                "Mzilikazi High School"
-            ],
-            answer: "Silveira High School"
-        },
-
-        {
-            question: "What Form am I in?",
-            options: [
-                "Form 2",
-                "Form 3",
-                "Form 4",
-                "Form 5"
-            ],
-            answer: "Form 4"
-        },
-
-        {
-            question: "Which group of subjects am I studying?",
-            options: [
-                "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects",
-                "Only Mathematics and English",
-                "Only Science subjects",
-                "Only practical subjects"
-            ],
-            answer: "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects"
-        },
-
-        {
-            question: "What is my favourite thing about Silveira High School?",
-            options: [
-                "The people are loving and social",
-                "The school is very quiet",
-                "The school has no activities",
-                "The school has no students"
-            ],
-            answer: "The people are loving and social"
-        },
-
-        {
-            question: "What is my favourite school event?",
-            options: [
-                "Sports Day",
-                "Graduation",
-                "Prize Giving Day",
-                "Parents Day"
-            ],
-            answer: "Sports Day"
-        },
-
-        {
-            question: "Which school event/project am I most proud of?",
-            options: [
-                "Science exhibition",
-                "Football tournament",
-                "School concert",
-                "Debate competition"
-            ],
-            answer: "Science exhibition"
-        },
-
-        {
-            question: "What career would I like to pursue?",
-            options: [
-                "Engineer",
-                "Teacher",
-                "Doctor",
-                "Lawyer"
-            ],
-            answer: "Doctor"
-        },
-
-        {
-            question: "What skill would I most like to improve?",
-            options: [
-                "My skills in general",
-                "Only drawing",
-                "Only singing",
-                "Only cooking"
-            ],
-            answer: "My skills in general"
-        },
-
-        {
-            question: "What is one academic goal I have?",
-            options: [
-                "To improve my academic performance",
-                "To stop studying",
-                "To avoid examinations",
-                "To leave school"
-            ],
-            answer: "To improve my academic performance"
-        },
-
-        {
-            question: "What do I enjoy doing with my classmates?",
-            options: [
-                "Taking part in school activities and projects",
-                "Avoiding everyone",
-                "Only playing games",
-                "Only studying alone"
-            ],
-            answer: "Taking part in school activities and projects"
-        },
-
-        {
-            question: "What is the name displayed on my website?",
-            options: [
-                "Thabang Ncube",
-                "Clinton Ncube",
-                "Vixeny Ncube",
-                "TC Ncube"
-            ],
-            answer: "Clinton Ncube"
-        },
-
-        {
-            question: "What is the main purpose of my website?",
-            options: [
-                "To showcase my projects, hobbies, skills and memories",
-                "To sell clothes",
-                "To play online games",
-                "To publish school news"
-            ],
-            answer: "To showcase my projects, hobbies, skills and memories"
-        },
-
-        {
-            question: "Which set contains pages on my website?",
-            options: [
-                "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin",
-                "Only Home and Gallery",
-                "News, Sports and Shop",
-                "Music, Games and Videos"
-            ],
-            answer: "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin"
-        },
-
-        {
-            question: "What can visitors see in my Gallery?",
-            options: [
-                "Pictures and memories",
-                "Only school results",
-                "Only documents",
-                "Only sports scores"
-            ],
-            answer: "Pictures and memories"
-        },
-
-        {
-            question: "What can visitors find on my Projects page?",
-            options: [
-                "My projects",
-                "Only photographs",
-                "Only music",
-                "My passwords"
-            ],
-            answer: "My projects"
-        },
-
-        {
-            question: "What can visitors find on my Hobbies page?",
-            options: [
-                "My hobbies and interests",
-                "My exam papers",
-                "My passwords",
-                "Only school announcements"
-            ],
-            answer: "My hobbies and interests"
-        },
-
-        {
-            question: "What can visitors find on my Achievements page?",
-            options: [
-                "My achievements",
-                "My favourite foods",
-                "Only photographs",
-                "School fees"
-            ],
-            answer: "My achievements"
-        },
-
-        {
-            question: "What can visitors find on my Skills page?",
-            options: [
-                "My skills",
-                "My timetable",
-                "My exam results only",
-                "My school fees"
-            ],
-            answer: "My skills"
-        },
-
-        {
-            question: "What can visitors find on my About page?",
-            options: [
-                "Information about me",
-                "Only photographs",
-                "Only basketball scores",
-                "Only school projects"
-            ],
-            answer: "Information about me"
-        },
-
-        {
-            question: "What can visitors use the Contact page for?",
-            options: [
-                "Contacting me",
-                "Playing games",
-                "Viewing sports scores",
-                "Editing the website"
-            ],
-            answer: "Contacting me"
-        },
-
-        {
-            question: "What is my favourite movie?",
-            options: [
-                "The Rookie",
-                "Black Panther",
-                "Avengers",
-                "The Lion King"
-            ],
-            answer: "The Rookie"
-        },
-
-        {
-            question: "What is my favourite TV series?",
-            options: [
-                "The Rookie",
-                "Suits",
-                "Prison Break",
-                "Cobra Kai"
-            ],
-            answer: "The Rookie"
-        },
-
-        {
-            question: "What is my favourite game?",
-            options: [
-                "NBA",
-                "FIFA",
-                "Minecraft",
-                "Fortnite"
-            ],
-            answer: "NBA"
-        },
-
-        {
-            question: "Who is my favourite music artist or group?",
-            options: [
-                "Jnr Spragga",
-                "Winky D",
-                "Jah Prayzah",
-                "Freddie Gwala"
-            ],
-            answer: "Jnr Spragga"
-        },
-
-        {
-            question: "What is my favourite song?",
-            options: [
-                "Daka",
-                "Jerusalema",
-                "Mambo",
-                "Hallelujah"
-            ],
-            answer: "Daka"
-        },
-
-        {
-            question: "Where would I like to travel?",
-            options: [
-                "Canada",
-                "Australia",
-                "United Kingdom",
-                "Brazil"
-            ],
-            answer: "Canada"
-        },
-
-        {
-            question: "What is something I am really good at?",
-            options: [
-                "Playing basketball",
-                "Cooking",
-                "Singing",
-                "Drawing"
-            ],
-            answer: "Playing basketball"
-        },
-
-        {
-            question: "What is something I would like to learn?",
-            options: [
-                "New and useful skills",
-                "Nothing new",
-                "Only cooking",
-                "Only dancing"
-            ],
-            answer: "New and useful skills"
-        },
-
-        {
-            question: "What is one thing I am proud of?",
-            options: [
-                "My projects and personal website",
-                "My collection of cars",
-                "My music studio",
-                "My football team"
-            ],
-            answer: "My projects and personal website"
-        },
-
-        {
-            question: "What is one interesting fact about me?",
-            options: [
-                "I enjoy basketball, swimming, reading and athletics",
-                "I only enjoy football",
-                "I dislike all sports",
-                "I never read"
-            ],
-            answer: "I enjoy basketball, swimming, reading and athletics"
-        },
-
-        {
-            question: "Which activity is included among my hobbies?",
-            options: [
-                "Athletics",
-                "Boxing",
-                "Rugby",
-                "Golf"
-            ],
-            answer: "Athletics"
-        },
-
-        {
-            question: "What do I enjoy developing?",
-            options: [
-                "New skills",
-                "Cars",
-                "Buildings",
-                "Musical instruments"
-            ],
-            answer: "New skills"
-        }
-
+        { question: "What is my full name?", options: ["Thabang Clinton Ncube", "Clinton James Ncube", "Thabang Ncube Junior", "Clinton Thabo Ncube"], answer: "Thabang Clinton Ncube" },
+        { question: "What nickname do I use?", options: ["Vixeny", "Clinty", "CJ", "TNC"], answer: "Vixeny" },
+        { question: "How old am I?", options: ["16", "17", "18", "19"], answer: "18" },
+        { question: "When is my birthday?", options: ["21 September", "21 October", "12 September", "2 September"], answer: "21 September" },
+        { question: "What is my favourite colour?", options: ["Blue", "Red", "Black", "Green"], answer: "Red" },
+        { question: "What is my favourite food?", options: ["Pizza", "Rice", "Spaghetti", "Chicken"], answer: "Spaghetti" },
+        { question: "What is my favourite drink?", options: ["Fanta", "Coke", "Sprite", "Mazoe"], answer: "Coke" },
+        { question: "What is my favourite school subject?", options: ["Biology", "Chemistry", "Mathematics", "English"], answer: "Mathematics" },
+        { question: "Which subject do I find most challenging?", options: ["Mathematics", "Biology", "English", "Heritage"], answer: "Biology" },
+        { question: "What is my favourite school activity?", options: ["Playing basketball", "Debating", "Singing", "Chess"], answer: "Playing basketball" },
+        { question: "What is my favourite sport?", options: ["Football", "Athletics", "Basketball", "Swimming"], answer: "Basketball" },
+        { question: "Who is my favourite basketball player?", options: ["Stephen Curry", "LeBron James", "Kevin Durant", "Michael Jordan"], answer: "LeBron James" },
+        { question: "What is my favourite basketball team?", options: ["Los Angeles Lakers", "Golden State Warriors", "San Antonio Spurs", "Boston Celtics"], answer: "San Antonio Spurs" },
+        { question: "Which other sports do I enjoy?", options: ["Swimming and athletics", "Football and rugby", "Tennis and golf", "Boxing and cricket"], answer: "Swimming and athletics" },
+        { question: "What are my hobbies?", options: ["Basketball, swimming, reading and athletics", "Football, gaming and music", "Swimming, football and chess", "Reading, rugby and cricket"], answer: "Basketball, swimming, reading and athletics" },
+        { question: "Do I enjoy swimming?", options: ["Yes", "No", "Sometimes", "I don't know"], answer: "Yes" },
+        { question: "Do I enjoy reading?", options: ["Yes", "No", "Only at school", "Rarely"], answer: "Yes" },
+        { question: "Do I enjoy athletics?", options: ["Yes", "No", "Only during Sports Day", "I have never tried it"], answer: "Yes" },
+        { question: "What is my favourite book or type of book?", options: ["One", "Novels", "Science books", "Biographies"], answer: "One" },
+        { question: "What do I usually do in my free time?", options: ["Play basketball, swim, read and do athletics", "Watch television all day", "Only play video games", "Only study"], answer: "Play basketball, swim, read and do athletics" },
+        { question: "What school do I attend?", options: ["Silveira High School", "Mpopoma High School", "Milton High School", "Mzilikazi High School"], answer: "Silveira High School" },
+        { question: "What Form am I in?", options: ["Form 2", "Form 3", "Form 4", "Form 5"], answer: "Form 4" },
+        { question: "Which group of subjects am I studying?", options: ["Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects", "Only Mathematics and English", "Only Science subjects", "Only practical subjects"], answer: "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects" },
+        { question: "What is my favourite thing about Silveira High School?", options: ["The people are loving and social", "The school is very quiet", "The school has no activities", "The school has no students"], answer: "The people are loving and social" },
+        { question: "What is my favourite school event?", options: ["Sports Day", "Graduation", "Prize Giving Day", "Parents Day"], answer: "Sports Day" },
+        { question: "Which school event/project am I most proud of?", options: ["Science exhibition", "Football tournament", "School concert", "Debate competition"], answer: "Science exhibition" },
+        { question: "What career would I like to pursue?", options: ["Engineer", "Teacher", "Doctor", "Lawyer"], answer: "Doctor" },
+        { question: "What skill would I most like to improve?", options: ["My skills in general", "Only drawing", "Only singing", "Only cooking"], answer: "My skills in general" },
+        { question: "What is one academic goal I have?", options: ["To improve my academic performance", "To stop studying", "To avoid examinations", "To leave school"], answer: "To improve my academic performance" },
+        { question: "What do I enjoy doing with my classmates?", options: ["Taking part in school activities and projects", "Avoiding everyone", "Only playing games", "Only studying alone"], answer: "Taking part in school activities and projects" },
+        { question: "What is the name displayed on my website?", options: ["Thabang Ncube", "Clinton Ncube", "Vixeny Ncube", "TC Ncube"], answer: "Clinton Ncube" },
+        { question: "What is the main purpose of my website?", options: ["To showcase my projects, hobbies, skills and memories", "To sell clothes", "To play online games", "To publish school news"], answer: "To showcase my projects, hobbies, skills and memories" },
+        { question: "Which set contains pages on my website?", options: ["Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin", "Only Home and Gallery", "News, Sports and Shop", "Music, Games and Videos"], answer: "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin" },
+        { question: "What can visitors see in my Gallery?", options: ["Pictures and memories", "Only school results", "Only documents", "Only sports scores"], answer: "Pictures and memories" },
+        { question: "What can visitors find on my Projects page?", options: ["My projects", "Only photographs", "Only music", "My passwords"], answer: "My projects" },
+        { question: "What can visitors find on my Hobbies page?", options: ["My hobbies and interests", "My exam papers", "My passwords", "Only school announcements"], answer: "My hobbies and interests" },
+        { question: "What can visitors find on my Achievements page?", options: ["My achievements", "My favourite foods", "Only photographs", "School fees"], answer: "My achievements" },
+        { question: "What can visitors find on my Skills page?", options: ["My skills", "My timetable", "My exam results only", "My school fees"], answer: "My skills" },
+        { question: "What can visitors find on my About page?", options: ["Information about me", "Only photographs", "Only basketball scores", "Only school projects"], answer: "Information about me" },
+        { question: "What can visitors use the Contact page for?", options: ["Contacting me", "Playing games", "Viewing sports scores", "Editing the website"], answer: "Contacting me" },
+        { question: "What is my favourite movie?", options: ["The Rookie", "Black Panther", "Avengers", "The Lion King"], answer: "The Rookie" },
+        { question: "What is my favourite TV series?", options: ["The Rookie", "Suits", "Prison Break", "Cobra Kai"], answer: "The Rookie" },
+        { question: "What is my favourite game?", options: ["NBA", "FIFA", "Minecraft", "Fortnite"], answer: "NBA" },
+        { question: "Who is my favourite music artist or group?", options: ["Jnr Spragga", "Winky D", "Jah Prayzah", "Freddie Gwala"], answer: "Jnr Spragga" },
+        { question: "What is my favourite song?", options: ["Daka", "Jerusalema", "Mambo", "Hallelujah"], answer: "Daka" },
+        { question: "Where would I like to travel?", options: ["Canada", "Australia", "United Kingdom", "Brazil"], answer: "Canada" },
+        { question: "What is something I am really good at?", options: ["Playing basketball", "Cooking", "Singing", "Drawing"], answer: "Playing basketball" },
+        { question: "What is something I would like to learn?", options: ["New and useful skills", "Nothing new", "Only cooking", "Only dancing"], answer: "New and useful skills" },
+        { question: "What is one thing I am proud of?", options: ["My projects and personal website", "My collection of cars", "My music studio", "My football team"], answer: "My projects and personal website" },
+        { question: "What is one interesting fact about me?", options: ["I enjoy basketball, swimming, reading and athletics", "I only enjoy football", "I dislike all sports", "I never read"], answer: "I enjoy basketball, swimming, reading and athletics" },
+        { question: "Which activity is included among my hobbies?", options: ["Athletics", "Boxing", "Rugby", "Golf"], answer: "Athletics" },
+        { question: "What do I enjoy developing?", options: ["New skills", "Cars", "Buildings", "Musical instruments"], answer: "New skills" }
     ];
-
-
-    /* =========================
-       QUIZ VARIABLES
-    ========================== */
 
     let selectedQuestions = [];
     let userAnswers = [];
 
+    function shuffle(array) {
+        const result = [...array];
 
-    /* =========================
-       RANDOM QUESTION SELECTION
-    ========================== */
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]];
+        }
 
-    function getRandomQuestions() {
-
-        const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
-
-        return shuffled.slice(0, 10);
+        return result;
     }
-
-
-    /* =========================
-       SHUFFLE ANSWERS
-    ========================== */
-
-    function shuffleAnswers(options) {
-
-        return [...options].sort(() => Math.random() - 0.5);
-
-    }
-
-
-    /* =========================
-       START QUIZ
-    ========================== */
 
     function startQuiz() {
-
-        selectedQuestions = getRandomQuestions();
-
+        selectedQuestions = shuffle(questionBank).slice(0, 10);
         userAnswers = new Array(10).fill(null);
 
         document.getElementById("result").style.display = "none";
@@ -1045,243 +410,99 @@
         document.getElementById("submit-quiz").style.display = "block";
 
         renderQuiz();
-
     }
 
-
-    /* =========================
-       DISPLAY QUIZ
-    ========================== */
-
     function renderQuiz() {
-
-        const quizContainer =
-            document.getElementById("quiz-container");
-
+        const quizContainer = document.getElementById("quiz-container");
         quizContainer.innerHTML = "";
 
         selectedQuestions.forEach((question, index) => {
-
-            const questionBox =
-                document.createElement("div");
-
+            const questionBox = document.createElement("div");
             questionBox.className = "question-box";
 
-            const questionTitle =
-                document.createElement("h3");
-
-            questionTitle.textContent =
-                `${index + 1}. ${question.question}`;
-
+            const questionTitle = document.createElement("h3");
+            questionTitle.textContent = `${index + 1}. ${question.question}`;
             questionBox.appendChild(questionTitle);
 
-            const answersDiv =
-                document.createElement("div");
-
+            const answersDiv = document.createElement("div");
             answersDiv.className = "answers";
 
-            const shuffledOptions =
-                shuffleAnswers(question.options);
-
-            shuffledOptions.forEach(option => {
-
-                const button =
-                    document.createElement("button");
-
+            shuffle(question.options).forEach(option => {
+                const button = document.createElement("button");
                 button.className = "answer-button";
-
                 button.textContent = option;
-
                 button.type = "button";
 
                 button.addEventListener("click", () => {
-
-                    const allButtons =
-                        answersDiv.querySelectorAll(
-                            ".answer-button"
-                        );
-
-                    allButtons.forEach(btn => {
+                    answersDiv.querySelectorAll(".answer-button").forEach(btn => {
                         btn.classList.remove("selected");
                     });
 
                     button.classList.add("selected");
-
                     userAnswers[index] = option;
-
                 });
 
                 answersDiv.appendChild(button);
-
             });
 
             questionBox.appendChild(answersDiv);
-
             quizContainer.appendChild(questionBox);
-
         });
 
         document.getElementById("quiz-progress").textContent =
             "10 questions selected randomly from the 50-question bank";
-
     }
 
+    document.getElementById("submit-quiz").addEventListener("click", () => {
+        const unanswered = userAnswers.filter(answer => answer === null).length;
 
-    /* =========================
-       SUBMIT QUIZ
-    ========================== */
-
-    document
-        .getElementById("submit-quiz")
-        .addEventListener("click", () => {
-
-            let unanswered = 0;
-            let score = 0;
-
-            selectedQuestions.forEach((question, index) => {
-
-                if (userAnswers[index] === null) {
-                    unanswered++;
-                }
-
-                if (userAnswers[index] === question.answer) {
-                    score++;
-                }
-
-            });
-
-
-            /* Require all questions to be answered */
-
-            if (unanswered > 0) {
-
-                alert(
-                    `Please answer all 10 questions before submitting.\n\nYou still have ${unanswered} unanswered question(s).`
-                );
-
-                return;
-
-            }
-
-
-            const result =
-                document.getElementById("result");
-
-
-            if (score >= 5) {
-
-                result.className = "pass-result";
-
-                result.innerHTML = `
-                    🎉 <strong>Congratulations!</strong><br><br>
-                    You scored <strong>${score}/10</strong>.<br><br>
-                    You passed the quiz and the Gallery is now unlocked.
-                `;
-
-                result.style.display = "block";
-
-                document.getElementById("submit-quiz").style.display = "none";
-
-                unlockGallery();
-
-            } else {
-
-                result.className = "fail-result";
-
-                result.innerHTML = `
-                    ❌ <strong>Quiz not passed.</strong><br><br>
-                    You scored <strong>${score}/10</strong>.<br><br>
-                    You need at least <strong>5/10</strong> to unlock the Gallery.
-                `;
-
-                result.style.display = "block";
-
-                document.getElementById("submit-quiz").style.display = "none";
-
-                document.getElementById("retry-button").style.display = "block";
-
-            }
-
-        });
-
-
-    /* =========================
-       RETRY QUIZ
-    ========================== */
-
-    document
-        .getElementById("retry-button")
-        .addEventListener("click", () => {
-
-            startQuiz();
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
-
-
-    /* =========================
-       UNLOCK GALLERY
-    ========================== */
-
-    function unlockGallery() {
-
-        document.getElementById("quiz-section").style.display = "none";
-
-        document.getElementById("gallery-section").style.display = "block";
-
-        loadGallery();
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    /* =========================
-       ESCAPE HTML
-    ========================== */
-
-    function escapeHTML(value) {
-
-        if (value === null || value === undefined) {
-            return "";
+        if (unanswered > 0) {
+            alert(`Please answer all 10 questions before submitting. You have ${unanswered} unanswered question(s).`);
+            return;
         }
 
-        return String(value)
+        const score = selectedQuestions.reduce((total, question, index) => {
+            return total + (userAnswers[index] === question.answer ? 1 : 0);
+        }, 0);
+
+        const result = document.getElementById("result");
+        result.style.display = "block";
+        document.getElementById("submit-quiz").style.display = "none";
+
+        if (score >= 5) {
+            result.className = "pass-result";
+            result.textContent = `Congratulations! You scored ${score}/10. You passed the quiz and the Gallery is now unlocked.`;
+
+            document.getElementById("quiz-section").style.display = "none";
+            document.getElementById("gallery-section").style.display = "block";
+
+            loadGallery();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+            result.className = "fail-result";
+            result.textContent = `Quiz not passed. You scored ${score}/10. You need at least 5/10 to unlock the Gallery.`;
+            document.getElementById("retry-button").style.display = "block";
+        }
+    });
+
+    document.getElementById("retry-button").addEventListener("click", () => {
+        startQuiz();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    function escapeHTML(value) {
+        return String(value ?? "")
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
-
     }
 
-
-    /* =========================
-       FIX IMAGE PATH
-    ========================== */
-
     function fixImagePath(path) {
+        if (!path) return "";
 
-        if (!path) {
-            return "";
-        }
-
-        if (
-            path.startsWith("http://") ||
-            path.startsWith("https://") ||
-            path.startsWith("data:")
-        ) {
-            return path;
-        }
-
-        if (path.startsWith("/")) {
+        if (/^(https?:\/\/|data:)/i.test(path) || path.startsWith("/")) {
             return path;
         }
 
@@ -1290,190 +511,117 @@
         }
 
         return `images/${path}`;
-
     }
-
-
-    /* =========================
-       CREATE GALLERY CARD
-    ========================== */
 
     function createGalleryCard(item) {
-
-        const card =
-            document.createElement("div");
-
+        const card = document.createElement("div");
         card.className = "gallery-card";
 
-        const imagePath =
-            fixImagePath(item.file || item.image || "");
+        const imagePath = fixImagePath(item.file || item.image || item.url || "");
+        const title = item.title || "Untitled";
+        const description = item.description || "";
 
-        const title =
-            escapeHTML(item.title || "Untitled");
+        const image = document.createElement("img");
+        image.src = imagePath;
+        image.alt = title;
+        image.loading = "lazy";
 
-        const description =
-            escapeHTML(item.description || "");
+        image.addEventListener("click", () => {
+            window.openImageModal(imagePath);
+        });
 
-        card.innerHTML = `
-            <img
-                src="${imagePath}"
-                alt="${title}"
-                onclick="openImageModal('${imagePath.replace(/'/g, "\\'")}')"
-                onerror="this.style.display='none'"
-            >
+        image.addEventListener("error", () => {
+            image.style.display = "none";
+        });
 
-            <div class="gallery-info">
-                <h3>${title}</h3>
-                <p>${description}</p>
-            </div>
-        `;
+        const info = document.createElement("div");
+        info.className = "gallery-info";
+
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = description;
+
+        info.append(heading, paragraph);
+        card.append(image, info);
 
         return card;
-
     }
 
-
-    /* =========================
-       LOAD GALLERY FROM FIREBASE
-    ========================== */
-
     async function loadGallery() {
-
-        const galleryContainer =
-            document.getElementById("gallery-container");
-
-        galleryContainer.innerHTML = `
-            <div class="loading">
-                Loading Gallery...
-            </div>
-        `;
+        const galleryContainer = document.getElementById("gallery-container");
+        galleryContainer.innerHTML = '<div class="loading">Loading Gallery...</div>';
 
         try {
-
-            const galleryRef =
-                ref(database, "gallery");
-
-            const snapshot =
-                await get(galleryRef);
+            const snapshot = await get(ref(database, "gallery"));
 
             if (!snapshot.exists()) {
-
                 galleryContainer.innerHTML = `
                     <div class="empty-gallery">
                         <h3>No gallery pictures yet.</h3>
                         <p>Add pictures through your Admin page.</p>
-                    </div>
-                `;
-
+                    </div>`;
                 return;
-
             }
 
-            const data =
-                snapshot.val();
+            const data = snapshot.val();
+            const items = Array.isArray(data) ? data : Object.values(data);
 
             galleryContainer.innerHTML = "";
 
-            let items = [];
+            const validItems = items.filter(item => item && typeof item === "object");
 
-            if (Array.isArray(data)) {
-
-                items = data;
-
-            } else {
-
-                items = Object.values(data);
-
-            }
-
-
-            if (items.length === 0) {
-
+            if (validItems.length === 0) {
                 galleryContainer.innerHTML = `
                     <div class="empty-gallery">
                         <h3>No gallery pictures yet.</h3>
-                    </div>
-                `;
-
+                    </div>`;
                 return;
-
             }
 
-
-            items.forEach(item => {
-
-                const card =
-                    createGalleryCard(item);
-
-                galleryContainer.appendChild(card);
-
+            validItems.forEach(item => {
+                galleryContainer.appendChild(createGalleryCard(item));
             });
-
         } catch (error) {
-
-            console.error(
-                "Error loading gallery:",
-                error
-            );
+            console.error("Error loading gallery:", error);
 
             galleryContainer.innerHTML = `
                 <div class="empty-gallery">
                     <h3>Unable to load the Gallery.</h3>
-                    <p>Please check your internet connection and try again.</p>
-                </div>
-            `;
-
+                    <p>Please check your internet connection and Firebase database permissions.</p>
+                </div>`;
         }
-
     }
 
-
-    /* =========================
-       IMAGE MODAL
-    ========================== */
-
     window.openImageModal = function(imagePath) {
-
-        const modal =
-            document.getElementById("imageModal");
-
-        const modalImage =
-            document.getElementById("modalImage");
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
 
         modalImage.src = imagePath;
-
         modal.style.display = "flex";
-
     };
-
 
     window.closeImageModal = function() {
-
         document.getElementById("imageModal").style.display = "none";
-
+        document.getElementById("modalImage").src = "";
     };
 
-
-    /* =========================
-       CLOSE MODAL WITH ESC
-    ========================== */
-
-    document.addEventListener("keydown", event => {
-
-        if (event.key === "Escape") {
-            closeImageModal();
+    document.getElementById("imageModal").addEventListener("click", event => {
+        if (event.target.id === "imageModal") {
+            window.closeImageModal();
         }
-
     });
 
-
-    /* =========================
-       START
-    ========================== */
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            window.closeImageModal();
+        }
+    });
 
     startQuiz();
-
 </script>
 
 </body>
 </html>
+```
