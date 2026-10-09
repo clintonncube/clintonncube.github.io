@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Contact Clinton Ncube</title>
-  <meta name="description" content="Connect with Clinton Ncube on TikTok, WhatsApp, Facebook, YouTube, Instagram, X, Snapchat and LinkedIn.">
+  <title>Contact Clinton Ncube | Personal Website</title>
+
+  <meta name="description"
+        content="Connect with Clinton Ncube on TikTok, WhatsApp, Facebook, YouTube, Instagram, X, Snapchat, LinkedIn and email.">
 
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="apple-touch-icon" href="images/favicon.png">
@@ -66,6 +68,20 @@
       width: 42px;
       min-width: 42px;
       text-align: center;
+      flex-shrink: 0;
+    }
+
+    .tiktok-logo {
+      width: 32px;
+      height: 32px;
+      min-width: 42px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .social-details {
+      min-width: 0;
     }
 
     .social-details h3 {
@@ -77,9 +93,9 @@
       margin: 0;
       font-size: 14px;
       opacity: 0.8;
+      overflow-wrap: anywhere;
     }
 
-    .tiktok-icon { color: #111111; }
     .whatsapp-icon { color: #25D366; }
     .facebook-icon { color: #1877F2; }
     .youtube-icon { color: #FF0000; }
@@ -90,9 +106,23 @@
     .email-icon { color: #EA4335; }
 
     @media (prefers-color-scheme: dark) {
-      .tiktok-icon,
       .x-icon {
         color: #ffffff;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-container {
+        padding: 15px;
+        margin: 20px auto;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-card {
+        padding: 18px;
       }
     }
   </style>
@@ -101,6 +131,7 @@
 <body>
 
   <main class="contact-container">
+
     <h1 class="contact-heading">Get In Touch</h1>
 
     <p class="contact-intro">
@@ -114,8 +145,14 @@
       <!-- TikTok -->
       <a class="social-card"
          href="https://www.tiktok.com/@silveirahighsportsdesk"
-         target="_blank" rel="noopener noreferrer">
-     <i class="fa-brands fa-tiktok social-icon tiktok-icon" aria-hidden="true"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <img
+          class="tiktok-logo"
+          src="https://cdn.simpleicons.org/tiktok/000000"
+          alt="TikTok logo">
+
         <div class="social-details">
           <h3>TikTok</h3>
           <p>@silveirahighsportsdesk</p>
@@ -125,8 +162,12 @@
       <!-- WhatsApp -->
       <a class="social-card"
          href="https://wa.me/2637728040490"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-whatsapp social-icon whatsapp-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-whatsapp social-icon whatsapp-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>WhatsApp</h3>
           <p>07728040490</p>
@@ -136,8 +177,12 @@
       <!-- Facebook -->
       <a class="social-card"
          href="https://www.facebook.com/profile.php?id=61586134052388"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-facebook social-icon facebook-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-facebook social-icon facebook-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>Facebook</h3>
           <p>Vixeny Ncube</p>
@@ -147,8 +192,12 @@
       <!-- YouTube -->
       <a class="social-card"
          href="https://www.youtube.com/@TCN-CLINTON"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-youtube social-icon youtube-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-youtube social-icon youtube-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>YouTube</h3>
           <p>TCN-CLINTON</p>
@@ -158,8 +207,12 @@
       <!-- Instagram -->
       <a class="social-card"
          href="https://www.instagram.com/vixeny19/"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-instagram social-icon instagram-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-instagram social-icon instagram-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>Instagram</h3>
           <p>@vixeny19</p>
@@ -169,8 +222,12 @@
       <!-- X -->
       <a class="social-card"
          href="https://x.com/VixenyNcu96414"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-x-twitter social-icon x-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-x-twitter social-icon x-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>X</h3>
           <p>@VixenyNcu96414</p>
@@ -180,8 +237,12 @@
       <!-- Snapchat -->
       <a class="social-card"
          href="https://www.snapchat.com/add/Vixeny25"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-snapchat social-icon snapchat-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-snapchat social-icon snapchat-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>Snapchat</h3>
           <p>@Vixeny25</p>
@@ -191,8 +252,12 @@
       <!-- LinkedIn -->
       <a class="social-card"
          href="https://www.linkedin.com/in/thabangncube23/"
-         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-linkedin social-icon linkedin-icon"></i>
+         target="_blank"
+         rel="noopener noreferrer">
+
+        <i class="fa-brands fa-linkedin social-icon linkedin-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>LinkedIn</h3>
           <p>Thabang Ncube</p>
@@ -202,7 +267,10 @@
       <!-- Email -->
       <a class="social-card"
          href="mailto:thabangncube78@gmail.com">
-        <i class="fa-solid fa-envelope social-icon email-icon"></i>
+
+        <i class="fa-solid fa-envelope social-icon email-icon"
+           aria-hidden="true"></i>
+
         <div class="social-details">
           <h3>Email</h3>
           <p>thabangncube78@gmail.com</p>
