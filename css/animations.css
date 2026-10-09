@@ -1,0 +1,67 @@
+/* ==========================================
+   CLINTON NCUBE WEBSITE
+   SCROLL REVEAL ANIMATIONS
+   ========================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Find content that can reveal itself while scrolling.
+  const revealElements = document.querySelectorAll(`
+    main > section,
+    main article,
+    .card,
+    .project-card,
+    .skill-card,
+    .hobby-card,
+    .achievement-card,
+    .social-card,
+    .gallery-item,
+    .gallery-card,
+    .contact-card,
+    .stat-card,
+    .feature-card
+  `);
+
+  // If the browser does not support IntersectionObserver,
+  // leave everything visible instead of hiding page content.
+  if (!("IntersectionObserver" in window)) {
+    return;
+  }
+
+  // Avoid hiding content for visitors who prefer reduced motion.
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reducedMotion) {
+    return;
+  }
+
+  revealElements.forEach(function (element, index) {
+    element.classList.add("reveal");
+
+    // Stagger the entrance slightly so cards appear in sequence.
+    element.style.transitionDelay =
+      Math.min(index % 5, 4) * 70 + "ms";
+  });
+
+  const observer = new IntersectionObserver(
+    function (entries, currentObserver) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+
+          // Animate once rather than repeating on every scroll.
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -35px 0px"
+    }
+  );
+
+  revealElements.forEach(function (element) {
+    observer.observe(element);
+  });
+});
