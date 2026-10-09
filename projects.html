@@ -1,92 +1,298 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Projects | Clinton Ncube</title>
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" href="images/favicon.png">
 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 225, 255, 0.09), transparent 35%),
+                radial-gradient(circle at 85% 65%, rgba(145, 0, 255, 0.10), transparent 35%),
+                #050711;
+            color: #f4f7ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            animation: navEntrance 0.8s ease both;
+        }
+
+        .logo {
+            color: #00eaff;
+            text-shadow: 0 0 12px rgba(0, 234, 255, 0.65);
+        }
+
+        .nav-menu a {
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #00eaff;
+            text-shadow: 0 0 12px #00eaff;
+        }
+
+        .page-header {
+            position: relative;
+            text-align: center;
+            padding: 85px 20px 55px;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .page-header h1 {
+            color: #00eaff;
+            font-size: clamp(2.3rem, 6vw, 4rem);
+            text-shadow:
+                0 0 10px rgba(0, 234, 255, 0.75),
+                0 0 30px rgba(0, 234, 255, 0.25);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .page-header p {
+            color: #b9c6df;
+            margin-top: 14px;
+        }
+
+        section {
+            padding: 25px 20px 75px;
+        }
+
+        .container {
+            width: min(1150px, 100%);
+            margin: 0 auto;
+        }
+
+        #projectsContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: 25px;
+        }
+
+        #projectsContainer .card {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background: linear-gradient(
+                145deg,
+                rgba(18, 27, 48, 0.96),
+                rgba(8, 12, 27, 0.98)
+            );
+            border: 1px solid rgba(0, 234, 255, 0.25);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            animation: cardEntrance 0.7s ease forwards;
+            transition:
+                transform 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        #projectsContainer .card::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            transform: skewX(-20deg);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 234, 255, 0.08),
+                transparent
+            );
+            transition: left 0.7s ease;
+        }
+
+        #projectsContainer .card:hover {
+            transform: translateY(-9px);
+            border-color: #00eaff;
+            box-shadow:
+                0 12px 35px rgba(0, 234, 255, 0.13),
+                0 0 18px rgba(0, 234, 255, 0.10);
+        }
+
+        #projectsContainer .card:hover::before {
+            left: 150%;
+        }
+
+        #projectsContainer .card h3 {
+            color: #00eaff;
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+        }
+
+        #projectsContainer .card p {
+            color: #c4cee2;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        #projectsContainer .card .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border: 1px solid #00eaff;
+            border-radius: 8px;
+            color: #00eaff;
+            background: rgba(0, 234, 255, 0.06);
+            text-decoration: none;
+            font-weight: 600;
+            transition:
+                background 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        #projectsContainer .card .btn:hover {
+            background: #00eaff;
+            color: #050711;
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.45);
+        }
+
+        .loading,
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #b9c6df;
+            padding: 35px 20px;
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .loading::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 18px auto 0;
+            border: 3px solid rgba(0, 234, 255, 0.2);
+            border-top-color: #00eaff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        footer {
+            border-top: 1px solid rgba(0, 234, 255, 0.18);
+            color: #9daac3;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        @keyframes navEntrance {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 8px rgba(0, 234, 255, 0.45); }
+            to {
+                text-shadow:
+                    0 0 16px rgba(0, 234, 255, 0.85),
+                    0 0 35px rgba(0, 234, 255, 0.3);
+            }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .page-header {
+                padding: 65px 18px 35px;
+            }
+
+            section {
+                padding: 20px 16px 55px;
+            }
+
+            #projectsContainer .card {
+                padding: 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <nav>
-
-    <a href="index.html" class="logo">
-        Clinton Ncube
-    </a>
+    <a href="index.html" class="logo">Clinton Ncube</a>
 
     <button
         class="menu-toggle"
         id="menuToggle"
         aria-label="Open navigation menu"
-        aria-expanded="false">
+        aria-expanded="false"
+        aria-controls="navMenu"
+        type="button">
         ☰
     </button>
 
     <ul class="nav-menu" id="navMenu">
-
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
         <li><a href="achievements.html">Achievements</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact</a></li>
-
     </ul>
-
 </nav>
 
 <header class="page-header">
-
     <h1>My Projects</h1>
-
-    <p>
-        A collection of my school and personal projects.
-    </p>
-
+    <p>A collection of my school and personal projects.</p>
 </header>
 
 <section>
-
     <div class="container">
-
-        <div id="projectsContainer" class="cards">
-
-            <div class="loading">
-                Loading projects...
-            </div>
-
+        <div id="projectsContainer" class="cards" aria-live="polite">
+            <div class="loading">Loading projects...</div>
         </div>
-
     </div>
-
 </section>
 
 <footer>
-
-    <p>
-        © 2026 Clinton Ncube. All rights reserved.
-    </p>
-
-    <p>
-        Personal Portfolio Website
-    </p>
-
+    <p>© 2026 Clinton Ncube. All rights reserved.</p>
+    <p>Personal Portfolio Website</p>
 </footer>
 
 <script type="module">
-
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -98,177 +304,111 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-
-    authDomain:
-        "clinton-ncube-website.firebaseapp.com",
-
-    databaseURL:
-        "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-
-    projectId:
-        "clinton-ncube-website",
-
-    storageBucket:
-        "clinton-ncube-website.firebasestorage.app",
-
-    messagingSenderId:
-        "946671700613",
-
-    appId:
-        "1:946671700613:web:5d74536df1dbb0d35e77ec",
-
-    measurementId:
-        "G-K1S62MHHXP"
+    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    authDomain: "clinton-ncube-website.firebaseapp.com",
+    databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+    projectId: "clinton-ncube-website",
+    storageBucket: "clinton-ncube-website.firebasestorage.app",
+    messagingSenderId: "946671700613",
+    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+    measurementId: "G-K1S62MHHXP"
 };
 
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getDatabase(app);
-
-const projectsRef =
-    ref(db, "projects");
-
-const container =
-    document.getElementById("projectsContainer");
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const projectsRef = ref(db, "projects");
+const container = document.getElementById("projectsContainer");
 
 onValue(
     projectsRef,
     (snapshot) => {
+        container.replaceChildren();
 
-        container.innerHTML = "";
-
-        const data =
-            snapshot.val();
+        const data = snapshot.val();
 
         if (!data) {
-
-            container.innerHTML = `
-                <div class="empty">
-                    No projects have been added yet.
-                </div>
-            `;
-
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "No projects have been added yet.";
+            container.appendChild(empty);
             return;
         }
 
-        Object.entries(data)
-            .forEach(([id, project]) => {
+        Object.entries(data).forEach(([id, project], index) => {
+            const card = document.createElement("article");
+            card.className = "card";
+            card.style.animationDelay = `${Math.min(index * 100, 700)}ms`;
 
-                const card =
-                    document.createElement("div");
+            const title = document.createElement("h3");
+            title.textContent = "📚 " + (project.title || "Project");
 
-                card.className = "card";
+            const description = document.createElement("p");
+            description.textContent = project.description || "";
 
-                const title =
-                    document.createElement("h3");
+            card.append(title, description);
 
-                title.textContent =
-                    "📚 " + (project.title || "Project");
+            if (project.link) {
+                try {
+                    const projectURL = new URL(project.link, window.location.href);
 
-                const description =
-                    document.createElement("p");
-
-                description.textContent =
-                    project.description || "";
-
-                card.appendChild(title);
-
-                card.appendChild(description);
-
-                if (project.link) {
-
-                    const link =
-                        document.createElement("a");
-
-                    link.href =
-                        project.link;
-
-                    link.textContent =
-                        "View Project";
-
-                    link.className =
-                        "btn";
-
-                    link.target =
-                        "_blank";
-
-                    link.rel =
-                        "noopener noreferrer";
-
-                    link.style.marginTop =
-                        "15px";
-
-                    card.appendChild(link);
+                    if (["http:", "https:"].includes(projectURL.protocol)) {
+                        const link = document.createElement("a");
+                        link.href = projectURL.href;
+                        link.textContent = "View Project";
+                        link.className = "btn";
+                        link.target = "_blank";
+                        link.rel = "noopener noreferrer";
+                        link.style.marginTop = "15px";
+                        card.appendChild(link);
+                    }
+                } catch (error) {
+                    console.warn("A project link was invalid:", error);
                 }
+            }
 
-                container.appendChild(card);
-
-            });
-
+            container.appendChild(card);
+        });
     },
     (error) => {
+        container.replaceChildren();
 
-        container.innerHTML = `
-            <div class="empty">
-                Unable to load projects.
-            </div>
-        `;
+        const message = document.createElement("div");
+        message.className = "empty";
+        message.textContent = "Unable to load projects. Please try again later.";
+        container.appendChild(message);
 
-        console.error(error);
-
+        console.error("Firebase projects error:", error);
     }
 );
-
 </script>
 
 <script>
-
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const navMenu =
-    document.getElementById("navMenu");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
 
 menuToggle.addEventListener("click", () => {
+    const isOpen = navMenu.classList.toggle("active");
 
-    navMenu.classList.toggle("active");
-
-    const isOpen =
-        navMenu.classList.contains("active");
-
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute(
-        "aria-expanded",
-        isOpen
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
     );
-
-    menuToggle.textContent =
-        isOpen ? "✕" : "☰";
+    menuToggle.textContent = isOpen ? "✕" : "☰";
 });
 
-document.querySelectorAll(".nav-menu a")
-    .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navMenu.classList.remove("active");
-
-            menuToggle.textContent = "☰";
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        });
-
+document.querySelectorAll(".nav-menu a").forEach((link) => {
+    link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        menuToggle.textContent = "☰";
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
     });
-
+});
 </script>
+
+<script src="js/animations.js" defer></script>
 
 </body>
 </html>
+```
