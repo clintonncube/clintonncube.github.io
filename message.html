@@ -6,4 +6,592 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#050711">
   <meta name="description" content="Send Clinton Ncube a message through his personal website.">
-  <title>Message Me | Clinton
+  <title>Message Me | Clinton Ncube</title>
+
+  <style>
+    :root {
+      --bg: #050711;
+      --panel: #0c1224;
+      --cyan: #00eaff;
+      --purple: #9d4dff;
+      --text: #f4f7ff;
+      --muted: #a6b0ca;
+      --border: rgba(0, 234, 255, .24);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 15% 10%, #122343 0, transparent 40%),
+        radial-gradient(ellipse at 90% 85%, #26113d 0, transparent 38%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 7%;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 7, 17, .88);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(15px);
+    }
+
+    .brand {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: .5px;
+      text-shadow: 0 0 15px rgba(0, 234, 255, .4);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+    }
+
+    main {
+      width: min(760px, 92%);
+      margin: 65px auto;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: rise .7s ease both;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 3.7rem);
+      line-height: 1.15;
+      margin: 12px 0;
+    }
+
+    h1 span {
+      color: var(--cyan);
+      text-shadow: 0 0 24px rgba(0, 234, 255, .35);
+    }
+
+    .intro p {
+      color: var(--muted);
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15, 23, 45, .97),
+        rgba(10, 10, 26, .97));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: clamp(20px, 5vw, 36px);
+      box-shadow: 0 0 35px rgba(0, 234, 255, .06),
+                  0 0 65px rgba(157, 77, 255, .06);
+      animation: rise .8s ease both;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 24px;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: .92rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 11px;
+      border: 1px solid #283452;
+      outline: none;
+      background: #070b18;
+      color: var(--text);
+      font: inherit;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0, 234, 255, .09);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #75809b;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .phone-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .phone-row input { min-width: 0; }
+
+    .small-button {
+      flex-shrink: 0;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #101a30;
+      color: var(--cyan);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .saved-note {
+      color: #79f7c8;
+      font-size: .83rem;
+      margin-top: 7px;
+    }
+
+    .privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 5px 0 22px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .privacy input {
+      width: auto;
+      margin-top: 6px;
+      accent-color: var(--cyan);
+    }
+
+    .send-button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(100deg, var(--cyan), #8b8bff, var(--purple));
+      color: #050711;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s, filter .2s;
+    }
+
+    .send-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .send-button:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .status {
+      display: none;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      overflow-wrap: anywhere;
+      font-size: .9rem;
+    }
+
+    .status.show { display: block; }
+    .status.success {
+      background: rgba(20, 180, 120, .12);
+      border: 1px solid #258f70;
+      color: #9bf5d0;
+    }
+
+    .status.error {
+      background: rgba(255, 70, 100, .1);
+      border: 1px solid #a83e58;
+      color: #ffb3c1;
+    }
+
+    .notice {
+      margin-top: 18px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .82rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    footer span { color: var(--cyan); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 15px 5%;
+      }
+
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: .82rem; }
+      main { margin: 38px auto; }
+      .phone-row { flex-direction: column; }
+      .small-button { padding: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html">CLINTON NCUBE</a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a class="active" href="message.html">Message Me</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="eyebrow">Let's connect</div>
+      <h1>Send Me a <span>Message.</span></h1>
+      <p>
+        Have a question, an idea, or something you'd like to share?
+        Send me a message using the form below.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Write your message</h2>
+      <p class="hint">
+        Enter your contact number and message. Your number can be
+        remembered by this browser for your next visit.
+      </p>
+
+      <div id="status" class="status" role="status"
+           aria-live="polite"></div>
+
+      <form id="messageForm">
+        <div class="field">
+          <label for="phone">Your contact number</label>
+          <div class="phone-row">
+            <input id="phone" name="phone" type="tel"
+                   autocomplete="tel" inputmode="tel"
+                   placeholder="e.g. +263 77 123 4567"
+                   minlength="7" maxlength="25" required>
+            <button class="small-button" type="button" id="savePhone">
+              Save number
+            </button>
+          </div>
+          <div id="savedNote" class="saved-note" hidden>
+            Your number is saved in this browser.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text"
+                 maxlength="100" placeholder="What is your message about?"
+                 required>
+        </div>
+
+        <div class="field">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" maxlength="3000"
+                    placeholder="Write your message here..."
+                    required></textarea>
+          <p class="hint" style="margin:6px 0 0">
+            Maximum 3,000 characters.
+          </p>
+        </div>
+
+        <label class="privacy">
+          <input type="checkbox" id="consent" required>
+          <span>
+            I understand that my phone number and message will be stored
+            so Clinton can respond to me.
+          </span>
+        </label>
+
+        <button class="send-button" id="sendButton" type="submit">
+          Send Message ↗
+        </button>
+      </form>
+
+      <p class="notice">
+        Please don't include passwords, financial details, or other
+        sensitive information in your message.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Clinton Ncube. Built to connect.
+  </footer>
+
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    // Your existing Firebase project configuration.
+    const firebaseConfig = {
+      apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+      authDomain: "clinton-ncube-website.firebaseapp.com",
+      databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+      projectId: "clinton-ncube-website",
+      storageBucket: "clinton-ncube-website.firebasestorage.app",
+      messagingSenderId: "946671700613",
+      appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+      measurementId: "G-K1S62MHHXP"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    const form = document.getElementById("messageForm");
+    const phoneInput = document.getElementById("phone");
+    const subjectInput = document.getElementById("subject");
+    const messageInput = document.getElementById("message");
+    const statusBox = document.getElementById("status");
+    const sendButton = document.getElementById("sendButton");
+    const savedNote = document.getElementById("savedNote");
+
+    // The number is saved only in this browser, not on a public profile.
+    const PHONE_KEY = "clintonMessageContactNumber";
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = "status show " + type;
+    }
+
+    function hideStatus() {
+      statusBox.textContent = "";
+      statusBox.className = "status";
+    }
+
+    function normalizePhone(value) {
+      return value.trim().replace(/[\s().-]/g, "");
+    }
+
+    function validPhone(value) {
+      return /^\+?[0-9]{7,15}$/.test(normalizePhone(value));
+    }
+
+    function savePhone() {
+      const number = normalizePhone(phoneInput.value);
+
+      if (!validPhone(number)) {
+        showStatus(
+          "Enter a valid phone number, including the country code if needed.",
+          "error"
+        );
+        phoneInput.focus();
+        return;
+      }
+
+      try {
+        localStorage.setItem(PHONE_KEY, number);
+        phoneInput.value = number;
+        savedNote.hidden = false;
+        showStatus("Your number has been saved in this browser.", "success");
+      } catch (error) {
+        showStatus(
+          "Your browser could not save the number. Check its privacy settings.",
+          "error"
+        );
+      }
+    }
+
+    document.getElementById("savePhone").addEventListener("click", savePhone);
+
+    try {
+      const savedNumber = localStorage.getItem(PHONE_KEY);
+      if (savedNumber) {
+        phoneInput.value = savedNumber;
+        savedNote.hidden = false;
+      }
+    } catch (error) {
+      // The form can still work if browser storage is disabled.
+    }
+
+    phoneInput.addEventListener("input", () => {
+      hideStatus();
+      // If the visitor changes the number, require them to save it again.
+      savedNote.hidden = true;
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideStatus();
+
+      const phone = normalizePhone(phoneInput.value);
+      const subject = subjectInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!validPhone(phone)) {
+        showStatus("Please enter a valid contact number.", "error");
+        return;
+      }
+
+      if (!subject || subject.length > 100) {
+        showStatus("Please enter a subject of up to 100 characters.", "error");
+        return;
+      }
+
+      if (!message || message.length > 3000) {
+        showStatus("Please enter a message of up to 3,000 characters.", "error");
+        return;
+      }
+
+      if (!document.getElementById("consent").checked) {
+        showStatus("Please confirm the consent checkbox before sending.", "error");
+        return;
+      }
+
+      sendButton.disabled = true;
+      sendButton.textContent = "Sending...";
+
+      try {
+        // Save the visitor's number for their next visit.
+        try {
+          localStorage.setItem(PHONE_KEY, phone);
+          savedNote.hidden = false;
+        } catch (error) {
+          // Continue even when browser storage is unavailable.
+        }
+
+        // A stable phone-based ID limits repeat submissions per number.
+        // Database rules must enforce this restriction as well.
+        const phoneId = btoa(phone).replace(/[^a-zA-Z0-9_-]/g, "_");
+        const phoneRef = db.ref("contactMessageSenders/" + phoneId);
+
+        // Use a database transaction so two tabs cannot both claim the
+        // same sender record at the same time.
+        const claim = await phoneRef.transaction((current) => {
+          if (current !== null) return;
+          return {
+            phone: phone,
+            firstSeenAt: firebase.database.ServerValue.TIMESTAMP
+          };
+        });
+
+        if (!claim.committed) {
+          showStatus(
+            "This number has already been used to register for messaging. " +
+            "If you need to contact Clinton again, use the contact details " +
+            "on the website.",
+            "error"
+          );
+          return;
+        }
+
+        const newMessage = {
+          phone: phone,
+          subject: subject,
+          message: message,
+          status: "unread",
+          createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        // Store the message in Firebase.
+        await db.ref("contactMessages").push(newMessage);
+
+        showStatus(
+          "Your message has been sent successfully. Thank you for contacting Clinton!",
+          "success"
+        );
+
+        subjectInput.value = "";
+        messageInput.value = "";
+        document.getElementById("consent").checked = false;
+
+      } catch (error) {
+        console.error("Message submission failed:", error);
+        showStatus(
+          "Your message could not be sent. The database may need its " +
+          "security rules configured. Please try again later.",
+          "error"
+        );
+      } finally {
+        sendButton.disabled = false;
+        sendButton.textContent = "Send Message ↗";
+      }
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
