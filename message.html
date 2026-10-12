@@ -1,408 +1,426 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#050711">
-  <meta name="description" content="Send Clinton Ncube a message through his personal website.">
+  <meta name="theme-color" content="#070b18">
   <title>Message Me | Clinton Ncube</title>
 
   <style>
     :root {
-      --bg: #050711;
-      --panel: #0c1224;
+      --bg: #050713;
+      --panel: #0d132a;
       --cyan: #00eaff;
-      --purple: #9d4dff;
+      --purple: #a855f7;
       --text: #f4f7ff;
-      --muted: #a6b0ca;
-      --border: rgba(0, 234, 255, .24);
+      --muted: #a7b0cc;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 15% 10%, #122343 0, transparent 40%),
-        radial-gradient(ellipse at 90% 85%, #26113d 0, transparent 38%),
-        var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 10%, #00eaff20, transparent 35%),
+        radial-gradient(ellipse at 85% 25%, #a855f730, transparent 38%),
+        linear-gradient(145deg, #040610, #090d20 55%, #060713);
     }
 
-    a { color: inherit; }
-
-    .navbar {
+    header {
+      max-width: 1100px;
+      margin: auto;
+      padding: 22px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      padding: 18px 7%;
-      border-bottom: 1px solid var(--border);
-      background: rgba(5, 7, 17, .88);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(15px);
-    }
-
-    .brand {
-      color: var(--cyan);
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: .5px;
-      text-shadow: 0 0 15px rgba(0, 234, 255, .4);
-    }
-
-    .nav-links {
-      display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
     }
 
-    .nav-links a {
-      color: var(--muted);
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: white;
       text-decoration: none;
-      font-size: .9rem;
-      transition: color .2s;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
+    .brand span {
       color: var(--cyan);
+      text-shadow: 0 0 15px #00eaff80;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+      background: #00eaff12;
     }
 
     main {
-      width: min(760px, 92%);
-      margin: 65px auto;
-    }
-
-    .intro {
-      text-align: center;
-      margin-bottom: 30px;
-      animation: rise .7s ease both;
+      width: min(720px, 100%);
+      margin: auto;
+      padding: 30px 20px 60px;
     }
 
     .eyebrow {
+      text-align: center;
       color: var(--cyan);
-      text-transform: uppercase;
+      font-size: .8rem;
+      font-weight: bold;
       letter-spacing: 3px;
-      font-size: .78rem;
-      font-weight: 700;
+      text-transform: uppercase;
     }
 
     h1 {
-      font-size: clamp(2.2rem, 7vw, 3.7rem);
-      line-height: 1.15;
+      text-align: center;
+      font-size: clamp(2.5rem, 7vw, 3.8rem);
       margin: 12px 0;
     }
 
     h1 span {
-      color: var(--cyan);
-      text-shadow: 0 0 24px rgba(0, 234, 255, .35);
+      background: linear-gradient(90deg, var(--cyan), #b9a0ff, var(--purple));
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
     }
 
-    .intro p {
+    .intro {
+      max-width: 560px;
+      text-align: center;
       color: var(--muted);
-      max-width: 550px;
-      margin: 0 auto;
+      line-height: 1.7;
+      margin: 0 auto 30px;
     }
 
     .card {
-      background: linear-gradient(145deg, rgba(15, 23, 45, .97),
-        rgba(10, 10, 26, .97));
-      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #0d132aee, #090e20f5);
+      border: 1px solid #00eaff40;
       border-radius: 22px;
-      padding: clamp(20px, 5vw, 36px);
-      box-shadow: 0 0 35px rgba(0, 234, 255, .06),
-                  0 0 65px rgba(157, 77, 255, .06);
-      animation: rise .8s ease both;
+      padding: clamp(20px, 5vw, 34px);
+      box-shadow: 0 0 35px #00eaff12, 0 15px 55px #0008;
+      position: relative;
     }
 
-    .card h2 {
-      font-size: 1.35rem;
-      margin-bottom: 6px;
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
     }
 
-    .hint {
+    h2 { margin-top: 0; }
+
+    .helper {
       color: var(--muted);
-      font-size: .9rem;
-      margin-bottom: 24px;
+      font-size: .85rem;
+      line-height: 1.6;
     }
 
-    .field { margin-bottom: 20px; }
+    .field { margin: 22px 0; }
 
     label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-      font-size: .92rem;
+      margin-bottom: 9px;
+      font-weight: 650;
     }
 
-    input, textarea {
+    input, select, textarea {
       width: 100%;
-      padding: 14px 15px;
-      border-radius: 11px;
-      border: 1px solid #283452;
-      outline: none;
-      background: #070b18;
+      min-width: 0;
+      padding: 14px;
       color: var(--text);
+      background: #070b18;
+      border: 1px solid #283452;
+      border-radius: 12px;
       font: inherit;
-      transition: border .2s, box-shadow .2s;
+      outline: none;
     }
 
-    input:focus, textarea:focus {
+    input:focus, select:focus, textarea:focus {
       border-color: var(--cyan);
-      box-shadow: 0 0 0 3px rgba(0, 234, 255, .09);
+      box-shadow: 0 0 0 3px #00eaff18;
     }
 
     input::placeholder, textarea::placeholder {
-      color: #75809b;
+      color: #76819f;
     }
 
-    textarea {
-      min-height: 160px;
-      resize: vertical;
+    select option {
+      background: #070b18;
+      color: white;
     }
 
     .phone-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(145px, .9fr) minmax(0, 1.4fr);
       gap: 10px;
     }
 
-    .phone-row input { min-width: 0; }
+    .phone-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
 
-    .small-button {
-      flex-shrink: 0;
-      padding: 0 13px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #101a30;
-      color: var(--cyan);
+    button {
       cursor: pointer;
-      font-weight: 700;
-    }
-
-    .saved-note {
-      color: #79f7c8;
-      font-size: .83rem;
-      margin-top: 7px;
-    }
-
-    .privacy {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 5px 0 22px;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    .privacy input {
-      width: auto;
-      margin-top: 6px;
-      accent-color: var(--cyan);
-    }
-
-    .send-button {
-      width: 100%;
-      padding: 15px;
-      border: 0;
+      font: inherit;
+      font-weight: bold;
       border-radius: 12px;
-      background: linear-gradient(100deg, var(--cyan), #8b8bff, var(--purple));
-      color: #050711;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .2s, filter .2s;
+      padding: 12px 16px;
+      transition: .2s;
     }
 
-    .send-button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
-    }
+    button:hover { transform: translateY(-1px); }
 
-    .send-button:disabled {
+    button:disabled {
       opacity: .6;
       cursor: wait;
       transform: none;
     }
 
+    .small-button {
+      color: var(--cyan);
+      background: #00eaff10;
+      border: 1px solid #00eaff60;
+    }
+
+    .primary {
+      width: 100%;
+      border: 0;
+      color: #03111a;
+      background: linear-gradient(100deg, var(--cyan), #83f5ff 52%, #b79aff);
+      box-shadow: 0 0 20px #00eaff25;
+    }
+
+    textarea {
+      min-height: 155px;
+      resize: vertical;
+    }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .87rem;
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    .consent input {
+      width: 17px;
+      height: 17px;
+      margin-top: 4px;
+      flex-shrink: 0;
+      accent-color: var(--cyan);
+    }
+
+    .consent label {
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .saved-note {
+      color: #54f7bd;
+      font-size: .83rem;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
     .status {
       display: none;
-      padding: 13px;
-      border-radius: 10px;
-      margin-bottom: 18px;
+      padding: 14px;
+      margin-top: 18px;
+      border-radius: 12px;
+      line-height: 1.5;
       overflow-wrap: anywhere;
-      font-size: .9rem;
     }
 
     .status.show { display: block; }
+
     .status.success {
-      background: rgba(20, 180, 120, .12);
-      border: 1px solid #258f70;
-      color: #9bf5d0;
+      color: #c8ffeb;
+      background: #54f7bd12;
+      border: 1px solid #54f7bd50;
     }
 
     .status.error {
-      background: rgba(255, 70, 100, .1);
-      border: 1px solid #a83e58;
-      color: #ffb3c1;
-    }
-
-    .notice {
-      margin-top: 18px;
-      color: var(--muted);
-      text-align: center;
-      font-size: .82rem;
+      color: #ffd4dc;
+      background: #ff6b8612;
+      border: 1px solid #ff6b8650;
     }
 
     footer {
       text-align: center;
+      color: #7f89a7;
+      font-size: .82rem;
       padding: 25px 15px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .85rem;
     }
 
-    footer span { color: var(--cyan); }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      .navbar {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 15px 5%;
-      }
-
-      .nav-links { gap: 12px; }
-      .nav-links a { font-size: .82rem; }
-      main { margin: 38px auto; }
-      .phone-row { flex-direction: column; }
-      .small-button { padding: 10px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
+    @media (max-width: 560px) {
+      header { align-items: flex-start; flex-direction: column; }
+      .phone-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <header class="navbar">
-    <a class="brand" href="index.html">CLINTON NCUBE</a>
+  <header>
+    <a class="brand" href="index.html">Clinton <span>Ncube</span></a>
 
-    <nav class="nav-links" aria-label="Main navigation">
+    <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
       <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-      <a class="active" href="message.html">Message Me</a>
+      <a href="message.html">Message Me</a>
     </nav>
   </header>
 
   <main>
-    <section class="intro">
-      <div class="eyebrow">Let's connect</div>
-      <h1>Send Me a <span>Message.</span></h1>
-      <p>
-        Have a question, an idea, or something you'd like to share?
-        Send me a message using the form below.
-      </p>
-    </section>
+    <p class="eyebrow">Open a conversation</p>
+    <h1>Message <span>Me</span></h1>
+
+    <p class="intro">
+      Have a question, an idea, or feedback? Send me a message using the form below.
+    </p>
 
     <section class="card">
-      <h2>Write your message</h2>
-      <p class="hint">
-        Enter your contact number and message. Your number can be
-        remembered by this browser for your next visit.
+      <h2>Send a private message</h2>
+      <p class="helper">
+        Save your phone number once, and this browser can remember it for next time.
       </p>
-
-      <div id="status" class="status" role="status"
-           aria-live="polite"></div>
 
       <form id="messageForm">
         <div class="field">
-          <label for="phone">Your contact number</label>
+          <label for="countryCode">Country code and phone number</label>
+
           <div class="phone-row">
-            <input id="phone" name="phone" type="tel"
-                   autocomplete="tel" inputmode="tel"
-                   placeholder="e.g. +263 77 123 4567"
-                   minlength="7" maxlength="25" required>
+            <select id="countryCode" name="countryCode" required>
+              <option value="+263" selected>🇿🇼 Zimbabwe (+263)</option>
+              <option value="+27">🇿🇦 South Africa (+27)</option>
+              <option value="+1">🇺🇸🇨🇦 USA / Canada (+1)</option>
+              <option value="+44">🇬🇧 United Kingdom (+44)</option>
+              <option value="+267">🇧🇼 Botswana (+267)</option>
+              <option value="+260">🇿🇲 Zambia (+260)</option>
+              <option value="+258">🇲🇿 Mozambique (+258)</option>
+              <option value="+254">🇰🇪 Kenya (+254)</option>
+              <option value="+234">🇳🇬 Nigeria (+234)</option>
+              <option value="+61">🇦🇺 Australia (+61)</option>
+              <option value="+91">🇮🇳 India (+91)</option>
+              <option value="+255">🇹🇿 Tanzania (+255)</option>
+              <option value="+256">🇺🇬 Uganda (+256)</option>
+              <option value="+233">🇬🇭 Ghana (+233)</option>
+              <option value="+353">🇮🇪 Ireland (+353)</option>
+              <option value="+33">🇫🇷 France (+33)</option>
+              <option value="+49">🇩🇪 Germany (+49)</option>
+              <option value="+86">🇨🇳 China (+86)</option>
+              <option value="+81">🇯🇵 Japan (+81)</option>
+              <option value="+971">🇦🇪 UAE (+971)</option>
+            </select>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel-national"
+              inputmode="tel"
+              placeholder="e.g. 771234567"
+              maxlength="20"
+              required
+            >
+          </div>
+
+          <div class="phone-actions">
             <button class="small-button" type="button" id="savePhone">
               Save number
             </button>
+            <p class="saved-note" id="savedNote" aria-live="polite">
+              Your number is not saved yet.
+            </p>
           </div>
-          <div id="savedNote" class="saved-note" hidden>
-            Your number is saved in this browser.
-          </div>
+
+          <p class="helper">
+            Enter your number without the country code. If it starts with a local
+            zero, that zero is removed when the international number is created.
+          </p>
         </div>
 
         <div class="field">
           <label for="subject">Subject</label>
-          <input id="subject" name="subject" type="text"
-                 maxlength="100" placeholder="What is your message about?"
-                 required>
+          <input
+            id="subject"
+            name="subject"
+            type="text"
+            maxlength="100"
+            placeholder="What is your message about?"
+            required
+          >
         </div>
 
         <div class="field">
           <label for="message">Your message</label>
-          <textarea id="message" name="message" maxlength="3000"
-                    placeholder="Write your message here..."
-                    required></textarea>
-          <p class="hint" style="margin:6px 0 0">
-            Maximum 3,000 characters.
+          <textarea
+            id="message"
+            name="message"
+            maxlength="4000"
+            placeholder="Write your message here..."
+            required
+          ></textarea>
+          <p class="helper" style="text-align:right">
+            <span id="charCount">0</span>/4000
           </p>
         </div>
 
-        <label class="privacy">
-          <input type="checkbox" id="consent" required>
-          <span>
-            I understand that my phone number and message will be stored
-            so Clinton can respond to me.
-          </span>
-        </label>
+        <div class="consent">
+          <input id="consent" name="consent" type="checkbox" required>
+          <label for="consent">
+            I understand that my phone number and message will be stored so
+            Clinton can read and respond to my message.
+          </label>
+        </div>
 
-        <button class="send-button" id="sendButton" type="submit">
+        <button class="primary" id="sendButton" type="submit">
           Send Message ↗
         </button>
-      </form>
 
-      <p class="notice">
-        Please don't include passwords, financial details, or other
-        sensitive information in your message.
-      </p>
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
+      </form>
     </section>
+
+    <p class="helper" style="text-align:center;margin-top:22px">
+      Please do not include passwords or verification codes in your message.
+    </p>
   </main>
 
   <footer>
-    © <span id="year"></span> Clinton Ncube. Built to connect.
+    © <span id="year"></span> Clinton Ncube · Personal Website
   </footer>
 
-  <!-- Firebase compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
   <script>
-    // Your existing Firebase project configuration.
     const firebaseConfig = {
       apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
       authDomain: "clinton-ncube-website.firebaseapp.com",
@@ -414,148 +432,193 @@
       measurementId: "G-K1S62MHHXP"
     };
 
-    firebase.initializeApp(firebaseConfig);
-
-    const db = firebase.database();
-    const auth = firebase.auth();
+    const PHONE_KEY = "clintonMessageContactNumber";
+    const COUNTRY_KEY = "clintonMessageCountryCode";
 
     const form = document.getElementById("messageForm");
+    const countryCodeInput = document.getElementById("countryCode");
     const phoneInput = document.getElementById("phone");
     const subjectInput = document.getElementById("subject");
     const messageInput = document.getElementById("message");
-    const statusBox = document.getElementById("status");
-    const sendButton = document.getElementById("sendButton");
+    const consentInput = document.getElementById("consent");
+    const savePhoneButton = document.getElementById("savePhone");
     const savedNote = document.getElementById("savedNote");
+    const sendButton = document.getElementById("sendButton");
+    const statusMessage = document.getElementById("statusMessage");
+    const charCount = document.getElementById("charCount");
 
-    // The number is saved only in this browser, not on a public profile.
-    const PHONE_KEY = "clintonMessageContactNumber";
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let db = null;
+
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.database();
+    } catch (error) {
+      console.error("Firebase initialization failed:", error);
+      showStatus("The message service could not start. Please try again later.", "error");
+    }
+
+    function digitsOnly(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function buildInternationalNumber() {
+      const raw = phoneInput.value.trim();
+
+      // If a full international number is pasted, don't add the code twice.
+      if (raw.startsWith("+")) {
+        return "+" + digitsOnly(raw);
+      }
+
+      const nationalNumber = digitsOnly(raw).replace(/^0+/, "");
+      return countryCodeInput.value + nationalNumber;
+    }
+
+    function isValidInternationalNumber(number) {
+      return /^\+[1-9]\d{6,14}$/.test(number);
+    }
 
     function showStatus(message, type) {
-      statusBox.textContent = message;
-      statusBox.className = "status show " + type;
+      statusMessage.textContent = message;
+      statusMessage.className = "status show " + type;
     }
 
     function hideStatus() {
-      statusBox.textContent = "";
-      statusBox.className = "status";
+      statusMessage.textContent = "";
+      statusMessage.className = "status";
     }
 
-    function normalizePhone(value) {
-      return value.trim().replace(/[\s().-]/g, "");
+    function getCountryCodes() {
+      return Array.from(countryCodeInput.options)
+        .map(option => option.value)
+        .sort((a, b) => b.length - a.length);
     }
 
-    function validPhone(value) {
-      return /^\+?[0-9]{7,15}$/.test(normalizePhone(value));
-    }
+    function saveCurrentPhone(showConfirmation) {
+      const number = buildInternationalNumber();
 
-    function savePhone() {
-      const number = normalizePhone(phoneInput.value);
-
-      if (!validPhone(number)) {
-        showStatus(
-          "Enter a valid phone number, including the country code if needed.",
-          "error"
-        );
+      if (!isValidInternationalNumber(number)) {
+        showStatus("Please enter a valid phone number and check the country code.", "error");
         phoneInput.focus();
-        return;
+        return false;
       }
 
       try {
         localStorage.setItem(PHONE_KEY, number);
-        phoneInput.value = number;
-        savedNote.hidden = false;
-        showStatus("Your number has been saved in this browser.", "success");
+
+        const matchingCode = getCountryCodes().find(code => number.startsWith(code));
+        if (matchingCode) {
+          localStorage.setItem(COUNTRY_KEY, matchingCode);
+          countryCodeInput.value = matchingCode;
+          phoneInput.value = number.slice(matchingCode.length);
+        } else {
+          localStorage.setItem(COUNTRY_KEY, countryCodeInput.value);
+        }
       } catch (error) {
-        showStatus(
-          "Your browser could not save the number. Check its privacy settings.",
-          "error"
-        );
+        showStatus("This browser could not save the number.", "error");
+        return false;
+      }
+
+      savedNote.textContent = "Saved number: " + number;
+
+      if (showConfirmation) {
+        showStatus("Your phone number has been saved in this browser.", "success");
+      }
+
+      return true;
+    }
+
+    function restoreSavedPhone() {
+      try {
+        const savedNumber = localStorage.getItem(PHONE_KEY);
+        const savedCode = localStorage.getItem(COUNTRY_KEY);
+
+        if (!savedNumber) return;
+
+        const matchingCode = getCountryCodes().find(code => savedNumber.startsWith(code));
+
+        if (matchingCode) {
+          countryCodeInput.value = matchingCode;
+          phoneInput.value = savedNumber.slice(matchingCode.length);
+        } else if (
+          savedCode &&
+          Array.from(countryCodeInput.options).some(option => option.value === savedCode)
+        ) {
+          countryCodeInput.value = savedCode;
+          phoneInput.value = savedNumber.replace(/^\+/, "").replace(
+            new RegExp("^" + savedCode.slice(1)), ""
+          );
+        } else {
+          phoneInput.value = savedNumber;
+        }
+
+        savedNote.textContent = "Saved number: " + savedNumber;
+      } catch (error) {
+        console.warn("Could not restore saved number:", error);
       }
     }
 
-    document.getElementById("savePhone").addEventListener("click", savePhone);
+    restoreSavedPhone();
 
-    try {
-      const savedNumber = localStorage.getItem(PHONE_KEY);
-      if (savedNumber) {
-        phoneInput.value = savedNumber;
-        savedNote.hidden = false;
-      }
-    } catch (error) {
-      // The form can still work if browser storage is disabled.
-    }
-
-    phoneInput.addEventListener("input", () => {
+    savePhoneButton.addEventListener("click", function () {
       hideStatus();
-      // If the visitor changes the number, require them to save it again.
-      savedNote.hidden = true;
+      saveCurrentPhone(true);
     });
 
-    form.addEventListener("submit", async (event) => {
+    countryCodeInput.addEventListener("change", function () {
+      try {
+        localStorage.setItem(COUNTRY_KEY, countryCodeInput.value);
+      } catch (_) {}
+    });
+
+    messageInput.addEventListener("input", function () {
+      charCount.textContent = messageInput.value.length;
+    });
+
+    form.addEventListener("submit", async function (event) {
       event.preventDefault();
       hideStatus();
 
-      const phone = normalizePhone(phoneInput.value);
+      if (!db) {
+        showStatus("The message service is unavailable. Please try again later.", "error");
+        return;
+      }
+
+      const phone = buildInternationalNumber();
       const subject = subjectInput.value.trim();
       const message = messageInput.value.trim();
 
-      if (!validPhone(phone)) {
-        showStatus("Please enter a valid contact number.", "error");
+      if (!isValidInternationalNumber(phone)) {
+        showStatus("Please enter a valid phone number and country code.", "error");
+        phoneInput.focus();
         return;
       }
 
-      if (!subject || subject.length > 100) {
-        showStatus("Please enter a subject of up to 100 characters.", "error");
+      if (!subject || !message) {
+        showStatus("Please complete the subject and message fields.", "error");
         return;
       }
 
-      if (!message || message.length > 3000) {
-        showStatus("Please enter a message of up to 3,000 characters.", "error");
+      if (!consentInput.checked) {
+        showStatus("Please confirm the message-storage notice before sending.", "error");
+        consentInput.focus();
         return;
       }
 
-      if (!document.getElementById("consent").checked) {
-        showStatus("Please confirm the consent checkbox before sending.", "error");
-        return;
-      }
+      // Keep the international number saved after refresh.
+      try {
+        localStorage.setItem(PHONE_KEY, phone);
+        localStorage.setItem(COUNTRY_KEY, countryCodeInput.value);
+        savedNote.textContent = "Saved number: " + phone;
+      } catch (_) {}
 
       sendButton.disabled = true;
-      sendButton.textContent = "Sending...";
+      sendButton.textContent = "Sending…";
 
       try {
-        // Save the visitor's number for their next visit.
-        try {
-          localStorage.setItem(PHONE_KEY, phone);
-          savedNote.hidden = false;
-        } catch (error) {
-          // Continue even when browser storage is unavailable.
-        }
-
-        // A stable phone-based ID limits repeat submissions per number.
-        // Database rules must enforce this restriction as well.
-        const phoneId = btoa(phone).replace(/[^a-zA-Z0-9_-]/g, "_");
-        const phoneRef = db.ref("contactMessageSenders/" + phoneId);
-
-        // Use a database transaction so two tabs cannot both claim the
-        // same sender record at the same time.
-        const claim = await phoneRef.transaction((current) => {
-          if (current !== null) return;
-          return {
-            phone: phone,
-            firstSeenAt: firebase.database.ServerValue.TIMESTAMP
-          };
-        });
-
-        if (!claim.committed) {
-          showStatus(
-            "This number has already been used to register for messaging. " +
-            "If you need to contact Clinton again, use the contact details " +
-            "on the website.",
-            "error"
-          );
-          return;
-        }
-
         const newMessage = {
           phone: phone,
           subject: subject,
@@ -564,23 +627,21 @@
           createdAt: firebase.database.ServerValue.TIMESTAMP
         };
 
-        // Store the message in Firebase.
         await db.ref("contactMessages").push(newMessage);
 
         showStatus(
-          "Your message has been sent successfully. Thank you for contacting Clinton!",
+          "Your message has been sent successfully. Thank you for getting in touch!",
           "success"
         );
 
         subjectInput.value = "";
         messageInput.value = "";
-        document.getElementById("consent").checked = false;
-
+        consentInput.checked = false;
+        charCount.textContent = "0";
       } catch (error) {
         console.error("Message submission failed:", error);
         showStatus(
-          "Your message could not be sent. The database may need its " +
-          "security rules configured. Please try again later.",
+          "Your message could not be sent. Check your connection and try again.",
           "error"
         );
       } finally {
@@ -588,10 +649,6 @@
         sendButton.textContent = "Send Message ↗";
       }
     });
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
   </script>
 </body>
 </html>
-```
