@@ -1,792 +1,1606 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Clinton Ncube</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070912">
+  <title>Gallery | Clinton Ncube</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/animations.css">
 
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="stylesheet" href="css/animations.css">
+  <style>
+    :root {
+      --bg: #070912;
+      --panel: #101526;
+      --cyan: #25f4ee;
+      --purple: #a855f7;
+      --maroon: #8b1638;
+      --pink: #ff5b92;
+      --text: #f5f7ff;
+      --muted: #b7bfd3;
+      --line: rgba(255,255,255,.12);
+    }
 
-    <style>
-        * { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-        :root {
-            --maroon: #8b1638;
-            --maroon-dark: #5c0d24;
-            --black: #050509;
-            --panel: #101016;
-            --cyan: #25f4ee;
-            --purple: #a855f7;
-            --text: #f5f5f5;
-            --muted: #b8b8c7;
-        }
+    html { scroll-behavior: smooth; }
 
-        html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 0%, #24102c 0, transparent 38%),
+        radial-gradient(ellipse at 100% 20%, #06272d 0, transparent 32%),
+        var(--bg);
+      background-attachment: fixed;
+      animation: fadeIn .7s ease both;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background:
-                radial-gradient(ellipse at top, #24101e 0%, #090910 45%, #030306 100%);
-            background-attachment: fixed;
-            color: var(--text);
-            min-height: 100vh;
-            animation: pageFadeIn 0.8s ease both;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(37,244,238,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,244,238,.08) 1px, transparent 1px);
+      background-size: 38px 38px;
+    }
 
-        header {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(120deg, #350817, #8b1638, #211027);
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(37, 244, 238, 0.45);
-            box-shadow: 0 8px 35px rgba(139, 22, 56, 0.28);
-        }
+    header {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      text-align: center;
+      padding: 48px 18px 42px;
+      background: linear-gradient(
+        115deg,
+        rgba(75,8,35,.9),
+        rgba(14,18,36,.94) 52%,
+        rgba(0,93,105,.45)
+      );
+      border-bottom: 1px solid rgba(37,244,238,.42);
+      box-shadow: 0 12px 50px rgba(0,0,0,.28);
+    }
 
-        header::before {
-            content: "";
-            position: absolute;
-            top: -100%;
-            left: -40%;
-            width: 35%;
-            height: 300%;
-            transform: rotate(25deg);
-            background: linear-gradient(
-                90deg, transparent, rgba(255,255,255,0.13), transparent
-            );
-            animation: headerShine 7s ease-in-out infinite;
-            pointer-events: none;
-        }
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border: 1px solid rgba(37,244,238,.16);
+      border-radius: 50%;
+      width: 330px;
+      height: 330px;
+      right: -90px;
+      top: -210px;
+      box-shadow: 0 0 50px rgba(37,244,238,.08);
+    }
 
-        header h1 {
-            position: relative;
-            margin: 0;
-            font-size: clamp(28px, 5vw, 42px);
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(37,244,238,0.4);
-            animation: titleRise 0.8s ease both;
-        }
+    header::after {
+      right: auto;
+      left: -160px;
+      top: auto;
+      bottom: -270px;
+      border-color: rgba(168,85,247,.25);
+    }
 
-        header p {
-            position: relative;
-            margin-bottom: 0;
-            color: #f3dbe5;
-            animation: titleRise 1s ease both;
-        }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid rgba(37,244,238,.35);
+      border-radius: 999px;
+      padding: 7px 13px;
+      color: var(--cyan);
+      font-size: .78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,.2);
+    }
 
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--cyan);
+      animation: pulse 1.5s infinite;
+    }
 
-        #quiz-section {
-            max-width: 750px;
-            margin: 0 auto;
-        }
+    header h1 {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      letter-spacing: 2px;
+      margin: 16px 0 8px;
+      text-shadow: 0 0 24px rgba(37,244,238,.22);
+      animation: rise .7s ease both;
+    }
 
-        .quiz-intro {
-            background: linear-gradient(145deg, #17131d, #0b0b11);
-            padding: 25px;
-            border: 1px solid rgba(168,85,247,0.35);
-            border-radius: 18px;
-            box-shadow: 0 0 28px rgba(168,85,247,0.10);
-            margin-bottom: 25px;
-            text-align: center;
-            animation: cardEntrance 0.8s ease both;
-        }
+    header p {
+      color: #e3ddeb;
+      margin: 0;
+      font-size: 1.03rem;
+    }
 
-        .quiz-intro h2 {
-            color: #ff5b92;
-            margin-top: 0;
-        }
+    .header-line {
+      height: 3px;
+      width: min(170px, 40vw);
+      margin: 24px auto 0;
+      border-radius: 9px;
+      background: linear-gradient(
+        90deg,
+        var(--maroon),
+        var(--pink),
+        var(--purple),
+        var(--cyan)
+      );
+      background-size: 200% 100%;
+      animation: flow 4s linear infinite;
+    }
 
-        .quiz-intro p {
-            color: #dedee8;
-            line-height: 1.7;
-        }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 55px;
+    }
 
-        .quiz-progress {
-            background: linear-gradient(90deg, #5c0d24, #8b1638, #5c0d24);
-            background-size: 200% 100%;
-            color: white;
-            padding: 14px;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: bold;
-            animation: gradientFlow 5s ease infinite;
-        }
+    .quiz-section {
+      max-width: 790px;
+      margin: 0 auto;
+    }
 
-        .question-box {
-            background: #000 !important;
-            color: #fff !important;
-            padding: 22px;
-            border: 1px solid #333;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            animation: questionEntrance 0.55s ease both;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease,
-                        transform 0.3s ease;
-        }
+    .quiz-intro,
+    .toolbar,
+    .stat,
+    .question-box,
+    .gallery-card,
+    .empty-gallery,
+    .loading,
+    .gallery-heading {
+      background: linear-gradient(
+        145deg,
+        rgba(21,29,49,.92),
+        rgba(9,12,23,.96)
+      );
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 35px rgba(0,0,0,.22);
+    }
 
-        .question-box:hover {
-            border-color: var(--maroon);
-            box-shadow: 0 0 20px rgba(139,22,56,0.2);
-        }
+    .quiz-intro {
+      padding: 27px;
+      border-radius: 22px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .question-box h3 {
-            color: #fff !important;
-            margin: 0 0 18px;
-            font-size: 20px;
-            line-height: 1.5;
-        }
+    .quiz-intro::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        var(--maroon),
+        var(--pink),
+        var(--purple),
+        var(--cyan)
+      );
+    }
 
-        .answers {
-            display: grid;
-            gap: 12px;
-        }
+    .quiz-intro h2 {
+      margin: 5px 0 12px;
+      color: var(--pink);
+      font-size: 1.55rem;
+    }
 
-        .answer-button {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #333 !important;
-            border-radius: 10px;
-            background: #000 !important;
-            color: #fff !important;
-            cursor: pointer;
-            text-align: left;
-            font-size: 15px;
-            font-weight: bold;
-            transition: transform 0.25s ease, border-color 0.25s ease,
-                        background 0.25s ease, box-shadow 0.25s ease;
-            animation: answerEntrance 0.45s ease both;
-        }
+    .quiz-intro p {
+      color: #d8deed;
+      line-height: 1.7;
+      margin: 8px 0;
+    }
 
-        .answer-button:hover {
-            background: #171017 !important;
-            border-color: #ff5b92 !important;
-            transform: translateX(5px);
-            box-shadow: 0 0 12px rgba(139,22,56,0.3);
-        }
+    .quiz-intro strong { color: var(--cyan); }
 
-        .answer-button.selected {
-            background: #5c0d24 !important;
-            border-color: #ff5b92 !important;
-            box-shadow: 0 0 15px rgba(139,22,56,0.3);
-        }
+    .quiz-progress {
+      border-radius: 12px;
+      padding: 13px 16px;
+      text-align: center;
+      font-weight: 700;
+      margin: 18px 0;
+      background: linear-gradient(100deg, #351027, #142b3d, #351027);
+      border: 1px solid rgba(37,244,238,.24);
+      color: var(--cyan);
+      background-size: 200% 100%;
+      animation: flow 6s linear infinite;
+    }
 
-        .submit-button,
-        .retry-button {
-            display: block;
-            width: 100%;
-            margin-top: 25px;
-            padding: 16px;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 11px;
-            background: linear-gradient(100deg, #5c0d24, #a51d4b);
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
+    .question-box {
+      padding: 21px;
+      border-radius: 16px;
+      margin: 15px 0;
+      animation: rise .45s ease both;
+    }
 
-        .submit-button:hover,
-        .retry-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(139,22,56,0.4);
-        }
+    .question-box h3 {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
 
-        #result {
-            display: none;
-            margin-top: 25px;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            animation: cardEntrance 0.5s ease both;
-        }
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
 
-        .pass-result {
-            background: #dff5e3;
-            color: #166534;
-            border: 2px solid #238636;
-        }
+    .answer-button {
+      width: 100%;
+      text-align: left;
+      padding: 13px 15px;
+      border: 1px solid #343b52;
+      border-radius: 11px;
+      background: #080b14;
+      color: #f5f7ff;
+      cursor: pointer;
+      font-size: .96rem;
+      transition: .2s;
+    }
 
-        .fail-result {
-            background: #ffe2e2;
-            color: #9b1c1c;
-            border: 2px solid #c62828;
-        }
+    .answer-button:hover,
+    .answer-button:focus-visible {
+      border-color: var(--cyan);
+      transform: translateX(4px);
+      outline: none;
+    }
 
-        #gallery-section {
-            display: none;
-        }
+    .answer-button.selected {
+      border-color: var(--pink);
+      background: linear-gradient(
+        90deg,
+        rgba(139,22,56,.7),
+        rgba(168,85,247,.18)
+      );
+      box-shadow: 0 0 18px rgba(255,91,146,.12);
+    }
 
-        .gallery-heading {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: titleRise 0.8s ease both;
-        }
+    .action-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #061014;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(100deg, var(--cyan), #83fff9);
+      box-shadow: 0 8px 22px rgba(37,244,238,.16);
+      transition: transform .2s, filter .2s;
+    }
 
-        .gallery-heading h2 {
-            color: #ff5b92;
-            font-size: clamp(26px, 4vw, 36px);
-            text-shadow: 0 0 15px rgba(139,22,56,0.35);
-        }
+    .action-button:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.06);
+    }
 
-        .gallery-heading p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
+    .action-button.secondary {
+      color: white;
+      background: linear-gradient(100deg, #5c0d24, #a51d4b);
+    }
 
-        #gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
+    .action-button.ghost {
+      color: var(--cyan);
+      background: rgba(37,244,238,.07);
+      border: 1px solid rgba(37,244,238,.35);
+      box-shadow: none;
+    }
 
-        .gallery-card {
-            background: linear-gradient(145deg, #17171f, #0b0b10);
-            border: 1px solid rgba(168,85,247,0.25);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-            opacity: 0;
-            animation: galleryCardEntrance 0.7s ease forwards;
-            transition: transform 0.35s ease, border-color 0.35s ease,
-                        box-shadow 0.35s ease;
-        }
+    .full {
+      width: 100%;
+      margin-top: 12px;
+    }
 
-        .gallery-card:hover {
-            transform: translateY(-8px) scale(1.015);
-            border-color: var(--cyan);
-            box-shadow: 0 12px 32px rgba(37,244,238,0.13),
-                        0 0 15px rgba(168,85,247,0.12);
-        }
+    #result {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
 
-        .gallery-card img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            display: block;
-            cursor: pointer;
-            transition: transform 0.6s ease, filter 0.4s ease;
-        }
+    .pass-result {
+      background: #09281f;
+      color: #b4ffce;
+      border: 1px solid #28a96b;
+    }
 
-        .gallery-card:hover img {
-            transform: scale(1.055);
-            filter: brightness(1.08);
-        }
+    .fail-result {
+      background: #2d111d;
+      color: #ffc4d0;
+      border: 1px solid #e34d75;
+    }
 
-        .gallery-info {
-            padding: 18px;
-        }
+    #gallery-section { display: none; }
 
-        .gallery-info h3 {
-            margin-top: 0;
-            color: #ff6c9c;
-        }
+    .gallery-heading {
+      text-align: center;
+      padding: 24px;
+      border-radius: 20px;
+      margin: 0 0 18px;
+    }
 
-        .gallery-info p {
-            color: #d2d2df;
-            line-height: 1.6;
-            overflow-wrap: anywhere;
-        }
+    .gallery-heading h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin: 0 0 9px;
+      color: var(--cyan);
+      text-shadow: 0 0 20px rgba(37,244,238,.18);
+    }
 
-        .loading {
-            text-align: center;
-            padding: 30px;
-            font-size: 18px;
-            color: var(--cyan);
-            animation: softPulse 1.5s ease-in-out infinite;
-        }
+    .gallery-heading p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
 
-        .empty-gallery {
-            text-align: center;
-            padding: 30px;
-            background: #111118;
-            border: 1px solid #333;
-            border-radius: 15px;
-            color: white;
-            grid-column: 1 / -1;
-            animation: cardEntrance 0.6s ease both;
-        }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
 
-        #imageModal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.94);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(7px);
-        }
+    .stat {
+      border-radius: 14px;
+      padding: 15px;
+      text-align: center;
+    }
 
-        #modalImage {
-            max-width: 90%;
-            max-height: 85vh;
-            border: 1px solid rgba(37,244,238,0.5);
-            border-radius: 12px;
-            box-shadow: 0 0 35px rgba(37,244,238,0.15);
-            animation: modalZoom 0.3s ease both;
-        }
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--cyan);
+    }
 
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            color: white;
-            background: transparent;
-            border: none;
-            font-size: 42px;
-            cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .8rem;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-        .close-modal:hover {
-            color: var(--cyan);
-            transform: rotate(90deg);
-        }
+    .toolbar {
+      padding: 14px;
+      border-radius: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
 
-        @keyframes pageFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .toolbar label {
+      color: var(--muted);
+      font-size: .9rem;
+    }
 
-        @keyframes titleRise {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .toolbar input,
+    .toolbar select {
+      flex: 1;
+      min-width: 160px;
+      background: #080b14;
+      color: var(--text);
+      border: 1px solid #394158;
+      border-radius: 10px;
+      padding: 12px;
+      font: inherit;
+      outline: none;
+    }
 
-        @keyframes cardEntrance {
-            from { opacity: 0; transform: translateY(22px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .toolbar input:focus,
+    .toolbar select:focus {
+      border-color: var(--cyan);
+    }
 
-        @keyframes questionEntrance {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .toolbar .count {
+      color: var(--cyan);
+      font-size: .88rem;
+      margin-left: auto;
+      white-space: nowrap;
+    }
 
-        @keyframes answerEntrance {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+    #gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 20px;
+    }
 
-        @keyframes galleryCardEntrance {
-            from { opacity: 0; transform: translateY(28px) scale(0.97); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
+    .gallery-card {
+      border-radius: 18px;
+      overflow: hidden;
+      min-width: 0;
+      animation: cardIn .6s ease both;
+      transition: transform .28s, border-color .28s, box-shadow .28s;
+    }
 
-        @keyframes modalZoom {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
-        }
+    .gallery-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(37,244,238,.65);
+      box-shadow:
+        0 16px 36px rgba(0,0,0,.34),
+        0 0 24px rgba(37,244,238,.08);
+    }
 
-        @keyframes softPulse {
-            0%, 100% { opacity: 0.65; }
-            50% { opacity: 1; }
-        }
+    .image-wrap {
+      height: 235px;
+      overflow: hidden;
+      position: relative;
+      background: #080b14;
+    }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .image-wrap::after {
+      content: "OPEN IMAGE ↗";
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: rgba(0,0,0,.72);
+      border: 1px solid rgba(37,244,238,.4);
+      font-size: .68rem;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
 
-        @keyframes headerShine {
-            0%, 15% { left: -40%; }
-            55%, 100% { left: 130%; }
-        }
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform .55s, filter .35s;
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
-            }
+    .gallery-card:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.12);
+    }
 
-            .gallery-card { opacity: 1; }
-        }
+    .gallery-info { padding: 17px; }
 
-        @media (max-width: 600px) {
-            .container { padding: 12px; }
-            header { padding: 28px 15px; }
-            .question-box { padding: 17px; }
-            .question-box h3 { font-size: 17px; }
-            .answer-button { font-size: 14px; }
-            #gallery-container { grid-template-columns: 1fr; }
-            .gallery-card img { height: 250px; }
-            .close-modal { right: 15px; top: 10px; }
-        }
-    </style>
+    .gallery-info h3 {
+      margin: 0 0 8px;
+      color: #ff8bb3;
+      font-size: 1.08rem;
+      overflow-wrap: anywhere;
+    }
+
+    .gallery-info p {
+      margin: 0;
+      color: #d0d6e7;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .loading,
+    .empty-gallery {
+      grid-column: 1 / -1;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .loading {
+      color: var(--cyan);
+      animation: pulse 1.4s infinite;
+    }
+
+    .empty-gallery h3 { color: var(--cyan); }
+
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(2,4,10,.94);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 65px 18px 24px;
+    }
+
+    #modalImage {
+      max-width: min(100%, 1100px);
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid rgba(37,244,238,.48);
+      box-shadow: 0 0 45px rgba(37,244,238,.12);
+      animation: zoom .25s ease;
+    }
+
+    .close-modal,
+    .modal-nav {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(10,15,28,.8);
+      color: white;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      cursor: pointer;
+      font-size: 1.6rem;
+      display: grid;
+      place-items: center;
+      transition: .2s;
+    }
+
+    .close-modal {
+      top: 15px;
+      right: 18px;
+      font-size: 2rem;
+    }
+
+    .modal-nav {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.35rem;
+    }
+
+    .modal-nav.prev { left: 15px; }
+    .modal-nav.next { right: 15px; }
+
+    .close-modal:hover,
+    .modal-nav:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    #modalCaption {
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      bottom: 18px;
+      text-align: center;
+      color: #d9e4f7;
+      font-size: .95rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #8e98b0;
+      padding: 0 15px 30px;
+      font-size: .85rem;
+    }
+
+    footer span { color: var(--cyan); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes zoom {
+      from { opacity: 0; transform: scale(.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .65; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes flow {
+      to { background-position: 200% 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media (max-width: 650px) {
+      header { padding: 36px 15px; }
+      .container { padding: 20px 12px 40px; }
+      .quiz-intro { padding: 21px 16px; }
+      .question-box { padding: 16px; }
+      .stats { gap: 8px; }
+      .stat { padding: 12px 5px; }
+      .stat strong { font-size: 1.1rem; }
+      .stat span { font-size: .68rem; }
+      .toolbar { align-items: stretch; }
+      .toolbar input,
+      .toolbar select { min-width: 100%; }
+      .toolbar .count { margin-left: 0; }
+      #gallery-container { grid-template-columns: 1fr; }
+      .image-wrap { height: 250px; }
+      .modal-nav.prev { left: 6px; }
+      .modal-nav.next { right: 6px; }
+      #modalImage { max-width: 100%; max-height: 74vh; }
+      #modalCaption { left: 10%; right: 10%; bottom: 12px; }
+    }
+  </style>
 </head>
 
 <body>
-
 <header>
-    <h1>Clinton Ncube</h1>
-    <p>Personal Gallery</p>
+  <div class="eyebrow">
+    <span class="pulse-dot"></span>
+    Personal memories · Sports Energy
+  </div>
+  <h1>CLINTON NCUBE</h1>
+  <p>My Gallery — moments, memories and milestones.</p>
+  <div class="header-line"></div>
 </header>
 
-<div class="container">
+<main class="container">
+  <section id="quiz-section" class="quiz-section">
+    <div class="quiz-intro">
+      <h2>🔐 Gallery Access Challenge</h2>
+      <p>Answer a quick quiz about me and my website to unlock the gallery.</p>
+      <p>
+        The question bank contains <strong>52 questions</strong>.
+        Each attempt selects <strong>10 random questions</strong>;
+        score at least <strong>5/10</strong> to enter.
+      </p>
+    </div>
 
-    <section id="quiz-section">
-        <div class="quiz-intro">
-            <h2>🔐 Gallery Access Quiz</h2>
-            <p>Before you can view my Gallery, you must answer a short quiz about me and my website.</p>
-            <p>There are <strong>50 questions in the question bank</strong>, but only <strong>10 questions</strong> will be randomly selected for each attempt.</p>
-            <p>You need at least <strong>5/10</strong> to unlock the Gallery.</p>
-        </div>
+    <div class="quiz-progress" id="quiz-progress" aria-live="polite">
+      Preparing your challenge…
+    </div>
 
-        <div class="quiz-progress" id="quiz-progress">Loading quiz...</div>
-        <div id="quiz-container"></div>
+    <div id="quiz-container"></div>
 
-        <button class="submit-button" id="submit-quiz" type="button">Submit Quiz</button>
-        <div id="result"></div>
-        <button class="retry-button" id="retry-button" type="button" style="display:none;">Try Again</button>
-    </section>
+    <button class="action-button full" id="submit-quiz" type="button">
+      Submit answers →
+    </button>
 
-    <section id="gallery-section">
-        <div class="gallery-heading">
-            <h2>📸 My Gallery</h2>
-            <p>Welcome to my personal collection of pictures and memories.</p>
-        </div>
+    <div id="result" role="status" aria-live="polite"></div>
 
-        <div id="gallery-container">
-            <div class="loading">Loading Gallery...</div>
-        </div>
-    </section>
+    <button
+      class="action-button secondary full"
+      id="retry-button"
+      type="button"
+      style="display:none"
+    >
+      ↻ Try a new set of questions
+    </button>
+  </section>
 
-</div>
+  <section id="gallery-section">
+    <div class="gallery-heading">
+      <h2>📸 The Memory Zone</h2>
+      <p>
+        Every picture tells a story. Search, filter and open a picture
+        for a closer look.
+      </p>
+    </div>
 
-<div id="imageModal" role="dialog" aria-modal="true" aria-label="Expanded gallery image">
-    <button class="close-modal" type="button" id="close-modal" aria-label="Close image">&times;</button>
-    <img id="modalImage" src="" alt="Gallery image">
+    <div class="stats" aria-label="Gallery statistics">
+      <div class="stat">
+        <strong id="photo-total">—</strong>
+        <span>Photos loaded</span>
+      </div>
+      <div class="stat">
+        <strong id="photo-visible">—</strong>
+        <span>Currently shown</span>
+      </div>
+      <div class="stat">
+        <strong>∞</strong>
+        <span>Memories</span>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <label for="gallery-search">Find a memory</label>
+      <input
+        id="gallery-search"
+        type="search"
+        placeholder="Search titles or descriptions…"
+        autocomplete="off"
+      >
+
+      <label for="gallery-sort">Sort</label>
+      <select id="gallery-sort">
+        <option value="default">Default order</option>
+        <option value="title">Title A–Z</option>
+        <option value="title-desc">Title Z–A</option>
+      </select>
+
+      <span class="count" id="gallery-count" aria-live="polite">
+        Loading…
+      </span>
+    </div>
+
+    <div id="gallery-container">
+      <div class="loading">⚡ Loading your memories…</div>
+    </div>
+  </section>
+</main>
+
+<div
+  id="imageModal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Expanded gallery image"
+>
+  <button
+    class="close-modal"
+    type="button"
+    id="close-modal"
+    aria-label="Close image"
+  >&times;</button>
+
+  <button
+    class="modal-nav prev"
+    type="button"
+    id="prev-image"
+    aria-label="Previous image"
+  >‹</button>
+
+  <img id="modalImage" src="" alt="Gallery image">
+
+  <button
+    class="modal-nav next"
+    type="button"
+    id="next-image"
+    aria-label="Next image"
+  >›</button>
+
+  <div id="modalCaption"></div>
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-        authDomain: "clinton-ncube-website.firebaseapp.com",
-        databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-        projectId: "clinton-ncube-website",
-        storageBucket: "clinton-ncube-website.firebasestorage.app",
-        messagingSenderId: "946671700613",
-        appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
-        measurementId: "G-K1S62MHHXP"
-    };
+  import { getDatabase, ref, get } from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    authDomain: "clinton-ncube-website.firebaseapp.com",
+    databaseURL:
+      "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+    projectId: "clinton-ncube-website",
+    storageBucket: "clinton-ncube-website.firebasestorage.app",
+    messagingSenderId: "946671700613",
+    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+    measurementId: "G-K1S62MHHXP"
+  };
 
-    const questionBank = [
-        { question: "What is my full name?", options: ["Thabang Clinton Ncube", "Clinton James Ncube", "Thabang Ncube Junior", "Clinton Thabo Ncube"], answer: "Thabang Clinton Ncube" },
-        { question: "What nickname do I use?", options: ["Vixeny", "Clinty", "CJ", "TNC"], answer: "Vixeny" },
-        { question: "How old am I?", options: ["16", "17", "18", "19"], answer: "18" },
-        { question: "When is my birthday?", options: ["21 September", "21 October", "12 September", "2 September"], answer: "21 September" },
-        { question: "What is my favourite colour?", options: ["Blue", "Red", "Black", "Green"], answer: "Red" },
-        { question: "What is my favourite food?", options: ["Pizza", "Rice", "Spaghetti", "Chicken"], answer: "Spaghetti" },
-        { question: "What is my favourite drink?", options: ["Fanta", "Coke", "Sprite", "Mazoe"], answer: "Coke" },
-        { question: "What is my favourite school subject?", options: ["Biology", "Chemistry", "Mathematics", "English"], answer: "Mathematics" },
-        { question: "Which subject do I find most challenging?", options: ["Mathematics", "Biology", "English", "Heritage"], answer: "Biology" },
-        { question: "What is my favourite school activity?", options: ["Playing basketball", "Debating", "Singing", "Chess"], answer: "Playing basketball" },
-        { question: "What is my favourite sport?", options: ["Football", "Athletics", "Basketball", "Swimming"], answer: "Basketball" },
-        { question: "Who is my favourite basketball player?", options: ["Stephen Curry", "LeBron James", "Kevin Durant", "Michael Jordan"], answer: "LeBron James" },
-        { question: "What is my favourite basketball team?", options: ["Los Angeles Lakers", "Golden State Warriors", "San Antonio Spurs", "Boston Celtics"], answer: "San Antonio Spurs" },
-        { question: "Which other sports do I enjoy?", options: ["Swimming and athletics", "Football and rugby", "Tennis and golf", "Boxing and cricket"], answer: "Swimming and athletics" },
-        { question: "What are my hobbies?", options: ["Basketball, swimming, reading and athletics", "Football, gaming and music", "Swimming, football and chess", "Reading, rugby and cricket"], answer: "Basketball, swimming, reading and athletics" },
-        { question: "Do I enjoy swimming?", options: ["Yes", "No", "Sometimes", "I don't know"], answer: "Yes" },
-        { question: "Do I enjoy reading?", options: ["Yes", "No", "Only at school", "Rarely"], answer: "Yes" },
-        { question: "Do I enjoy athletics?", options: ["Yes", "No", "Only during Sports Day", "I have never tried it"], answer: "Yes" },
-        { question: "What is my favourite book or type of book?", options: ["One", "Novels", "Science books", "Biographies"], answer: "One" },
-        { question: "What do I usually do in my free time?", options: ["Play basketball, swim, read and do athletics", "Watch television all day", "Only play video games", "Only study"], answer: "Play basketball, swim, read and do athletics" },
-        { question: "What school do I attend?", options: ["Silveira High School", "Mpopoma High School", "Milton High School", "Mzilikazi High School"], answer: "Silveira High School" },
-        { question: "What Form am I in?", options: ["Form 2", "Form 3", "Form 4", "Form 5"], answer: "Form 4" },
-        { question: "Which group of subjects am I studying?", options: ["Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects", "Only Mathematics and English", "Only Science subjects", "Only practical subjects"], answer: "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects" },
-        { question: "What is my favourite thing about Silveira High School?", options: ["The people are loving and social", "The school is very quiet", "The school has no activities", "The school has no students"], answer: "The people are loving and social" },
-        { question: "What is my favourite school event?", options: ["Sports Day", "Graduation", "Prize Giving Day", "Parents Day"], answer: "Sports Day" },
-        { question: "Which school event/project am I most proud of?", options: ["Science exhibition", "Football tournament", "School concert", "Debate competition"], answer: "Science exhibition" },
-        { question: "What career would I like to pursue?", options: ["Engineer", "Teacher", "Doctor", "Lawyer"], answer: "Doctor" },
-        { question: "What skill would I most like to improve?", options: ["My skills in general", "Only drawing", "Only singing", "Only cooking"], answer: "My skills in general" },
-        { question: "What is one academic goal I have?", options: ["To improve my academic performance", "To stop studying", "To avoid examinations", "To leave school"], answer: "To improve my academic performance" },
-        { question: "What do I enjoy doing with my classmates?", options: ["Taking part in school activities and projects", "Avoiding everyone", "Only playing games", "Only studying alone"], answer: "Taking part in school activities and projects" },
-        { question: "What is the name displayed on my website?", options: ["Thabang Ncube", "Clinton Ncube", "Vixeny Ncube", "TC Ncube"], answer: "Clinton Ncube" },
-        { question: "What is the main purpose of my website?", options: ["To showcase my projects, hobbies, skills and memories", "To sell clothes", "To play online games", "To publish school news"], answer: "To showcase my projects, hobbies, skills and memories" },
-        { question: "Which set contains pages on my website?", options: ["Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin", "Only Home and Gallery", "News, Sports and Shop", "Music, Games and Videos"], answer: "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin" },
-        { question: "What can visitors see in my Gallery?", options: ["Pictures and memories", "Only school results", "Only documents", "Only sports scores"], answer: "Pictures and memories" },
-        { question: "What can visitors find on my Projects page?", options: ["My projects", "Only photographs", "Only music", "My passwords"], answer: "My projects" },
-        { question: "What can visitors find on my Hobbies page?", options: ["My hobbies and interests", "My exam papers", "My passwords", "Only school announcements"], answer: "My hobbies and interests" },
-        { question: "What can visitors find on my Achievements page?", options: ["My achievements", "My favourite foods", "Only photographs", "School fees"], answer: "My achievements" },
-        { question: "What can visitors find on my Skills page?", options: ["My skills", "My timetable", "My exam results only", "My school fees"], answer: "My skills" },
-        { question: "What can visitors find on my About page?", options: ["Information about me", "Only photographs", "Only basketball scores", "Only school projects"], answer: "Information about me" },
-        { question: "What can visitors use the Contact page for?", options: ["Contacting me", "Playing games", "Viewing sports scores", "Editing the website"], answer: "Contacting me" },
-        { question: "What is my favourite movie?", options: ["The Rookie", "Black Panther", "Avengers", "The Lion King"], answer: "The Rookie" },
-        { question: "What is my favourite TV series?", options: ["The Rookie", "Suits", "Prison Break", "Cobra Kai"], answer: "The Rookie" },
-        { question: "What is my favourite game?", options: ["NBA", "FIFA", "Minecraft", "Fortnite"], answer: "NBA" },
-        { question: "Who is my favourite music artist or group?", options: ["Jnr Spragga", "Winky D", "Jah Prayzah", "Freddie Gwala"], answer: "Jnr Spragga" },
-        { question: "What is my favourite song?", options: ["Daka", "Jerusalema", "Mambo", "Hallelujah"], answer: "Daka" },
-        { question: "Where would I like to travel?", options: ["Canada", "Australia", "United Kingdom", "Brazil"], answer: "Canada" },
-        { question: "What is something I am really good at?", options: ["Playing basketball", "Cooking", "Singing", "Drawing"], answer: "Playing basketball" },
-        { question: "What is something I would like to learn?", options: ["New and useful skills", "Nothing new", "Only cooking", "Only dancing"], answer: "New and useful skills" },
-        { question: "What is one thing I am proud of?", options: ["My projects and personal website", "My collection of cars", "My music studio", "My football team"], answer: "My projects and personal website" },
-        { question: "What is one interesting fact about me?", options: ["I enjoy basketball, swimming, reading and athletics", "I only enjoy football", "I dislike all sports", "I never read"], answer: "I enjoy basketball, swimming, reading and athletics" },
-        { question: "Which activity is included among my hobbies?", options: ["Athletics", "Boxing", "Rugby", "Golf"], answer: "Athletics" },
-        { question: "What do I enjoy developing?", options: ["New skills", "Cars", "Buildings", "Musical instruments"], answer: "New skills" }
-    ];
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
-    let selectedQuestions = [];
-    let userAnswers = [];
+  // The quiz is a light access gate, not secure authentication.
+  const questionBank = [
+    {
+      question: "What is my full name?",
+      options: [
+        "Thabang Clinton Ncube",
+        "Clinton James Ncube",
+        "Thabang Ncube Junior",
+        "Clinton Thabo Ncube"
+      ],
+      answer: "Thabang Clinton Ncube"
+    },
+    {
+      question: "What nickname do I use?",
+      options: ["Vixeny", "Clinty", "CJ", "TNC"],
+      answer: "Vixeny"
+    },
+    {
+      question: "How old am I?",
+      options: ["16", "17", "18", "19"],
+      answer: "18"
+    },
+    {
+      question: "When is my birthday?",
+      options: [
+        "21 September",
+        "21 October",
+        "12 September",
+        "2 September"
+      ],
+      answer: "21 September"
+    },
+    {
+      question: "What is my favourite colour?",
+      options: ["Blue", "Red", "Black", "Green"],
+      answer: "Red"
+    },
+    {
+      question: "What is my favourite food?",
+      options: ["Pizza", "Rice", "Spaghetti", "Chicken"],
+      answer: "Spaghetti"
+    },
+    {
+      question: "What is my favourite drink?",
+      options: ["Fanta", "Coke", "Sprite", "Mazoe"],
+      answer: "Coke"
+    },
+    {
+      question: "What is my favourite school subject?",
+      options: ["Biology", "Chemistry", "Mathematics", "English"],
+      answer: "Mathematics"
+    },
+    {
+      question: "Which subject do I find most challenging?",
+      options: ["Mathematics", "Biology", "English", "Heritage"],
+      answer: "Biology"
+    },
+    {
+      question: "What is my favourite school activity?",
+      options: [
+        "Playing basketball",
+        "Debating",
+        "Singing",
+        "Chess"
+      ],
+      answer: "Playing basketball"
+    },
+    {
+      question: "What is my favourite sport?",
+      options: ["Football", "Athletics", "Basketball", "Swimming"],
+      answer: "Basketball"
+    },
+    {
+      question: "Who is my favourite basketball player?",
+      options: [
+        "Stephen Curry",
+        "LeBron James",
+        "Kevin Durant",
+        "Michael Jordan"
+      ],
+      answer: "LeBron James"
+    },
+    {
+      question: "What is my favourite basketball team?",
+      options: [
+        "Los Angeles Lakers",
+        "Golden State Warriors",
+        "San Antonio Spurs",
+        "Boston Celtics"
+      ],
+      answer: "San Antonio Spurs"
+    },
+    {
+      question: "Which other sports do I enjoy?",
+      options: [
+        "Swimming and athletics",
+        "Football and rugby",
+        "Tennis and golf",
+        "Boxing and cricket"
+      ],
+      answer: "Swimming and athletics"
+    },
+    {
+      question: "What are my hobbies?",
+      options: [
+        "Basketball, swimming, reading and athletics",
+        "Football, gaming and music",
+        "Swimming, football and chess",
+        "Reading, rugby and cricket"
+      ],
+      answer: "Basketball, swimming, reading and athletics"
+    },
+    {
+      question: "Do I enjoy swimming?",
+      options: ["Yes", "No", "Sometimes", "I don't know"],
+      answer: "Yes"
+    },
+    {
+      question: "Do I enjoy reading?",
+      options: ["Yes", "No", "Only at school", "Rarely"],
+      answer: "Yes"
+    },
+    {
+      question: "Do I enjoy athletics?",
+      options: [
+        "Yes",
+        "No",
+        "Only during Sports Day",
+        "I have never tried it"
+      ],
+      answer: "Yes"
+    },
+    {
+      question: "What is my favourite book or type of book?",
+      options: ["One", "Novels", "Science books", "Biographies"],
+      answer: "One"
+    },
+    {
+      question: "What do I usually do in my free time?",
+      options: [
+        "Play basketball, swim, read and do athletics",
+        "Watch television all day",
+        "Only play video games",
+        "Only study"
+      ],
+      answer: "Play basketball, swim, read and do athletics"
+    },
+    {
+      question: "What school do I attend?",
+      options: [
+        "Silveira High School",
+        "Mpopoma High School",
+        "Milton High School",
+        "Mzilikazi High School"
+      ],
+      answer: "Silveira High School"
+    },
+    {
+      question: "What Form am I in?",
+      options: ["Form 2", "Form 3", "Form 4", "Form 5"],
+      answer: "Form 4"
+    },
+    {
+      question: "Which group of subjects am I studying?",
+      options: [
+        "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects",
+        "Only Mathematics and English",
+        "Only Science subjects",
+        "Only practical subjects"
+      ],
+      answer:
+        "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects"
+    },
+    {
+      question: "What is my favourite thing about Silveira High School?",
+      options: [
+        "The people are loving and social",
+        "The school is very quiet",
+        "The school has no activities",
+        "The school has no students"
+      ],
+      answer: "The people are loving and social"
+    },
+    {
+      question: "What is my favourite school event?",
+      options: [
+        "Sports Day",
+        "Graduation",
+        "Prize Giving Day",
+        "Parents Day"
+      ],
+      answer: "Sports Day"
+    },
+    {
+      question: "Which school event/project am I most proud of?",
+      options: [
+        "Science exhibition",
+        "Football tournament",
+        "School concert",
+        "Debate competition"
+      ],
+      answer: "Science exhibition"
+    },
+    {
+      question: "What career would I like to pursue?",
+      options: ["Engineer", "Teacher", "Doctor", "Lawyer"],
+      answer: "Doctor"
+    },
+    {
+      question: "What skill would I most like to improve?",
+      options: [
+        "My skills in general",
+        "Only drawing",
+        "Only singing",
+        "Only cooking"
+      ],
+      answer: "My skills in general"
+    },
+    {
+      question: "What is one academic goal I have?",
+      options: [
+        "To improve my academic performance",
+        "To stop studying",
+        "To avoid examinations",
+        "To leave school"
+      ],
+      answer: "To improve my academic performance"
+    },
+    {
+      question: "What do I enjoy doing with my classmates?",
+      options: [
+        "Taking part in school activities and projects",
+        "Avoiding everyone",
+        "Only playing games",
+        "Only studying alone"
+      ],
+      answer: "Taking part in school activities and projects"
+    },
+    {
+      question: "What is the name displayed on my website?",
+      options: [
+        "Thabang Ncube",
+        "Clinton Ncube",
+        "Vixeny Ncube",
+        "TC Ncube"
+      ],
+      answer: "Clinton Ncube"
+    },
+    {
+      question: "What is the main purpose of my website?",
+      options: [
+        "To showcase my projects, hobbies, skills and memories",
+        "To sell clothes",
+        "To play online games",
+        "To publish school news"
+      ],
+      answer: "To showcase my projects, hobbies, skills and memories"
+    },
+    {
+      question: "Which set contains pages on my website?",
+      options: [
+        "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin",
+        "Only Home and Gallery",
+        "News, Sports and Shop",
+        "Music, Games and Videos"
+      ],
+      answer:
+        "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin"
+    },
+    {
+      question: "What can visitors see in my Gallery?",
+      options: [
+        "Pictures and memories",
+        "Only school results",
+        "Only documents",
+        "Only sports scores"
+      ],
+      answer: "Pictures and memories"
+    },
+    {
+      question: "What can visitors find on my Projects page?",
+      options: [
+        "My projects",
+        "Only photographs",
+        "Only music",
+        "My passwords"
+      ],
+      answer: "My projects"
+    },
+    {
+      question: "What can visitors find on my Hobbies page?",
+      options: [
+        "My hobbies and interests",
+        "My exam papers",
+        "My passwords",
+        "Only school announcements"
+      ],
+      answer: "My hobbies and interests"
+    },
+    {
+      question: "What can visitors find on my Achievements page?",
+      options: [
+        "My achievements",
+        "My favourite foods",
+        "Only photographs",
+        "School fees"
+      ],
+      answer: "My achievements"
+    },
+    {
+      question: "What can visitors find on my Skills page?",
+      options: [
+        "My skills",
+        "My timetable",
+        "My exam results only",
+        "My school fees"
+      ],
+      answer: "My skills"
+    },
+    {
+      question: "What can visitors find on my About page?",
+      options: [
+        "Information about me",
+        "Only photographs",
+        "Only basketball scores",
+        "Only school projects"
+      ],
+      answer: "Information about me"
+    },
+    {
+      question: "What can visitors use the Contact page for?",
+      options: [
+        "Contacting me",
+        "Playing games",
+        "Viewing sports scores",
+        "Editing the website"
+      ],
+      answer: "Contacting me"
+    },
+    {
+      question: "What is my favourite movie?",
+      options: [
+        "The Rookie",
+        "Black Panther",
+        "Avengers",
+        "The Lion King"
+      ],
+      answer: "The Rookie"
+    },
+    {
+      question: "What is my favourite TV series?",
+      options: ["The Rookie", "Suits", "Prison Break", "Cobra Kai"],
+      answer: "The Rookie"
+    },
+    {
+      question: "What is my favourite game?",
+      options: ["NBA", "FIFA", "Minecraft", "Fortnite"],
+      answer: "NBA"
+    },
+    {
+      question: "Who is my favourite music artist or group?",
+      options: [
+        "Jnr Spragga",
+        "Winky D",
+        "Jah Prayzah",
+        "Freddie Gwala"
+      ],
+      answer: "Jnr Spragga"
+    },
+    {
+      question: "What is my favourite song?",
+      options: ["Daka", "Jerusalema", "Mambo", "Hallelujah"],
+      answer: "Daka"
+    },
+    {
+      question: "Where would I like to travel?",
+      options: [
+        "Canada",
+        "Australia",
+        "United Kingdom",
+        "Brazil"
+      ],
+      answer: "Canada"
+    },
+    {
+      question: "What is something I am really good at?",
+      options: [
+        "Playing basketball",
+        "Cooking",
+        "Singing",
+        "Drawing"
+      ],
+      answer: "Playing basketball"
+    },
+    {
+      question: "What is something I would like to learn?",
+      options: [
+        "New and useful skills",
+        "Nothing new",
+        "Only cooking",
+        "Only dancing"
+      ],
+      answer: "New and useful skills"
+    },
+    {
+      question: "What is one thing I am proud of?",
+      options: [
+        "My projects and personal website",
+        "My collection of cars",
+        "My music studio",
+        "My football team"
+      ],
+      answer: "My projects and personal website"
+    },
+    {
+      question: "What is one interesting fact about me?",
+      options: [
+        "I enjoy basketball, swimming, reading and athletics",
+        "I only enjoy football",
+        "I dislike all sports",
+        "I never read"
+      ],
+      answer: "I enjoy basketball, swimming, reading and athletics"
+    },
+    {
+      question: "Which activity is included among my hobbies?",
+      options: ["Athletics", "Boxing", "Rugby", "Golf"],
+      answer: "Athletics"
+    },
+    {
+      question: "What do I enjoy developing?",
+      options: [
+        "New skills",
+        "Cars",
+        "Buildings",
+        "Musical instruments"
+      ],
+      answer: "New skills"
+    }
+  ];
 
-    function shuffle(array) {
-        const result = [...array];
-        for (let i = result.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [result[i], result[j]] = [result[j], result[i]];
-        }
-        return result;
+  let selectedQuestions = [];
+  let userAnswers = [];
+  let galleryItems = [];
+  let currentModalIndex = 0;
+
+  const $ = id => document.getElementById(id);
+
+  function shuffle(array) {
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
     }
 
-    function startQuiz() {
-        selectedQuestions = shuffle(questionBank).slice(0, 10);
-        userAnswers = new Array(10).fill(null);
+    return result;
+  }
 
-        const result = document.getElementById("result");
-        result.style.display = "none";
-        result.className = "";
+  function startQuiz() {
+    selectedQuestions = shuffle(questionBank).slice(0, 10);
+    userAnswers = new Array(10).fill(null);
 
-        document.getElementById("retry-button").style.display = "none";
-        document.getElementById("submit-quiz").style.display = "block";
+    $("result").style.display = "none";
+    $("result").className = "";
+    $("retry-button").style.display = "none";
+    $("submit-quiz").style.display = "block";
 
-        renderQuiz();
-    }
+    renderQuiz();
+  }
 
-    function renderQuiz() {
-        const quizContainer = document.getElementById("quiz-container");
-        quizContainer.innerHTML = "";
+  function renderQuiz() {
+    const host = $("quiz-container");
+    host.replaceChildren();
 
-        selectedQuestions.forEach((question, index) => {
-            const questionBox = document.createElement("div");
-            questionBox.className = "question-box";
-            questionBox.style.animationDelay = `${index * 70}ms`;
+    selectedQuestions.forEach((question, index) => {
+      const box = document.createElement("article");
+      box.className = "question-box";
+      box.style.animationDelay = `${index * 55}ms`;
 
-            const questionTitle = document.createElement("h3");
-            questionTitle.textContent = `${index + 1}. ${question.question}`;
-            questionBox.appendChild(questionTitle);
+      const title = document.createElement("h3");
+      title.textContent = `${index + 1}. ${question.question}`;
+      box.appendChild(title);
 
-            const answersDiv = document.createElement("div");
-            answersDiv.className = "answers";
+      const answers = document.createElement("div");
+      answers.className = "answers";
 
-            shuffle(question.options).forEach((option, optionIndex) => {
-                const button = document.createElement("button");
-                button.className = "answer-button";
-                button.textContent = option;
-                button.type = "button";
-                button.style.animationDelay = `${optionIndex * 60}ms`;
+      shuffle(question.options).forEach(option => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-button";
+        button.textContent = option;
+        button.setAttribute("aria-pressed", "false");
 
-                button.addEventListener("click", () => {
-                    answersDiv.querySelectorAll(".answer-button").forEach(btn => {
-                        btn.classList.remove("selected");
-                    });
+        button.addEventListener("click", () => {
+          answers.querySelectorAll(".answer-button").forEach(b => {
+            b.classList.remove("selected");
+            b.setAttribute("aria-pressed", "false");
+          });
 
-                    button.classList.add("selected");
-                    userAnswers[index] = option;
-                });
+          button.classList.add("selected");
+          button.setAttribute("aria-pressed", "true");
+          userAnswers[index] = option;
 
-                answersDiv.appendChild(button);
-            });
-
-            questionBox.appendChild(answersDiv);
-            quizContainer.appendChild(questionBox);
+          $("quiz-progress").textContent =
+            `Question ${index + 1} of 10 selected · ` +
+            `${userAnswers.filter(a => a !== null).length}/10 answered`;
         });
 
-        document.getElementById("quiz-progress").textContent =
-            "10 questions selected randomly from the 50-question bank";
-    }
+        answers.appendChild(button);
+      });
 
-    document.getElementById("submit-quiz").addEventListener("click", () => {
-        const unanswered = userAnswers.filter(answer => answer === null).length;
-
-        if (unanswered > 0) {
-            alert(`Please answer all 10 questions before submitting. You have ${unanswered} unanswered question(s).`);
-            return;
-        }
-
-        const score = selectedQuestions.reduce((total, question, index) => {
-            return total + (userAnswers[index] === question.answer ? 1 : 0);
-        }, 0);
-
-        const result = document.getElementById("result");
-        result.style.display = "block";
-        document.getElementById("submit-quiz").style.display = "none";
-
-        if (score >= 5) {
-            result.className = "pass-result";
-            result.textContent =
-                `Congratulations! You scored ${score}/10. You passed the quiz and the Gallery is now unlocked.`;
-
-            document.getElementById("quiz-section").style.display = "none";
-            document.getElementById("gallery-section").style.display = "block";
-
-            loadGallery();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-            result.className = "fail-result";
-            result.textContent =
-                `Quiz not passed. You scored ${score}/10. You need at least 5/10 to unlock the Gallery.`;
-            document.getElementById("retry-button").style.display = "block";
-        }
+      box.appendChild(answers);
+      host.appendChild(box);
     });
 
-    document.getElementById("retry-button").addEventListener("click", () => {
-        startQuiz();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    $("quiz-progress").textContent =
+      "10 random questions selected · 0/10 answered";
+  }
 
-    function fixImagePath(path) {
-        if (!path) return "";
+  $("submit-quiz").addEventListener("click", () => {
+    const unanswered = userAnswers.filter(a => a === null).length;
 
-        if (/^(https?:\/\/|data:)/i.test(path) || path.startsWith("/")) {
-            return path;
-        }
-
-        if (path.startsWith("images/")) {
-            return path;
-        }
-
-        return `images/${path}`;
+    if (unanswered) {
+      $("result").style.display = "block";
+      $("result").className = "fail-result";
+      $("result").textContent =
+        `Please answer all 10 questions first. ` +
+        `${unanswered} remain unanswered.`;
+      return;
     }
 
-    function createGalleryCard(item, index) {
-        const card = document.createElement("div");
-        card.className = "gallery-card";
-        card.style.animationDelay = `${Math.min(index * 100, 900)}ms`;
+    const score = selectedQuestions.reduce(
+      (total, question, index) =>
+        total + (userAnswers[index] === question.answer ? 1 : 0),
+      0
+    );
 
-        const imagePath = fixImagePath(item.file || item.image || item.url || "");
-        const title = item.title || "Untitled";
-        const description = item.description || "";
+    const result = $("result");
+    result.style.display = "block";
+    $("submit-quiz").style.display = "none";
 
-        const image = document.createElement("img");
-        image.src = imagePath;
-        image.alt = title;
-        image.loading = "lazy";
+    if (score >= 5) {
+      result.className = "pass-result";
+      result.textContent =
+        `🏆 Great work! You scored ${score}/10. Gallery unlocked!`;
 
-        image.addEventListener("click", () => {
-            window.openImageModal(imagePath);
-        });
+      $("quiz-section").style.display = "none";
+      $("gallery-section").style.display = "block";
 
-        image.addEventListener("error", () => {
-            image.style.display = "none";
-        });
+      loadGallery();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      result.className = "fail-result";
+      result.textContent =
+        `You scored ${score}/10. You need at least 5/10. ` +
+        "Try again with a new set of questions.";
 
-        const info = document.createElement("div");
-        info.className = "gallery-info";
-
-        const heading = document.createElement("h3");
-        heading.textContent = title;
-
-        const paragraph = document.createElement("p");
-        paragraph.textContent = description;
-
-        info.append(heading, paragraph);
-        card.append(image, info);
-
-        return card;
+      $("retry-button").style.display = "block";
     }
+  });
 
-    async function loadGallery() {
-        const galleryContainer = document.getElementById("gallery-container");
-        galleryContainer.innerHTML = '<div class="loading">Loading Gallery...</div>';
-
-        try {
-            const snapshot = await get(ref(database, "gallery"));
-
-            if (!snapshot.exists()) {
-                galleryContainer.innerHTML = `
-                    <div class="empty-gallery">
-                        <h3>No gallery pictures yet.</h3>
-                        <p>Add pictures through your Admin page.</p>
-                    </div>`;
-                return;
-            }
-
-            const data = snapshot.val();
-            const items = Array.isArray(data) ? data : Object.values(data);
-            const validItems = items.filter(item => item && typeof item === "object");
-
-            galleryContainer.innerHTML = "";
-
-            if (validItems.length === 0) {
-                galleryContainer.innerHTML = `
-                    <div class="empty-gallery">
-                        <h3>No gallery pictures yet.</h3>
-                    </div>`;
-                return;
-            }
-
-            validItems.forEach((item, index) => {
-                galleryContainer.appendChild(createGalleryCard(item, index));
-            });
-        } catch (error) {
-            console.error("Error loading gallery:", error);
-
-            galleryContainer.innerHTML = `
-                <div class="empty-gallery">
-                    <h3>Unable to load the Gallery.</h3>
-                    <p>Please check your internet connection and Firebase database permissions.</p>
-                </div>`;
-        }
-    }
-
-    window.openImageModal = function(imagePath) {
-        const modal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
-
-        modalImage.src = imagePath;
-        modal.style.display = "flex";
-    };
-
-    window.closeImageModal = function() {
-        document.getElementById("imageModal").style.display = "none";
-        document.getElementById("modalImage").src = "";
-    };
-
-    document.getElementById("close-modal").addEventListener("click", window.closeImageModal);
-
-    document.getElementById("imageModal").addEventListener("click", event => {
-        if (event.target.id === "imageModal") {
-            window.closeImageModal();
-        }
-    });
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            window.closeImageModal();
-        }
-    });
-
+  $("retry-button").addEventListener("click", () => {
     startQuiz();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  function fixImagePath(path) {
+    if (!path) return "";
+
+    if (/^(https?:\/\/|data:|blob:)/i.test(path) || path.startsWith("/")) {
+      return path;
+    }
+
+    if (path.startsWith("images/")) return path;
+
+    return `images/${path}`;
+  }
+
+  function createGalleryCard(item, index) {
+    const card = document.createElement("article");
+    card.className = "gallery-card";
+    card.style.animationDelay = `${Math.min(index * 65, 650)}ms`;
+
+    const imagePath = fixImagePath(
+      item.file || item.image || item.url || ""
+    );
+
+    const title = item.title || "Untitled";
+    const description = item.description || "";
+
+    const wrap = document.createElement("div");
+    wrap.className = "image-wrap";
+
+    const image = document.createElement("img");
+    image.src = imagePath;
+    image.alt = title;
+    image.loading = "lazy";
+    image.decoding = "async";
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+    image.setAttribute("aria-label", `Open image: ${title}`);
+
+    const open = () => openImageModal(index);
+
+    image.addEventListener("click", open);
+
+    image.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        open();
+      }
+    });
+
+    image.addEventListener("error", () => {
+      wrap.style.display = "none";
+    });
+
+    wrap.appendChild(image);
+
+    const info = document.createElement("div");
+    info.className = "gallery-info";
+
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = description;
+
+    info.append(heading, paragraph);
+    card.append(wrap, info);
+
+    return card;
+  }
+
+  function renderGallery() {
+    const container = $("gallery-container");
+    const query = $("gallery-search").value.trim().toLowerCase();
+    const sort = $("gallery-sort").value;
+
+    let items = galleryItems
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) =>
+        `${item.title || "Untitled"} ${item.description || ""}`
+          .toLowerCase()
+          .includes(query)
+      );
+
+    if (sort === "title") {
+      items.sort((a, b) =>
+        (a.item.title || "Untitled").localeCompare(
+          b.item.title || "Untitled"
+        )
+      );
+    }
+
+    if (sort === "title-desc") {
+      items.sort((a, b) =>
+        (b.item.title || "Untitled").localeCompare(
+          a.item.title || "Untitled"
+        )
+      );
+    }
+
+    container.replaceChildren();
+
+    if (!items.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty-gallery";
+      empty.innerHTML =
+        "<h3>No matching memories</h3><p>Try another search term.</p>";
+
+      container.appendChild(empty);
+    } else {
+      items.forEach(({ item, index }) => {
+        container.appendChild(createGalleryCard(item, index));
+      });
+    }
+
+    $("photo-visible").textContent = items.length;
+    $("gallery-count").textContent =
+      `${items.length} of ${galleryItems.length} photos`;
+    $("photo-total").textContent = galleryItems.length;
+  }
+
+  async function loadGallery() {
+    const container = $("gallery-container");
+    container.innerHTML =
+      '<div class="loading">⚡ Loading your memories…</div>';
+
+    try {
+      const snapshot = await get(ref(database, "gallery"));
+
+      if (!snapshot.exists()) {
+        galleryItems = [];
+
+        container.innerHTML =
+          "<div class='empty-gallery'>" +
+          "<h3>No gallery pictures yet.</h3>" +
+          "<p>Add pictures through your Admin page.</p></div>";
+
+        updateCounts();
+        return;
+      }
+
+      const data = snapshot.val();
+      const items = Array.isArray(data) ? data : Object.values(data);
+
+      galleryItems = items.filter(
+        item => item && typeof item === "object"
+      );
+
+      if (!galleryItems.length) {
+        container.innerHTML =
+          "<div class='empty-gallery'>" +
+          "<h3>No gallery pictures yet.</h3></div>";
+
+        updateCounts();
+        return;
+      }
+
+      renderGallery();
+    } catch (error) {
+      console.error("Error loading gallery:", error);
+
+      container.innerHTML =
+        "<div class='empty-gallery'>" +
+        "<h3>Unable to load the Gallery.</h3>" +
+        "<p>Check your internet connection and Firebase database permissions.</p>" +
+        "</div>";
+    }
+  }
+
+  function updateCounts() {
+    $("photo-total").textContent = galleryItems.length;
+    $("photo-visible").textContent = 0;
+    $("gallery-count").textContent =
+      `0 of ${galleryItems.length} photos`;
+  }
+
+  $("gallery-search").addEventListener("input", renderGallery);
+  $("gallery-sort").addEventListener("change", renderGallery);
+
+  function openImageModal(index) {
+    if (!galleryItems.length) return;
+
+    currentModalIndex =
+      (index + galleryItems.length) % galleryItems.length;
+
+    const item = galleryItems[currentModalIndex];
+
+    $("modalImage").src = fixImagePath(
+      item.file || item.image || item.url || ""
+    );
+
+    $("modalImage").alt = item.title || "Gallery image";
+
+    $("modalCaption").textContent = [
+      item.title || "Untitled",
+      item.description || ""
+    ].filter(Boolean).join(" — ");
+
+    $("imageModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+    $("close-modal").focus();
+  }
+
+  function closeImageModal() {
+    $("imageModal").style.display = "none";
+    $("modalImage").src = "";
+    document.body.style.overflow = "";
+  }
+
+  function moveModal(step) {
+    openImageModal(currentModalIndex + step);
+  }
+
+  $("close-modal").addEventListener("click", closeImageModal);
+
+  $("prev-image").addEventListener("click", () => moveModal(-1));
+  $("next-image").addEventListener("click", () => moveModal(1));
+
+  $("imageModal").addEventListener("click", event => {
+    if (event.target.id === "imageModal") {
+      closeImageModal();
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if ($("imageModal").style.display === "flex") {
+      if (event.key === "Escape") closeImageModal();
+      if (event.key === "ArrowLeft") moveModal(-1);
+      if (event.key === "ArrowRight") moveModal(1);
+    }
+  });
+
+  startQuiz();
 </script>
 
 <script src="js/animations.js" defer></script>
 </body>
 </html>
-```
