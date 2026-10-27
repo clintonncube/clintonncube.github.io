@@ -1,0 +1,175 @@
+/* Clinton Ncube — Sports Energy additive theme.
+   Load this AFTER each page's existing styles. Does not replace existing styles. */
+:root {
+  --se-bg: #050711;
+  --se-panel: rgba(12, 18, 36, .92);
+  --se-cyan: #00eaff;
+  --se-purple: #9d4dff;
+  --se-red: #ff3158;
+  --se-text: #f4f7ff;
+  --se-muted: #b9c6df;
+  --se-border: rgba(0, 234, 255, .28);
+  --se-glow: 0 0 26px rgba(0, 234, 255, .14);
+}
+html { scroll-behavior: smooth; }
+body:not(.admin-body):not(.diary-body) {
+  background-color: var(--se-bg);
+  color: var(--se-text);
+}
+body:not(.admin-body):not(.diary-body)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 12% 15%, rgba(0,234,255,.09), transparent 35%),
+    radial-gradient(ellipse at 88% 30%, rgba(157,77,255,.12), transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgba(255,49,88,.07), transparent 38%);
+}
+body:not(.admin-body):not(.diary-body) nav {
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--se-border);
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
+}
+body:not(.admin-body):not(.diary-body) .logo,
+body:not(.admin-body):not(.diary-body) .nav-links a:hover,
+body:not(.admin-body):not(.diary-body) .nav-menu a:hover {
+  text-shadow: 0 0 14px rgba(0,234,255,.42);
+}
+body:not(.admin-body):not(.diary-body) .hero,
+body:not(.admin-body):not(.diary-body) .page-header,
+body:not(.admin-body):not(.diary-body) header {
+  position: relative;
+  overflow: hidden;
+}
+body:not(.admin-body):not(.diary-body) .hero::after,
+body:not(.admin-body):not(.diary-body) .page-header::after,
+body:not(.admin-body):not(.diary-body) header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 20%, rgba(0,234,255,.06) 48%, rgba(255,49,88,.07) 55%, transparent 78%);
+  background-size: 220% 100%;
+  animation: se-sweep 11s linear infinite;
+}
+body:not(.admin-body):not(.diary-body) .hero h1,
+body:not(.admin-body):not(.diary-body) .page-header h1,
+body:not(.admin-body):not(.diary-body) header h1 {
+  text-shadow: 0 0 20px rgba(0,234,255,.24), 0 0 34px rgba(157,77,255,.14);
+}
+body:not(.admin-body):not(.diary-body) .card,
+body:not(.admin-body):not(.diary-body) .cards .card,
+body:not(.admin-body):not(.diary-body) .gallery-card,
+body:not(.admin-body):not(.diary-body) .intro,
+body:not(.admin-body):not(.diary-body) .about-panel,
+body:not(.admin-body):not(.diary-body) .goal-panel,
+body:not(.admin-body):not(.diary-body) .social-section {
+  background: var(--se-panel);
+  color: var(--se-text);
+  border: 1px solid var(--se-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,.24);
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+body:not(.admin-body):not(.diary-body) .card:hover,
+body:not(.admin-body):not(.diary-body) .gallery-card:hover,
+body:not(.admin-body):not(.diary-body) .intro:hover,
+body:not(.admin-body):not(.diary-body) .social-section:hover {
+  transform: translateY(-7px);
+  border-color: rgba(0,234,255,.7);
+  box-shadow: 0 16px 36px rgba(0,0,0,.34), 0 0 24px rgba(0,234,255,.12);
+}
+body:not(.admin-body):not(.diary-body) .card h3,
+body:not(.admin-body):not(.diary-body) .section-heading span,
+body:not(.admin-body):not(.diary-body) .section-kicker,
+body:not(.admin-body):not(.diary-body) .card-icon {
+  color: var(--se-cyan);
+}
+body:not(.admin-body):not(.diary-body) .card p,
+body:not(.admin-body):not(.diary-body) .section-description,
+body:not(.admin-body):not(.diary-body) .intro p,
+body:not(.admin-body):not(.diary-body) .about-panel p,
+body:not(.admin-body):not(.diary-body) .goal-panel p {
+  color: var(--se-muted);
+}
+body:not(.admin-body):not(.diary-body) .btn,
+body:not(.admin-body):not(.diary-body) button:not(.menu-btn):not(.answer-button):not(.quiz-option) {
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+body:not(.admin-body):not(.diary-body) .btn:hover,
+body:not(.admin-body):not(.diary-body) button:not(.menu-btn):not(.answer-button):not(.quiz-option):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,234,255,.18);
+  filter: brightness(1.08);
+}
+body:not(.admin-body):not(.diary-body) footer {
+  border-top: 1px solid var(--se-border);
+}
+.se-toolbar {
+  position: fixed; right: 16px; bottom: 16px; z-index: 1100;
+  display: flex; gap: 8px; align-items: center;
+}
+.se-tool-btn {
+  border: 1px solid rgba(0,234,255,.4) !important;
+  background: rgba(7,12,27,.94) !important; color: #eafaff !important;
+  border-radius: 999px !important; padding: 10px 14px !important;
+  font-size: 13px !important; box-shadow: 0 5px 22px rgba(0,0,0,.35);
+}
+.se-live-clock {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--se-border); border-radius: 999px;
+  padding: 9px 14px; background: rgba(5,7,17,.76); color: var(--se-cyan);
+  font-variant-numeric: tabular-nums; font-weight: 700;
+}
+.se-arena {
+  width: min(1100px, 90%); margin: 38px auto 56px; padding: clamp(22px,4vw,42px);
+  border: 1px solid rgba(0,234,255,.3); border-radius: 24px;
+  background: linear-gradient(135deg, rgba(12,18,36,.97), rgba(25,12,45,.94));
+  box-shadow: var(--se-glow); position: relative; overflow: hidden;
+}
+.se-arena::before {
+  content: "PLAY • LEARN • BUILD"; display: block; margin-bottom: 12px;
+  color: var(--se-red); font-size: 11px; letter-spacing: .24em; font-weight: 900;
+}
+.se-arena h2 { color: #fff !important; text-align: left !important; margin: 0 0 10px !important; }
+.se-arena p { color: var(--se-muted); }
+.se-arena-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; margin-top: 22px; }
+.se-game-card {
+  border: 1px solid rgba(157,77,255,.35); border-radius: 16px; padding: 20px;
+  background: rgba(3,7,18,.68); display: flex; flex-direction: column; gap: 10px;
+}
+.se-game-card .se-icon { font-size: 32px; }
+.se-game-card h3 { color: var(--se-cyan); margin: 0; }
+.se-game-card p { font-size: 14px; flex: 1; }
+.se-game-card button { align-self: flex-start; }
+.se-score { font-size: 1.1rem; font-weight: 800; color: var(--se-cyan); }
+.se-badge {
+  display: inline-flex; gap: 8px; align-items: center; border-radius: 999px;
+  padding: 7px 11px; border: 1px solid rgba(255,49,88,.45); color: #ffdce3;
+  background: rgba(255,49,88,.08); font-size: 12px; font-weight: 700;
+}
+.se-reveal { animation: se-rise .65s both; }
+.se-progress { height: 8px; background: #171b2e; border-radius: 99px; overflow: hidden; margin: 10px 0; }
+.se-progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg,var(--se-cyan),var(--se-purple),var(--se-red)); transition: width 1s ease; }
+.se-game-feedback { min-height: 25px; color: var(--se-cyan) !important; font-weight: 700; }
+.se-toast {
+  position: fixed; left: 50%; bottom: 82px; transform: translateX(-50%);
+  z-index: 1200; background: #0b1020; color: #f4f7ff; border: 1px solid var(--se-cyan);
+  border-radius: 12px; padding: 12px 18px; box-shadow: 0 0 24px rgba(0,234,255,.18);
+  max-width: calc(100vw - 30px); text-align: center;
+}
+.se-gallery-tools { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin: 0 0 22px; }
+.se-gallery-tools button { border:1px solid var(--se-border) !important; background:#0b1020 !important; color:#eafaff !important; }
+.se-gallery-tools button[aria-pressed="true"] { background:rgba(0,234,255,.12) !important; border-color:var(--se-cyan) !important; }
+@keyframes se-sweep { 0% { background-position: 120% 0; } 100% { background-position: -120% 0; } }
+@keyframes se-rise { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width: 650px) {
+  .se-toolbar { right: 10px; bottom: 10px; }
+  .se-live-clock { font-size: 12px; padding: 7px 10px; }
+  .se-tool-btn { padding: 8px 11px !important; }
+  .se-arena { width: 92%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
