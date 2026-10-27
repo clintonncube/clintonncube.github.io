@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#070914">
 <title>Admin Dashboard | Clinton Ncube</title>
+
 <style>
 :root {
   --bg:#070914;
@@ -18,35 +19,37 @@
   --border:rgba(0,234,255,.17);
 }
 *{box-sizing:border-box}
-body{
+body {
   margin:0;background:var(--bg);color:var(--text);
   font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh;
 }
-button,input{font:inherit}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
-.glow{
+.glow {
   background:linear-gradient(120deg,var(--cyan),var(--purple));
   color:#070914;border:0;font-weight:800;border-radius:10px;
   padding:12px 17px;
 }
 .glow:hover{filter:brightness(1.15)}
-input{
+button:disabled{opacity:.5;cursor:not-allowed}
+input,textarea {
   width:100%;padding:13px;margin:8px 0 14px;
   background:#080d1b;border:1px solid #29344e;
   border-radius:9px;color:white;outline:none;
 }
-input:focus{border-color:var(--cyan)}
-.login-wrap{
+input:focus,textarea:focus{border-color:var(--cyan)}
+textarea{min-height:90px;resize:vertical}
+.login-wrap {
   min-height:100vh;display:grid;place-items:center;padding:22px;
   background:radial-gradient(ellipse at top,#15264b 0%,var(--bg) 60%);
 }
-.login-card{
-  width:min(430px,100%);padding:32px;border:1px solid var(--border);
-  background:rgba(16,22,41,.94);border-radius:20px;
-  box-shadow:0 0 45px #00eaff12;
+.login-card {
+  width:min(430px,100%);padding:32px;
+  border:1px solid var(--border);background:rgba(16,22,41,.94);
+  border-radius:20px;box-shadow:0 0 45px #00eaff12;
 }
-.logo{
+.logo {
   width:54px;height:54px;display:grid;place-items:center;
   border-radius:15px;background:linear-gradient(135deg,var(--cyan),var(--purple));
   color:#070914;font-weight:900;font-size:22px;margin-bottom:20px;
@@ -57,62 +60,67 @@ h2{font-size:23px}
 p{color:var(--muted);line-height:1.6}
 label{font-size:13px;color:#c8d2e8}
 #app{min-height:100vh}
-.sidebar{
+.sidebar {
   position:fixed;left:0;top:0;bottom:0;width:255px;
   background:#0b1020;border-right:1px solid var(--border);
   padding:24px 16px;display:flex;flex-direction:column;z-index:5;
+  overflow-y:auto;
 }
 .brand{font-size:18px;font-weight:850;margin:8px 8px 4px}
 .brand span{color:var(--cyan)}
 .side-sub{font-size:12px;color:var(--muted);margin:0 8px 28px}
-.nav-btn{
+.nav-btn {
   text-align:left;width:100%;padding:13px 14px;margin:3px 0;
   border:1px solid transparent;border-radius:10px;
   background:transparent;color:#b9c4df;
 }
-.nav-btn:hover,.nav-btn.active{
+.nav-btn:hover,.nav-btn.active {
   background:#142037;border-color:var(--border);color:var(--cyan);
 }
-.sidebar-bottom{margin-top:auto}
+.sidebar-bottom{margin-top:auto;padding-top:20px}
 .main{margin-left:255px;padding:28px;max-width:1600px}
-.topbar{
+.topbar {
   display:flex;align-items:center;justify-content:space-between;
   gap:16px;margin-bottom:28px;flex-wrap:wrap;
 }
 .eyebrow{color:var(--cyan);font-size:11px;letter-spacing:2px;font-weight:800}
-.muted{color:var(--muted);font-size:13px}
+.muted,.status{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{
+.card {
   background:var(--panel);border:1px solid var(--border);
   padding:21px;border-radius:15px;min-width:0;
 }
-.stat{font-size:28px;font-weight:850;margin:15px 0 6px}
+.stat{font-size:28px;font-weight:850;margin:15px 0 6px;overflow-wrap:anywhere}
 .stat-icon{font-size:24px}
 .section{margin-bottom:22px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.section-head {
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+}
 .actions{display:flex;gap:9px;flex-wrap:wrap}
-.secondary{
+.secondary {
   background:#172039;border:1px solid #34415d;color:var(--text);
   border-radius:9px;padding:10px 13px;
 }
 .danger{color:#ff8eaa;border-color:#633047}
-.notice{
+.notice {
   padding:13px 15px;border:1px solid #574b22;background:#241f12;
   border-radius:10px;color:#f5d99a;font-size:13px;line-height:1.6;
 }
-.status{margin-top:10px;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.status{margin-top:10px}
 .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:18px}
-.photo{overflow:hidden;background:#0a1020;border:1px solid #29344e;border-radius:12px}
+.photo{overflow:hidden;background:#0a1020;border:1px solid #29344e;border-radius:12px;min-width:0}
 .photo img{width:100%;height:175px;object-fit:cover;display:block}
 .photo-info{padding:12px}
 .photo-info h3{font-size:14px;margin-bottom:7px;overflow-wrap:anywhere}
 .photo-info p{font-size:12px;margin-bottom:10px;overflow-wrap:anywhere}
 .empty{padding:30px 10px;text-align:center;color:var(--muted)}
+a{color:var(--cyan)}
 hr{border:0;border-top:1px solid #26314b;margin:22px 0}
 @media(max-width:900px){
  .sidebar{position:static;width:100%;height:auto;padding:15px}
  .sidebar nav{display:flex;gap:5px;overflow-x:auto}
- .nav-btn{white-space:nowrap;width:auto}
+ .nav-btn{white-space:nowrap;width:auto;flex-shrink:0}
  .sidebar-bottom{margin-top:12px}
  .main{margin:0;padding:18px}
  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -125,6 +133,7 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
 }
 </style>
 </head>
+
 <body>
 
 <section id="loginScreen" class="login-wrap">
@@ -133,16 +142,22 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
     <div class="eyebrow">SECURE ADMINISTRATION</div>
     <h1>Welcome back.</h1>
     <p>Sign in to manage the Clinton Ncube portfolio website.</p>
+
     <label for="email">Admin email</label>
     <input id="email" type="email" autocomplete="username"
            placeholder="Enter your admin email" required>
+
     <label for="password">Password</label>
     <input id="password" type="password" autocomplete="current-password"
            placeholder="Enter your password" required>
-    <button class="glow" style="width:100%" type="submit">Sign in securely</button>
-    <div class="status" id="loginStatus" role="status"></div>
+
+    <button class="glow" id="loginBtn" style="width:100%" type="submit">
+      Sign in securely
+    </button>
+    <div class="status" id="loginStatus" role="status" aria-live="polite"></div>
+
     <p class="muted" style="margin-top:18px;font-size:11px">
-      Protected sign-in uses Firebase Authentication after setup.
+      Protected by Firebase Authentication.
     </p>
   </form>
 </section>
@@ -152,6 +167,7 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
     <div class="logo">CN</div>
     <div class="brand">CLINTON <span>NCUBE</span></div>
     <div class="side-sub">PORTFOLIO CONTROL CENTRE</div>
+
     <nav id="navigation">
       <button class="nav-btn active" data-page="overview">▦ &nbsp; Overview</button>
       <button class="nav-btn" data-page="gallery">▧ &nbsp; Gallery</button>
@@ -162,9 +178,12 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
       <button class="nav-btn" data-page="documents">▣ &nbsp; Documents</button>
       <button class="nav-btn" data-page="messages">✉ &nbsp; Messages</button>
     </nav>
+
     <div class="sidebar-bottom">
       <div class="muted" id="signedInAs"></div>
-      <button class="secondary" id="logoutBtn" style="width:100%;margin-top:12px">Sign out</button>
+      <button class="secondary" id="logoutBtn" style="width:100%;margin-top:12px">
+        Sign out
+      </button>
     </div>
   </aside>
 
@@ -176,12 +195,14 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
         <div class="muted">Manage your portfolio from one place.</div>
       </div>
       <a href="https://clintonncube.github.io/" target="_blank"
-         rel="noopener" class="secondary" style="text-decoration:none">View website ↗</a>
+         rel="noopener" class="secondary" style="text-decoration:none">
+        View website ↗
+      </a>
     </header>
 
     <div class="notice section">
-      Setup required: connect your Firebase project and apply secure database
-      and Storage rules before uploading or editing live content.
+      Firebase Authentication and Realtime Database are used here.
+      Gallery entries save image URLs only. No Firebase Storage is used.
     </div>
 
     <section id="page-overview" class="page">
@@ -189,25 +210,26 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
         <article class="card">
           <div class="stat-icon">▧</div>
           <div class="stat" id="photoCount">—</div>
-          <div>Gallery photos</div>
-          <p class="muted">Photos recorded in the connected gallery.</p>
+          <div>Dashboard gallery entries</div>
+          <p class="muted">Entries stored under dashboardGallery.</p>
         </article>
         <article class="card">
           <div class="stat-icon">✉</div>
-          <div class="stat">—</div>
+          <div class="stat">Not connected</div>
           <div>Messages</div>
-          <p class="muted">Message inbox connection not configured.</p>
+          <p class="muted">Your private inbox needs a separate database connection.</p>
         </article>
         <article class="card">
           <div class="stat-icon">◈</div>
-          <div class="stat" id="connectionState">Not connected</div>
+          <div class="stat" id="connectionState">Connecting…</div>
           <div>Firebase connection</div>
-          <p class="muted">Connection status updates after setup.</p>
+          <p class="muted">Status updates after Firebase setup.</p>
         </article>
       </div>
+
       <article class="card section" style="margin-top:18px">
         <h2>Quick actions</h2>
-        <p>Start by connecting Firebase, then open the gallery manager.</p>
+        <p>Open the gallery manager or review your website sections.</p>
         <div class="actions">
           <button class="glow" data-goto="gallery">Manage gallery</button>
           <button class="secondary" data-goto="home">Home manager</button>
@@ -218,28 +240,45 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
 
     <section id="page-gallery" class="page hidden">
       <article class="card section">
-        <div class="section-head">
-          <div><h2>Gallery Manager</h2><p>Add a photo with a title and description.</p></div>
-        </div>
+        <h2>Gallery Manager</h2>
+        <p>Add an image using a direct HTTPS image URL. This does not upload a file.</p>
+
         <form id="photoForm">
           <label for="photoTitle">Photo title</label>
-          <input id="photoTitle" maxlength="100" placeholder="e.g. A memorable day" required>
+          <input id="photoTitle" maxlength="100"
+                 placeholder="e.g. A memorable day" required>
+
           <label for="photoDescription">Description</label>
-          <input id="photoDescription" maxlength="300" placeholder="Write a short caption">
-          <label for="photoFile">Choose photo</label>
-          <input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp" required>
-          <div class="muted">JPEG, PNG or WebP. Maximum 5 MB per photo.</div>
-          <button class="glow" id="uploadBtn" type="submit" style="margin-top:16px">Upload photo</button>
-          <div class="status" id="uploadStatus" role="status"></div>
+          <textarea id="photoDescription" maxlength="300"
+                    placeholder="Write a short caption"></textarea>
+
+          <label for="photoUrl">Photo image URL</label>
+          <input id="photoUrl" type="url" maxlength="2048"
+                 placeholder="https://clintonncube.github.io/images/photo.jpg"
+                 required>
+
+          <div class="muted">
+            Use a direct HTTPS image URL. For photos already in your GitHub
+            images folder, use their full website URL.
+          </div>
+
+          <button class="glow" id="savePhotoBtn" type="submit" style="margin-top:16px">
+            Save photo
+          </button>
+          <div class="status" id="uploadStatus" role="status" aria-live="polite"></div>
         </form>
       </article>
+
       <article class="card">
         <div class="section-head">
-          <div><h2>Saved photos</h2><p>Only photos in the configured gallery path appear here.</p></div>
+          <div>
+            <h2>Saved photos</h2>
+            <p>These are database entries, not the local data.js gallery.</p>
+          </div>
           <button class="secondary" id="refreshGallery">Refresh</button>
         </div>
         <div id="photoGrid" class="photo-grid">
-          <div class="empty">Connect Firebase to load your photos.</div>
+          <div class="empty">Sign in to load gallery entries.</div>
         </div>
       </article>
     </section>
@@ -247,144 +286,259 @@ hr{border:0;border-top:1px solid #26314b;margin:22px 0}
     <section id="page-home" class="page hidden">
       <article class="card">
         <h2>Home Manager</h2>
-        <p>This section is ready for homepage content editing once we connect it to your existing data.js structure.</p>
-        <div class="notice">Not connected yet. Your live homepage will not be changed by this dashboard until we configure and test saving.</div>
+        <p>
+          Homepage editing is not connected yet. Your homepage will not change
+          from this section until its fields are implemented and tested.
+        </p>
       </article>
     </section>
 
     <section id="page-projects" class="page hidden">
-      <article class="card"><h2>Projects</h2><p>Project management will be connected to your existing portfolio data after we confirm its structure.</p></article>
+      <article class="card">
+        <h2>Projects</h2>
+        <p>Project management has not been connected to your website data yet.</p>
+      </article>
     </section>
+
     <section id="page-achievements" class="page hidden">
-      <article class="card"><h2>Achievements</h2><p>Manage your achievements here after connecting the existing data source.</p></article>
+      <article class="card">
+        <h2>Achievements</h2>
+        <p>Achievement management has not been connected yet.</p>
+      </article>
     </section>
+
     <section id="page-hobbies" class="page hidden">
-      <article class="card"><h2>Hobbies</h2><p>Your basketball, swimming, reading and athletics content can be managed here once connected.</p></article>
+      <article class="card">
+        <h2>Hobbies</h2>
+        <p>Hobby management has not been connected to your website data yet.</p>
+      </article>
     </section>
+
     <section id="page-documents" class="page hidden">
-      <article class="card"><h2>Documents</h2><p>Document listing and secure file management still need to be connected.</p></article>
+      <article class="card">
+        <h2>Documents</h2>
+        <p>Document management has not been connected yet.</p>
+        <div class="notice">
+          This dashboard does not upload or store files.
+        </div>
+      </article>
     </section>
+
     <section id="page-messages" class="page hidden">
-      <article class="card"><h2>Messages Inbox</h2><p>Your Message Me form and private inbox are not connected to this new dashboard yet.</p><div class="notice">We will connect the actual message database before showing private messages here.</div></article>
+      <article class="card">
+        <h2>Messages Inbox</h2>
+        <p>Your Message Me form is not connected to this database yet.</p>
+        <div class="notice">
+          Private messages should not be placed in a publicly readable gallery path.
+          We need to configure a separate private path and permissions.
+        </div>
+      </article>
     </section>
   </main>
 </section>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import {
-  getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 import {
-  getDatabase, ref, push, set, get, remove
+  getDatabase,
+  ref,
+  push,
+  set,
+  get,
+  remove
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import {
-  getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 /*
-  SETUP REQUIRED:
-  Replace these placeholder values with the exact Firebase web-app
-  configuration from your existing project.
+  SETUP REQUIRED
+  Replace every placeholder with the exact value from:
+  Firebase Console > Project settings > Your apps > Config.
+
+  Do not use the example values as real configuration.
 */
 const firebaseConfig = {
   apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "PASTE_YOUR_REAL_DATABASE_URL",
+  authDomain: "PASTE_YOUR_AUTH_DOMAIN",
+  databaseURL: "PASTE_YOUR_DATABASE_URL",
   projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_REAL_STORAGE_BUCKET",
   messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
   appId: "PASTE_YOUR_APP_ID"
 };
 
 /*
-  IMPORTANT:
-  The gallery path below is a new example path. Before connecting it
-  to your live gallery, we must confirm the path used by your current
-  gallery page so photos are not saved somewhere your website cannot read.
+  Replace with your own Firebase Authentication User UID.
+  Find it under Firebase Console > Authentication > Users.
+*/
+const ADMIN_UID = "PASTE_YOUR_ADMIN_UID";
+
+/*
+  This is a dedicated database path for new dashboard entries.
+  It does not automatically update the existing gallery array in data.js.
 */
 const GALLERY_PATH = "dashboardGallery";
 
 const $ = id => document.getElementById(id);
+
 const loginScreen = $("loginScreen");
 const appScreen = $("app");
-let auth, db, storage;
+
+let auth = null;
+let db = null;
 let firebaseReady = false;
+let galleryLoading = false;
 
 function showStatus(id, message) {
   $(id).textContent = message;
 }
 
+function configIsReady() {
+  const values = Object.values(firebaseConfig);
+
+  return values.every(value =>
+    typeof value === "string" &&
+    value.trim() !== "" &&
+    !value.startsWith("PASTE_")
+  ) &&
+  ADMIN_UID.trim() !== "" &&
+  !ADMIN_UID.startsWith("PASTE_");
+}
+
 function setupFirebase() {
   if (firebaseReady) return true;
 
-  if (Object.values(firebaseConfig).some(value =>
-      !value || value.startsWith("PASTE_"))) {
-    showStatus("loginStatus",
-      "Firebase setup is incomplete. Add your existing Firebase web configuration first.");
+  if (!configIsReady()) {
+    showStatus(
+      "loginStatus",
+      "Setup incomplete: add your Firebase web configuration and admin UID."
+    );
+    $("connectionState").textContent = "Setup required";
     return false;
   }
 
   try {
-    const app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getDatabase(app);
-    storage = getStorage(app);
+    const firebaseApp = initializeApp(firebaseConfig);
+    auth = getAuth(firebaseApp);
+    db = getDatabase(firebaseApp);
     firebaseReady = true;
+
     $("connectionState").textContent = "Configured";
     return true;
   } catch (error) {
     showStatus("loginStatus", "Firebase setup error: " + error.message);
+    $("connectionState").textContent = "Connection error";
     return false;
   }
 }
 
+function showLogin() {
+  appScreen.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+  $("signedInAs").textContent = "";
+}
+
+function showDashboard(user) {
+  loginScreen.classList.add("hidden");
+  appScreen.classList.remove("hidden");
+  $("signedInAs").textContent = user.email || "Authenticated administrator";
+  $("connectionState").textContent = "Signed in";
+}
+
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
+
   if (!setupFirebase()) return;
 
+  const loginButton = $("loginBtn");
+  loginButton.disabled = true;
   showStatus("loginStatus", "Signing in…");
+
   try {
-    await signInWithEmailAndPassword(
-      auth, $("email").value.trim(), $("password").value
+    const credential = await signInWithEmailAndPassword(
+      auth,
+      $("email").value.trim(),
+      $("password").value
     );
+
+    if (credential.user.uid !== ADMIN_UID) {
+      await signOut(auth);
+      showStatus(
+        "loginStatus",
+        "This account is not authorised for this dashboard."
+      );
+      return;
+    }
+
     $("password").value = "";
+    showStatus("loginStatus", "");
   } catch (error) {
-    showStatus("loginStatus",
+    console.error("Sign-in failed:", error.code);
+
+    showStatus(
+      "loginStatus",
       error.code === "auth/invalid-credential"
         ? "Email or password is incorrect."
-        : "Sign-in failed: " + error.message);
+        : "Sign-in failed. Check your configuration and Authentication settings."
+    );
+  } finally {
+    loginButton.disabled = false;
   }
 });
 
 $("logoutBtn").addEventListener("click", async () => {
-  if (auth) await signOut(auth);
+  if (!auth) return;
+
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Sign-out failed:", error);
+  }
 });
 
 if (setupFirebase()) {
   onAuthStateChanged(auth, async user => {
-    if (user) {
-      loginScreen.classList.add("hidden");
-      appScreen.classList.remove("hidden");
-      $("signedInAs").textContent = user.email || "Authenticated admin";
-      $("connectionState").textContent = "Signed in";
-      await loadGallery();
-    } else {
-      appScreen.classList.add("hidden");
-      loginScreen.classList.remove("hidden");
-      $("signedInAs").textContent = "";
+    if (!user) {
+      showLogin();
+      $("connectionState").textContent = "Signed out";
+      return;
     }
+
+    if (user.uid !== ADMIN_UID) {
+      await signOut(auth);
+      showLogin();
+      showStatus("loginStatus", "This account is not authorised.");
+      return;
+    }
+
+    showDashboard(user);
+    await loadGallery();
   });
 }
 
+/* Dashboard navigation */
 function navigate(page) {
-  document.querySelectorAll(".page").forEach(el => el.classList.add("hidden"));
+  document.querySelectorAll(".page").forEach(element => {
+    element.classList.add("hidden");
+  });
+
   const target = $("page-" + page);
   if (target) target.classList.remove("hidden");
-  document.querySelectorAll(".nav-btn").forEach(button =>
-    button.classList.toggle("active", button.dataset.page === page)
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === page);
+  });
+
+  const active = document.querySelector(
+    '.nav-btn[data-page="' + page + '"]'
   );
-  const active = document.querySelector(`.nav-btn[data-page="${page}"]`);
+
   $("pageTitle").textContent = active
     ? active.textContent.replace(/^[^\w]+/, "").trim()
     : "Overview";
@@ -394,13 +548,23 @@ $("navigation").addEventListener("click", event => {
   const button = event.target.closest("[data-page]");
   if (button) navigate(button.dataset.page);
 });
-document.querySelectorAll("[data-goto]").forEach(button =>
-  button.addEventListener("click", () => navigate(button.dataset.goto))
-);
 
+document.querySelectorAll("[data-goto]").forEach(button => {
+  button.addEventListener("click", () => navigate(button.dataset.goto));
+});
+
+/* Load database gallery entries */
 async function loadGallery() {
-  if (!auth?.currentUser || !db) return;
-  $("photoGrid").innerHTML = '<div class="empty">Loading photos…</div>';
+  if (galleryLoading) return;
+  if (!auth?.currentUser || auth.currentUser.uid !== ADMIN_UID || !db) return;
+
+  galleryLoading = true;
+  $("photoGrid").replaceChildren();
+
+  const loading = document.createElement("div");
+  loading.className = "empty";
+  loading.textContent = "Loading photos…";
+  $("photoGrid").append(loading);
 
   try {
     const snapshot = await get(ref(db, GALLERY_PATH));
@@ -408,11 +572,13 @@ async function loadGallery() {
     const entries = Object.entries(photos).reverse();
 
     $("photoCount").textContent = entries.length;
-    $("photoGrid").innerHTML = "";
+    $("photoGrid").replaceChildren();
 
     if (!entries.length) {
-      $("photoGrid").innerHTML =
-        '<div class="empty">No photos in this dashboard gallery yet.</div>';
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "No database gallery entries yet.";
+      $("photoGrid").append(empty);
       return;
     }
 
@@ -421,30 +587,48 @@ async function loadGallery() {
       card.className = "photo";
 
       const image = document.createElement("img");
-      image.src = photo.url;
+      image.src = photo.url || "";
       image.alt = photo.title || "Gallery photo";
       image.loading = "lazy";
+      image.referrerPolicy = "no-referrer";
+
+      image.addEventListener("error", () => {
+        image.alt = "Image could not be loaded";
+        image.removeAttribute("src");
+      });
 
       const info = document.createElement("div");
       info.className = "photo-info";
+
       const title = document.createElement("h3");
       title.textContent = photo.title || "Untitled photo";
+
       const description = document.createElement("p");
       description.textContent = photo.description || "";
 
       const removeButton = document.createElement("button");
       removeButton.className = "secondary danger";
-      removeButton.textContent = "Delete photo";
+      removeButton.textContent = "Delete entry";
+
       removeButton.addEventListener("click", async () => {
-        if (!confirm("Delete this photo from the dashboard gallery?")) return;
+        if (!auth?.currentUser || auth.currentUser.uid !== ADMIN_UID) {
+          alert("You are not authorised to delete entries.");
+          return;
+        }
+
+        if (!confirm(
+          "Delete this gallery entry? The original image file will not be deleted."
+        )) return;
+
+        removeButton.disabled = true;
+
         try {
-          await remove(ref(db, `${GALLERY_PATH}/${key}`));
-          if (photo.storagePath) {
-            await deleteObject(storageRef(storage, photo.storagePath)).catch(() => {});
-          }
+          await remove(ref(db, GALLERY_PATH + "/" + key));
           await loadGallery();
         } catch (error) {
-          alert("Could not delete photo: " + error.message);
+          console.error("Delete failed:", error);
+          alert("Could not delete the entry. Check the database rules.");
+          removeButton.disabled = false;
         }
       });
 
@@ -453,65 +637,81 @@ async function loadGallery() {
       $("photoGrid").append(card);
     }
   } catch (error) {
-    $("photoGrid").innerHTML = "";
+    console.error("Gallery load failed:", error);
+
+    $("photoGrid").replaceChildren();
+
     const message = document.createElement("p");
     message.className = "status";
-    message.textContent = "Could not load gallery: " + error.message;
+    message.textContent =
+      "Could not load entries. Check the database URL and security rules.";
+
     $("photoGrid").append(message);
+  } finally {
+    galleryLoading = false;
   }
 }
 
 $("refreshGallery").addEventListener("click", loadGallery);
 
+/* Save a URL and metadata. No files are uploaded to Firebase. */
 $("photoForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  if (!auth?.currentUser || !db || !storage) {
-    showStatus("uploadStatus", "Please sign in and connect Firebase first.");
+  if (!auth?.currentUser || auth.currentUser.uid !== ADMIN_UID || !db) {
+    showStatus("uploadStatus", "Please sign in with your authorised admin account.");
     return;
   }
 
-  const file = $("photoFile").files[0];
-  if (!file) return;
+  const title = $("photoTitle").value.trim();
+  const description = $("photoDescription").value.trim();
+  const url = $("photoUrl").value.trim();
 
-  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-    showStatus("uploadStatus", "Choose a JPEG, PNG or WebP image.");
-    return;
-  }
-  if (file.size > 5 * 1024 * 1024) {
-    showStatus("uploadStatus", "The image must be 5 MB or smaller.");
+  if (!title || !url) {
+    showStatus("uploadStatus", "Enter a title and image URL.");
     return;
   }
 
-  $("uploadBtn").disabled = true;
-  showStatus("uploadStatus", "Uploading photo…");
-
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const path = `dashboardGallery/${auth.currentUser.uid}/${Date.now()}_${safeName}`;
+  let parsedUrl;
 
   try {
-    const objectRef = storageRef(storage, path);
-    await uploadBytes(objectRef, file, { contentType: file.type });
-    const url = await getDownloadURL(objectRef);
-    const newPhoto = push(ref(db, GALLERY_PATH));
+    parsedUrl = new URL(url);
+  } catch {
+    showStatus("uploadStatus", "Enter a valid image URL.");
+    return;
+  }
 
-    await set(newPhoto, {
-      title: $("photoTitle").value.trim(),
-      description: $("photoDescription").value.trim(),
-      url,
-      storagePath: path,
+  if (parsedUrl.protocol !== "https:") {
+    showStatus("uploadStatus", "Use an HTTPS image URL.");
+    return;
+  }
+
+  const saveButton = $("savePhotoBtn");
+  saveButton.disabled = true;
+  showStatus("uploadStatus", "Saving gallery entry…");
+
+  try {
+    const newPhotoRef = push(ref(db, GALLERY_PATH));
+
+    await set(newPhotoRef, {
+      title,
+      description,
+      url: parsedUrl.href,
       createdAt: Date.now(),
       uploadedBy: auth.currentUser.uid
     });
 
     $("photoForm").reset();
-    showStatus("uploadStatus",
-      "Uploaded to the new dashboard gallery. Connecting it to your public gallery is a separate step.");
+    showStatus("uploadStatus", "Gallery entry saved.");
     await loadGallery();
   } catch (error) {
-    showStatus("uploadStatus", "Upload failed: " + error.message);
+    console.error("Save failed:", error);
+    showStatus(
+      "uploadStatus",
+      "Could not save. Check the database URL and security rules."
+    );
   } finally {
-    $("uploadBtn").disabled = false;
+    saveButton.disabled = false;
   }
 });
 </script>
