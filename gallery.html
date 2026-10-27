@@ -1284,7 +1284,42 @@
       console.warn("Could not load dashboard gallery:", dashboardResult.reason);
     }
 
-    galleryItems = [...oldItems, ...dashboardItems];
+   
+const githubImages = [
+  {
+    title: "Memory 1",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg"
+  },
+  {
+    title: "Memory 2",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg"
+  },
+  {
+    title: "Memory 3",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg"
+  },
+  {
+    title: "Memory 4",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg"
+  },
+  {
+    title: "Memory 5",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg"
+  },
+  {
+    title: "Memory 6",
+    description: "A moment from my personal collection.",
+    imageUrl: "images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg"
+  }
+];
+
+galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
+
 
     if (!galleryItems.length) {
       container.innerHTML =
