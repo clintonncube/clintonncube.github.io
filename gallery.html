@@ -547,1557 +547,116 @@
       place-items: center;
       transition: .2s;
     }
-        authDomain: "clinton-ncube-website.firebaseapp.com",
-    databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-    projectId: "clinton-ncube-website",
-    storageBucket: "clinton-ncube-website.firebasestorage.app",
-    messagingSenderId: "946671700613",
-    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
-    measurementId: "G-K1S62MHHXP"
-  };
-
-  // New Firebase project used by the admin dashboard.
-  const dashboardFirebaseConfig = {
-    apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFREyI",
-    authDomain: "clinton-ncube-website-21755.firebaseapp.com",
-    databaseURL: "https://clinton-ncube-website-21755-default-rtdb.firebaseio.com",
-    projectId: "clinton-ncube-website-21755",
-    messagingSenderId: "257869482758",
-    appId: "1:257869482758:web:526da603000f5cede56c87",
-    measurementId: "G-04160GLZQT"
-  };
-
-  const app = initializeApp(oldFirebaseConfig);
-  const database = getDatabase(app);
-
-  const dashboardApp = initializeApp(
-    dashboardFirebaseConfig,
-    "dashboardGalleryApp"
-  );
-  const dashboardDatabase = getDatabase(dashboardApp);
-
-  const questionBank = [
-    {
-      question: "What is my full name?",
+        {
+      question: "What was the name of the science event I took part in?",
       options: [
-        "Thabang Clinton Ncube",
-        "Clinton James Ncube",
-        "Thabang Ncube Junior",
-        "Clinton Thabo Ncube"
+        "Science Exhibition",
+        "Sports Festival",
+        "Debate Competition",
+        "Music Festival"
       ],
-      answer: "Thabang Clinton Ncube"
-    },
-    {
-      question: "What nickname do I use?",
-      options: ["Vixeny", "Clinty", "CJ", "TNC"],
-      answer: "Vixeny"
-    },
-    {
-      question: "How old am I?",
-      options: ["16", "17", "18", "19"],
-      answer: "18"
-    },
-    {
-      question: "When is my birthday?",
-      options: [
-        "21 September",
-        "21 October",
-        "12 September",
-        "2 September"
-      ],
-      answer: "21 September"
-    },
-    {
-      question: "What is my favourite colour?",
-      options: ["Blue", "Red", "Black", "Green"],
-      answer: "Red"
-    },
-    {
-      question: "What is my favourite food?",
-      options: ["Pizza", "Rice", "Spaghetti", "Chicken"],
-      answer: "Spaghetti"
-    },
-    {
-      question: "What is my favourite drink?",
-      options: ["Fanta", "Coke", "Sprite", "Mazoe"],
-      answer: "Coke"
-    },
-    {
-      question: "What is my favourite school subject?",
-      options: ["Biology", "Chemistry", "Mathematics", "English"],
-      answer: "Mathematics"
-    },
-    {
-      question: "Which subject do I find most challenging?",
-      options: ["Mathematics", "Biology", "English", "Heritage"],
-      answer: "Biology"
-    },
-    {
-      question: "What is my favourite school activity?",
-      options: [
-        "Playing basketball",
-        "Debating",
-        "Singing",
-        "Chess"
-      ],
-      answer: "Playing basketball"
-    },
-    {
-      question: "What is my favourite sport?",
-      options: ["Football", "Athletics", "Basketball", "Swimming"],
-      answer: "Basketball"
-    },
-    {
-      question: "Who is my favourite basketball player?",
-      options: [
-        "Stephen Curry",
-        "LeBron James",
-        "Kevin Durant",
-        "Michael Jordan"
-      ],
-      answer: "LeBron James"
-    },
-    {
-      question: "What is my favourite basketball team?",
-      options: [
-        "Los Angeles Lakers",
-        "Golden State Warriors",
-        "San Antonio Spurs",
-        "Boston Celtics"
-      ],
-      answer: "San Antonio Spurs"
-    },
-    {
-      question: "Which other sports do I enjoy?",
-      options: [
-        "Swimming and athletics",
-        "Football and rugby",
-        "Tennis and golf",
-        "Boxing and cricket"
-      ],
-      answer: "Swimming and athletics"
-    },
-    {
-      question: "What are my hobbies?",
-      options: [
-        "Basketball, swimming, reading and athletics",
-        "Football, gaming and music",
-        "Swimming, football and chess",
-        "Reading, rugby and cricket"
-      ],
-      answer: "Basketball, swimming, reading and athletics"
-    },
-    {
-      question: "Do I enjoy swimming?",
-      options: ["Yes", "No", "Sometimes", "I don't know"],
-      answer: "Yes"
-    },
-    {
-      question: "Do I enjoy reading?",
-      options: ["Yes", "No", "Only at school", "Rarely"],
-      answer: "Yes"
-    },
-    {
-      question: "Do I enjoy athletics?",
-      options: [
-        "Yes",
-        "No",
-        "Only during Sports Day",
-        "I have never tried it"
-      ],
-      answer: "Yes"
-    },
-    {
-      question: "What is my favourite book or type of book?",
-      options: ["One", "Novels", "Science books", "Biographies"],
-      answer: "One"
-    },
-    {
-      question: "What do I usually do in my free time?",
-      options: [
-        "Play basketball, swim, read and do athletics",
-        "Watch television all day",
-        "Only play video games",
-        "Only study"
-      ],
-      answer: "Play basketball, swim, read and do athletics"
-    },
-    {
-      question: "What school do I attend?",
-      options: [
-        "Silveira High School",
-        "Mpopoma High School",
-        "Milton High School",
-        "Mzilikazi High School"
-      ],
-      answer: "Silveira High School"
-    },
-    {
-      question: "What Form am I in?",
-      options: ["Form 2", "Form 3", "Form 4", "Form 5"],
-      answer: "Form 4"
-    },
-    {
-      question: "Which group of subjects am I studying?",
-      options: [
-        "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects",
-        "Only Mathematics and English",
-        "Only Science subjects",
-        "Only practical subjects"
-      ],
-      answer: "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects"
-    },
-    {
-      question: "What is my favourite thing about Silveira High School?",
-      options: [
-        "The people are loving and social",
-        "The school is very quiet",
-        "The school has no activities",
-        "The school has no students"
-      ],
-      answer: "The people are loving and social"
-    },
-    {
-      question: "What is my favourite school event?",
-      options: [
-        "Sports Day",
-        "Graduation",
-        "Prize Giving Day",
-        "Parents Day"
-      ],
-      answer: "Sports Day"
-    },
-    {
-      question: "Which school event/project am I most proud of?",
-      options: [
-        "Science exhibition",
-        "Football tournament",
-        "School concert",
-        "Debate competition"
-      ],
-      answer: "Science exhibition"
+      answer: "Science Exhibition"
     },
     {
       question: "What career would I like to pursue?",
-      options: ["Engineer", "Teacher", "Doctor", "Lawyer"],
+      options: ["Doctor", "Pilot", "Teacher", "Engineer"],
       answer: "Doctor"
     },
     {
-      question: "What skill would I most like to improve?",
-      options: [
-        "My skills in general",
-        "Only drawing",
-        "Only singing",
-        "Only cooking"
-      ],
-      answer: "My skills in general"
-    },
-    {
-      question: "What is one academic goal I have?",
-      options: [
-        "To improve my academic performance",
-        "To stop studying",
-        "To avoid examinations",
-        "To leave school"
-      ],
-      answer: "To improve my academic performance"
-    },
-    {
-      question: "What do I enjoy doing with my classmates?",
-      options: [
-        "Taking part in school activities and projects",
-        "Avoiding everyone",
-        "Only playing games",
-        "Only studying alone"
-      ],
-      answer: "Taking part in school activities and projects"
-    },
-    {
-      question: "What is the name displayed on my website?",
-      options: [
-        "Thabang Ncube",
-        "Clinton Ncube",
-        "Vixeny Ncube",
-        "TC Ncube"
-      ],
-      answer: "Clinton Ncube"
-    },
-    {
-      question: "What is the main purpose of my website?",
-      options: [
-        "To showcase my projects, hobbies, skills and memories",
-        "To sell clothes",
-        "To play online games",
-        "To publish school news"
-      ],
-      answer: "To showcase my projects, hobbies, skills and memories"
-    },
-    {
-      question: "Which set contains pages on my website?",
-      options: [
-        "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin",
-        "Only Home and Gallery",
-        "News, Sports and Shop",
-        "Music, Games and Videos"
-      ],
-      answer: "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin"
-    },
-    {
-      question: "What can visitors see in my Gallery?",
-      options: [
-        "Pictures and memories",
-        "Only school results",
-        "Only documents",
-        "Only sports scores"
-      ],
-      answer: "Pictures and memories"
-    },
-    {
-      question: "What can visitors find on my Projects page?",
-      options: [
-        "My projects and things I have created",
-        "Only movie reviews",
-        "Only music",
-        "Only advertisements"
-      ],
-      answer: "My projects and things I have created"
-    },
-    {
-      question: "What is the purpose of my About page?",
-      options: [
-        "To tell visitors about me",
-        "To sell products",
-        "To show weather reports",
-        "To display sports scores"
-      ],
-      answer: "To tell visitors about me"
-    },
-    {
-      question: "What is the purpose of my Hobbies page?",
-      options: [
-        "To share activities I enjoy",
-        "To show school fees",
-        "To display exam timetables",
-        "To sell books"
-      ],
-      answer: "To share activities I enjoy"
-    },
-    {
-      question: "What is the purpose of my Skills page?",
-      options: [
-        "To showcase skills I have and want to develop",
-        "To display only photographs",
-        "To list school rules",
-        "To show news headlines"
-      ],
-      answer: "To showcase skills I have and want to develop"
-    },
-    {
-      question: "What is the purpose of my Achievements page?",
-      options: [
-        "To show achievements and milestones",
-        "To list restaurants",
-        "To sell sports equipment",
-        "To display random advertisements"
-      ],
-      answer: "To show achievements and milestones"
-    },
-    {
-      question: "What is the purpose of my Contact page?",
-      options: [
-        "To let visitors contact me",
-        "To show only my photographs",
-        "To publish examination results",
-        "To play music"
-      ],
-      answer: "To let visitors contact me"
-    },
-    {
-      question: "What kind of design do I prefer for my website?",
-      options: [
-        "Dark futuristic styling with neon cyan and purple",
-        "Plain white with no styling",
-        "A paper notebook design",
-        "A bright yellow-only theme"
-      ],
-      answer: "Dark futuristic styling with neon cyan and purple"
-    },
-    {
-      question: "Which colours are prominent in my website design?",
-      options: [
-        "Neon cyan and purple",
-        "Only brown and grey",
-        "Orange and yellow only",
-        "Pink and white only"
-      ],
-      answer: "Neon cyan and purple"
-    },
-    {
-      question: "What is one thing I want to learn through my website?",
-      options: [
-        "To improve my skills and create useful projects",
-        "To stop learning",
-        "To avoid technology",
-        "To remove all my projects"
-      ],
-      answer: "To improve my skills and create useful projects"
-    },
-    {
-      question: "What type of projects do I enjoy creating?",
-      options: [
-        "Creative and useful projects",
-        "Only paper posters",
-        "Only cooking recipes",
-        "Only sports scores"
-      ],
-      answer: "Creative and useful projects"
-    },
-    {
-      question: "What do I want visitors to learn from my portfolio?",
-      options: [
-        "About my interests, projects and skills",
-        "My private passwords",
-        "Only the weather",
-        "Only shopping prices"
-      ],
-      answer: "About my interests, projects and skills"
-    },
-    {
-      question: "Which basketball league do I follow?",
-      options: ["NBA", "NFL", "MLB", "NHL"],
-      answer: "NBA"
-    },
-    {
-      question: "Which Canadian destination interests me?",
-      options: ["Canada", "Brazil", "Japan", "Egypt"],
-      answer: "Canada"
-    },
-    {
-      question: "Which TV series do I enjoy?",
+      question: "Which television series do I enjoy?",
       options: [
         "The Rookie",
-        "Friends",
-        "The Office",
+        "The Flash",
+        "Suits",
         "Stranger Things"
       ],
       answer: "The Rookie"
     },
     {
-      question: "Which football player do I follow?",
-      options: [
-        "Daka",
-        "Lionel Messi",
-        "Cristiano Ronaldo",
-        "Neymar"
-      ],
-      answer: "Daka"
-    },
-    {
-      question: "Which school subject is related to living things?",
-      options: ["Biology", "Mathematics", "History", "Art"],
-      answer: "Biology"
-    },
-    {
-      question: "What do I hope to do in the future?",
-      options: [
-        "Continue learning and building my skills",
-        "Stop learning new things",
-        "Delete every project",
-        "Avoid creative work"
-      ],
-      answer: "Continue learning and building my skills"
-    }
-  ];
-
-  const $ = id => document.getElementById(id);
-
-  let selectedQuestions = [];
-  let userAnswers = [];
-  let galleryItems = [];
-  let currentModalIndex = 0;
-
-  function shuffle(array) {
-    const copy = [...array];
-
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-
-    return copy;
-  }
-
-  function startQuiz() {
-    selectedQuestions = shuffle(questionBank).slice(0, 10);
-    userAnswers = Array(10).fill(null);
-
-    $("quiz-section").style.display = "block";
-    $("gallery-section").style.display = "none";
-    $("result").style.display = "none";
-    $("result").className = "";
-    $("retry-button").style.display = "none";
-    $("submit-quiz").style.display = "block";
-
-    renderQuiz();
-  }
-
-  function renderQuiz() {
-    const host = $("quiz-container");
-    host.replaceChildren();
-
-    selectedQuestions.forEach((question, index) => {
-      const box = document.createElement("article");
-      box.className = "question-box";
-      box.style.animationDelay = `${index * 55}ms`;
-
-      const title = document.createElement("h3");
-      title.textContent = `${index + 1}. ${question.question}`;
-      box.appendChild(title);
-
-      const answers = document.createElement("div");
-      answers.className = "answers";
-
-      shuffle(question.options).forEach(option => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "answer-button";
-        button.textContent = option;
-        button.setAttribute("aria-pressed", "false");
-
-        button.addEventListener("click", () => {
-          answers.querySelectorAll(".answer-button").forEach(b => {
-            b.classList.remove("selected");
-            b.setAttribute("aria-pressed", "false");
-          });
-
-          button.classList.add("selected");
-          button.setAttribute("aria-pressed", "true");
-          userAnswers[index] = option;
-
-          $("quiz-progress").textContent =
-            `Question ${index + 1} of 10 selected · ` +
-            `${userAnswers.filter(a => a !== null).length}/10 answered`;
-        });
-
-        answers.appendChild(button);
-      });
-
-      box.appendChild(answers);
-      host.appendChild(box);
-    });
-
-    $("quiz-progress").textContent =
-      "10 random questions selected · 0/10 answered";
-  }
-
-  $("submit-quiz").addEventListener("click", () => {
-    const unanswered = userAnswers.filter(a => a === null).length;
-
-    if (unanswered) {
-      $("result").style.display = "block";
-      $("result").className = "fail-result";
-      $("result").textContent =
-        `Please answer all 10 questions first. ` +
-        `${unanswered} remain unanswered.`;
-      return;
-    }
-
-    const score = selectedQuestions.reduce(
-      (total, question, index) =>
-        total + (userAnswers[index] === question.answer ? 1 : 0),
-      0
-    );
-
-    const result = $("result");
-    result.style.display = "block";
-    $("submit-quiz").style.display = "none";
-
-    if (score >= 5) {
-      result.className = "pass-result";
-      result.textContent =
-        `🏆 Great work! You scored ${score}/10. Gallery unlocked!`;
-
-      $("quiz-section").style.display = "none";
-      $("gallery-section").style.display = "block";
-
-      loadGallery();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      result.className = "fail-result";
-      result.textContent =
-        `You scored ${score}/10. You need at least 5/10. ` +
-        "Try again with a new set of questions.";
-
-      $("retry-button").style.display = "block";
-    }
-  });
-
-  $("retry-button").addEventListener("click", () => {
-    startQuiz();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  function fixImagePath(path) {
-    if (!path) return "";
-
-    if (/^(https?:\/\/|data:|blob:)/i.test(path) || path.startsWith("/")) {
-      return path;
-    }
-
-    if (path.startsWith("images/")) return path;
-
-    return `images/${path}`;
-  }
-
-  function createGalleryCard(item, index) {
-    const card = document.createElement("article");
-    card.className = "gallery-card";
-    card.style.animationDelay = `${Math.min(index * 65, 650)}ms`;
-
-    const imagePath = fixImagePath(
-      item.imageUrl || item.file || item.image || item.url || ""
-    );
-
-    const title = item.title || "Untitled";
-    const description = item.description || "";
-
-    const wrap = document.createElement("div");
-    wrap.className = "image-wrap";
-
-    const image = document.createElement("img");
-    image.src = imagePath;
-    image.alt = title;
-    image.loading = "lazy";
-    image.decoding = "async";
-    image.tabIndex = 0;
-    image.setAttribute("role", "button");
-    image.setAttribute("aria-label", `Open image: ${title}`);
-
-    const open = () => openImageModal(index);
-
-    image.addEventListener("click", open);
-
-    image.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        open();
-      }
-    });
-
-    image.addEventListener("error", () => {
-      wrap.style.display = "none";
-    });
-
-    wrap.appendChild(image);
-
-    const info = document.createElement("div");
-    info.className = "gallery-info";
-
-    const heading = document.createElement("h3");
-    heading.textContent = title;
-
-    const paragraph = document.createElement("p");
-    paragraph.textContent = description;
-
-    info.append(heading, paragraph);
-    card.append(wrap, info);
-
-    return card;
-  }
-
-  function renderGallery() {
-    const container = $("gallery-container");
-    const query = $("gallery-search").value.trim().toLowerCase();
-    const sort = $("gallery-sort").value;
-
-    let items = galleryItems
-      .map((item, index) => ({ item, index }))
-      .filter(({ item }) =>
-        `${item.title || "Untitled"} ${item.description || ""}`
-          .toLowerCase()
-          .includes(query)
-      );
-
-    if (sort === "title") {
-      items.sort((a, b) =>
-        (a.item.title || "Untitled").localeCompare(
-          b.item.title || "Untitled"
-        )
-      );
-    }
-
-    if (sort === "title-desc") {
-      items.sort((a, b) =>
-        (b.item.title || "Untitled").localeCompare(
-          a.item.title || "Untitled"
-        )
-      );
-    }
-
-    container.replaceChildren();
-
-    if (!items.length) {
-      const empty = document.createElement("div");
-      empty.className = "empty-gallery";
-      empty.innerHTML =
-        "<h3>No matching memories</h3><p>Try another search term.</p>";
-
-      container.appendChild(empty);
-    } else {
-      items.forEach(({ item, index }) => {
-        container.appendChild(createGalleryCard(item, index));
-      });
-    }
-
-    $("photo-visible").textContent = items.length;
-    $("gallery-count").textContent =
-      `${items.length} of ${galleryItems.length} photos`;
-    $("photo-total").textContent = galleryItems.length;
-  }
-
-  async function loadGallery() {
-    const container = $("gallery-container");
-    container.innerHTML =
-      '<div class="loading">⚡ Loading your memories…</div>';
-
-    const [oldResult, dashboardResult] = await Promise.allSettled([
-      get(ref(database, "gallery")),
-      get(ref(dashboardDatabase, "dashboardGallery"))
-    ]);
-
-    const oldItems = [];
-    const dashboardItems = [];
-
-    if (oldResult.status === "fulfilled" && oldResult.value.exists()) {
-      const data = oldResult.value.val();
-      const items = Array.isArray(data) ? data : Object.values(data);
-      oldItems.push(...items.filter(item => item && typeof item === "object"));
-    } else if (oldResult.status === "rejected") {
-      console.warn("Could not load the original gallery:", oldResult.reason);
-    }
-
-    if (dashboardResult.status === "fulfilled" && dashboardResult.value.exists()) {
-      const data = dashboardResult.value.val();
-      const items = Array.isArray(data) ? data : Object.values(data);
-      dashboardItems.push(...items.filter(item => item && typeof item === "object"));
-    } else if (dashboardResult.status === "rejected") {
-      console.warn("Could not load dashboard gallery:", dashboardResult.reason);
-    }
-
-   
-const githubImages = [
-  {
-    title: "Memory 1",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg"
-  },
-  {
-    title: "Memory 2",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg"
-  },
-  {
-    title: "Memory 3",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg"
-  },
-  {
-    title: "Memory 4",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg"
-  },
-  {
-    title: "Memory 5",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg"
-  },
-  {
-    title: "Memory 6",
-    description: "A moment from my personal collection.",
-    imageUrl: "images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg"
-  }
-];
-
-galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
-
-
-    if (!galleryItems.length) {
-      container.innerHTML =
-        "<div class='empty-gallery'>" +
-        "<h3>No gallery pictures could be loaded.</h3>" +
-        "<p>Check your internet connection and read permissions for both Firebase databases.</p>" +
-        "</div>";
-      updateCounts();
-      return;
-    }
-
-    renderGallery();
-  }
-
-  function updateCounts() {
-    $("photo-total").textContent = galleryItems.length;
-    $("photo-visible").textContent = 0;
-    $("gallery-count").textContent =
-      `0 of ${galleryItems.length} photos`;
-  }
-
-  $("gallery-search").addEventListener("input", renderGallery);
-  $("gallery-sort").addEventListener("change", renderGallery);
-
-  function openImageModal(index) {
-    if (!galleryItems.length) return;
-
-    currentModalIndex =
-      (index + galleryItems.length) % galleryItems.length;
-
-    const item = galleryItems[currentModalIndex];
-
-    $("modalImage").src = fixImagePath(
-      item.imageUrl || item.file || item.image || item.url || ""
-    );
-
-    $("modalImage").alt = item.title || "Gallery image";
-
-    $("modalCaption").textContent = [
-      item.title || "Untitled",
-      item.description || ""
-    ].filter(Boolean).join(" — ");
-
-    $("imageModal").style.display = "flex";
-    document.body.style.overflow = "hidden";
-    $("close-modal").focus();
-  }
-
-  function closeImageModal() {
-    $("imageModal").style.display = "none";
-    $("modalImage").src = "";
-    document.body.style.overflow = "";
-  }
-
-  function moveModal(step) {
-    openImageModal(currentModalIndex + step);
-  }
-
-  $("close-modal").addEventListener("click", closeImageModal);
-
-  $("prev-image").addEventListener("click", () => moveModal(-1));
-  $("next-image").addEventListener("click", () => moveModal(1));
-
-  $("imageModal").addEventListener("click", event => {
-    if (event.target.id === "imageModal") {
-      closeImageModal();
-    }
-  });
-
-  document.addEventListener("keydown", event => {
-    if ($("imageModal").style.display === "flex") {
-      if (event.key === "Escape") closeImageModal();
-      if (event.key === "ArrowLeft") moveModal(-1);
-      if (event.key === "ArrowRight") moveModal(1);
-    }
-  });
-
-  startQuiz();
-</script>
-
-<script src="js/animations.js" defer></script>
-</body>
-</html>
-        .close-modal {
-      top: 15px;
-      right: 18px;
-    }
-
-    .modal-nav {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .modal-nav:hover,
-    .close-modal:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-      box-shadow: 0 0 16px rgba(37,244,238,.2);
-    }
-
-    #prev-image { left: 15px; }
-    #next-image { right: 15px; }
-
-    #modalCaption {
-      position: absolute;
-      bottom: 12px;
-      left: 65px;
-      right: 65px;
-      text-align: center;
-      color: #f4f7ff;
-      font-size: .95rem;
-      line-height: 1.5;
-      text-shadow: 0 2px 8px #000;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 18px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      background: rgba(5,7,17,.75);
-    }
-
-    footer a {
-      color: var(--cyan);
-      text-decoration: none;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: .55; }
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes zoom {
-      from { opacity: 0; transform: scale(.96); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes flow {
-      from { background-position: 0% 50%; }
-      to { background-position: 200% 50%; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 650px) {
-      header { padding: 38px 15px; }
-      .container { padding: 20px 13px 40px; }
-      .quiz-intro { padding: 21px 16px; }
-      .question-box { padding: 17px; }
-      .stats { gap: 7px; }
-      .stat { padding: 12px 5px; }
-      .stat strong { font-size: 1.1rem; }
-      .stat span { font-size: .68rem; letter-spacing: .5px; }
-      .toolbar { align-items: stretch; }
-      .toolbar input,
-      .toolbar select { min-width: 100%; }
-      .toolbar .count { margin-left: 0; }
-      #gallery-container {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 14px;
-      }
-      .image-wrap { height: 220px; }
-      #prev-image { left: 7px; }
-      #next-image { right: 7px; }
-      #modalCaption {
-        bottom: 8px;
-        left: 15px;
-        right: 15px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="eyebrow">
-      <span class="pulse-dot"></span>
-      Personal memories
-    </div>
-    <h1>My Gallery</h1>
-    <p>A collection of moments, memories and experiences.</p>
-    <div class="header-line"></div>
-  </header>
-
-  <main class="container">
-    <section id="quiz-section" class="quiz-section">
-      <div class="quiz-intro">
-        <h2>🔐 Know Me to Enter</h2>
-        <p>Welcome to my personal gallery. Answer the questions to unlock my memories.</p>
-        <p>You will receive <strong>10 random questions</strong> from a question bank.</p>
-        <p>You need at least <strong>5 correct answers out of 10</strong> to unlock the gallery.</p>
-      </div>
-
-      <div id="quiz-progress" class="quiz-progress">
-        Preparing your questions…
-      </div>
-
-      <div id="quiz-container"></div>
-
-      <button id="submit-quiz" class="action-button full" type="button">
-        Unlock Gallery →
-      </button>
-
-      <button id="retry-button" class="action-button secondary full"
-              type="button" style="display:none">
-        Try Again ↻
-      </button>
-
-      <div id="result" role="status" aria-live="polite"></div>
-    </section>
-
-    <section id="gallery-section">
-      <div class="gallery-heading">
-        <h2>✨ Welcome to My Memories</h2>
-        <p>Explore my pictures and moments. Select any picture to view it larger.</p>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <strong id="photo-total">0</strong>
-          <span>Total Photos</span>
-        </div>
-        <div class="stat">
-          <strong id="photo-visible">0</strong>
-          <span>Showing</span>
-        </div>
-        <div class="stat">
-          <strong>🔓</strong>
-          <span>Unlocked</span>
-        </div>
-      </div>
-
-      <div class="toolbar">
-        <input id="gallery-search" type="search"
-               placeholder="Search photos by title or description…"
-               aria-label="Search gallery">
-
-        <select id="gallery-sort" aria-label="Sort gallery">
-          <option value="default">Default order</option>
-          <option value="title">Title A–Z</option>
-          <option value="title-desc">Title Z–A</option>
-        </select>
-
-        <span id="gallery-count" class="count">Loading photos…</span>
-      </div>
-
-      <div id="gallery-container" aria-live="polite">
-        <div class="loading">⚡ Loading your memories…</div>
-      </div>
-    </section>
-  </main>
-
-  <div id="imageModal" role="dialog" aria-modal="true"
-       aria-label="Image viewer">
-    <button id="close-modal" class="close-modal"
-            type="button" aria-label="Close image viewer">×</button>
-
-    <button id="prev-image" class="modal-nav"
-            type="button" aria-label="Previous image">‹</button>
-
-    <img id="modalImage" src="" alt="">
-
-    <button id="next-image" class="modal-nav"
-            type="button" aria-label="Next image">›</button>
-
-    <div id="modalCaption"></div>
-  </div>
-
-  <footer>
-    <p>© 2026 Clinton Ncube · Personal Gallery</p>
-    <p><a href="index.html">← Back to Home</a></p>
-  </footer>
-  <script type="module">
-  import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-  import {
-    getDatabase,
-    ref,
-    get
-  } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-
-  const oldFirebaseConfig = {
-    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-    authDomain: "clinton-ncube-website.firebaseapp.com",
-    databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-    projectId: "clinton-ncube-website",
-    storageBucket: "clinton-ncube-website.firebasestorage.app",
-    messagingSenderId: "946671700613",
-    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
-    measurementId: "G-K1S62MHHXP"
-  };
-
-  const dashboardFirebaseConfig = {
-    apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFREyI",
-    authDomain: "clinton-ncube-website-21755.firebaseapp.com",
-    databaseURL: "https://clinton-ncube-website-21755-default-rtdb.firebaseio.com",
-    projectId: "clinton-ncube-website-21755",
-    messagingSenderId: "257869482758",
-    appId: "1:257869482758:web:526da603000f5cede56c87",
-    measurementId: "G-04160GLZQT"
-  };
-
-  const app = initializeApp(oldFirebaseConfig);
-  const database = getDatabase(app);
-
-  const dashboardApp = initializeApp(
-    dashboardFirebaseConfig,
-    "dashboardGalleryApp"
-  );
-  const dashboardDatabase = getDatabase(dashboardApp);
-
-  const questionBank = [
-    {
-      question: "What is my full name?",
-      options: [
-        "Thabang Clinton Ncube",
-        "Clinton James Ncube",
-        "Thabang Ncube Junior",
-        "Clinton Thabo Ncube"
-      ],
-      answer: "Thabang Clinton Ncube"
-    },
-    {
-      question: "What nickname do I use?",
-      options: ["Vixeny", "Clinty", "CJ", "TNC"],
-      answer: "Vixeny"
-    },
-    {
-      question: "How old am I?",
-      options: ["16", "17", "18", "19"],
-      answer: "18"
-    },
-    {
-      question: "When is my birthday?",
-      options: [
-        "21 September",
-        "21 October",
-        "12 September",
-        "2 September"
-      ],
-      answer: "21 September"
-    },
-    {
-      question: "What is my favourite colour?",
-      options: ["Blue", "Red", "Black", "Green"],
-      answer: "Red"
-    },
-    {
-      question: "What is my favourite food?",
-      options: ["Pizza", "Rice", "Spaghetti", "Chicken"],
-      answer: "Spaghetti"
-    },
-    {
-      question: "What is my favourite drink?",
-      options: ["Fanta", "Coke", "Sprite", "Mazoe"],
-      answer: "Coke"
-    },
-    {
-      question: "What is my favourite school subject?",
-      options: ["Biology", "Chemistry", "Mathematics", "English"],
-      answer: "Mathematics"
-    },
-    {
-      question: "Which subject do I find most challenging?",
-      options: ["Mathematics", "Biology", "English", "Heritage"],
-      answer: "Biology"
-    },
-    {
-      question: "What is my favourite school activity?",
-      options: [
-        "Playing basketball",
-        "Debating",
-        "Singing",
-        "Chess"
-      ],
-      answer: "Playing basketball"
-    },
-    {
-      question: "What is my favourite sport?",
-      options: ["Football", "Athletics", "Basketball", "Swimming"],
-      answer: "Basketball"
-    },
-    {
-      question: "Who is my favourite basketball player?",
-      options: [
-        "Stephen Curry",
-        "LeBron James",
-        "Kevin Durant",
-        "Michael Jordan"
-      ],
-      answer: "LeBron James"
-    },
-    {
-      question: "What is my favourite basketball team?",
-      options: [
-        "Los Angeles Lakers",
-        "Golden State Warriors",
-        "San Antonio Spurs",
-        "Boston Celtics"
-      ],
-      answer: "San Antonio Spurs"
-    },
-    {
-      question: "Which other sports do I enjoy?",
-      options: [
-        "Swimming and athletics",
-        "Football and rugby",
-        "Tennis and golf",
-        "Boxing and cricket"
-      ],
-      answer: "Swimming and athletics"
-    },
-    {
-      question: "What are my hobbies?",
-      options: [
-        "Basketball, swimming, reading and athletics",
-        "Football, gaming and music",
-        "Swimming, football and chess",
-        "Reading, rugby and cricket"
-      ],
-      answer: "Basketball, swimming, reading and athletics"
-    },
-    {
-      question: "Do I enjoy swimming?",
-      options: ["Yes", "No", "Sometimes", "I don't know"],
-      answer: "Yes"
-    },
-    {
-      question: "Do I enjoy reading?",
-      options: ["Yes", "No", "Only at school", "Rarely"],
-      answer: "Yes"
-    },
-    {
-      question: "Do I enjoy athletics?",
-      options: [
-        "Yes",
-        "No",
-        "Only during Sports Day",
-        "I have never tried it"
-      ],
-      answer: "Yes"
-    },
-    {
-      question: "What is my favourite book or type of book?",
-      options: ["One", "Novels", "Science books", "Biographies"],
-      answer: "One"
-    },
-    {
-      question: "What do I usually do in my free time?",
-      options: [
-        "Play basketball, swim, read and do athletics",
-        "Watch television all day",
-        "Only play video games",
-        "Only study"
-      ],
-      answer: "Play basketball, swim, read and do athletics"
-    },
-    {
-      question: "What school do I attend?",
-      options: [
-        "Silveira High School",
-        "Mpopoma High School",
-        "Milton High School",
-        "Mzilikazi High School"
-      ],
-      answer: "Silveira High School"
-    },
-    {
-      question: "What Form am I in?",
-      options: ["Form 2", "Form 3", "Form 4", "Form 5"],
-      answer: "Form 4"
-    },
-    {
-      question: "Which group of subjects am I studying?",
-      options: [
-        "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects",
-        "Only Mathematics and English",
-        "Only Science subjects",
-        "Only practical subjects"
-      ],
-      answer: "Mathematics, Biology, Chemistry, FTD, Heritage and other O-Level subjects"
-    },
-    {
-      question: "What is my favourite thing about Silveira High School?",
-      options: [
-        "The people are loving and social",
-        "The school is very quiet",
-        "The school has no activities",
-        "The school has no students"
-      ],
-      answer: "The people are loving and social"
-    },
-    {
-      question: "What is my favourite school event?",
-      options: [
-        "Sports Day",
-        "Graduation",
-        "Prize Giving Day",
-        "Parents Day"
-      ],
-      answer: "Sports Day"
-    },
-    {
-      question: "Which school event/project am I most proud of?",
-      options: [
-        "Science exhibition",
-        "Football tournament",
-        "School concert",
-        "Debate competition"
-      ],
-      answer: "Science exhibition"
-    },
-    {
-      question: "What career would I like to pursue?",
-      options: ["Engineer", "Teacher", "Doctor", "Lawyer"],
-      answer: "Doctor"
-    },
-    {
-      question: "What skill would I most like to improve?",
-      options: [
-        "My skills in general",
-        "Only drawing",
-        "Only singing",
-        "Only cooking"
-      ],
-      answer: "My skills in general"
-    },
-    {
-      question: "What is one academic goal I have?",
-      options: [
-        "To improve my academic performance",
-        "To stop studying",
-        "To avoid examinations",
-        "To leave school"
-      ],
-      answer: "To improve my academic performance"
-    },
-    {
-      question: "What do I enjoy doing with my classmates?",
-      options: [
-        "Taking part in school activities and projects",
-        "Avoiding everyone",
-        "Only playing games",
-        "Only studying alone"
-      ],
-      answer: "Taking part in school activities and projects"
-    },
-    {
-      question: "What is the name displayed on my website?",
-      options: [
-        "Thabang Ncube",
-        "Clinton Ncube",
-        "Vixeny Ncube",
-        "TC Ncube"
-      ],
-      answer: "Clinton Ncube"
-    },
-    {
-      question: "What is the main purpose of my website?",
-      options: [
-        "To showcase my projects, hobbies, skills and memories",
-        "To sell clothes",
-        "To play online games",
-        "To publish school news"
-      ],
-      answer: "To showcase my projects, hobbies, skills and memories"
-    },
-    {
-      question: "Which set contains pages on my website?",
-      options: [
-        "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin",
-        "Only Home and Gallery",
-        "News, Sports and Shop",
-        "Music, Games and Videos"
-      ],
-      answer: "Home, About, Projects, Hobbies, Skills, Gallery, Achievements, Contact and Admin"
-    },
-    {
-      question: "What can visitors see in my Gallery?",
-      options: [
-        "Pictures and memories",
-        "Only school results",
-        "Only documents",
-        "Only sports scores"
-      ],
-      answer: "Pictures and memories"
-    },
-    {
-      question: "What can visitors find on my Projects page?",
-      options: [
-        "My projects and things I have created",
-        "Only movie reviews",
-        "Only music",
-        "Only sports scores"
-      ],
-      answer: "My projects and things I have created"
-    },
-    {
-      question: "What is the purpose of my About page?",
-      options: [
-        "To tell visitors about me",
-        "To sell products",
-        "To show weather reports",
-        "To display sports scores"
-      ],
-      answer: "To tell visitors about me"
-    },
-    {
-      question: "What is the purpose of my Hobbies page?",
-      options: [
-        "To share activities I enjoy",
-        "To show school fees",
-        "To display exam timetables",
-        "To sell books"
-      ],
-      answer: "To share activities I enjoy"
-    },
-    {
-      question: "What is the purpose of my Skills page?",
-      options: [
-        "To showcase skills I have and want to develop",
-        "To display only photographs",
-        "To list school rules",
-        "To show news headlines"
-      ],
-      answer: "To showcase skills I have and want to develop"
-    },
-    {
-      question: "What is the purpose of my Achievements page?",
-      options: [
-        "To show achievements and milestones",
-        "To list restaurants",
-        "To sell sports equipment",
-        "To display random advertisements"
-      ],
-      answer: "To show achievements and milestones"
-    },
-    {
-      question: "What is the purpose of my Contact page?",
-      options: [
-        "To let visitors contact me",
-        "To show only my photographs",
-        "To publish examination results",
-        "To play music"
-      ],
-      answer: "To let visitors contact me"
-    },
-    {
-      question: "What kind of design do I prefer for my website?",
-      options: [
-        "Dark futuristic styling with neon cyan and purple",
-        "Plain white with no styling",
-        "A paper notebook design",
-        "A bright yellow-only theme"
-      ],
-      answer: "Dark futuristic styling with neon cyan and purple"
-    },
-    {
-      question: "Which colours are prominent in my website design?",
-      options: [
-        "Neon cyan and purple",
-        "Only brown and grey",
-        "Orange and yellow only",
-        "Pink and white only"
-      ],
-      answer: "Neon cyan and purple"
-    },
-    {
-      question: "What is one thing I want to learn through my website?",
-      options: [
-        "To improve my skills and create useful projects",
-        "To stop learning",
-        "To avoid technology",
-        "To remove all my projects"
-      ],
-      answer: "To improve my skills and create useful projects"
-    },
-    {
-      question: "What type of projects do I enjoy creating?",
-      options: [
-        "Creative and useful projects",
-        "Only paper posters",
-        "Only cooking recipes",
-        "Only sports scores"
-      ],
-      answer: "Creative and useful projects"
-    },
-    {
-      question: "What do I want visitors to learn from my portfolio?",
-      options: [
-        "About my interests, projects and skills",
-        "My private passwords",
-        "Only the weather",
-        "Only shopping prices"
-      ],
-      answer: "About my interests, projects and skills"
-    },
-    {
-      question: "Which basketball league do I follow?",
+      question: "Which sports league do I enjoy?",
       options: ["NBA", "NFL", "MLB", "NHL"],
       answer: "NBA"
     },
     {
-      question: "Which Canadian destination interests me?",
-      options: ["Canada", "Brazil", "Japan", "Egypt"],
-      answer: "Canada"
-    },
-    {
-      question: "Which TV series do I enjoy?",
-      options: [
-        "The Rookie",
-        "Friends",
-        "The Office",
-        "Stranger Things"
-      ],
-      answer: "The Rookie"
-    },
-    {
-      question: "Which football player do I follow?",
-      options: [
-        "Daka",
-        "Lionel Messi",
-        "Cristiano Ronaldo",
-        "Neymar"
-      ],
+      question: "Which football player do I know?",
+      options: ["Daka", "Messi", "Ronaldo", "Mbappé"],
       answer: "Daka"
     },
     {
-      question: "Which school subject is related to living things?",
-      options: ["Biology", "Mathematics", "History", "Art"],
-      answer: "Biology"
+      question: "Which country would I like to visit or live in?",
+      options: ["Canada", "Brazil", "Japan", "Spain"],
+      answer: "Canada"
     },
     {
-      question: "What do I hope to do in the future?",
+      question: "What kind of projects do I enjoy creating?",
       options: [
-        "Continue learning and building my skills",
-        "Stop learning new things",
-        "Delete every project",
-        "Avoid creative work"
+        "Creative and useful projects",
+        "Only cooking projects",
+        "Only music projects",
+        "No projects"
       ],
-      answer: "Continue learning and building my skills"
+      answer: "Creative and useful projects"
+    },
+    {
+      question: "What do I want to improve?",
+      options: [
+        "My skills and knowledge",
+        "Only my handwriting",
+        "Only my running speed",
+        "Nothing"
+      ],
+      answer: "My skills and knowledge"
+    },
+    {
+      question: "What is the name of my personal website?",
+      options: [
+        "Clinton Ncube",
+        "Thabang Sports",
+        "Ncube Academy",
+        "My School Page"
+      ],
+      answer: "Clinton Ncube"
+    },
+    {
+      question: "What is one of my main interests?",
+      options: [
+        "Technology and creative projects",
+        "Fishing only",
+        "Cooking only",
+        "Gardening only"
+      ],
+      answer: "Technology and creative projects"
     }
   ];
 
-  let selectedQuestions = [];
-  let userAnswers = [];
+  const quizContainer = document.getElementById("quiz-container");
+  const quizProgress = document.getElementById("quiz-progress");
+  const submitQuizButton = document.getElementById("submit-quiz");
+  const retryButton = document.getElementById("retry-button");
+  const resultBox = document.getElementById("result");
+  const quizSection = document.getElementById("quiz-section");
+  const gallerySection = document.getElementById("gallery-section");
+  const galleryContainer = document.getElementById("gallery-container");
+  const gallerySearch = document.getElementById("gallery-search");
+  const gallerySort = document.getElementById("gallery-sort");
+  const galleryCount = document.getElementById("gallery-count");
+  const photoTotal = document.getElementById("photo-total");
+  const photoVisible = document.getElementById("photo-visible");
+
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  const modalCaption = document.getElementById("modalCaption");
+  const closeModalButton = document.getElementById("close-modal");
+  const prevImageButton = document.getElementById("prev-image");
+  const nextImageButton = document.getElementById("next-image");
+
+  let currentQuestions = [];
+  let selectedAnswers = {};
   let galleryItems = [];
+  let visibleItems = [];
   let currentModalIndex = 0;
 
-  const $ = id => document.getElementById(id);
-
-  function shuffle(array) {
+  function shuffleArray(array) {
     const result = [...array];
 
     for (let i = result.length - 1; i > 0; i--) {
@@ -2109,136 +668,385 @@ galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
   }
 
   function startQuiz() {
-    selectedQuestions = shuffle(questionBank).slice(0, 10);
-    userAnswers = new Array(10).fill(null);
+    currentQuestions = shuffleArray(questionBank).slice(0, 10);
+    selectedAnswers = {};
 
-    $("result").style.display = "none";
-    $("result").className = "";
-    $("retry-button").style.display = "none";
-    $("submit-quiz").style.display = "block";
+    quizContainer.innerHTML = "";
+    resultBox.style.display = "none";
+    retryButton.style.display = "none";
+    submitQuizButton.style.display = "block";
 
-    renderQuiz();
-  }
+    quizProgress.textContent =
+      `Answer all 10 questions. You need 5 correct answers to unlock the gallery.`;
 
-  function renderQuiz() {
-    const host = $("quiz-container");
-    host.replaceChildren();
+    currentQuestions.forEach((question, index) => {
+      const questionBox = document.createElement("div");
+      questionBox.className = "question-box";
 
-    selectedQuestions.forEach((question, index) => {
-      const box = document.createElement("article");
-      box.className = "question-box";
-      box.style.animationDelay = `${index * 55}ms`;
-
-      const title = document.createElement("h3");
-      title.textContent = `${index + 1}. ${question.question}`;
-      box.appendChild(title);
+      const heading = document.createElement("h3");
+      heading.textContent = `${index + 1}. ${question.question}`;
+      questionBox.appendChild(heading);
 
       const answers = document.createElement("div");
       answers.className = "answers";
 
-      shuffle(question.options).forEach(option => {
+      shuffleArray(question.options).forEach(option => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "answer-button";
         button.textContent = option;
-        button.setAttribute("aria-pressed", "false");
 
         button.addEventListener("click", () => {
-          answers.querySelectorAll(".answer-button").forEach(b => {
-            b.classList.remove("selected");
-            b.setAttribute("aria-pressed", "false");
+          selectedAnswers[index] = option;
+
+          answers.querySelectorAll(".answer-button").forEach(item => {
+            item.classList.remove("selected");
+            item.setAttribute("aria-pressed", "false");
           });
 
           button.classList.add("selected");
           button.setAttribute("aria-pressed", "true");
-          userAnswers[index] = option;
 
-          $("quiz-progress").textContent =
-            `Question ${index + 1} of 10 selected · ` +
-            `${userAnswers.filter(a => a !== null).length}/10 answered`;
+          quizProgress.textContent =
+            `${Object.keys(selectedAnswers).length} of 10 questions answered`;
         });
 
+        button.setAttribute("aria-pressed", "false");
         answers.appendChild(button);
       });
 
-      box.appendChild(answers);
-      host.appendChild(box);
+      questionBox.appendChild(answers);
+      quizContainer.appendChild(questionBox);
     });
 
-    $("quiz-progress").textContent =
-      "10 random questions selected · 0/10 answered";
+    quizProgress.textContent = "0 of 10 questions answered";
   }
 
-  $("submit-quiz").addEventListener("click", () => {
-    const unanswered = userAnswers.filter(a => a === null).length;
-
-    if (unanswered) {
-      $("result").style.display = "block";
-      $("result").className = "fail-result";
-      $("result").textContent =
-        `Please answer all 10 questions first. ` +
-        `${unanswered} remain unanswered.`;
+  function submitQuiz() {
+    if (Object.keys(selectedAnswers).length < 10) {
+      resultBox.className = "fail-result";
+      resultBox.style.display = "block";
+      resultBox.textContent =
+        `Please answer all 10 questions first. You have answered ${Object.keys(selectedAnswers).length} out of 10.`;
       return;
     }
 
-    const score = selectedQuestions.reduce(
-      (total, question, index) =>
-        total + (userAnswers[index] === question.answer ? 1 : 0),
-      0
-    );
+    let score = 0;
 
-    const result = $("result");
-    result.style.display = "block";
-    $("submit-quiz").style.display = "none";
+    currentQuestions.forEach((question, index) => {
+      if (selectedAnswers[index] === question.answer) {
+        score++;
+      }
+    });
+
+    submitQuizButton.style.display = "none";
+    resultBox.style.display = "block";
 
     if (score >= 5) {
-      result.className = "pass-result";
-      result.textContent =
-        `🏆 Great work! You scored ${score}/10. Gallery unlocked!`;
+      resultBox.className = "pass-result";
+      resultBox.textContent =
+        `🎉 Well done! You scored ${score}/10. The gallery is now unlocked.`;
 
-      $("quiz-section").style.display = "none";
-      $("gallery-section").style.display = "block";
+      quizProgress.textContent = "Access granted";
+      gallerySection.style.display = "block";
 
       loadGallery();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      setTimeout(() => {
+        gallerySection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 250);
     } else {
-      result.className = "fail-result";
-      result.textContent =
-        `You scored ${score}/10. You need at least 5/10. ` +
-        "Try again with a new set of questions.";
+      resultBox.className = "fail-result";
+      resultBox.textContent =
+        `You scored ${score}/10. You need at least 5 correct answers. Try again with a new set of questions.`;
 
-      $("retry-button").style.display = "block";
+      retryButton.style.display = "block";
+      quizProgress.textContent = "Access denied — try again";
     }
-  });
+  }
 
-  $("retry-button").addEventListener("click", () => {
-    startQuiz();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  submitQuizButton.addEventListener("click", submitQuiz);
+  retryButton.addEventListener("click", startQuiz);
 
   function fixImagePath(path) {
-    if (!path) return "";
+    if (!path || typeof path !== "string") return "";
 
-    if (/^(https?:\/\/|data:|blob:)/i.test(path) || path.startsWith("/")) {
-      return path;
+    const cleanPath = path.trim();
+
+    if (
+      cleanPath.startsWith("https://") ||
+      cleanPath.startsWith("http://") ||
+      cleanPath.startsWith("data:") ||
+      cleanPath.startsWith("blob:")
+    ) {
+      return cleanPath;
     }
 
-    if (path.startsWith("images/")) return path;
+    return cleanPath.replace(/^\.?\//, "");
+  }
 
-    return `images/${path}`;
+  function normalizeGalleryItem(item, index, source) {
+    if (!item || typeof item !== "object") return null;
+
+    const imagePath =
+      item.imageUrl ||
+      item.file ||
+      item.image ||
+      item.url ||
+      item.downloadURL ||
+      "";
+
+    const imageUrl = fixImagePath(imagePath);
+
+    if (!imageUrl) return null;
+
+    return {
+      id: item.id || `${source}-${index}`,
+      title: item.title || item.name || `Memory ${index + 1}`,
+      description:
+        item.description ||
+        item.caption ||
+        "A moment from my personal collection.",
+      imageUrl,
+      source
+    };
+  }
+
+  async function readGalleryPath(db, path, source) {
+    try {
+      const snapshot = await get(ref(db, path));
+
+      if (!snapshot.exists()) return [];
+
+      const data = snapshot.val();
+      let items = [];
+
+      if (Array.isArray(data)) {
+        items = data;
+      } else if (data && typeof data === "object") {
+        items = Object.entries(data).map(([key, value]) => ({
+          id: key,
+          ...(value && typeof value === "object" ? value : {})
+        }));
+      }
+
+      return items
+        .map((item, index) => normalizeGalleryItem(item, index, source))
+        .filter(Boolean);
+    } catch (error) {
+      console.warn(`Could not read ${source} gallery path "${path}":`, error);
+      return [];
+    }
+  }
+
+  const githubImages = [
+    {
+      id: "github-memory-1",
+      title: "Memory 1",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg",
+      source: "github"
+    },
+    {
+      id: "github-memory-2",
+      title: "Memory 2",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg",
+      source: "github"
+    },
+    {
+      id: "github-memory-3",
+      title: "Memory 3",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg",
+      source: "github"
+    },
+    {
+      id: "github-memory-4",
+      title: "Memory 4",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg",
+      source: "github"
+    },
+    {
+      id: "github-memory-5",
+      title: "Memory 5",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg",
+      source: "github"
+    },
+    {
+      id: "github-memory-6",
+      title: "Memory 6",
+      description: "A moment from my personal collection.",
+      imageUrl: "images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg",
+      source: "github"
+    }
+  ];
+
+  async function loadGallery() {
+    galleryContainer.innerHTML =
+      '<div class="loading">⚡ Loading your memories…</div>';
+
+    const oldPaths = [
+      "gallery",
+      "photos"
+    ];
+
+    const dashboardPaths = [
+      "dashboardGallery",
+      "gallery",
+      "photos"
+    ];
+
+    const oldResults = await Promise.all(
+      oldPaths.map(path => readGalleryPath(database, path, "old"))
+    );
+
+    const dashboardResults = await Promise.all(
+      dashboardPaths.map(path =>
+        readGalleryPath(dashboardDatabase, path, "dashboard")
+      )
+    );
+
+    const oldItems = oldResults.flat();
+    const dashboardItems = dashboardResults.flat();
+
+    galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
+
+    const uniqueItems = [];
+    const seen = new Set();
+
+    galleryItems.forEach(item => {
+      const key = item.imageUrl;
+
+      if (!seen.has(key)) {
+        seen.add(key);
+        uniqueItems.push(item);
+      }
+    });
+
+    galleryItems = uniqueItems;
+
+    renderGallery();
+  }
+
+  function renderGallery() {
+    const searchTerm = gallerySearch.value.trim().toLowerCase();
+    const sortMode = gallerySort.value;
+
+    visibleItems = galleryItems.filter(item => {
+      const searchableText =
+        `${item.title} ${item.description}`.toLowerCase();
+
+      return searchableText.includes(searchTerm);
+    });
+
+    if (sortMode === "title") {
+      visibleItems.sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+    } else if (sortMode === "title-desc") {
+      visibleItems.sort((a, b) =>
+        b.title.localeCompare(a.title)
+      );
+    }
+
+    photoTotal.textContent = galleryItems.length;
+    photoVisible.textContent = visibleItems.length;
+    galleryCount.textContent =
+      `${visibleItems.length} photo${visibleItems.length === 1 ? "" : "s"}`;
+
+    galleryContainer.innerHTML = "";
+
+    if (visibleItems.length === 0) {
+      galleryContainer.innerHTML = `
+        <div class="empty-gallery">
+          <h3>No photos found</h3>
+          <p>Try another search, or check that your images are in the images folder.</p>
+        </div>
+      `;
+      return;
+    }
+
+    visibleItems.forEach((item, index) => {
+      const card = document.createElement("article");
+      card.className = "gallery-card";
+      card.style.animationDelay = `${Math.min(index * 45, 400)}ms`;
+
+      const imageWrap = document.createElement("div");
+      imageWrap.className = "image-wrap";
+
+      const image = document.createElement("img");
+      image.src = item.imageUrl;
+      image.alt = item.title;
+      image.loading = "lazy";
+      image.decoding = "async";
+
+      image.addEventListener("click", () => openModal(index));
+
+      image.addEventListener("error", () => {
+        image.alt = `${item.title} — image could not be loaded`;
+        image.style.opacity = ".35";
+      });
+
+      imageWrap.appendChild(image);
+
+      const info = document.createElement("div");
+      info.className = "gallery-info";
+
+      const title = document.createElement("h3");
+      title.textContent = item.title;
+
+      const description = document.createElement("p");
+      description.textContent = item.description;
+
+      info.appendChild(title);
+      info.appendChild(description);
+
+      card.appendChild(imageWrap);
+      card.appendChild(info);
+      galleryContainer.appendChild(card);
+    });
+  }
+
+  gallerySearch.addEventListener("input", renderGallery);
+  gallerySort.addEventListener("change", renderGallery);
+                                       function $(id) {
+    return document.getElementById(id);
+  }
+
+  function fixImagePath(path) {
+    if (!path || typeof path !== "string") return "";
+
+    const cleanPath = path.trim();
+
+    if (
+      cleanPath.startsWith("https://") ||
+      cleanPath.startsWith("http://") ||
+      cleanPath.startsWith("data:") ||
+      cleanPath.startsWith("blob:")
+    ) {
+      return cleanPath;
+    }
+
+    return cleanPath.replace(/^\.?\//, "");
   }
 
   function createGalleryCard(item, index) {
     const card = document.createElement("article");
     card.className = "gallery-card";
-    card.style.animationDelay = `${Math.min(index * 65, 650)}ms`;
 
     const imagePath = fixImagePath(
       item.imageUrl || item.file || item.image || item.url || ""
     );
 
-    const title = item.title || "Untitled";
-    const description = item.description || "";
+    const title = item.title || item.name || "Untitled";
+    const description =
+      item.description || item.caption || "A moment from my personal collection.";
 
     const wrap = document.createElement("div");
     wrap.className = "image-wrap";
@@ -2350,20 +1158,66 @@ galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
     if (oldResult.status === "fulfilled" && oldResult.value.exists()) {
       const data = oldResult.value.val();
       const items = Array.isArray(data) ? data : Object.values(data);
-      oldItems.push(...items.filter(item => item && typeof item === "object"));
+      oldItems.push(
+        ...items.filter(item => item && typeof item === "object")
+      );
     } else if (oldResult.status === "rejected") {
-      console.warn("Could not load the original gallery:", oldResult.reason);
+      console.warn(
+        "Could not load the original gallery:",
+        oldResult.reason
+      );
     }
 
-    if (dashboardResult.status === "fulfilled" && dashboardResult.value.exists()) {
+    if (
+      dashboardResult.status === "fulfilled" &&
+      dashboardResult.value.exists()
+    ) {
       const data = dashboardResult.value.val();
       const items = Array.isArray(data) ? data : Object.values(data);
-      dashboardItems.push(...items.filter(item => item && typeof item === "object"));
+      dashboardItems.push(
+        ...items.filter(item => item && typeof item === "object")
+      );
     } else if (dashboardResult.status === "rejected") {
-      console.warn("Could not load dashboard gallery:", dashboardResult.reason);
+      console.warn(
+        "Could not load dashboard gallery:",
+        dashboardResult.reason
+      );
     }
 
-    galleryItems = [...oldItems, ...dashboardItems];
+    const githubImages = [
+      {
+        title: "Memory 1",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg"
+      },
+      {
+        title: "Memory 2",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg"
+      },
+      {
+        title: "Memory 3",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg"
+      },
+      {
+        title: "Memory 4",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg"
+      },
+      {
+        title: "Memory 5",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg"
+      },
+      {
+        title: "Memory 6",
+        description: "A moment from my personal collection.",
+        imageUrl: "images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg"
+      }
+    ];
+
+    galleryItems = [...oldItems, ...dashboardItems, ...githubImages];
 
     if (!galleryItems.length) {
       container.innerHTML =
