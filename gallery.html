@@ -1,71 +1,909 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070912">
+  <meta name="description" content="Explore the personal photo gallery of Clinton Ncube.">
   <title>Gallery | Clinton Ncube</title>
   <link rel="stylesheet" href="css/animations.css">
+
   <style>
-    :root{--bg:#070912;--panel:#101526;--cyan:#25f4ee;--purple:#a855f7;--pink:#ff5b92;--text:#f5f7ff;--muted:#b7bfd3;--line:rgba(255,255,255,.13)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;background:radial-gradient(ellipse at 10% 0%,#32102f 0,transparent 34%),radial-gradient(ellipse at 100% 15%,#06343a 0,transparent 35%),var(--bg)}
-    body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(37,244,238,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(37,244,238,.12) 1px,transparent 1px);background-size:38px 38px}
-    header{position:relative;overflow:hidden;text-align:center;padding:50px 18px 40px;background:linear-gradient(115deg,rgba(75,8,35,.9),rgba(14,18,36,.94) 52%,rgba(0,93,105,.45));border-bottom:1px solid rgba(37,244,238,.42)}
-    header:before{content:"";position:absolute;width:320px;height:320px;border:1px solid #25f4ee35;border-radius:50%;right:-100px;top:-210px;box-shadow:0 0 55px #25f4ee15;pointer-events:none}header:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #a855f744;border-radius:50%;left:-170px;bottom:-250px;pointer-events:none}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid #25f4ee60;border-radius:999px;padding:8px 14px;color:var(--cyan);font-size:.78rem;letter-spacing:2px;text-transform:uppercase;background:#0004}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 13px var(--cyan);animation:pulse 1.6s infinite}
-    h1{font-size:clamp(2.2rem,7vw,4.4rem);letter-spacing:2px;margin:18px 0 8px;text-shadow:0 0 25px #25f4ee35}header p{margin:0;color:#e1e5f2;line-height:1.7}.gradient-text{background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.line{width:170px;height:3px;border-radius:9px;margin:22px auto 0;background:linear-gradient(90deg,#8b1638,var(--pink),var(--purple),var(--cyan));background-size:200% 100%;animation:flow 4s linear infinite}
-    .container{max-width:1200px;margin:auto;padding:28px 20px 55px}.intro,.stat,.toolbar,.gallery-card,.empty{background:linear-gradient(145deg,rgba(21,29,49,.94),rgba(9,12,23,.97));border:1px solid var(--line);box-shadow:0 12px 35px #0004}
-    .intro{padding:25px;border-radius:20px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden}.intro:before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan))}.intro h2{margin:0 0 9px;font-size:clamp(1.35rem,3vw,2rem)}.intro p{color:var(--muted);line-height:1.7;margin:0}
-    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.stat{padding:15px;border-radius:15px;text-align:center}.stat strong{display:block;color:var(--cyan);font-size:1.45rem}.stat span{display:block;color:var(--muted);font-size:.77rem;margin-top:4px;letter-spacing:1px;text-transform:uppercase}
-    .toolbar{padding:14px;border-radius:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.toolbar input,.toolbar select{min-width:180px;flex:1;background:#080b14;color:var(--text);border:1px solid #394158;border-radius:11px;padding:12px;font:inherit;outline:none}.toolbar input:focus,.toolbar select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #25f4ee15}.count{color:var(--cyan);font-size:.88rem;white-space:nowrap}
-    .filters{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 22px}.filter{border:1px solid #343b52;background:#0c1120;color:#dce3f4;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;transition:.2s}.filter:hover,.filter.active{color:#061014;border-color:transparent;background:linear-gradient(100deg,var(--cyan),#c0fffc);box-shadow:0 0 20px #25f4ee25;transform:translateY(-2px)}
-    #gallery-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:20px}.gallery-card{min-width:0;overflow:hidden;border-radius:18px;animation:cardIn .55s ease both;transition:transform .28s,border-color .28s,box-shadow .28s}.gallery-card:hover{transform:translateY(-7px);border-color:#25f4ee99;box-shadow:0 18px 40px #0007,0 0 24px #25f4ee12}.image-wrap{height:260px;position:relative;overflow:hidden;background:#080b14}.image-wrap:after{content:"VIEW MEMORY ↗";position:absolute;right:10px;bottom:10px;padding:7px 10px;border:1px solid #25f4ee75;border-radius:8px;background:#000b;color:var(--cyan);font-size:.68rem;letter-spacing:1px;pointer-events:none}.image-wrap img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;transition:transform .6s,filter .4s}.gallery-card:hover img{transform:scale(1.07);filter:saturate(1.15)}.gallery-info{padding:17px}.gallery-info h3{margin:0 0 8px;color:#ff8bb3;font-size:1.08rem;overflow-wrap:anywhere}.gallery-info p{margin:0;color:#d0d6e7;line-height:1.6;overflow-wrap:anywhere}.tag{display:inline-block;margin-top:12px;padding:5px 9px;border:1px solid #a855f766;border-radius:999px;color:#d8b4fe;font-size:.72rem}
-    .loading,.empty{grid-column:1/-1;border-radius:16px;padding:30px;text-align:center;color:var(--muted)}.loading{color:var(--cyan);animation:pulse 1.4s infinite}.empty h3{color:var(--cyan)}
-    #imageModal{display:none;position:fixed;z-index:9999;inset:0;background:#02040af2;backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:65px 18px 70px}#modalImage{max-width:min(100%,1100px);max-height:78vh;object-fit:contain;border-radius:14px;border:1px solid #25f4ee88;box-shadow:0 0 45px #25f4ee1f;animation:zoom .25s ease}.modal-button{position:absolute;border:1px solid #ffffff30;background:#101526e8;color:white;border-radius:50%;width:46px;height:46px;display:grid;place-items:center;cursor:pointer;font-size:1.65rem;transition:.2s}.modal-button:hover{color:var(--cyan);border-color:var(--cyan);transform:scale(1.07)}#close-modal{top:15px;right:18px}#prev-image{left:18px;top:50%;transform:translateY(-50%)}#next-image{right:18px;top:50%;transform:translateY(-50%)}#modalCaption{position:absolute;bottom:22px;left:15px;right:15px;text-align:center;color:#e4e8f4;line-height:1.5}
-    footer{text-align:center;padding:24px 15px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}footer a{color:var(--cyan);text-decoration:none}footer a:hover{text-decoration:underline}
-    @keyframes pulse{50%{opacity:.55;box-shadow:0 0 4px var(--cyan)}}@keyframes cardIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}@keyframes zoom{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}@keyframes flow{to{background-position:200% 0}}
-    @media(max-width:600px){header{padding:40px 15px 32px}.container{padding:20px 13px 40px}.intro{padding:22px 16px}.stats{gap:8px}.stat{padding:12px 7px}.stat strong{font-size:1.2rem}.stat span{font-size:.66rem}.image-wrap{height:240px}.toolbar input,.toolbar select{min-width:100%}#prev-image{left:8px}#next-image{right:8px}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+    :root {
+      --bg: #070912;
+      --panel: rgba(16, 21, 38, .82);
+      --cyan: #25f4ee;
+      --purple: #a855f7;
+      --pink: #ff5b92;
+      --text: #f5f7ff;
+      --muted: #b7bfd3;
+      --line: rgba(255,255,255,.13);
+      --glow: 0 0 28px rgba(37,244,238,.13);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 25px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 0%, #32102f 0, transparent 34%),
+        radial-gradient(ellipse at 100% 15%, #06343a 0, transparent 35%),
+        radial-gradient(ellipse at 50% 100%, #171033 0, transparent 40%),
+        var(--bg);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .2;
+      background-image:
+        linear-gradient(rgba(37,244,238,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,244,238,.12) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      right: -220px;
+      bottom: -170px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: .09;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -1;
+      animation: ambientFloat 10s ease-in-out infinite alternate;
+    }
+
+    button, input, select { font: inherit; }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    /* HERO */
+
+    header {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+      padding: 65px 18px 48px;
+      background:
+        linear-gradient(115deg,
+          rgba(75,8,35,.82),
+          rgba(14,18,36,.93) 52%,
+          rgba(0,93,105,.38));
+      border-bottom: 1px solid rgba(37,244,238,.42);
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      border-radius: 50%;
+      animation: orbit 18s linear infinite;
+    }
+
+    header::before {
+      width: 360px;
+      height: 360px;
+      border: 1px solid #25f4ee35;
+      right: -100px;
+      top: -240px;
+      box-shadow: 0 0 55px #25f4ee15;
+    }
+
+    header::after {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #a855f744;
+      left: -170px;
+      bottom: -250px;
+      animation-direction: reverse;
+    }
+
+    .hero-content {
+      position: relative;
+      animation: heroEnter .85s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #25f4ee60;
+      border-radius: 999px;
+      padding: 9px 15px;
+      color: var(--cyan);
+      font-size: .76rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,.3);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 24px #25f4ee0c;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 13px var(--cyan);
+      animation: pulse 1.6s infinite;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 8vw, 5.3rem);
+      letter-spacing: 2px;
+      line-height: 1.05;
+      margin: 24px 0 13px;
+      text-shadow: 0 0 30px #25f4ee27;
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--purple),
+        var(--cyan),
+        var(--pink)
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientFlow 7s linear infinite;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 620px;
+      color: #e1e5f2;
+      line-height: 1.8;
+    }
+
+    .line {
+      width: 190px;
+      height: 3px;
+      border-radius: 9px;
+      margin: 27px auto 0;
+      background: linear-gradient(
+        90deg, #8b1638, var(--pink), var(--purple), var(--cyan)
+      );
+      background-size: 200% 100%;
+      box-shadow: 0 0 18px #a855f744;
+      animation: flow 4s linear infinite;
+    }
+
+    .hero-label {
+      display: inline-block;
+      margin-top: 22px;
+      color: #9ba7c3;
+      font-size: .73rem;
+      letter-spacing: 3px;
+    }
+
+    /* MAIN CONTENT */
+
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 36px 22px 65px;
+    }
+
+    .intro,
+    .stat,
+    .toolbar,
+    .gallery-card,
+    .empty {
+      background: linear-gradient(
+        145deg,
+        rgba(21,29,49,.86),
+        rgba(9,12,23,.91)
+      );
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 35px #0004;
+      backdrop-filter: blur(14px);
+    }
+
+    .intro {
+      position: relative;
+      overflow: hidden;
+      padding: 29px 22px;
+      border-radius: 22px;
+      text-align: center;
+      margin-bottom: 22px;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+
+    .intro:hover {
+      border-color: #25f4ee70;
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .intro::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+      background-size: 200% 100%;
+      animation: flow 5s linear infinite;
+    }
+
+    .intro h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .intro p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    /* STATISTICS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .stat {
+      position: relative;
+      overflow: hidden;
+      padding: 20px 12px;
+      border-radius: 17px;
+      text-align: center;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--pink), var(--cyan));
+      opacity: .6;
+      transition: left .3s, right .3s, opacity .3s;
+    }
+
+    .stat:hover {
+      transform: translateY(-5px);
+      border-color: #25f4ee65;
+      box-shadow: var(--glow);
+    }
+
+    .stat:hover::after {
+      left: 0;
+      right: 0;
+      opacity: 1;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--cyan);
+      font-size: 1.65rem;
+      text-shadow: 0 0 17px #25f4ee35;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      margin-top: 7px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* SEARCH AND SORT */
+
+    .toolbar {
+      position: relative;
+      padding: 15px;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      min-width: 180px;
+      flex: 1;
+      background: rgba(5,8,17,.9);
+      color: var(--text);
+      border: 1px solid #394158;
+      border-radius: 12px;
+      padding: 13px 14px;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s, background .25s;
+    }
+
+    .toolbar input::placeholder {
+      color: #858fa9;
+    }
+
+    .toolbar input:hover,
+    .toolbar select:hover {
+      border-color: #7c679e;
+    }
+
+    .toolbar input:focus,
+    .toolbar select:focus {
+      border-color: var(--cyan);
+      background: #090d19;
+      box-shadow: 0 0 0 3px #25f4ee15, 0 0 20px #25f4ee0d;
+    }
+
+    .toolbar select option {
+      background: #101526;
+      color: white;
+    }
+
+    .count {
+      color: var(--cyan);
+      font-size: .85rem;
+      white-space: nowrap;
+      padding: 5px;
+    }
+
+    /* FILTER BUTTONS */
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 0 26px;
+    }
+
+    .filter {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #343b52;
+      background: rgba(12,17,32,.8);
+      color: #dce3f4;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-weight: 700;
+      font-size: .86rem;
+      cursor: pointer;
+      transition: color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s;
+    }
+
+    .filter:hover,
+    .filter.active {
+      color: #061014;
+      border-color: transparent;
+      background: linear-gradient(100deg, var(--cyan), #c0fffc);
+      box-shadow: 0 0 22px #25f4ee24;
+      transform: translateY(-2px);
+    }
+
+    .filter:active {
+      transform: scale(.97);
+    }
+
+    /* PHOTO GRID */
+
+    #gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+
+    .gallery-card {
+      --mx: 50%;
+      --my: 50%;
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 19px;
+      isolation: isolate;
+      animation: cardIn .65s cubic-bezier(.2,.8,.2,1) both;
+      transition: transform .35s, border-color .35s, box-shadow .35s;
+    }
+
+    .gallery-card::before {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(
+        250px circle at var(--mx) var(--my),
+        rgba(37,244,238,.17),
+        transparent 70%
+      );
+      transition: opacity .3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-8px) scale(1.012);
+      border-color: #25f4eea0;
+      box-shadow:
+        0 22px 48px #0008,
+        0 0 0 1px #25f4ee13,
+        0 0 30px #25f4ee13;
+    }
+
+    .gallery-card:hover::before {
+      opacity: 1;
+    }
+
+    .image-wrap {
+      height: 270px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at center, #18263d, #080b14);
+    }
+
+    .image-wrap::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      pointer-events: none;
+      opacity: .5;
+      background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(3,5,13,.55)
+      );
+      transition: opacity .3s;
+    }
+
+    .image-wrap::after {
+      content: "VIEW MEMORY ↗";
+      position: absolute;
+      z-index: 2;
+      right: 11px;
+      bottom: 11px;
+      padding: 8px 11px;
+      border: 1px solid #25f4ee75;
+      border-radius: 8px;
+      background: rgba(0,0,0,.76);
+      color: var(--cyan);
+      font-size: .66rem;
+      letter-spacing: 1.2px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      transform: translateY(5px);
+      opacity: .8;
+      transition: opacity .3s, transform .3s;
+    }
+
+    .gallery-card:hover .image-wrap::after {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .4s;
+    }
+
+    .gallery-card:hover .image-wrap img {
+      transform: scale(1.075);
+      filter: saturate(1.18) contrast(1.04);
+    }
+
+    .gallery-info {
+      padding: 18px;
+      position: relative;
+    }
+
+    .gallery-info h3 {
+      margin: 0 0 9px;
+      color: #ff8bb3;
+      font-size: 1.05rem;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      transition: color .25s;
+    }
+
+    .gallery-card:hover .gallery-info h3 {
+      color: var(--cyan);
+    }
+
+    .gallery-info p {
+      margin: 0;
+      color: #d0d6e7;
+      line-height: 1.7;
+      font-size: .92rem;
+      overflow-wrap: anywhere;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 6px 10px;
+      border: 1px solid #a855f766;
+      border-radius: 999px;
+      color: #d8b4fe;
+      background: #a855f70b;
+      font-size: .7rem;
+      letter-spacing: .3px;
+    }
+
+    .tag::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .loading,
+    .empty {
+      grid-column: 1 / -1;
+      border-radius: 17px;
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .loading {
+      color: var(--cyan);
+      animation: pulse 1.4s infinite;
+    }
+
+    .empty h3 {
+      color: var(--cyan);
+      margin-top: 0;
+    }
+
+    .empty p {
+      line-height: 1.7;
+    }
+
+    /* FULLSCREEN PHOTO VIEWER */
+
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(2,4,10,.96);
+      backdrop-filter: blur(16px);
+      align-items: center;
+      justify-content: center;
+      padding: 70px 75px 85px;
+    }
+
+    #imageModal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at center, #25f4ee0a, transparent 65%),
+        linear-gradient(135deg, #a855f70b, transparent 50%);
+    }
+
+    #modalImage {
+      position: relative;
+      max-width: min(100%, 1100px);
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid #25f4ee88;
+      box-shadow: 0 0 45px #25f4ee1f, 0 20px 60px #0009;
+      animation: zoom .3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .modal-button {
+      position: absolute;
+      z-index: 2;
+      border: 1px solid #ffffff30;
+      background: rgba(16,21,38,.9);
+      color: white;
+      border-radius: 50%;
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.65rem;
+      line-height: 1;
+      backdrop-filter: blur(10px);
+      transition: color .2s, border-color .2s, background .2s, transform .2s;
+    }
+
+    .modal-button:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: #101b2b;
+      box-shadow: 0 0 20px #25f4ee18;
+    }
+
+    #close-modal {
+      top: 17px;
+      right: 18px;
+      font-size: 1.8rem;
+    }
+
+    #prev-image {
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #prev-image:hover {
+      transform: translateY(-50%) scale(1.07);
+    }
+
+    #next-image {
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #next-image:hover {
+      transform: translateY(-50%) scale(1.07);
+    }
+
+    #modalCaption {
+      position: absolute;
+      bottom: 23px;
+      left: 15px;
+      right: 15px;
+      text-align: center;
+      color: #e4e8f4;
+      line-height: 1.6;
+      padding: 0 12px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 27px 15px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+      background: rgba(5,7,16,.45);
+    }
+
+    footer p { margin: 8px 0; }
+
+    footer a {
+      color: var(--cyan);
+      text-decoration: none;
+      transition: text-shadow .2s;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      text-shadow: 0 0 12px #25f4ee70;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes pulse {
+      50% { opacity: .55; box-shadow: 0 0 4px var(--cyan); }
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(19px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes zoom {
+      from { opacity: 0; transform: scale(.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes flow {
+      to { background-position: 200% 0; }
+    }
+
+    @keyframes gradientFlow {
+      to { background-position: 300% 0; }
+    }
+
+    @keyframes heroEnter {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes ambientFloat {
+      from { transform: translate(-10px, 5px); }
+      to { transform: translate(10px, -15px); }
+    }
+
+    @media (max-width: 700px) {
+      header { padding: 48px 16px 37px; }
+
+      .container { padding: 24px 14px 45px; }
+
+      .intro { padding: 23px 16px; }
+
+      .stats { gap: 8px; }
+
+      .stat { padding: 15px 6px; }
+
+      .stat strong { font-size: 1.3rem; }
+
+      .stat span {
+        font-size: .63rem;
+        letter-spacing: .7px;
+      }
+
+      #gallery-container {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        gap: 14px;
+      }
+
+      .image-wrap { height: 235px; }
+
+      .toolbar input,
+      .toolbar select {
+        min-width: 100%;
+      }
+
+      .count { padding-left: 2px; }
+
+      #imageModal { padding: 65px 14px 85px; }
+
+      #modalImage { max-height: 72vh; }
+
+      #prev-image { left: 8px; }
+
+      #next-image { right: 8px; }
+
+      .modal-button {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      #gallery-container {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .image-wrap { height: 270px; }
+
+      .filters { gap: 8px; }
+
+      .filter {
+        padding: 10px 13px;
+        font-size: .79rem;
+      }
+
+      h1 { letter-spacing: 1px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="eyebrow"><span class="dot"></span> Personal memories</div>
-    <h1>My <span class="gradient-text">Gallery</span></h1>
-    <p>Little moments. Big memories. A collection of experiences worth keeping.</p>
-    <div class="line"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span class="dot"></span> Personal memories</div>
+      <h1>My <span class="gradient-text">Gallery</span></h1>
+      <p>Little moments. Big memories. A collection of experiences worth keeping.</p>
+      <div class="line"></div>
+      <div class="hero-label">CLINTON NCUBE · PERSONAL ARCHIVE</div>
+    </div>
   </header>
+
   <main class="container">
     <section class="intro">
       <h2>✨ Welcome to my world</h2>
       <p>Explore the photos, search for a memory, or open any picture for a closer look. <span class="gradient-text">Enjoy the journey.</span></p>
     </section>
+
     <section class="stats" aria-label="Gallery statistics">
-      <div class="stat"><strong id="photo-total">24</strong><span>Total memories</span></div>
-      <div class="stat"><strong id="photo-visible">24</strong><span>Showing</span></div>
-      <div class="stat"><strong>∞</strong><span>Moments to keep</span></div>
+      <div class="stat">
+        <strong id="photo-total">24</strong>
+        <span>Total memories</span>
+      </div>
+      <div class="stat">
+        <strong id="photo-visible">24</strong>
+        <span>Showing</span>
+      </div>
+      <div class="stat">
+        <strong>∞</strong>
+        <span>Moments to keep</span>
+      </div>
     </section>
+
     <div class="toolbar">
       <input id="gallery-search" type="search" placeholder="🔎 Search memories…" aria-label="Search gallery">
-      <select id="gallery-sort" aria-label="Sort gallery"><option value="default">Newest / default order</option><option value="title">Title A–Z</option><option value="title-desc">Title Z–A</option></select>
-      <span id="gallery-count" class="count">Loading photos…</span>
+
+      <select id="gallery-sort" aria-label="Sort gallery">
+        <option value="default">Newest / default order</option>
+        <option value="title">Title A–Z</option>
+        <option value="title-desc">Title Z–A</option>
+      </select>
+
+      <span id="gallery-count" class="count" aria-live="polite">Loading photos…</span>
     </div>
+
     <nav class="filters" aria-label="Gallery filters">
-      <button class="filter active" type="button" data-filter="all">✦ All memories</button>
-      <button class="filter" type="button" data-filter="local">▣ Added photos</button>
-      <button class="filter" type="button" data-filter="firebase">☁ Online gallery</button>
+      <button class="filter active" type="button" data-filter="all" aria-pressed="true">✦ All memories</button>
+      <button class="filter" type="button" data-filter="local" aria-pressed="false">▣ Added photos</button>
+      <button class="filter" type="button" data-filter="firebase" aria-pressed="false">☁ Online gallery</button>
     </nav>
-    <section id="gallery-container" aria-live="polite"><div class="loading">⚡ Loading your memories…</div></section>
+
+    <section id="gallery-container" aria-live="polite">
+      <div class="loading">⚡ Loading your memories…</div>
+    </section>
   </main>
-  <div id="imageModal" role="dialog" aria-modal="true" aria-label="Image viewer">
+
+  <div id="imageModal" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
     <button id="close-modal" class="modal-button" type="button" aria-label="Close image viewer">×</button>
     <button id="prev-image" class="modal-button" type="button" aria-label="Previous image">‹</button>
     <img id="modalImage" src="" alt="">
     <button id="next-image" class="modal-button" type="button" aria-label="Next image">›</button>
     <div id="modalCaption"></div>
   </div>
-  <footer><p>© 2026 Clinton Ncube · Personal Gallery</p><p><a href="index.html">← Back to Home</a></p></footer>
+
+  <footer>
+    <p>© 2026 Clinton Ncube · Personal Gallery</p>
+    <p><a href="index.html">← Back to Home</a></p>
+  </footer>
+
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
     import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
@@ -80,6 +918,7 @@
       appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
       measurementId: "G-K1S62MHHXP"
     };
+
     const dashboardFirebaseConfig = {
       apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFREyI",
       authDomain: "clinton-ncube-website-21755.firebaseapp.com",
@@ -91,8 +930,12 @@
       measurementId: "G-04160GLZQT"
     };
 
-    const oldApp = getApps().find(app => app.name === "oldGallery") || initializeApp(oldFirebaseConfig, "oldGallery");
-    const dashboardApp = getApps().find(app => app.name === "dashboardGallery") || initializeApp(dashboardFirebaseConfig, "dashboardGallery");
+    const oldApp = getApps().find(app => app.name === "oldGallery")
+      || initializeApp(oldFirebaseConfig, "oldGallery");
+
+    const dashboardApp = getApps().find(app => app.name === "dashboardGallery")
+      || initializeApp(dashboardFirebaseConfig, "dashboardGallery");
+
     const oldDb = getDatabase(oldApp);
     const dashboardDb = getDatabase(dashboardApp);
 
@@ -124,32 +967,65 @@
     ];
 
     const $ = id => document.getElementById(id);
+
     let allPhotos = [];
     let filteredPhotos = [];
     let activeFilter = "all";
     let modalIndex = 0;
+    let lastFocusedElement = null;
 
     function fixPath(path) {
       if (!path || typeof path !== "string") return "";
+
       const value = path.trim();
+
       if (/^(https?:|data:|blob:)/i.test(value)) return value;
+
       return value.replace(/^\.\//, "");
     }
 
     function normalize(item, index, source) {
       if (!item || typeof item !== "object") return null;
-      const imageUrl = fixPath(item.imageUrl || item.file || item.image || item.url || item.downloadURL || "");
+
+      const imageUrl = fixPath(
+        item.imageUrl ||
+        item.file ||
+        item.image ||
+        item.url ||
+        item.downloadURL ||
+        ""
+      );
+
       if (!imageUrl) return null;
-      return {id:item.id || `${source}-${index}`,title:item.title || item.name || `Memory ${index+1}`,description:item.description || item.caption || "A moment from my personal collection.",imageUrl,source};
+
+      return {
+        id: item.id || `${source}-${index}`,
+        title: item.title || item.name || `Memory ${index + 1}`,
+        description: item.description || item.caption || "A moment from my personal collection.",
+        imageUrl,
+        source
+      };
     }
 
     async function readPath(db, path, source) {
       try {
         const snap = await get(ref(db, path));
+
         if (!snap.exists()) return [];
+
         const data = snap.val();
-        const entries = Array.isArray(data) ? data : Object.entries(data || {}).map(([id,value]) => ({id,...(value && typeof value === "object" ? value : {})}));
-        return entries.map((item,index) => normalize(item,index,source)).filter(Boolean);
+
+        const entries = Array.isArray(data)
+          ? data
+          : Object.entries(data || {}).map(([id, value]) => ({
+              id,
+              ...(value && typeof value === "object" ? value : {})
+            }));
+
+        return entries
+          .map((item, index) => normalize(item, index, source))
+          .filter(Boolean);
+
       } catch (error) {
         console.warn(`Gallery path ${path} could not be read:`, error);
         return [];
@@ -158,108 +1034,227 @@
 
     async function loadGallery() {
       const host = $("gallery-container");
+
       host.innerHTML = '<div class="loading">⚡ Loading your memories…</div>';
+
       const results = await Promise.all([
-        readPath(oldDb,"gallery","firebase"),
-        readPath(oldDb,"photos","firebase"),
-        readPath(dashboardDb,"dashboardGallery","firebase"),
-        readPath(dashboardDb,"gallery","firebase"),
-        readPath(dashboardDb,"photos","firebase")
+        readPath(oldDb, "gallery", "firebase"),
+        readPath(oldDb, "photos", "firebase"),
+        readPath(dashboardDb, "dashboardGallery", "firebase"),
+        readPath(dashboardDb, "gallery", "firebase"),
+        readPath(dashboardDb, "photos", "firebase")
       ]);
+
       const seen = new Set();
-      const combined = [...addedPhotos,...results.flat()];
+      const combined = [...addedPhotos, ...results.flat()];
+
       allPhotos = combined.filter(photo => {
         const key = photo.imageUrl;
+
         if (seen.has(key)) return false;
+
         seen.add(key);
         return true;
       });
+
       renderGallery();
     }
 
     function renderGallery() {
       const query = $("gallery-search").value.trim().toLowerCase();
       const sort = $("gallery-sort").value;
+
       filteredPhotos = allPhotos.filter(photo => {
-        const matchesFilter = activeFilter === "all" || photo.source === activeFilter;
-        const matchesSearch = `${photo.title} ${photo.description}`.toLowerCase().includes(query);
+        const matchesFilter =
+          activeFilter === "all" || photo.source === activeFilter;
+
+        const matchesSearch =
+          `${photo.title} ${photo.description}`.toLowerCase().includes(query);
+
         return matchesFilter && matchesSearch;
       });
-      if (sort === "title") filteredPhotos.sort((a,b) => a.title.localeCompare(b.title));
-      if (sort === "title-desc") filteredPhotos.sort((a,b) => b.title.localeCompare(a.title));
+
+      if (sort === "title") {
+        filteredPhotos.sort((a, b) => a.title.localeCompare(b.title));
+      }
+
+      if (sort === "title-desc") {
+        filteredPhotos.sort((a, b) => b.title.localeCompare(a.title));
+      }
+
       const host = $("gallery-container");
       host.replaceChildren();
+
       if (!filteredPhotos.length) {
         const empty = document.createElement("div");
         empty.className = "empty";
-        empty.innerHTML = "<h3>No memories found</h3><p>Try another search or choose a different filter.</p>";
+
+        const heading = document.createElement("h3");
+        heading.textContent = "No memories found";
+
+        const message = document.createElement("p");
+        message.textContent = "Try another search or choose a different filter.";
+
+        empty.append(heading, message);
         host.appendChild(empty);
+
       } else {
-        filteredPhotos.forEach((photo,index) => {
+        filteredPhotos.forEach((photo, index) => {
           const card = document.createElement("article");
           card.className = "gallery-card";
-          card.style.animationDelay = `${Math.min(index*45,360)}ms`;
+          card.style.animationDelay = `${Math.min(index * 45, 360)}ms`;
+
           const wrap = document.createElement("div");
           wrap.className = "image-wrap";
+
           const img = document.createElement("img");
           img.src = photo.imageUrl;
           img.alt = photo.title;
           img.loading = "lazy";
           img.decoding = "async";
-          img.addEventListener("click",() => openModal(index));
-          img.addEventListener("error",() => { card.remove(); const remaining = host.querySelectorAll(".gallery-card").length; $("photo-visible").textContent = remaining; $("gallery-count").textContent = `${remaining} ${remaining === 1 ? "memory" : "memories"}`; });
+          img.tabIndex = 0;
+          img.setAttribute("role", "button");
+          img.setAttribute("aria-label", `Open photo: ${photo.title}`);
+
+          const openThisPhoto = () => openModal(index);
+
+          img.addEventListener("click", openThisPhoto);
+
+          img.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openThisPhoto();
+            }
+          });
+
+          img.addEventListener("error", () => {
+            card.remove();
+            updateVisibleCount();
+          }, { once: true });
+
+          // Follow the pointer with a subtle neon glow.
+          card.addEventListener("pointermove", event => {
+            const rect = card.getBoundingClientRect();
+
+            card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+            card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+          });
+
           wrap.appendChild(img);
+
           const info = document.createElement("div");
           info.className = "gallery-info";
-          const title = document.createElement("h3"); title.textContent = photo.title;
-          const desc = document.createElement("p"); desc.textContent = photo.description;
-          const tag = document.createElement("span"); tag.className="tag"; tag.textContent = photo.source === "local" ? "Added photo" : "Online gallery";
-          info.append(title,desc,tag);
-          card.append(wrap,info); host.appendChild(card);
+
+          const title = document.createElement("h3");
+          title.textContent = photo.title;
+
+          const desc = document.createElement("p");
+          desc.textContent = photo.description;
+
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = photo.source === "local"
+            ? "Added photo"
+            : "Online gallery";
+
+          info.append(title, desc, tag);
+          card.append(wrap, info);
+          host.appendChild(card);
         });
       }
+
       $("photo-total").textContent = allPhotos.length;
-      $("photo-visible").textContent = filteredPhotos.length;
-      $("gallery-count").textContent = `${filteredPhotos.length} ${filteredPhotos.length === 1 ? "memory" : "memories"}`;
+      updateVisibleCount();
+    }
+
+    function updateVisibleCount() {
+      const count = $("gallery-container").querySelectorAll(".gallery-card").length;
+
+      $("photo-visible").textContent = count;
+      $("gallery-count").textContent =
+        `${count} ${count === 1 ? "memory" : "memories"}`;
     }
 
     function openModal(index) {
       if (!filteredPhotos.length) return;
+
       modalIndex = (index + filteredPhotos.length) % filteredPhotos.length;
+
       const photo = filteredPhotos[modalIndex];
+      const modal = $("imageModal");
+
+      lastFocusedElement = document.activeElement;
+
       $("modalImage").src = photo.imageUrl;
       $("modalImage").alt = photo.title;
       $("modalCaption").textContent = `${photo.title} — ${photo.description}`;
-      $("imageModal").style.display = "flex";
+
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden", "false");
+
       document.body.style.overflow = "hidden";
       $("close-modal").focus();
     }
+
     function closeModal() {
-      $("imageModal").style.display = "none";
+      const modal = $("imageModal");
+
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+
       $("modalImage").src = "";
       document.body.style.overflow = "";
-    }
-    function moveModal(direction) { openModal(modalIndex + direction); }
 
-    $("gallery-search").addEventListener("input",renderGallery);
-    $("gallery-sort").addEventListener("change",renderGallery);
-    document.querySelectorAll(".filter").forEach(button => button.addEventListener("click",() => {
-      activeFilter = button.dataset.filter;
-      document.querySelectorAll(".filter").forEach(item => item.classList.toggle("active",item === button));
-      renderGallery();
-    }));
-    $("close-modal").addEventListener("click",closeModal);
-    $("prev-image").addEventListener("click",() => moveModal(-1));
-    $("next-image").addEventListener("click",() => moveModal(1));
-    $("imageModal").addEventListener("click",event => { if (event.target.id === "imageModal") closeModal(); });
-    document.addEventListener("keydown",event => {
-      if ($("imageModal").style.display !== "flex") return;
+      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+        lastFocusedElement.focus();
+      }
+    }
+
+    function moveModal(direction) {
+      openModal(modalIndex + direction);
+    }
+
+    $("gallery-search").addEventListener("input", renderGallery);
+    $("gallery-sort").addEventListener("change", renderGallery);
+
+    document.querySelectorAll(".filter").forEach(button => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+
+        document.querySelectorAll(".filter").forEach(item => {
+          const isActive = item === button;
+          item.classList.toggle("active", isActive);
+          item.setAttribute("aria-pressed", String(isActive));
+        });
+
+        renderGallery();
+      });
+    });
+
+    $("close-modal").addEventListener("click", closeModal);
+    $("prev-image").addEventListener("click", () => moveModal(-1));
+    $("next-image").addEventListener("click", () => moveModal(1));
+
+    $("imageModal").addEventListener("click", event => {
+      if (event.target.id === "imageModal") closeModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if ($("imageModal").getAttribute("aria-hidden") === "true") return;
+
       if (event.key === "Escape") closeModal();
       if (event.key === "ArrowLeft") moveModal(-1);
       if (event.key === "ArrowRight") moveModal(1);
     });
-    loadGallery();
+
+    loadGallery().catch(error => {
+      console.error("Unable to load the gallery:", error);
+
+      $("gallery-container").innerHTML =
+        '<div class="empty"><h3>Gallery could not load</h3><p>Please check your internet connection and refresh the page.</p></div>';
+    });
   </script>
+
   <script src="js/animations.js" defer></script>
 </body>
 </html>
