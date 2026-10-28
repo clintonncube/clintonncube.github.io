@@ -1,0 +1,29 @@
+/* Clinton Ncube site-wide visual enhancement — safe overlay; does not replace page scripts */
+:root{--live-bg:#050711;--live-panel:#0c1224;--live-cyan:#00eaff;--live-purple:#9d4dff;--live-pink:#ff5bba;--live-border:rgba(0,234,255,.22);--live-muted:#b9c5df}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background-color:var(--live-bg)!important;background-image:radial-gradient(ellipse at 12% 8%,rgba(157,77,255,.14),transparent 35%),radial-gradient(ellipse at 90% 22%,rgba(0,234,255,.10),transparent 30%)!important;color:#f5f7ff;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.12;background-image:linear-gradient(rgba(0,234,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(0,234,255,.09) 1px,transparent 1px);background-size:42px 42px}
+nav,header,.navbar,.site-header{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+nav{box-shadow:0 8px 35px rgba(0,0,0,.22)}
+nav a,.nav-links a,.navbar a{transition:color .25s ease,transform .25s ease,text-shadow .25s ease}
+nav a:hover,.nav-links a:hover,.navbar a:hover{color:var(--live-cyan)!important;text-shadow:0 0 15px rgba(0,234,255,.45)}
+section,.content-section,main>article{position:relative}
+section:not(.hero){scroll-margin-top:88px}
+.card,.project-card,.skill-card,.achievement-card,.hobby-card,.gallery-card,.about-panel,.goal-panel,.panel,.content-card,.stat,.quiz-panel,.contact-card,.form-container{transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;will-change:transform}
+.card:hover,.project-card:hover,.skill-card:hover,.achievement-card:hover,.hobby-card:hover,.gallery-card:hover,.contact-card:hover{transform:translateY(-6px);border-color:rgba(0,234,255,.7)!important;box-shadow:0 16px 42px rgba(0,0,0,.32),0 0 24px rgba(0,234,255,.09)!important}
+button,.btn,.button,.card-link,input[type=submit]{transition:transform .22s ease,filter .22s ease,box-shadow .22s ease}
+button:hover,.btn:hover,.button:hover,.card-link:hover,input[type=submit]:hover{filter:brightness(1.08);box-shadow:0 0 22px rgba(0,234,255,.18)}
+button:active,.btn:active,.button:active{transform:scale(.98)}
+h1,h2,h3{text-wrap:balance}
+img{max-width:100%}
+.live-reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.live-reveal.live-visible{opacity:1;transform:translateY(0)}
+.live-progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:10000;pointer-events:none;background:linear-gradient(90deg,var(--live-cyan),var(--live-purple),var(--live-pink));transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px rgba(0,234,255,.45)}
+.live-top{position:fixed;right:20px;bottom:20px;z-index:9000;width:46px;height:46px;border:1px solid rgba(0,234,255,.45);border-radius:15px;background:rgba(12,18,36,.9);color:var(--live-cyan);font-size:21px;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s,transform .25s,background .25s;backdrop-filter:blur(12px)}
+.live-top.live-show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.live-top:hover{background:rgba(0,234,255,.13)}
+.live-glow{background:linear-gradient(110deg,var(--live-cyan),#8bdcff,var(--live-purple));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:liveGradient 6s linear infinite}
+@keyframes liveGradient{to{background-position:200% center}}
+@keyframes liveFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:700px){.live-top{right:13px;bottom:13px;width:42px;height:42px}.live-reveal{transform:translateY(12px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.live-reveal{opacity:1;transform:none}}
