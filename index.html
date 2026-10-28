@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -621,6 +622,43 @@
       50% { transform: scale(1.035); opacity: 1; }
     }
 
+
+    /* KNOW CLINTON QUIZ */
+    .know-me {
+      background:
+        radial-gradient(ellipse at 15% 20%, rgba(0,232,255,.10), transparent 38%),
+        radial-gradient(ellipse at 85% 80%, rgba(166,77,255,.12), transparent 38%),
+        #070f22;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .quiz-panel {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: clamp(22px, 4vw, 38px);
+      background: linear-gradient(145deg, rgba(18,31,60,.96), rgba(8,17,35,.98));
+      border: 1px solid rgba(166,77,255,.45);
+      border-radius: 22px;
+      box-shadow: 0 0 35px rgba(0,232,255,.08), 0 0 50px rgba(166,77,255,.07);
+    }
+    .quiz-topline { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+    .quiz-pill { display:inline-flex; align-items:center; gap:8px; padding:7px 12px; border:1px solid var(--border); border-radius:30px; color:var(--cyan); font-size:12px; font-weight:800; letter-spacing:.7px; }
+    .quiz-progress { height:7px; overflow:hidden; border-radius:20px; background:#202c48; margin:10px 0 25px; }
+    .quiz-progress-fill { height:100%; width:0; background:linear-gradient(90deg,var(--cyan),var(--purple)); transition:width .25s ease; }
+    .quiz-question { font-size:clamp(20px,3vw,27px); line-height:1.35; margin-bottom:20px; }
+    .quiz-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .quiz-option { padding:14px 16px; text-align:left; color:#eef5ff; background:#101d38; border:1px solid rgba(160,184,230,.2); border-radius:12px; cursor:pointer; font:inherit; transition:transform .2s,border-color .2s,background .2s; }
+    .quiz-option:hover { transform:translateY(-2px); border-color:var(--cyan); background:#14294a; }
+    .quiz-option:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+    .quiz-option.selected { border-color:var(--cyan); background:rgba(0,232,255,.12); box-shadow:0 0 0 1px rgba(0,232,255,.15) inset; }
+    .quiz-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:24px; }
+    .quiz-small { color:var(--muted); font-size:13px; }
+    .quiz-result { margin-top:20px; padding:20px; border:1px solid var(--border); border-radius:14px; background:rgba(0,232,255,.06); }
+    .quiz-result h3 { margin-bottom:7px; font-size:23px; }
+    .quiz-result p { color:var(--muted); }
+    .quiz-hidden { display:none !important; }
+    @media(max-width:600px) { .quiz-options { grid-template-columns:1fr; } .quiz-controls .btn { width:100%; } }
+
     /* RESPONSIVE NAVIGATION AND HERO */
 
     @media (max-width: 1050px) {
@@ -786,6 +824,33 @@
             ⌘ Learning &amp; Growth
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <!-- KNOW CLINTON QUIZ -->
+    <section class="content-section know-me" id="know-me">
+      <div class="section-kicker">A Little Challenge</div>
+      <h2 class="section-heading">How Well Do You <span>Know Clinton?</span></h2>
+      <p class="section-description">
+        Take this quick 10-question challenge about my interests and favourites.
+        Score at least 5 out of 10 to pass. The questions change each time you retry.
+      </p>
+      <div class="quiz-panel">
+        <div class="quiz-topline">
+          <span class="quiz-pill"><i class="fas fa-brain" aria-hidden="true"></i> KNOW-ME CHALLENGE</span>
+          <span class="quiz-small" id="quizProgressText" aria-live="polite">Question 1 of 10</span>
+        </div>
+        <div class="quiz-progress" aria-hidden="true"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+        <div id="quizPlayArea">
+          <h3 class="quiz-question" id="quizQuestion">Loading your questions...</h3>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-controls">
+            <span class="quiz-small" id="quizFeedback" aria-live="polite">Choose one answer to continue.</span>
+            <button class="btn btn-primary" type="button" id="quizNextBtn">Next Question <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="quiz-result quiz-hidden" id="quizResult" aria-live="polite"></div>
       </div>
     </section>
 
@@ -981,6 +1046,158 @@
         menuIcon.classList.remove("fa-xmark");
       });
     });
+
+
+    /* KNOW CLINTON QUIZ — 10 random questions from a 50-question bank */
+    (function () {
+      const questionEl = document.getElementById("quizQuestion");
+      const optionsEl = document.getElementById("quizOptions");
+      const nextBtn = document.getElementById("quizNextBtn");
+      const feedbackEl = document.getElementById("quizFeedback");
+      const progressText = document.getElementById("quizProgressText");
+      const progressFill = document.getElementById("quizProgressFill");
+      const playArea = document.getElementById("quizPlayArea");
+      const resultEl = document.getElementById("quizResult");
+      if (!questionEl || !optionsEl || !nextBtn) return;
+
+      const bank = [
+        {q:"What name is displayed on this website?",a:"Clinton Ncube",o:["Clinton Ncube","Clinton Moyo","Thabang Dube","Clinton Sibanda"]},
+        {q:"Which colour is one of Clinton's favourites?",a:"Red",o:["Red","Orange","Brown","Grey"]},
+        {q:"Which food is listed as one of Clinton's favourites?",a:"Spaghetti",o:["Sadza only","Spaghetti","Sushi","Pancakes"]},
+        {q:"Which drink is listed as a favourite?",a:"Coke",o:["Tea","Coke","Milkshake","Coffee"]},
+        {q:"Which school subject does Clinton enjoy?",a:"Mathematics",o:["Mathematics","Geography","Commerce","Art only"]},
+        {q:"Which other school subject is among Clinton's interests?",a:"Biology",o:["Music","Biology","History","Shona only"]},
+        {q:"Which sport is one of Clinton's hobbies?",a:"Basketball",o:["Basketball","Golf","Rugby only","Cricket only"]},
+        {q:"Which activity is also listed as a hobby?",a:"Swimming",o:["Fishing","Swimming","Boxing","Skating"]},
+        {q:"Which is another hobby on the website profile?",a:"Reading",o:["Reading","Cooking only","Singing only","Gaming only"]},
+        {q:"Which athletic activity is listed among the hobbies?",a:"Athletics",o:["Athletics","Darts","Snooker","Chess only"]},
+        {q:"Which basketball player is associated with Clinton's favourite-player answer?",a:"LeBron James",o:["LeBron James","Stephen Curry","Kobe Bryant","Kevin Durant"]},
+        {q:"Which basketball league does Clinton follow?",a:"NBA",o:["NBA","NHL","MLB","NFL"]},
+        {q:"Which country is listed as a place Clinton would like to visit?",a:"Canada",o:["Canada","Brazil","Japan","Egypt"]},
+        {q:"What career is listed as an ambition?",a:"Doctor",o:["Doctor","Pilot","Chef","Architect"]},
+        {q:"Which TV series is listed among Clinton's favourites?",a:"The Rookie",o:["The Rookie","The Flash","Suits","Chicago Fire"]},
+        {q:"Which event is connected to Clinton's school interests?",a:"Science exhibition",o:["Science exhibition","Fashion show","Car rally","Cooking contest"]},
+        {q:"What is the main purpose of Clinton's website?",a:"To share projects, interests and progress",o:["To sell cars","To share projects, interests and progress","To publish news only","To book hotels"]},
+        {q:"Which technology-related activity interests Clinton?",a:"Building useful projects",o:["Building useful projects","Repairing aircraft","Mining gold","Designing roads only"]},
+        {q:"Which phrase best describes the website's theme?",a:"Learning, creating and growing",o:["Learning, creating and growing","Cooking and travelling only","Shopping every day","News and politics"]},
+        {q:"Which section helps visitors view photographs?",a:"Gallery",o:["Gallery","Skills","Contact","Goal"]},
+        {q:"Which section shares work Clinton has created?",a:"Projects",o:["Projects","Hobbies","Visitors","Footer"]},
+        {q:"Which section highlights milestones?",a:"Achievements",o:["Achievements","Gallery","Contact","Goal"]},
+        {q:"Which section describes abilities Clinton is developing?",a:"Skills",o:["Skills","Visitors","Gallery","Thanks"]},
+        {q:"Which section introduces Clinton's interests outside schoolwork?",a:"Hobbies",o:["Hobbies","Projects","Contact","Visitors"]},
+        {q:"Which section lets visitors find ways to reach out?",a:"Contact",o:["Contact","Goal","Gallery","Achievements"]},
+        {q:"What initials appear in the animated circle on the home screen?",a:"CN",o:["CN","NC","TC","CC"]},
+        {q:"What is the heading above the home-page introduction?",a:"Welcome to My World",o:["Welcome to My World","My Shopping List","Daily News","School Timetable"]},
+        {q:"What does Clinton aim to keep improving through?",a:"Education, sports and practical experiences",o:["Education, sports and practical experiences","Shopping only","Sleeping only","Travelling every week"]},
+        {q:"Which word appears in the website footer motto?",a:"Creating",o:["Creating","Selling","Driving","Cooking"]},
+        {q:"Which icon represents the Gallery card?",a:"Images",o:["Images","Envelope","Trophy","User"]},
+        {q:"Which icon represents the Achievements card?",a:"Trophy",o:["Trophy","Heart","Code","Envelope"]},
+        {q:"Which icon represents the Contact card?",a:"Envelope",o:["Envelope","Images","Trophy","Lightbulb"]},
+        {q:"What is the website's display name?",a:"Clinton Ncube",o:["Clinton Ncube","CN Official Shop","Silveira News","Ncube Motors"]},
+        {q:"What kind of projects does Clinton want to create?",a:"Useful and interesting projects",o:["Useful and interesting projects","Only video games","Only shopping sites","Only calculators"]},
+        {q:"Which theme colour gives the website its bright glowing accent?",a:"Cyan",o:["Cyan","Beige","Olive","Brown"]},
+        {q:"Which colour is used as another neon accent?",a:"Purple",o:["Purple","Tan","Grey","Cream"]},
+        {q:"What can visitors explore on the website?",a:"Projects, skills, hobbies and memories",o:["Projects, skills, hobbies and memories","Only weather reports","Only recipes","Only football scores"]},
+        {q:"Which social platform link appears in the footer?",a:"TikTok",o:["TikTok","LinkedIn only","Pinterest only","Reddit only"]},
+        {q:"Which video platform link appears in the footer?",a:"YouTube",o:["YouTube","Twitch only","Vimeo only","Dailymotion only"]},
+        {q:"Which photo-sharing platform link appears in the footer?",a:"Instagram",o:["Instagram","Flickr only","Snapchat only","Tumblr only"]},
+        {q:"What is the visitor counter intended to show?",a:"Total website visitors",o:["Total website visitors","Number of photos","Quiz answers only","Page loading speed"]},
+        {q:"What happens when a visitor selects a section card?",a:"It opens that website section",o:["It opens that website section","It shuts down the site","It deletes the page","It changes the password"]},
+        {q:"Which description best fits Clinton's profile?",a:"A student who enjoys learning and creativity",o:["A student who enjoys learning and creativity","A restaurant owner","A travel agent","A news presenter"]},
+        {q:"What is one goal of the website?",a:"Sharing progress and exploring ideas",o:["Sharing progress and exploring ideas","Collecting bank details","Selling medicines","Posting adverts only"]},
+        {q:"Which sports activity appears with basketball in Clinton's hobbies?",a:"Swimming",o:["Swimming","Ice hockey","Polo","Baseball"]},
+        {q:"Which kind of personal memories can visitors find on the site?",a:"Memorable moments",o:["Memorable moments","Private passwords","Bank statements","Medical files"]},
+        {q:"Which section would you open to learn about Clinton's abilities?",a:"Skills",o:["Skills","Gallery","Contact","Visitors"]},
+        {q:"What should a visitor do to explore Clinton's work?",a:"Open the Projects section",o:["Open the Projects section","Close the browser","Turn off the screen","Refresh forever"]},
+        {q:"What is the main spirit of Clinton's personal website?",a:"Growth and creativity",o:["Growth and creativity","Competition only","Shopping only","Breaking news only"]},
+        {q:"What is the website meant to help visitors discover about Clinton?",a:"His journey and interests",o:["His journey and interests","A restaurant menu","Weather forecasts","Bus schedules"]}
+      ];
+
+      let questions = [];
+      let current = 0;
+      let score = 0;
+      let selected = null;
+      let answered = false;
+
+      function shuffle(items) {
+        const copy = items.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+      function startQuiz() {
+        questions = shuffle(bank).slice(0, 10);
+        current = 0; score = 0; selected = null; answered = false;
+        resultEl.classList.add("quiz-hidden");
+        playArea.classList.remove("quiz-hidden");
+        renderQuestion();
+      }
+      function renderQuestion() {
+        const item = questions[current];
+        selected = null; answered = false;
+        questionEl.textContent = (current + 1) + ". " + item.q;
+        optionsEl.innerHTML = "";
+        shuffle(item.o).forEach(function (option) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "quiz-option";
+          btn.textContent = option;
+          btn.addEventListener("click", function () {
+            if (answered) return;
+            selected = option;
+            optionsEl.querySelectorAll("button").forEach(b => b.classList.toggle("selected", b === btn));
+            feedbackEl.textContent = "Answer selected. Press Next Question to lock it in.";
+          });
+          optionsEl.appendChild(btn);
+        });
+        progressText.textContent = "Question " + (current + 1) + " of 10";
+        progressFill.style.width = (current / 10 * 100) + "%";
+        feedbackEl.textContent = "Choose one answer to continue.";
+        nextBtn.innerHTML = current === 9 ? 'See My Score <i class="fas fa-flag-checkered" aria-hidden="true"></i>' : 'Next Question <i class="fas fa-arrow-right" aria-hidden="true"></i>';
+      }
+      nextBtn.addEventListener("click", function () {
+        if (!selected) {
+          feedbackEl.textContent = "Please choose an answer first.";
+          return;
+        }
+        if (!answered) {
+          if (selected === questions[current].a) score++;
+          answered = true;
+          optionsEl.querySelectorAll("button").forEach(b => { b.disabled = true; });
+          if (current < 9) {
+            current++;
+            renderQuestion();
+          } else {
+            showResult();
+          }
+        }
+      });
+      function showResult() {
+        playArea.classList.add("quiz-hidden");
+        progressText.textContent = "Challenge complete";
+        progressFill.style.width = "100%";
+        resultEl.classList.remove("quiz-hidden");
+        const passed = score >= 5;
+        resultEl.innerHTML = "";
+        const heading = document.createElement("h3");
+        heading.textContent = passed ? "🎉 Challenge Passed!" : "Keep Exploring!";
+        const paragraph = document.createElement("p");
+        paragraph.textContent = "You scored " + score + " out of 10. " + (passed
+          ? "Nice work — you know quite a bit about Clinton. You can explore the rest of the website now."
+          : "You need at least 5 out of 10 to pass. Try again; the questions will change.");
+        const retry = document.createElement("button");
+        retry.type = "button";
+        retry.className = "btn btn-primary";
+        retry.style.marginTop = "16px";
+        retry.innerHTML = '<i class="fas fa-rotate-right" aria-hidden="true"></i> Try Again';
+        retry.addEventListener("click", startQuiz);
+        resultEl.append(heading, paragraph, retry);
+      }
+      startQuiz();
+    })();
+
 
     /* FIREBASE VISITOR COUNTER */
     const firebaseConfig = {
