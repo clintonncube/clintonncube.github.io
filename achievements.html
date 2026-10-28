@@ -1,22 +1,35 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#070b16">
 
     <title>Achievements | Clinton Ncube</title>
     <meta name="description" content="Explore the academic and personal achievements of Clinton Ncube.">
 
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="apple-touch-icon" href="images/favicon.png">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
 
     <style>
+        :root {
+            --bg: #070b16;
+            --panel: rgba(16, 23, 42, .9);
+            --cyan: #25f4ee;
+            --purple: #a855f7;
+            --text: #edf4ff;
+            --muted: #bdc9df;
+            --border: rgba(115, 151, 220, .25);
+        }
+
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html {
@@ -25,72 +38,219 @@
         }
 
         body {
-            background: #070b16;
+            min-height: 100vh;
+            background: var(--bg);
             background-image:
                 radial-gradient(ellipse at 15% 15%, rgba(37,244,238,.12), transparent 35%),
                 radial-gradient(ellipse at 85% 35%, rgba(168,85,247,.13), transparent 35%);
             background-attachment: fixed;
-            color: #edf4ff;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Navigation */
 
         nav {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(5,9,20,.96);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 5%;
+            background: rgba(5,9,20,.95);
             border-bottom: 1px solid rgba(37,244,238,.3);
             box-shadow: 0 5px 25px rgba(0,0,0,.3);
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(16px);
         }
 
         .logo {
-            color: #25f4ee;
+            color: var(--cyan);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+            white-space: nowrap;
             text-shadow: 0 0 15px rgba(37,244,238,.4);
         }
 
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+        }
+
         .nav-menu a {
+            position: relative;
+            color: #e4ebfa;
+            text-decoration: none;
+            font-size: 13px;
             transition: color .3s, text-shadow .3s;
+        }
+
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            transition: width .3s;
         }
 
         .nav-menu a:hover,
         .nav-menu a.active {
-            color: #25f4ee;
+            color: var(--cyan);
             text-shadow: 0 0 12px rgba(37,244,238,.45);
         }
 
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
         .menu-toggle {
-            color: #25f4ee;
+            display: none;
+            color: var(--cyan);
+            background: transparent;
+            border: 1px solid rgba(37,244,238,.3);
+            border-radius: 10px;
+            padding: 7px 11px;
+            font-size: 23px;
             cursor: pointer;
         }
 
+        /* Page heading */
+
         .page-header {
             position: relative;
+            isolation: isolate;
             overflow: hidden;
             text-align: center;
-            padding: 75px 20px;
-            background: linear-gradient(135deg, rgba(16,23,42,.96), rgba(32,20,59,.96));
+            padding: 85px 20px;
+            background:
+                linear-gradient(115deg, rgba(5,9,20,.78), rgba(32,20,59,.9)),
+                radial-gradient(ellipse at center, rgba(37,244,238,.12), transparent 65%);
             border-bottom: 1px solid rgba(37,244,238,.3);
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(
+                110deg,
+                transparent 25%,
+                rgba(37,244,238,.09) 50%,
+                transparent 75%
+            );
+            transform: translateX(-100%);
+            animation: lightSweep 7s ease-in-out infinite;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 6px 15px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(37,244,238,.35);
+            border-radius: 50px;
+            background: rgba(37,244,238,.07);
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan);
+            animation: pulse 1.8s infinite;
         }
 
         .page-header h1 {
             color: #fff;
-            font-size: clamp(32px, 5vw, 48px);
-            text-shadow: 0 0 18px rgba(37,244,238,.35),
-                         0 0 35px rgba(168,85,247,.2);
-            animation: achievementTitle .8s ease-out both;
+            font-size: clamp(35px, 6vw, 62px);
+            line-height: 1.2;
+            text-shadow:
+                0 0 18px rgba(37,244,238,.35),
+                0 0 35px rgba(168,85,247,.3);
+            animation: titleEntrance .8s ease-out both;
+        }
+
+        .gradient-text {
+            color: transparent;
+            background: linear-gradient(90deg, var(--cyan), #fff, var(--purple), var(--cyan));
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradientFlow 6s linear infinite;
         }
 
         .page-header p {
-            color: #bdc9df;
-            margin-top: 12px;
+            max-width: 650px;
+            margin: 16px auto 0;
+            color: var(--muted);
             font-size: 17px;
         }
+
+        /* Main content */
 
         .container {
             width: 90%;
             max-width: 1150px;
-            margin: 45px auto;
+            margin: 55px auto;
         }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-label {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            color: #fff;
+            font-size: clamp(27px, 4vw, 36px);
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        /* Achievement cards */
 
         .cards {
             display: grid;
@@ -99,56 +259,228 @@
         }
 
         .cards .card {
-            padding: 28px;
-            border-radius: 16px;
-            background: rgba(16,23,42,.9);
-            border: 1px solid rgba(115,151,220,.25);
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-width: 0;
+            padding: 30px;
+            border-radius: 17px;
+            background: var(--panel);
+            border: 1px solid var(--border);
             box-shadow: 0 8px 28px rgba(0,0,0,.22);
-            color: #edf4ff;
-            transition: transform .3s, border-color .3s, box-shadow .3s;
+            color: var(--text);
             overflow-wrap: anywhere;
+            transition:
+                transform .35s,
+                border-color .35s,
+                box-shadow .35s;
+        }
+
+        .cards .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s;
+        }
+
+        .cards .card::after {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(168,85,247,.08);
+            filter: blur(25px);
+            z-index: -1;
         }
 
         .cards .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-7px);
             border-color: rgba(37,244,238,.65);
-            box-shadow: 0 12px 30px rgba(0,0,0,.3),
-                        0 0 24px rgba(37,244,238,.1);
+            box-shadow:
+                0 14px 35px rgba(0,0,0,.3),
+                0 0 24px rgba(37,244,238,.1);
+        }
+
+        .cards .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .achievement-icon {
+            display: grid;
+            place-items: center;
+            width: 58px;
+            height: 58px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(37,244,238,.3);
+            background: linear-gradient(135deg, #13243a, #251747);
+            color: var(--cyan);
+            font-size: 24px;
+            box-shadow: 0 0 18px rgba(37,244,238,.12);
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .cards .card:hover .achievement-icon {
+            transform: scale(1.08) rotate(-5deg);
+            box-shadow: 0 0 25px rgba(37,244,238,.22);
         }
 
         .cards .card h3 {
-            color: #25f4ee;
+            color: var(--cyan);
             font-size: 21px;
+            line-height: 1.5;
             margin-bottom: 12px;
         }
 
         .cards .card p {
-            color: #bdc9df;
+            color: var(--muted);
             line-height: 1.8;
             white-space: pre-wrap;
         }
 
+        .achievement-number {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: rgba(37,244,238,.75);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Loading and status messages */
+
         .loading,
         .empty {
             grid-column: 1 / -1;
-            padding: 35px;
+            padding: 38px 25px;
             text-align: center;
-            border-radius: 14px;
-            background: rgba(16,23,42,.9);
-            border: 1px solid rgba(115,151,220,.25);
-            color: #bdc9df;
+            border-radius: 16px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            color: var(--muted);
         }
 
-        footer {
-            margin-top: 60px;
-            padding: 25px 15px;
+        .loading i {
+            display: block;
+            margin-bottom: 15px;
+            color: var(--cyan);
+            font-size: 30px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        .empty i {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--purple);
+            font-size: 30px;
+        }
+
+        /* Bottom call to action */
+
+        .bottom-cta {
+            margin-top: 38px;
+            padding: 35px;
             text-align: center;
-            background: #050914;
+            border: 1px solid rgba(168,85,247,.35);
+            border-radius: 17px;
+            background: linear-gradient(135deg, rgba(16,23,42,.95), rgba(32,20,59,.95));
+            box-shadow: 0 0 30px rgba(168,85,247,.08);
+        }
+
+        .bottom-cta h2 {
+            color: var(--cyan);
+            margin-bottom: 10px;
+        }
+
+        .bottom-cta p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 20px;
+            border-radius: 9px;
+            background: var(--cyan);
+            color: #07111a;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .cta-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 22px rgba(37,244,238,.25);
+        }
+
+        /* Footer and back-to-top */
+
+        footer {
+            margin-top: 65px;
+            padding: 28px 15px;
+            text-align: center;
+            background: rgba(5,9,20,.96);
             border-top: 1px solid rgba(37,244,238,.2);
             color: #a9b7d0;
         }
 
-        @keyframes achievementTitle {
+        footer strong {
+            color: var(--cyan);
+        }
+
+        .back-top {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 900;
+            display: grid;
+            place-items: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 13px;
+            background: var(--cyan);
+            color: #07111a;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(37,244,238,.22);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: .3s;
+        }
+
+        .back-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Scroll reveals */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes titleEntrance {
             from {
                 opacity: 0;
                 transform: translateY(22px);
@@ -159,18 +491,93 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .45; }
+        }
+
+        @keyframes gradientFlow {
+            to { background-position: 250% center; }
+        }
+
+        @keyframes lightSweep {
+            0%, 20% { transform: translateX(-100%); }
+            65%, 100% { transform: translateX(100%); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1100px) {
+            .nav-menu {
+                gap: 11px;
+            }
+
+            .nav-menu a {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 8px 5% 15px;
+                background: rgba(5,9,20,.98);
+                border-bottom: 1px solid rgba(37,244,238,.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                padding: 11px 0;
+                border-bottom: 1px solid rgba(115,151,220,.12);
+            }
+
+            .nav-menu a {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 650px) {
             .page-header {
-                padding: 55px 18px;
+                padding: 60px 18px;
+            }
+
+            .page-header p {
+                font-size: 15px;
             }
 
             .container {
                 width: 92%;
-                margin: 30px auto;
+                margin: 35px auto;
             }
 
             .cards {
                 grid-template-columns: 1fr;
+            }
+
+            .cards .card,
+            .bottom-cta {
+                padding: 25px;
+            }
+
+            .back-top {
+                right: 14px;
+                bottom: 14px;
             }
         }
 
@@ -183,14 +590,21 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: .01ms !important;
             }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
 
-<body>
+<body id="top">
 
-<nav>
-    <a href="index.html" class="logo">Clinton Ncube</a>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<nav aria-label="Main navigation">
+    <a href="index.html" class="logo">Clinton Ncube<span style="color:#a855f7">.</span></a>
 
     <button
         class="menu-toggle"
@@ -215,26 +629,55 @@
 </nav>
 
 <header class="page-header">
-    <h1>My Achievements</h1>
-    <p>Some of my academic and personal achievements.</p>
+    <div class="eyebrow">
+        <span class="status-dot"></span>
+        Progress and milestones
+    </div>
+
+    <h1>My <span class="gradient-text">Achievements</span></h1>
+
+    <p>
+        Every milestone is part of the journey.
+        Explore the achievements I've chosen to share.
+    </p>
 </header>
 
 <main>
-    <section>
-        <div class="container">
-            <div id="achievementsContainer" class="cards">
-                <div class="loading">Loading achievements...</div>
+    <section class="container" aria-labelledby="achievementsHeading">
+        <div class="section-heading reveal">
+            <span class="section-label">My journey so far</span>
+            <h2 id="achievementsHeading">Milestones &amp; Memories</h2>
+            <p>Achievements are loaded from my portfolio database.</p>
+        </div>
+
+        <div id="achievementsContainer" class="cards" aria-live="polite">
+            <div class="loading">
+                <i class="fas fa-circle-notch" aria-hidden="true"></i>
+                Loading achievements...
             </div>
         </div>
+
+        <section class="bottom-cta reveal">
+            <h2>There's More to Explore</h2>
+            <p>Take a look at my projects and the skills I'm developing.</p>
+            <a href="projects.html" class="cta-link">
+                Explore my projects
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </section>
     </section>
 </main>
 
 <footer>
-    <p>© 2026 Clinton Ncube. All rights reserved.</p>
+    <p>&copy; 2026 <strong>Clinton Ncube</strong>. All rights reserved.</p>
     <p>Personal Portfolio Website</p>
 </footer>
 
-<!-- FIREBASE ACHIEVEMENTS -->
+<a class="back-top" href="#top" id="backTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</a>
+
+<!-- FIREBASE ACHIEVEMENTS: database path and live updates preserved -->
 <script type="module">
     import {
         initializeApp
@@ -259,6 +702,21 @@
 
     const container = document.getElementById("achievementsContainer");
 
+    function showMessage(className, iconName, message) {
+        const element = document.createElement("div");
+        element.className = className;
+
+        const icon = document.createElement("i");
+        icon.className = iconName;
+        icon.setAttribute("aria-hidden", "true");
+
+        const text = document.createElement("p");
+        text.textContent = message;
+
+        element.append(icon, text);
+        container.replaceChildren(element);
+    }
+
     try {
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
@@ -272,71 +730,255 @@
                 const data = snapshot.val();
 
                 if (!data || Object.keys(data).length === 0) {
-                    const empty = document.createElement("div");
-                    empty.className = "empty";
-                    empty.textContent = "No achievements have been added yet.";
-                    container.appendChild(empty);
+                    showMessage(
+                        "empty",
+                        "fas fa-award",
+                        "No achievements have been added yet. Please check back later."
+                    );
                     return;
                 }
 
+                let number = 0;
+
                 Object.values(data).forEach((achievement) => {
+                    if (!achievement || typeof achievement !== "object") {
+                        return;
+                    }
+
+                    number++;
+
                     const card = document.createElement("article");
-                    card.className = "card";
+                    card.className = "card reveal";
+
+                    const icon = document.createElement("div");
+                    icon.className = "achievement-icon";
+
+                    const iconSymbol = document.createElement("i");
+                    iconSymbol.className = "fas fa-trophy";
+                    iconSymbol.setAttribute("aria-hidden", "true");
+                    icon.appendChild(iconSymbol);
+
+                    const count = document.createElement("span");
+                    count.className = "achievement-number";
+                    count.textContent = "Milestone " + String(number).padStart(2, "0");
 
                     const title = document.createElement("h3");
-                    title.textContent = "🏆 " + (achievement.title || "Achievement");
+                    title.textContent = achievement.title || "Achievement";
 
                     const description = document.createElement("p");
                     description.textContent = achievement.description || "";
 
-                    card.append(title, description);
+                    card.append(icon, count, title, description);
                     container.appendChild(card);
+
+                    // Apply the reveal effect to newly loaded Firebase cards.
+                    if ("IntersectionObserver" in window &&
+                        !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                        revealObserver.observe(card);
+                    } else {
+                        card.classList.add("in-view");
+                    }
                 });
+
+                if (number === 0) {
+                    showMessage(
+                        "empty",
+                        "fas fa-award",
+                        "No achievements have been added yet. Please check back later."
+                    );
+                }
             },
             (error) => {
                 console.error("Firebase achievements error:", error);
-                container.replaceChildren();
 
-                const message = document.createElement("div");
-                message.className = "empty";
-                message.textContent = "Unable to load achievements. Please try again later.";
-                container.appendChild(message);
+                showMessage(
+                    "empty",
+                    "fas fa-triangle-exclamation",
+                    "Unable to load achievements. Please try again later."
+                );
             }
         );
     } catch (error) {
         console.error("Firebase initialization error:", error);
-        container.innerHTML = '<div class="empty">Unable to connect to achievements.</div>';
+
+        showMessage(
+            "empty",
+            "fas fa-triangle-exclamation",
+            "Unable to connect to achievements. Please try again later."
+        );
     }
 </script>
 
-<!-- MOBILE NAVIGATION -->
+<!-- NAVIGATION, REVEAL EFFECTS AND PARTICLES -->
 <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
+    (() => {
+        const menuToggle = document.getElementById("menuToggle");
+        const navMenu = document.getElementById("navMenu");
+        const backTop = document.getElementById("backTop");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    menuToggle.addEventListener("click", () => {
-        const isOpen = navMenu.classList.toggle("active");
+        // Mobile navigation
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navMenu.classList.toggle("active");
 
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.setAttribute(
-            "aria-label",
-            isOpen ? "Close navigation menu" : "Open navigation menu"
-        );
-        menuToggle.textContent = isOpen ? "✕" : "☰";
-    });
-
-    navMenu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navMenu.classList.remove("active");
-            menuToggle.textContent = "☰";
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Open navigation menu");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+            menuToggle.textContent = isOpen ? "✕" : "☰";
         });
-    });
+
+        navMenu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navMenu.classList.remove("active");
+                menuToggle.textContent = "☰";
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+            });
+        });
+
+        // Reveal elements as they enter the screen.
+        window.revealObserver = null;
+
+        const revealItems = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window && !reduceMotion) {
+            window.revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in-view");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            revealItems.forEach((item) => {
+                window.revealObserver.observe(item);
+            });
+        } else {
+            revealItems.forEach((item) => item.classList.add("in-view"));
+        }
+
+        // Back-to-top button
+        const updateBackTop = () => {
+            backTop.classList.toggle("visible", window.scrollY > 350);
+        };
+
+        window.addEventListener("scroll", updateBackTop, { passive: true });
+        updateBackTop();
+
+        // Animated background particles
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx || reduceMotion) {
+            return;
+        }
+
+        let width = 0;
+        let height = 0;
+        let particles = [];
+        let animationFrame = null;
+        let paused = false;
+
+        const getParticleCount = () => window.innerWidth < 600 ? 22 : 45;
+
+        function resizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            particles = Array.from({ length: getParticleCount() }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.7 + 0.5,
+                speed: Math.random() * 0.35 + 0.12,
+                drift: (Math.random() - 0.5) * 0.25,
+                hue: Math.random() > 0.5 ? 180 : 270
+            }));
+        }
+
+        function drawParticles() {
+            if (paused || document.hidden) {
+                animationFrame = null;
+                return;
+            }
+
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((particle) => {
+                particle.y -= particle.speed;
+                particle.x += particle.drift;
+
+                if (particle.y < -5) {
+                    particle.y = height + 5;
+                    particle.x = Math.random() * width;
+                }
+
+                if (particle.x < -5) particle.x = width + 5;
+                if (particle.x > width + 5) particle.x = -5;
+
+                ctx.beginPath();
+                ctx.arc(
+                    particle.x,
+                    particle.y,
+                    particle.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fillStyle = `hsla(${particle.hue}, 95%, 70%, 0.65)`;
+                ctx.shadowBlur = 9;
+                ctx.shadowColor = `hsl(${particle.hue}, 95%, 65%)`;
+                ctx.fill();
+            });
+
+            ctx.shadowBlur = 0;
+            animationFrame = requestAnimationFrame(drawParticles);
+        }
+
+        function startParticles() {
+            if (!paused && !document.hidden && animationFrame === null) {
+                animationFrame = requestAnimationFrame(drawParticles);
+            }
+        }
+
+        function stopParticles() {
+            if (animationFrame !== null) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+        }
+
+        resizeCanvas();
+        startParticles();
+
+        window.addEventListener("resize", () => {
+            resizeCanvas();
+            stopParticles();
+            startParticles();
+        });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopParticles();
+            } else {
+                startParticles();
+            }
+        });
+    })();
 </script>
 
 <script src="js/animations.js" defer></script>
 
 </body>
 </html>
-```
