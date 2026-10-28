@@ -42,8 +42,8 @@
       <p>Explore the photos, search for a memory, or open any picture for a closer look. <span class="gradient-text">Enjoy the journey.</span></p>
     </section>
     <section class="stats" aria-label="Gallery statistics">
-      <div class="stat"><strong id="photo-total">6</strong><span>Total memories</span></div>
-      <div class="stat"><strong id="photo-visible">6</strong><span>Showing</span></div>
+      <div class="stat"><strong id="photo-total">24</strong><span>Total memories</span></div>
+      <div class="stat"><strong id="photo-visible">24</strong><span>Showing</span></div>
       <div class="stat"><strong>∞</strong><span>Moments to keep</span></div>
     </section>
     <div class="toolbar">
@@ -97,12 +97,30 @@
     const dashboardDb = getDatabase(dashboardApp);
 
     const addedPhotos = [
-      {id:"added-1",title:"Memory 1",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg",source:"local"},
-      {id:"added-2",title:"Memory 2",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg",source:"local"},
-      {id:"added-3",title:"Memory 3",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg",source:"local"},
-      {id:"added-4",title:"Memory 4",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg",source:"local"},
-      {id:"added-5",title:"Memory 5",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg",source:"local"},
-      {id:"added-6",title:"Memory 6",description:"A moment from my personal collection.",imageUrl:"images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg",source:"local"}
+      {id:"added-1",title:"August 2024 Memory 1",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20240819-WA0011_(1).jpg",source:"local"},
+      {id:"added-2",title:"August 2024 Memory 2",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20240819-WA0020_(1).jpg",source:"local"},
+      {id:"added-3",title:"August 2024 Memory 3",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20240819-WA0021_(1).jpg",source:"local"},
+      {id:"added-4",title:"December 2025 Memory 4",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20251221-WA0056.jpg",source:"local"},
+      {id:"added-5",title:"August 2025 Memory 5",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20250802_093252.jpg",source:"local"},
+      {id:"added-6",title:"August 2025 Memory 6",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20250802_093305.jpg",source:"local"},
+      {id:"added-7",title:"August 2025 Memory 7",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20250802_144742_edit_7426347801541.jpg",source:"local"},
+      {id:"added-8",title:"August 2025 Memory 8",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20250802_145115_edit_7303969500494.jpg",source:"local"},
+      {id:"added-9",title:"August 2025 Memory 9",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20250802_145348_edit_7272302860610.jpg",source:"local"},
+      {id:"added-10",title:"Social Memory 10",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_861099195_17994698292100264_2773230497532578772_n.jpg",source:"local"},
+      {id:"added-11",title:"Social Memory 11",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_864735920_17994698418100264_8565623279210335884_n.jpg",source:"local"},
+      {id:"added-12",title:"Social Memory 12",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_864853141_17994698175100264_4488882896880932263_n.jpg",source:"local"},
+      {id:"added-13",title:"Social Memory 13",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_866979820_17994698322100264_3521155655178586417_n.jpg",source:"local"},
+      {id:"added-14",title:"Social Memory 14",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_868028766_17994698439100264_6218611061983217428_n.jpg",source:"local"},
+      {id:"added-15",title:"Social Memory 15",description:"A moment from my personal collection.",imageUrl:"/images/SaveClip.App_870141323_17994698256100264_2782056032105923958_n.jpg",source:"local"},
+      {id:"added-16",title:"August 2026 Memory 16",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_48_08_Pro.jpg",source:"local"},
+      {id:"added-17",title:"August 2026 Memory 17",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_48_27_Pro.jpg",source:"local"},
+      {id:"added-18",title:"August 2026 Memory 18",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_48_35_Pro.jpg",source:"local"},
+      {id:"added-19",title:"August 2026 Memory 19",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_48_39_Pro.jpg",source:"local"},
+      {id:"added-20",title:"August 2026 Memory 20",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_49_03_Pro.jpg",source:"local"},
+      {id:"added-21",title:"August 2026 Memory 21",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_49_16_Pro.jpg",source:"local"},
+      {id:"added-22",title:"August 2026 Memory 22",description:"A moment from my personal collection.",imageUrl:"/images/WIN_20260814_16_49_28_Pro.jpg",source:"local"},
+      {id:"added-23",title:"WhatsApp Memory 23",description:"A moment from my personal collection.",imageUrl:"/images/WhatsApp Image 2026-04-04 at 09.50.26.jpeg",source:"local"},
+      {id:"added-24",title:"Shasha dzamwari 24",description:"A moment from my personal collection.",imageUrl:"/images/photo3.jpg",source:"local"}
     ];
 
     const $ = id => document.getElementById(id);
@@ -189,7 +207,7 @@
           img.loading = "lazy";
           img.decoding = "async";
           img.addEventListener("click",() => openModal(index));
-          img.addEventListener("error",() => { wrap.style.display="none"; });
+          img.addEventListener("error",() => { card.remove(); const remaining = host.querySelectorAll(".gallery-card").length; $("photo-visible").textContent = remaining; $("gallery-count").textContent = `${remaining} ${remaining === 1 ? "memory" : "memories"}`; });
           wrap.appendChild(img);
           const info = document.createElement("div");
           info.className = "gallery-info";
