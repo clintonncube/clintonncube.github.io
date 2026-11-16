@@ -10,819 +10,653 @@
 
   <style>
     :root {
-      --bg: #070912;
-      --panel: rgba(16, 21, 38, .82);
-      --cyan: #25f4ee;
-      --purple: #a855f7;
-      --pink: #ff5b92;
-      --text: #f5f7ff;
-      --muted: #b7bfd3;
-      --line: rgba(255,255,255,.13);
-      --glow: 0 0 28px rgba(37,244,238,.13);
+      --bg:#070912;
+      --panel:rgba(16,21,38,.82);
+      --cyan:#25f4ee;
+      --purple:#a855f7;
+      --pink:#ff5b92;
+      --text:#f5f7ff;
+      --muted:#b7bfd3;
+      --line:rgba(255,255,255,.13);
+      --glow:0 0 28px rgba(37,244,238,.13);
     }
 
-    * { box-sizing: border-box; }
+    * {box-sizing:border-box}
 
     html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 25px;
+      scroll-behavior:smooth;
+      scroll-padding-top:25px;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--text);
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+      color:var(--text);
+      font-family:Inter,"Segoe UI",Arial,sans-serif;
       background:
-        radial-gradient(ellipse at 10% 0%, #32102f 0, transparent 34%),
-        radial-gradient(ellipse at 100% 15%, #06343a 0, transparent 35%),
-        radial-gradient(ellipse at 50% 100%, #171033 0, transparent 40%),
+        radial-gradient(ellipse at 10% 0%,#32102f 0,transparent 34%),
+        radial-gradient(ellipse at 100% 15%,#06343a 0,transparent 35%),
+        radial-gradient(ellipse at 50% 100%,#171033 0,transparent 40%),
         var(--bg);
     }
 
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .2;
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      opacity:.2;
       background-image:
-        linear-gradient(rgba(37,244,238,.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37,244,238,.12) 1px, transparent 1px);
-      background-size: 38px 38px;
-      mask-image: linear-gradient(to bottom, black, transparent 90%);
+        linear-gradient(rgba(37,244,238,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(37,244,238,.12) 1px,transparent 1px);
+      background-size:38px 38px;
+      mask-image:linear-gradient(to bottom,black,transparent 90%);
     }
 
     body::after {
-      content: "";
-      position: fixed;
-      width: 380px;
-      height: 380px;
-      right: -220px;
-      bottom: -170px;
-      border-radius: 50%;
-      background: var(--purple);
-      opacity: .09;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: -1;
-      animation: ambientFloat 10s ease-in-out infinite alternate;
+      content:"";
+      position:fixed;
+      width:380px;
+      height:380px;
+      right:-220px;
+      bottom:-170px;
+      border-radius:50%;
+      background:var(--purple);
+      opacity:.09;
+      filter:blur(100px);
+      pointer-events:none;
+      z-index:-1;
+      animation:ambientFloat 10s ease-in-out infinite alternate;
     }
 
-    button, input, select { font: inherit; }
+    button,input,select {font:inherit}
 
     button:focus-visible,
     input:focus-visible,
     select:focus-visible,
     a:focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: 4px;
+      outline:2px solid var(--cyan);
+      outline-offset:4px;
     }
 
     header {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      text-align: center;
-      padding: 65px 18px 48px;
-      background:
-        linear-gradient(115deg,
-          rgba(75,8,35,.82),
-          rgba(14,18,36,.93) 52%,
-          rgba(0,93,105,.38));
-      border-bottom: 1px solid rgba(37,244,238,.42);
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      text-align:center;
+      padding:65px 18px 48px;
+      background:linear-gradient(115deg,
+        rgba(75,8,35,.82),
+        rgba(14,18,36,.93) 52%,
+        rgba(0,93,105,.38));
+      border-bottom:1px solid rgba(37,244,238,.42);
     }
 
     header::before,
     header::after {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-      border-radius: 50%;
-      animation: orbit 18s linear infinite;
+      content:"";
+      position:absolute;
+      pointer-events:none;
+      z-index:-1;
+      border-radius:50%;
+      animation:orbit 18s linear infinite;
     }
 
     header::before {
-      width: 360px;
-      height: 360px;
-      border: 1px solid #25f4ee35;
-      right: -100px;
-      top: -240px;
-      box-shadow: 0 0 55px #25f4ee15;
+      width:360px;
+      height:360px;
+      border:1px solid #25f4ee35;
+      right:-100px;
+      top:-240px;
+      box-shadow:0 0 55px #25f4ee15;
     }
 
     header::after {
-      width: 300px;
-      height: 300px;
-      border: 1px solid #a855f744;
-      left: -170px;
-      bottom: -250px;
-      animation-direction: reverse;
+      width:300px;
+      height:300px;
+      border:1px solid #a855f744;
+      left:-170px;
+      bottom:-250px;
+      animation-direction:reverse;
     }
 
     .hero-content {
-      position: relative;
-      animation: heroEnter .85s cubic-bezier(.2,.8,.2,1) both;
+      position:relative;
+      animation:heroEnter .85s cubic-bezier(.2,.8,.2,1) both;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      border: 1px solid #25f4ee60;
-      border-radius: 999px;
-      padding: 9px 15px;
-      color: var(--cyan);
-      font-size: .76rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background: rgba(0,0,0,.3);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 24px #25f4ee0c;
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      border:1px solid #25f4ee60;
+      border-radius:999px;
+      padding:9px 15px;
+      color:var(--cyan);
+      font-size:.76rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      background:rgba(0,0,0,.3);
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 24px #25f4ee0c;
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 13px var(--cyan);
-      animation: pulse 1.6s infinite;
+      width:8px;
+      height:8px;
+      flex-shrink:0;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 13px var(--cyan);
+      animation:pulse 1.6s infinite;
     }
 
     h1 {
-      font-size: clamp(2.6rem, 8vw, 5.3rem);
-      letter-spacing: 2px;
-      line-height: 1.05;
-      margin: 24px 0 13px;
-      text-shadow: 0 0 30px #25f4ee27;
+      font-size:clamp(2.6rem,8vw,5.3rem);
+      letter-spacing:2px;
+      line-height:1.05;
+      margin:24px 0 13px;
+      text-shadow:0 0 30px #25f4ee27;
     }
 
     .gradient-text {
-      background: linear-gradient(
-        90deg,
-        var(--pink),
-        var(--purple),
-        var(--cyan),
-        var(--pink)
-      );
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradientFlow 7s linear infinite;
+      background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan),var(--pink));
+      background-size:300% 100%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      animation:gradientFlow 7s linear infinite;
     }
 
     header p {
-      margin: 0 auto;
-      max-width: 620px;
-      color: #e1e5f2;
-      line-height: 1.8;
+      margin:0 auto;
+      max-width:620px;
+      color:#e1e5f2;
+      line-height:1.8;
     }
 
     .line {
-      width: 190px;
-      height: 3px;
-      border-radius: 9px;
-      margin: 27px auto 0;
-      background: linear-gradient(
-        90deg, #8b1638, var(--pink), var(--purple), var(--cyan)
-      );
-      background-size: 200% 100%;
-      box-shadow: 0 0 18px #a855f744;
-      animation: flow 4s linear infinite;
+      width:190px;
+      height:3px;
+      border-radius:9px;
+      margin:27px auto 0;
+      background:linear-gradient(90deg,#8b1638,var(--pink),var(--purple),var(--cyan));
+      background-size:200% 100%;
+      box-shadow:0 0 18px #a855f744;
+      animation:flow 4s linear infinite;
     }
 
     .hero-label {
-      display: inline-block;
-      margin-top: 22px;
-      color: #9ba7c3;
-      font-size: .73rem;
-      letter-spacing: 3px;
+      display:inline-block;
+      margin-top:22px;
+      color:#9ba7c3;
+      font-size:.73rem;
+      letter-spacing:3px;
     }
 
     .container {
-      max-width: 1250px;
-      margin: auto;
-      padding: 36px 22px 65px;
+      max-width:1250px;
+      margin:auto;
+      padding:36px 22px 65px;
     }
 
-    .intro,
-    .stat,
-    .toolbar,
-    .gallery-card,
-    .empty {
-      background: linear-gradient(
-        145deg,
-        rgba(21,29,49,.86),
-        rgba(9,12,23,.91)
-      );
-      border: 1px solid var(--line);
-      box-shadow: 0 12px 35px #0004;
-      backdrop-filter: blur(14px);
+    .intro,.stat,.toolbar,.gallery-card,.empty {
+      background:linear-gradient(145deg,rgba(21,29,49,.86),rgba(9,12,23,.91));
+      border:1px solid var(--line);
+      box-shadow:0 12px 35px #0004;
+      backdrop-filter:blur(14px);
     }
 
     .intro {
-      position: relative;
-      overflow: hidden;
-      padding: 29px 22px;
-      border-radius: 22px;
-      text-align: center;
-      margin-bottom: 22px;
-      transition: border-color .3s, box-shadow .3s, transform .3s;
+      position:relative;
+      overflow:hidden;
+      padding:29px 22px;
+      border-radius:22px;
+      text-align:center;
+      margin-bottom:22px;
+      transition:border-color .3s,box-shadow .3s,transform .3s;
     }
 
     .intro:hover {
-      border-color: #25f4ee70;
-      box-shadow: var(--glow);
-      transform: translateY(-2px);
+      border-color:#25f4ee70;
+      box-shadow:var(--glow);
+      transform:translateY(-2px);
     }
 
     .intro::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
-      background-size: 200% 100%;
-      animation: flow 5s linear infinite;
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:3px;
+      background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));
+      background-size:200% 100%;
+      animation:flow 5s linear infinite;
     }
 
     .intro h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin:0 0 10px;
+      font-size:clamp(1.4rem,3vw,2rem);
     }
 
     .intro p {
-      color: var(--muted);
-      line-height: 1.8;
-      margin: 0;
+      color:var(--muted);
+      line-height:1.8;
+      margin:0;
     }
 
     .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin: 22px 0;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin:22px 0;
     }
 
     .stat {
-      position: relative;
-      overflow: hidden;
-      padding: 20px 12px;
-      border-radius: 17px;
-      text-align: center;
-      transition: transform .3s, border-color .3s, box-shadow .3s;
+      position:relative;
+      overflow:hidden;
+      padding:20px 12px;
+      border-radius:17px;
+      text-align:center;
+      transition:transform .3s,border-color .3s,box-shadow .3s;
     }
 
     .stat::after {
-      content: "";
-      position: absolute;
-      left: 20%;
-      right: 20%;
-      bottom: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--pink), var(--cyan));
-      opacity: .6;
-      transition: left .3s, right .3s, opacity .3s;
+      content:"";
+      position:absolute;
+      left:20%;
+      right:20%;
+      bottom:0;
+      height:2px;
+      background:linear-gradient(90deg,var(--pink),var(--cyan));
+      opacity:.6;
+      transition:left .3s,right .3s,opacity .3s;
     }
 
     .stat:hover {
-      transform: translateY(-5px);
-      border-color: #25f4ee65;
-      box-shadow: var(--glow);
+      transform:translateY(-5px);
+      border-color:#25f4ee65;
+      box-shadow:var(--glow);
     }
 
-    .stat:hover::after {
-      left: 0;
-      right: 0;
-      opacity: 1;
-    }
+    .stat:hover::after {left:0;right:0;opacity:1}
 
     .stat strong {
-      display: block;
-      color: var(--cyan);
-      font-size: 1.65rem;
-      text-shadow: 0 0 17px #25f4ee35;
+      display:block;
+      color:var(--cyan);
+      font-size:1.65rem;
+      text-shadow:0 0 17px #25f4ee35;
     }
 
     .stat span {
-      display: block;
-      color: var(--muted);
-      font-size: .72rem;
-      margin-top: 7px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      display:block;
+      color:var(--muted);
+      font-size:.72rem;
+      margin-top:7px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
     }
 
     .toolbar {
-      position: relative;
-      padding: 15px;
-      border-radius: 17px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
+      position:relative;
+      padding:15px;
+      border-radius:17px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
     }
 
-    .toolbar input,
-    .toolbar select {
-      min-width: 180px;
-      flex: 1;
-      background: rgba(5,8,17,.9);
-      color: var(--text);
-      border: 1px solid #394158;
-      border-radius: 12px;
-      padding: 13px 14px;
-      outline: none;
-      transition: border-color .25s, box-shadow .25s, background .25s;
+    .toolbar input,.toolbar select {
+      min-width:180px;
+      flex:1;
+      background:rgba(5,8,17,.9);
+      color:var(--text);
+      border:1px solid #394158;
+      border-radius:12px;
+      padding:13px 14px;
+      outline:none;
+      transition:border-color .25s,box-shadow .25s,background .25s;
     }
 
-    .toolbar input::placeholder {
-      color: #858fa9;
+    .toolbar input::placeholder {color:#858fa9}
+
+    .toolbar input:hover,.toolbar select:hover {border-color:#7c679e}
+
+    .toolbar input:focus,.toolbar select:focus {
+      border-color:var(--cyan);
+      background:#090d19;
+      box-shadow:0 0 0 3px #25f4ee15,0 0 20px #25f4ee0d;
     }
 
-    .toolbar input:hover,
-    .toolbar select:hover {
-      border-color: #7c679e;
-    }
-
-    .toolbar input:focus,
-    .toolbar select:focus {
-      border-color: var(--cyan);
-      background: #090d19;
-      box-shadow: 0 0 0 3px #25f4ee15, 0 0 20px #25f4ee0d;
-    }
-
-    .toolbar select option {
-      background: #101526;
-      color: white;
-    }
+    .toolbar select option {background:#101526;color:white}
 
     .count {
-      color: var(--cyan);
-      font-size: .85rem;
-      white-space: nowrap;
-      padding: 5px;
+      color:var(--cyan);
+      font-size:.85rem;
+      white-space:nowrap;
+      padding:5px;
     }
 
     .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 0 0 26px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:0 0 26px;
     }
 
     .filter {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #343b52;
-      background: rgba(12,17,32,.8);
-      color: #dce3f4;
-      border-radius: 999px;
-      padding: 11px 17px;
-      font-weight: 700;
-      font-size: .86rem;
-      cursor: pointer;
-      transition: color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s;
+      position:relative;
+      overflow:hidden;
+      border:1px solid #343b52;
+      background:rgba(12,17,32,.8);
+      color:#dce3f4;
+      border-radius:999px;
+      padding:11px 17px;
+      font-weight:700;
+      font-size:.86rem;
+      cursor:pointer;
+      transition:color .25s,border-color .25s,background .25s,transform .25s,box-shadow .25s;
     }
 
-    .filter:hover,
-    .filter.active {
-      color: #061014;
-      border-color: transparent;
-      background: linear-gradient(100deg, var(--cyan), #c0fffc);
-      box-shadow: 0 0 22px #25f4ee24;
-      transform: translateY(-2px);
+    .filter:hover,.filter.active {
+      color:#061014;
+      border-color:transparent;
+      background:linear-gradient(100deg,var(--cyan),#c0fffc);
+      box-shadow:0 0 22px #25f4ee24;
+      transform:translateY(-2px);
     }
 
-    .filter:active {
-      transform: scale(.97);
-    }
+    .filter:active {transform:scale(.97)}
 
     #gallery-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-      gap: 22px;
-      align-items: start;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+      gap:22px;
+      align-items:start;
     }
 
     .gallery-card {
-      --mx: 50%;
-      --my: 50%;
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      border-radius: 19px;
-      isolation: isolate;
-      animation: cardIn .65s cubic-bezier(.2,.8,.2,1) both;
-      transition: transform .35s, border-color .35s, box-shadow .35s;
+      --mx:50%;
+      --my:50%;
+      position:relative;
+      min-width:0;
+      overflow:hidden;
+      border-radius:19px;
+      isolation:isolate;
+      animation:cardIn .65s cubic-bezier(.2,.8,.2,1) both;
+      transition:transform .35s,border-color .35s,box-shadow .35s;
     }
 
     .gallery-card::before {
-      content: "";
-      position: absolute;
-      z-index: 3;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      opacity: 0;
-      background: radial-gradient(
-        250px circle at var(--mx) var(--my),
-        rgba(37,244,238,.17),
-        transparent 70%
-      );
-      transition: opacity .3s;
+      content:"";
+      position:absolute;
+      z-index:3;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+      opacity:0;
+      background:radial-gradient(250px circle at var(--mx) var(--my),rgba(37,244,238,.17),transparent 70%);
+      transition:opacity .3s;
     }
 
     .gallery-card:hover {
-      transform: translateY(-8px) scale(1.012);
-      border-color: #25f4eea0;
-      box-shadow:
-        0 22px 48px #0008,
-        0 0 0 1px #25f4ee13,
-        0 0 30px #25f4ee13;
+      transform:translateY(-8px) scale(1.012);
+      border-color:#25f4eea0;
+      box-shadow:0 22px 48px #0008,0 0 0 1px #25f4ee13,0 0 30px #25f4ee13;
     }
 
-    .gallery-card:hover::before {
-      opacity: 1;
-    }
+    .gallery-card:hover::before {opacity:1}
 
     .image-wrap {
-      height: 270px;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #18263d, #080b14);
+      height:270px;
+      position:relative;
+      overflow:hidden;
+      background:radial-gradient(circle at center,#18263d,#080b14);
     }
 
     .image-wrap::before {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      inset: 0;
-      pointer-events: none;
-      opacity: .5;
-      background: linear-gradient(
-        180deg,
-        transparent 55%,
-        rgba(3,5,13,.55)
-      );
-      transition: opacity .3s;
+      content:"";
+      position:absolute;
+      z-index:1;
+      inset:0;
+      pointer-events:none;
+      opacity:.5;
+      background:linear-gradient(180deg,transparent 55%,rgba(3,5,13,.55));
+      transition:opacity .3s;
     }
 
     .image-wrap::after {
-      content: "VIEW MEMORY ↗";
-      position: absolute;
-      z-index: 2;
-      right: 11px;
-      bottom: 11px;
-      padding: 8px 11px;
-      border: 1px solid #25f4ee75;
-      border-radius: 8px;
-      background: rgba(0,0,0,.76);
-      color: var(--cyan);
-      font-size: .66rem;
-      letter-spacing: 1.2px;
-      pointer-events: none;
-      backdrop-filter: blur(8px);
-      transform: translateY(5px);
-      opacity: .8;
-      transition: opacity .3s, transform .3s;
+      content:"VIEW MEMORY ↗";
+      position:absolute;
+      z-index:2;
+      right:11px;
+      bottom:11px;
+      padding:8px 11px;
+      border:1px solid #25f4ee75;
+      border-radius:8px;
+      background:rgba(0,0,0,.76);
+      color:var(--cyan);
+      font-size:.66rem;
+      letter-spacing:1.2px;
+      pointer-events:none;
+      backdrop-filter:blur(8px);
+      transform:translateY(5px);
+      opacity:.8;
+      transition:opacity .3s,transform .3s;
     }
 
     .gallery-card:hover .image-wrap::after {
-      transform: translateY(0);
-      opacity: 1;
+      transform:translateY(0);
+      opacity:1;
     }
 
     .image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      cursor: zoom-in;
-      transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .4s;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      cursor:zoom-in;
+      transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .4s;
     }
 
     .gallery-card:hover .image-wrap img {
-      transform: scale(1.075);
-      filter: saturate(1.18) contrast(1.04);
+      transform:scale(1.075);
+      filter:saturate(1.18) contrast(1.04);
     }
 
-    .gallery-info {
-      padding: 18px;
-      position: relative;
-    }
+    .gallery-info {padding:18px;position:relative}
 
     .gallery-info h3 {
-      margin: 0 0 9px;
-      color: #ff8bb3;
-      font-size: 1.05rem;
-      line-height: 1.45;
-      overflow-wrap: anywhere;
-      transition: color .25s;
+      margin:0 0 9px;
+      color:#ff8bb3;
+      font-size:1.05rem;
+      line-height:1.45;
+      overflow-wrap:anywhere;
+      transition:color .25s;
     }
 
-    .gallery-card:hover .gallery-info h3 {
-      color: var(--cyan);
-    }
+    .gallery-card:hover .gallery-info h3 {color:var(--cyan)}
 
     .gallery-info p {
-      margin: 0;
-      color: #d0d6e7;
-      line-height: 1.7;
-      font-size: .92rem;
-      overflow-wrap: anywhere;
+      margin:0;
+      color:#d0d6e7;
+      line-height:1.7;
+      font-size:.92rem;
+      overflow-wrap:anywhere;
     }
 
     .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 14px;
-      padding: 6px 10px;
-      border: 1px solid #a855f766;
-      border-radius: 999px;
-      color: #d8b4fe;
-      background: #a855f70b;
-      font-size: .7rem;
-      letter-spacing: .3px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:14px;
+      padding:6px 10px;
+      border:1px solid #a855f766;
+      border-radius:999px;
+      color:#d8b4fe;
+      background:#a855f70b;
+      font-size:.7rem;
+      letter-spacing:.3px;
     }
 
     .tag::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 8px currentColor;
+      content:"";
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      background:currentColor;
+      box-shadow:0 0 8px currentColor;
     }
 
-    .loading,
-    .empty {
-      grid-column: 1 / -1;
-      border-radius: 17px;
-      padding: 36px 20px;
-      text-align: center;
-      color: var(--muted);
+    .loading,.empty {
+      grid-column:1 / -1;
+      border-radius:17px;
+      padding:36px 20px;
+      text-align:center;
+      color:var(--muted);
     }
 
-    .loading {
-      color: var(--cyan);
-      animation: pulse 1.4s infinite;
-    }
-
-    .empty h3 {
-      color: var(--cyan);
-      margin-top: 0;
-    }
-
-    .empty p {
-      line-height: 1.7;
-    }
-
-    /* FULLSCREEN PHOTO VIEWER */
+    .loading {color:var(--cyan);animation:pulse 1.4s infinite}
+    .empty h3 {color:var(--cyan);margin-top:0}
+    .empty p {line-height:1.7}
 
     #imageModal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(2,4,10,.96);
-      backdrop-filter: blur(16px);
-      align-items: center;
-      justify-content: center;
-      padding: 70px 75px 85px;
+      display:none;
+      position:fixed;
+      z-index:9999;
+      inset:0;
+      background:rgba(2,4,10,.96);
+      backdrop-filter:blur(16px);
+      align-items:center;
+      justify-content:center;
+      padding:70px 75px 85px;
     }
 
     #imageModal::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at center, #25f4ee0a, transparent 65%),
-        linear-gradient(135deg, #a855f70b, transparent 50%);
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(ellipse at center,#25f4ee0a,transparent 65%),linear-gradient(135deg,#a855f70b,transparent 50%);
     }
 
     #modalImage {
-      position: relative;
-      max-width: min(100%, 1100px);
-      max-height: 78vh;
-      object-fit: contain;
-      border-radius: 14px;
-      border: 1px solid #25f4ee88;
-      box-shadow: 0 0 45px #25f4ee1f, 0 20px 60px #0009;
-      animation: zoom .3s cubic-bezier(.2,.8,.2,1);
-          }
+      position:relative;
+      max-width:min(100%,1100px);
+      max-height:78vh;
+      object-fit:contain;
+      border-radius:14px;
+      border:1px solid #25f4ee88;
+      box-shadow:0 0 45px #25f4ee1f,0 20px 60px #0009;
+      animation:zoom .3s cubic-bezier(.2,.8,.2,1);
+    }
 
     .modal-button {
-      position: absolute;
-      z-index: 2;
-      border: 1px solid #ffffff30;
-      background: rgba(16,21,38,.9);
-      color: white;
-      border-radius: 50%;
-      width: 47px;
-      height: 47px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      font-size: 1.65rem;
-      line-height: 1;
-      backdrop-filter: blur(10px);
-      transition: color .2s, border-color .2s, background .2s, transform .2s;
+      position:absolute;
+      z-index:2;
+      border:1px solid #ffffff30;
+      background:rgba(16,21,38,.9);
+      color:white;
+      border-radius:50%;
+      width:47px;
+      height:47px;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      font-size:1.65rem;
+      line-height:1;
+      backdrop-filter:blur(10px);
+      transition:color .2s,border-color .2s,background .2s,transform .2s;
     }
 
     .modal-button:hover {
-      color: var(--cyan);
-      border-color: var(--cyan);
-      background: #101b2b;
-      box-shadow: 0 0 20px #25f4ee18;
+      color:var(--cyan);
+      border-color:var(--cyan);
+      background:#101b2b;
+      box-shadow:0 0 20px #25f4ee18;
     }
 
-    #close-modal {
-      top: 17px;
-      right: 18px;
-      font-size: 1.8rem;
-    }
-
-    #prev-image {
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    #prev-image:hover {
-      transform: translateY(-50%) scale(1.07);
-    }
-
-    #next-image {
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    #next-image:hover {
-      transform: translateY(-50%) scale(1.07);
-    }
+    #close-modal {top:17px;right:18px;font-size:1.8rem}
+    #prev-image {left:18px;top:50%;transform:translateY(-50%)}
+    #prev-image:hover {transform:translateY(-50%) scale(1.07)}
+    #next-image {right:18px;top:50%;transform:translateY(-50%)}
+    #next-image:hover {transform:translateY(-50%) scale(1.07)}
 
     #modalCaption {
-      position: absolute;
-      bottom: 23px;
-      left: 15px;
-      right: 15px;
-      text-align: center;
-      color: #e4e8f4;
-      line-height: 1.6;
-      padding: 0 12px;
+      position:absolute;
+      bottom:23px;
+      left:15px;
+      right:15px;
+      text-align:center;
+      color:#e4e8f4;
+      line-height:1.6;
+      padding:0 12px;
     }
-
-    /* FOOTER */
 
     footer {
-      text-align: center;
-      padding: 27px 15px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: .9rem;
-      background: rgba(5,7,16,.45);
+      text-align:center;
+      padding:27px 15px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:.9rem;
+      background:rgba(5,7,16,.45);
     }
 
-    footer p { margin: 8px 0; }
+    footer p {margin:8px 0}
+    footer a {color:var(--cyan);text-decoration:none;transition:text-shadow .2s}
+    footer a:hover {text-decoration:underline;text-shadow:0 0 12px #25f4ee70}
 
-    footer a {
-      color: var(--cyan);
-      text-decoration: none;
-      transition: text-shadow .2s;
+    @keyframes pulse {50%{opacity:.55;box-shadow:0 0 4px var(--cyan)}}
+    @keyframes cardIn {from{opacity:0;transform:translateY(19px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes zoom {from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+    @keyframes flow {to{background-position:200% 0}}
+    @keyframes gradientFlow {to{background-position:300% 0}}
+    @keyframes heroEnter {from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes orbit {to{transform:rotate(360deg)}}
+    @keyframes ambientFloat {from{transform:translate(-10px,5px)}to{transform:translate(10px,-15px)}}
+
+    @media(max-width:700px) {
+      header {padding:48px 16px 37px}
+      .container {padding:24px 14px 45px}
+      .intro {padding:23px 16px}
+      .stats {gap:8px}
+      .stat {padding:15px 6px}
+      .stat strong {font-size:1.3rem}
+      .stat span {font-size:.63rem;letter-spacing:.7px}
+      #gallery-container {grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+      .image-wrap {height:235px}
+      .toolbar input,.toolbar select {min-width:100%}
+      .count {padding-left:2px}
+      #imageModal {padding:65px 14px 85px}
+      #modalImage {max-height:72vh}
+      #prev-image {left:8px}
+      #next-image {right:8px}
+      .modal-button {width:42px;height:42px}
     }
 
-    footer a:hover {
-      text-decoration: underline;
-      text-shadow: 0 0 12px #25f4ee70;
+    @media(max-width:420px) {
+      #gallery-container {grid-template-columns:minmax(0,1fr)}
+      .image-wrap {height:270px}
+      .filters {gap:8px}
+      .filter {padding:10px 13px;font-size:.79rem}
+      h1 {letter-spacing:1px}
     }
 
-    /* ANIMATIONS */
-
-    @keyframes pulse {
-      50% { opacity: .55; box-shadow: 0 0 4px var(--cyan); }
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(19px) scale(.985); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes zoom {
-      from { opacity: 0; transform: scale(.96); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes flow {
-      to { background-position: 200% 0; }
-    }
-
-    @keyframes gradientFlow {
-      to { background-position: 300% 0; }
-    }
-
-    @keyframes heroEnter {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes orbit {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes ambientFloat {
-      from { transform: translate(-10px, 5px); }
-      to { transform: translate(10px, -15px); }
-    }
-
-    @media (max-width: 700px) {
-      header { padding: 48px 16px 37px; }
-
-      .container { padding: 24px 14px 45px; }
-
-      .intro { padding: 23px 16px; }
-
-      .stats { gap: 8px; }
-
-      .stat { padding: 15px 6px; }
-
-      .stat strong { font-size: 1.3rem; }
-
-      .stat span {
-        font-size: .63rem;
-        letter-spacing: .7px;
-      }
-
-      #gallery-container {
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-        gap: 14px;
-      }
-
-      .image-wrap { height: 235px; }
-
-      .toolbar input,
-      .toolbar select {
-        min-width: 100%;
-      }
-
-      .count { padding-left: 2px; }
-
-      #imageModal { padding: 65px 14px 85px; }
-
-      #modalImage { max-height: 72vh; }
-
-      #prev-image { left: 8px; }
-
-      #next-image { right: 8px; }
-
-      .modal-button {
-        width: 42px;
-        height: 42px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      #gallery-container {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .image-wrap { height: 270px; }
-
-      .filters { gap: 8px; }
-
-      .filter {
-        padding: 10px 13px;
-        font-size: .79rem;
-      }
-
-      h1 { letter-spacing: 1px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
       }
     }
   </style>
 </head>
-
 <body>
   <header>
     <div class="hero-content">
@@ -842,11 +676,11 @@
 
     <section class="stats" aria-label="Gallery statistics">
       <div class="stat">
-        <strong id="photo-total">67</strong>
+        <strong id="photo-total">100</strong>
         <span>Total memories</span>
       </div>
       <div class="stat">
-        <strong id="photo-visible">67</strong>
+        <strong id="photo-visible">100</strong>
         <span>Showing</span>
       </div>
       <div class="stat">
@@ -856,7 +690,8 @@
     </section>
 
     <div class="toolbar">
-      <input id="gallery-search" type="search" placeholder="🔎 Search memories…" aria-label="Search gallery">
+      <input id="gallery-search" type="search"
+        placeholder="🔎 Search memories…" aria-label="Search gallery">
 
       <select id="gallery-sort" aria-label="Sort gallery">
         <option value="default">Newest / default order</option>
@@ -868,9 +703,12 @@
     </div>
 
     <nav class="filters" aria-label="Gallery filters">
-      <button class="filter active" type="button" data-filter="all" aria-pressed="true">✦ All memories</button>
-      <button class="filter" type="button" data-filter="local" aria-pressed="false">▣ Added photos</button>
-      <button class="filter" type="button" data-filter="firebase" aria-pressed="false">☁ Online gallery</button>
+      <button class="filter active" type="button"
+        data-filter="all" aria-pressed="true">✦ All memories</button>
+      <button class="filter" type="button"
+        data-filter="local" aria-pressed="false">▣ Added photos</button>
+      <button class="filter" type="button"
+        data-filter="firebase" aria-pressed="false">☁ Online gallery</button>
     </nav>
 
     <section id="gallery-container" aria-live="polite">
@@ -878,11 +716,15 @@
     </section>
   </main>
 
-  <div id="imageModal" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
-    <button id="close-modal" class="modal-button" type="button" aria-label="Close image viewer">×</button>
-    <button id="prev-image" class="modal-button" type="button" aria-label="Previous image">‹</button>
+  <div id="imageModal" role="dialog" aria-modal="true"
+    aria-label="Image viewer" aria-hidden="true">
+    <button id="close-modal" class="modal-button"
+      type="button" aria-label="Close image viewer">×</button>
+    <button id="prev-image" class="modal-button"
+      type="button" aria-label="Previous image">‹</button>
     <img id="modalImage" src="" alt="">
-    <button id="next-image" class="modal-button" type="button" aria-label="Next image">›</button>
+    <button id="next-image" class="modal-button"
+      type="button" aria-label="Next image">›</button>
     <div id="modalCaption"></div>
   </div>
 
@@ -892,8 +734,11 @@
   </footer>
 
   <script type="module">
-    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+    import { initializeApp, getApps } from
+      "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+    import { getDatabase, ref, get } from
+      "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
     const oldFirebaseConfig = {
       apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
@@ -960,7 +805,7 @@
       {id:"added-31",title:"Memory 31",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260510-WA0000.jpg",source:"local"},
       {id:"added-32",title:"Memory 32",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260510-WA0001.jpg",source:"local"},
       {id:"added-33",title:"Memory 33",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260510-WA0002.jpg",source:"local"},
-           {id:"added-34",title:"Memory 34",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260510-WA0003.jpg",source:"local"},
+      {id:"added-34",title:"Memory 34",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260510-WA0003.jpg",source:"local"},
       {id:"added-35",title:"Memory 35",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260824-WA0000.jpg",source:"local"},
       {id:"added-36",title:"Memory 36",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260824-WA0002.jpg",source:"local"},
       {id:"added-37",title:"Memory 37",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20260824-WA0003.jpg",source:"local"},
@@ -993,297 +838,404 @@
       {id:"added-64",title:"Memory 64",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20261114_115417_973.jpg",source:"local"},
       {id:"added-65",title:"Memory 65",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20261114_115425_334.jpg",source:"local"},
       {id:"added-66",title:"Memory 66",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20261114_115427_738.jpg",source:"local"},
-      {id:"added-67",title:"Memory 67",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20261114_115430_222.jpg",source:"local"}
-    ];
+      {id:"added-67",title:"Memory 67",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20261114_115430_222.jpg",source:"local"},
 
-    const $ = id => document.getElementById(id);
+      // NEW PHOTOS — PHASE 2
 
-    let allPhotos = [];
-    let filteredPhotos = [];
-    let activeFilter = "all";
-    let modalIndex = 0;
-    let lastFocusedElement = null;
+      {id:"added-68",title:"November 2026 Memory 68",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20261114-115343_674.jpg",source:"local"},
+      {id:"added-69",title:"November 2026 Memory 69",description:"A moment from my personal collection.",imageUrl:"/images/IMG-20261116-WA0043.jpg",source:"local"},
+      {id:"added-70",title:"November 2026 Memory 70",description:"A moment from my personal collection.",imageUrl:"/images/MG-20261116-WA0044.jpg",source:"local"},
+      {id:"added-71",title:"October 2024 Memory 71",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_134907_292.jpg",source:"local"},
+      {id:"added-72",title:"October 2024 Memory 72",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_134923_949.jpg",source:"local"},
+      {id:"added-73",title:"October 2024 Memory 73",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_134959_051.jpg",source:"local"},
+      {id:"added-74",title:"October 2024 Memory 74",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_135003_032.jpg",source:"local"},
+      {id:"added-75",title:"October 2024 Memory 75",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_135004_751.jpg",source:"local"},
+      {id:"added-76",title:"October 2024 Memory 76",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_135004_751~2.jpg",source:"local"},
+      {id:"added-77",title:"October 2024 Memory 77",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_135015_990~2.jpg",source:"local"},
+      {id:"added-78",title:"October 2024 Memory 78",description:"A moment from my personal collection.",imageUrl:"/images/IMG_20241004_135024_287.jpg",source:"local"},
+      
+  {
+    id: "added-79",
+    imageUrl: "/images/IMG_20241104_165900_481~3.jpg",
+    title: "November 2024 Photo 1",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-80",
+    imageUrl: "/images/IMG_20241104_170145_797~3.jpg",
+    title: "November 2024 Photo 2",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-81",
+    imageUrl: "/images/IMG_20241104_170154_067~3.jpg",
+    title: "November 2024 Photo 3",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-82",
+    imageUrl: "/images/IMG_20241104_170229_958.jpg",
+    title: "November 2024 Photo 4",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-83",
+    imageUrl: "/images/IMG_20241104_170409_006~3.jpg",
+    title: "November 2024 Photo 5",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-84",
+    imageUrl: "/images/IMG_20241104_170411_071~3.jpg",
+    title: "November 2024 Photo 6",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-85",
+    imageUrl: "/images/IMG_20241111_172848_136~2.jpg",
+    title: "November 2024 Photo 7",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-86",
+    imageUrl: "/images/IMG_20241111_173813_817~3.jpg",
+    title: "November 2024 Photo 8",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-87",
+    imageUrl: "/images/IMG_20241111_174135_434.jpg",
+    title: "November 2024 Photo 9",
+    description: "Gallery photo"
+  },
+  {
+    id: "added-88",
+    imageUrl: "/images/IMG_20241111_174138_005~3.jpg",
+    title: "November 2024 Photo 10",
+    description: "Gallery photo"
+  },
 
-    function fixPath(path) {
-      if (!path || typeof path !== "string") return "";
+const $ = id => document.getElementById(id);
 
-      const value = path.trim();
+let allPhotos = [];
+let filteredPhotos = [];
+let activeFilter = "all";
+let currentModalIndex = 0;
 
-      if (/^(https?:|data:|blob:)/i.test(value)) return value;
+function fixPath(path) {
+  if (!path) return "";
 
-      return value.replace(/^\.\//, "");
-    }
+  const value = String(path).trim();
 
-    function normalize(item, index, source) {
-      if (!item || typeof item !== "object") return null;
+  if (
+    value.startsWith("http://") ||
+    value.startsWith("https://") ||
+    value.startsWith("data:") ||
+    value.startsWith("blob:")
+  ) {
+    return value;
+  }
 
-      const imageUrl = fixPath(
-        item.imageUrl ||
-        item.file ||
-        item.image ||
-        item.url ||
-        item.downloadURL ||
-        ""
-      );
+  return value.replace(/^\.?\//, "");
+}
 
-      if (!imageUrl) return null;
+function normalize(item, index, source) {
+  if (typeof item === "string") {
+    item = { imageUrl: item };
+  }
 
-      return {
-        id: item.id || `${source}-${index}`,
-        title: item.title || item.name || `Memory ${index + 1}`,
-        description: item.description || item.caption || "A moment from my personal collection.",
-        imageUrl,
-        source
-      };
-    }
+  if (!item || typeof item !== "object") return null;
 
-    async function readPath(db, path, source) {
-      try {
-        const snap = await get(ref(db, path));
+  const imageUrl = fixPath(
+    item.imageUrl ||
+    item.file ||
+    item.image ||
+    item.url ||
+    item.downloadURL
+  );
 
-        if (!snap.exists()) return [];
+  if (!imageUrl) return null;
 
-        const data = snap.val();
+  return {
+    id: item.id || `${source}-${index}`,
+    imageUrl,
+    title: item.title || item.name || `Photo ${index + 1}`,
+    description: item.description || "Gallery photo",
+    category: item.category || "general"
+  };
+}
 
-        const entries = Array.isArray(data)
-          ? data
-          : Object.entries(data || {}).map(([id, value]) => ({
-              id,
-              ...(value && typeof value === "object" ? value : {})
-            }));
+async function readPath(db, path, source) {
+  try {
+    const snapshot = await db.ref(path).once("value");
+    const value = snapshot.val();
 
-        return entries
-          .map((item, index) => normalize(item, index, source))
-          .filter(Boolean);
+    if (!value) return [];
 
-      } catch (error) {
-        console.warn(`Gallery path ${path} could not be read:`, error);
-        return [];
-      }
-    }
+    const entries = Array.isArray(value)
+      ? value
+      : Object.values(value);
 
-    async function loadGallery() {
-      const host = $("gallery-container");
+    return entries
+      .map((item, index) => normalize(item, index, source))
+      .filter(Boolean);
+  } catch (error) {
+    console.warn(`Could not read ${path}:`, error);
+    return [];
+  }
+}
 
-      host.innerHTML = '<div class="loading">⚡ Loading your memories…</div>';
+async function loadGallery() {
+  const results = await Promise.all([
+    readPath(oldDb, "gallery", "old-gallery"),
+    readPath(oldDb, "photos", "old-photos"),
+    readPath(dashboardDb, "dashboardGallery", "dashboard-gallery"),
+    readPath(dashboardDb, "gallery", "dashboard-gallery"),
+    readPath(dashboardDb, "photos", "dashboard-photos")
+  ]);
 
-      const results = await Promise.all([
-        readPath(oldDb, "gallery", "firebase"),
-        readPath(oldDb, "photos", "firebase"),
-        readPath(dashboardDb, "dashboardGallery", "firebase"),
-        readPath(dashboardDb, "gallery", "firebase"),
-        readPath(dashboardDb, "photos", "firebase")
-      ]);
+  const combined = [
+    ...addedPhotos,
+    ...results.flat()
+  ];
 
-      const seen = new Set();
-      const combined = [...addedPhotos, ...results.flat()];
+  const seen = new Set();
 
-      allPhotos = combined.filter(photo => {
-        const key = photo.imageUrl;
+  allPhotos = combined.filter(photo => {
+    if (!photo || !photo.imageUrl) return false;
 
-        if (seen.has(key)) return false;
+    const key = photo.imageUrl.toLowerCase();
 
-        seen.add(key);
-        return true;
+    if (seen.has(key)) return false;
+
+    seen.add(key);
+    return true;
+  });
+
+  renderGallery();
+}
+
+function renderGallery() {
+  const gallery = $("gallery");
+  if (!gallery) return;
+
+  const searchTerm = $("searchInput")
+    ? $("searchInput").value.toLowerCase().trim()
+    : "";
+
+  const sortOrder = $("sortSelect")
+    ? $("sortSelect").value
+    : "newest";
+
+  filteredPhotos = allPhotos.filter(photo => {
+    const matchesSearch =
+      photo.title.toLowerCase().includes(searchTerm) ||
+      photo.description.toLowerCase().includes(searchTerm) ||
+      photo.imageUrl.toLowerCase().includes(searchTerm);
+
+    const matchesFilter =
+      activeFilter === "all" ||
+      photo.category === activeFilter;
+
+    return matchesSearch && matchesFilter;
+  });
+
+  if (sortOrder === "title") {
+    filteredPhotos.sort((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+  } else if (sortOrder === "oldest") {
+    filteredPhotos.reverse();
+  }
+
+  gallery.innerHTML = "";
+
+  if (filteredPhotos.length === 0) {
+    gallery.innerHTML = `
+      <div class="empty-state">
+        <h3>No photos found</h3>
+        <p>Try another search or select a different category.</p>
+      </div>
+    `;
+  } else {
+    filteredPhotos.forEach((photo, index) => {
+      const card = document.createElement("article");
+      card.className = "gallery-card";
+
+      card.innerHTML = `
+        <div class="gallery-image-wrap">
+          <img
+            src="${photo.imageUrl}"
+            alt="${photo.title}"
+            loading="lazy"
+          >
+        </div>
+        <div class="gallery-card-info">
+          <h3>${photo.title}</h3>
+          <p>${photo.description}</p>
+        </div>
+      `;
+
+      const image = card.querySelector("img");
+
+      image.addEventListener("error", () => {
+        image.alt = "Image could not be loaded";
+        image.style.opacity = "0.25";
       });
 
-      renderGallery();
-    }
-
-    function renderGallery() {
-      const query = $("gallery-search").value.trim().toLowerCase();
-      const sort = $("gallery-sort").value;
-
-      filteredPhotos = allPhotos.filter(photo => {
-        const matchesFilter =
-          activeFilter === "all" || photo.source === activeFilter;
-
-        const matchesSearch =
-          `${photo.title} ${photo.description}`.toLowerCase().includes(query);
-
-        return matchesFilter && matchesSearch;
+      card.addEventListener("click", () => {
+        openModal(index);
       });
 
-      if (sort === "title") {
-        filteredPhotos.sort((a, b) => a.title.localeCompare(b.title));
-      }
+      gallery.appendChild(card);
+    });
+  }
 
-      if (sort === "title-desc") {
-        filteredPhotos.sort((a, b) => b.title.localeCompare(a.title));
-      }
+  updateVisibleCount();
+  updateStats();
+}
 
-      const host = $("gallery-container");
-      host.replaceChildren();
+function updateVisibleCount() {
+  const visible = $("visible-count");
 
-      if (!filteredPhotos.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
+  if (visible) {
+    visible.textContent = filteredPhotos.length;
+  }
+}
 
-        const heading = document.createElement("h3");
-        heading.textContent = "No memories found";
+function updateStats() {
+  const total = $("photo-total");
 
-        const message = document.createElement("p");
-        message.textContent = "Try another search or choose a different filter.";
+  if (total) {
+    total.textContent = allPhotos.length;
+  }
+}
 
-        empty.append(heading, message);
-        host.appendChild(empty);
+function openModal(index) {
+  if (!filteredPhotos.length) return;
 
-      } else {
-        filteredPhotos.forEach((photo, index) => {
-          const card = document.createElement("article");
-          card.className = "gallery-card";
-          card.style.animationDelay = `${Math.min(index * 45, 360)}ms`;
+  currentModalIndex = index;
 
-          const wrap = document.createElement("div");
-          wrap.className = "image-wrap";
+  const modal = $("imageModal");
+  const image = $("modalImage");
+  const title = $("modalTitle");
+  const description = $("modalDescription");
 
-          const img = document.createElement("img");
-          img.src = photo.imageUrl;
-          img.alt = photo.title;
-          img.loading = "lazy";
-          img.decoding = "async";
-          img.tabIndex = 0;
-          img.setAttribute("role", "button");
-          img.setAttribute("aria-label", `Open photo: ${photo.title}`);
+  if (!modal || !image) return;
 
-          const openThisPhoto = () => openModal(index);
+  const photo = filteredPhotos[currentModalIndex];
 
-          img.addEventListener("click", openThisPhoto);
+  image.src = photo.imageUrl;
+  image.alt = photo.title;
 
-          img.addEventListener("keydown", event => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              openThisPhoto();
-            }
-          });
+  if (title) title.textContent = photo.title;
+  if (description) description.textContent = photo.description;
 
-          img.addEventListener("error", () => {
-            card.remove();
-            updateVisibleCount();
-          }, { once: true });
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-          card.addEventListener("pointermove", event => {
-            const rect = card.getBoundingClientRect();
+function closeModal() {
+  const modal = $("imageModal");
 
-            card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-            card.style.setProperty("--my", `${event.clientY - rect.top}px`);
-          });
+  if (modal) {
+    modal.classList.remove("active");
+  }
 
-          wrap.appendChild(img);
+  document.body.style.overflow = "";
+}
 
-          const info = document.createElement("div");
-          info.className = "gallery-info";
+function moveModal(direction) {
+  if (!filteredPhotos.length) return;
 
-          const title = document.createElement("h3");
-          title.textContent = photo.title;
+  currentModalIndex += direction;
 
-          const desc = document.createElement("p");
-          desc.textContent = photo.description;
+  if (currentModalIndex < 0) {
+    currentModalIndex = filteredPhotos.length - 1;
+  }
 
-          const tag = document.createElement("span");
-          tag.className = "tag";
-          tag.textContent = photo.source === "local"
-            ? "Added photo"
-            : "Online gallery";
+  if (currentModalIndex >= filteredPhotos.length) {
+    currentModalIndex = 0;
+  }
 
-          info.append(title, desc, tag);
-          card.append(wrap, info);
-          host.appendChild(card);
-        });
-      }
+  openModal(currentModalIndex);
+}
 
-      $("photo-total").textContent = allPhotos.length;
-      updateVisibleCount();
-    }
+// Search
+if ($("searchInput")) {
+  $("searchInput").addEventListener("input", renderGallery);
+}
 
-    function updateVisibleCount() {
-      const count = $("gallery-container").querySelectorAll(".gallery-card").length;
+// Sorting
+if ($("sortSelect")) {
+  $("sortSelect").addEventListener("change", renderGallery);
+}
 
-      $("photo-visible").textContent = count;
-      $("gallery-count").textContent =
-        `${count} ${count === 1 ? "memory" : "memories"}`;
-    }
-
-    function openModal(index) {
-      if (!filteredPhotos.length) return;
-
-      modalIndex = (index + filteredPhotos.length) % filteredPhotos.length;
-
-      const photo = filteredPhotos[modalIndex];
-      const modal = $("imageModal");
-
-      lastFocusedElement = document.activeElement;
-
-      $("modalImage").src = photo.imageUrl;
-      $("modalImage").alt = photo.title;
-      $("modalCaption").textContent = `${photo.title} — ${photo.description}`;
-
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden", "false");
-
-      document.body.style.overflow = "hidden";
-      $("close-modal").focus();
-    }
-
-    function closeModal() {
-      const modal = $("imageModal");
-
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
-
-      $("modalImage").src = "";
-      document.body.style.overflow = "";
-
-      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-        lastFocusedElement.focus();
-      }
-    }
-
-    function moveModal(direction) {
-      openModal(modalIndex + direction);
-    }
-
-    $("gallery-search").addEventListener("input", renderGallery);
-    $("gallery-sort").addEventListener("change", renderGallery);
-
-    document.querySelectorAll(".filter").forEach(button => {
-      button.addEventListener("click", () => {
-        activeFilter = button.dataset.filter;
-
-        document.querySelectorAll(".filter").forEach(item => {
-          const isActive = item === button;
-          item.classList.toggle("active", isActive);
-          item.setAttribute("aria-pressed", String(isActive));
-        });
-
-        renderGallery();
-      });
+// Category filters
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(item => {
+      item.classList.remove("active");
     });
 
-    $("close-modal").addEventListener("click", closeModal);
-    $("prev-image").addEventListener("click", () => moveModal(-1));
-    $("next-image").addEventListener("click", () => moveModal(1));
+    button.classList.add("active");
+    activeFilter = button.dataset.filter || "all";
 
-    $("imageModal").addEventListener("click", event => {
-      if (event.target.id === "imageModal") closeModal();
-    });
+    renderGallery();
+  });
+});
 
-    document.addEventListener("keydown", event => {
-      if ($("imageModal").getAttribute("aria-hidden") === "true") return;
+// Modal buttons
+if ($("modalClose")) {
+  $("modalClose").addEventListener("click", closeModal);
+}
 
-      if (event.key === "Escape") closeModal();
-      if (event.key === "ArrowLeft") moveModal(-1);
-      if (event.key === "ArrowRight") moveModal(1);
-    });
+if ($("modalPrev")) {
+  $("modalPrev").addEventListener("click", () => {
+    moveModal(-1);
+  });
+}
 
-    loadGallery().catch(error => {
-      console.error("Unable to load the gallery:", error);
+if ($("modalNext")) {
+  $("modalNext").addEventListener("click", () => {
+    moveModal(1);
+  });
+}
 
-      $("gallery-container").innerHTML =
-        '<div class="empty"><h3>Gallery could not load</h3><p>Please check your internet connection and refresh the page.</p></div>';
-    });
-  </script>
+if ($("imageModal")) {
+  $("imageModal").addEventListener("click", event => {
+    if (event.target === $("imageModal")) {
+      closeModal();
+    }
+  });
+}
 
-  <script src="js/animations.js" defer></script>
+// Keyboard controls
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+
+  if (event.key === "ArrowLeft") {
+    moveModal(-1);
+  }
+
+  if (event.key === "ArrowRight") {
+    moveModal(1);
+  }
+});
+
+// Load photos
+loadGallery().catch(error => {
+  console.error("Gallery loading failed:", error);
+
+  allPhotos = addedPhotos;
+  renderGallery();
+});
+
+</script>
+
+<script src="js/animations.js" defer></script>
+
 </body>
-</html> 
+</html>
+
+  
