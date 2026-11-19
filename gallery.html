@@ -432,6 +432,52 @@
       font-size:.7rem;
     }
 
+    /* DOWNLOAD BUTTONS */
+    .download-btn {
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      margin-top:15px;
+      padding:12px 15px;
+      border:1px solid #25f4ee75;
+      border-radius:11px;
+      background:linear-gradient(100deg,rgba(37,244,238,.13),rgba(168,85,247,.15));
+      color:var(--cyan);
+      font-size:.85rem;
+      font-weight:800;
+      cursor:pointer;
+      transition:.25s;
+      text-decoration:none;
+    }
+
+    .download-btn:hover {
+      color:#061014;
+      background:linear-gradient(100deg,var(--cyan),#b7fffc);
+      border-color:var(--cyan);
+      box-shadow:0 0 22px #25f4ee35;
+      transform:translateY(-2px);
+    }
+
+    .download-btn:disabled {
+      opacity:.6;
+      cursor:wait;
+      transform:none;
+    }
+
+    #modal-download {
+      position:absolute;
+      bottom:65px;
+      left:50%;
+      transform:translateX(-50%);
+      width:auto;
+      min-width:190px;
+      z-index:3;
+      margin:0;
+      box-shadow:0 5px 25px #0008;
+    }
+
     .loading,.empty {
       grid-column:1 / -1;
       border-radius:17px;
@@ -459,7 +505,7 @@
       backdrop-filter:blur(16px);
       align-items:center;
       justify-content:center;
-      padding:70px 75px 85px;
+      padding:70px 75px 125px;
     }
 
     #modalImage {
@@ -590,11 +636,13 @@
       }
       .image-wrap {height:235px}
       .toolbar input,.toolbar select {min-width:100%}
-      #imageModal {padding:65px 14px 85px}
-      #modalImage {max-height:72vh}
+      #imageModal {padding:65px 14px 125px}
+      #modalImage {max-height:65vh}
       #prev-image {left:8px}
       #next-image {right:8px}
       .modal-button {width:42px;height:42px}
+      #modal-download {bottom:66px}
+      #modalCaption {bottom:17px;font-size:.83rem}
     }
 
     @media(max-width:420px) {
@@ -649,7 +697,6 @@
     </section>
 
     <section class="stats" aria-label="Gallery statistics">
-
       <div class="stat">
         <strong id="photo-total">98</strong>
         <span>Total memories</span>
@@ -664,11 +711,9 @@
         <strong>∞</strong>
         <span>Moments to keep</span>
       </div>
-
     </section>
 
     <div class="toolbar">
-
       <input
         id="gallery-search"
         type="search"
@@ -685,11 +730,9 @@
       <span id="gallery-count" class="count" aria-live="polite">
         Preparing photos...
       </span>
-
     </div>
 
     <nav class="filters" aria-label="Gallery filters">
-
       <button class="filter active" type="button"
         data-filter="all" aria-pressed="true">
         ✦ All memories
@@ -704,7 +747,6 @@
         data-filter="firebase" aria-pressed="false">
         ☁ Online gallery
       </button>
-
     </nav>
 
     <section id="gallery-container" aria-live="polite">
@@ -738,8 +780,12 @@
       ›
     </button>
 
-    <div id="modalCaption"></div>
+    <button id="modal-download" class="download-btn"
+      type="button">
+      ↓ Download Image
+    </button>
 
+    <div id="modalCaption"></div>
   </div>
 
   <footer>
@@ -767,7 +813,7 @@
     };
 
     const dashboardFirebaseConfig = {
-      apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFREyI",
+      apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFyI",
       authDomain: "clinton-ncube-website-21755.firebaseapp.com",
       databaseURL: "https://clinton-ncube-website-21755-default-rtdb.firebaseio.com",
       projectId: "clinton-ncube-website-21755",
@@ -788,9 +834,7 @@
     const oldDb = getDatabase(oldApp);
     const dashboardDb = getDatabase(dashboardApp);
 
-    
     const addedPhotos = [
-      
       { id: "added-1", title: "Memory 1", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0011_(1).jpg" },
       { id: "added-2", title: "Memory 2", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0020_(1).jpg" },
       { id: "added-3", title: "Memory 3", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0021_(1).jpg" },
@@ -875,9 +919,9 @@
       { id: "added-82", title: "Memory 82", description: "A moment from my personal collection.", imageUrl: "/images/lebron james.jfif" },
       { id: "added-83", title: "Memory 83", description: "A moment from my personal collection.", imageUrl: "/images/photo3.jpg" }
     ];
-    
+
     // ==========================================
-    // PHASE 3: GALLERY FUNCTIONALITY
+    // GALLERY FUNCTIONALITY
     // ==========================================
 
     const $ = id => document.getElementById(id);
@@ -887,7 +931,6 @@
     let activeFilter = "all";
     let currentModalIndex = 0;
 
-    // Convert the 83 local photo entries into gallery objects.
     function showLocalPhotos() {
       allPhotos = addedPhotos.map(photo => ({
         ...photo,
@@ -897,7 +940,6 @@
       renderGallery();
     }
 
-    // Convert Firebase records into a consistent format.
     function normalize(item, index) {
       if (typeof item === "string") {
         item = { imageUrl: item };
@@ -914,9 +956,7 @@
         item.url ||
         item.downloadURL;
 
-      if (!imageUrl) {
-        return null;
-      }
+      if (!imageUrl) return null;
 
       return {
         id: item.id || `firebase-${index}`,
@@ -927,15 +967,12 @@
       };
     }
 
-    // Read a Firebase database location.
     async function readPath(db, path) {
       try {
         const snapshot = await get(ref(db, path));
         const value = snapshot.val();
 
-        if (!value) {
-          return [];
-        }
+        if (!value) return [];
 
         const entries = Array.isArray(value)
           ? value
@@ -951,7 +988,6 @@
       }
     }
 
-    // Load online photos without preventing local photos from appearing.
     async function loadOnlinePhotos() {
       const results = await Promise.all([
         readPath(oldDb, "gallery"),
@@ -962,18 +998,13 @@
       ]);
 
       const onlinePhotos = results.flat();
-
       const combined = [...allPhotos, ...onlinePhotos];
-
-      // Avoid displaying the same image more than once.
       const seen = new Set();
 
       allPhotos = combined.filter(photo => {
         const key = photo.imageUrl.toLowerCase();
 
-        if (seen.has(key)) {
-          return false;
-        }
+        if (seen.has(key)) return false;
 
         seen.add(key);
         return true;
@@ -982,7 +1013,90 @@
       renderGallery();
     }
 
-    // Display the photos.
+    // Create a safe filename from a photo title.
+    function makeDownloadName(photo) {
+      const title = (photo.title || "Clinton-Ncube-photo")
+        .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+
+      let extension = "jpg";
+
+      try {
+        const pathname = new URL(
+          photo.imageUrl,
+          window.location.href
+        ).pathname;
+
+        const match = pathname.match(/\.(jpg|jpeg|png|gif|webp|jfif)$/i);
+
+        if (match) {
+          extension = match[1].toLowerCase();
+        }
+      } catch (error) {
+        console.warn("Could not detect image extension.", error);
+      }
+
+      return `${title || "Clinton-Ncube-photo"}.${extension}`;
+    }
+
+    // Download an image.
+    async function downloadImage(photo, button) {
+      if (!photo || !photo.imageUrl) return;
+
+      const originalText = button.textContent;
+
+      button.disabled = true;
+      button.textContent = "Preparing download...";
+
+      try {
+        const response = await fetch(photo.imageUrl, {
+          mode: "cors",
+          cache: "no-cache"
+        });
+
+        if (!response.ok) {
+          throw new Error("Image download failed.");
+        }
+
+        const blob = await response.blob();
+
+        if (!blob.type.startsWith("image/")) {
+          throw new Error("The selected file is not an image.");
+        }
+
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = objectUrl;
+        link.download = makeDownloadName(photo);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
+
+        button.textContent = "✓ Download started";
+
+      } catch (error) {
+        console.warn("Direct download unavailable:", error);
+
+        // Fallback: open the image so the user can save it manually.
+        const newTab = window.open(photo.imageUrl, "_blank", "noopener");
+
+        if (newTab) {
+          button.textContent = "Image opened — save it";
+        } else {
+          button.textContent = "Allow pop-ups to open image";
+        }
+      }
+
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 2500);
+    }
+
     function renderGallery() {
       const gallery = $("gallery-container");
 
@@ -1064,7 +1178,17 @@
               ? "Online gallery"
               : "Added photo";
 
-          info.append(heading, description, tag);
+          const downloadButton = document.createElement("button");
+          downloadButton.type = "button";
+          downloadButton.className = "download-btn";
+          downloadButton.textContent = "↓ Download Image";
+
+          downloadButton.addEventListener("click", event => {
+            event.stopPropagation();
+            downloadImage(photo, downloadButton);
+          });
+
+          info.append(heading, description, tag, downloadButton);
           card.append(imageWrap, info);
 
           card.addEventListener("click", () => {
@@ -1078,7 +1202,6 @@
       updateStats();
     }
 
-    // Update the photo counters.
     function updateStats() {
       $("photo-total").textContent = allPhotos.length;
       $("photo-visible").textContent = filteredPhotos.length;
@@ -1087,7 +1210,6 @@
         `Showing ${filteredPhotos.length} of ${allPhotos.length} photos`;
     }
 
-    // Open the image viewer.
     function openModal(index) {
       if (!filteredPhotos.length) return;
 
@@ -1111,7 +1233,6 @@
       document.body.style.overflow = "hidden";
     }
 
-    // Close the image viewer.
     function closeModal() {
       const modal = $("imageModal");
 
@@ -1121,7 +1242,6 @@
       document.body.style.overflow = "";
     }
 
-    // Move between images in the viewer.
     function moveModal(direction) {
       if (!filteredPhotos.length) return;
 
@@ -1138,16 +1258,15 @@
       openModal(currentModalIndex);
     }
 
-    // Search photos.
+    // Search.
     $("gallery-search").addEventListener("input", renderGallery);
 
-    // Sort photos.
+    // Sort.
     $("gallery-sort").addEventListener("change", renderGallery);
 
-    // Filter buttons.
+    // Filters.
     document.querySelectorAll(".filter").forEach(button => {
       button.addEventListener("click", () => {
-
         document.querySelectorAll(".filter").forEach(item => {
           item.classList.remove("active");
           item.setAttribute("aria-pressed", "false");
@@ -1162,7 +1281,18 @@
       });
     });
 
-    // Image viewer buttons.
+    // Download the currently enlarged image.
+    $("modal-download").addEventListener("click", event => {
+      event.stopPropagation();
+
+      const photo = filteredPhotos[currentModalIndex];
+
+      if (photo) {
+        downloadImage(photo, $("modal-download"));
+      }
+    });
+
+    // Image viewer controls.
     $("close-modal").addEventListener("click", closeModal);
 
     $("prev-image").addEventListener("click", () => {
@@ -1182,6 +1312,8 @@
 
     // Keyboard controls.
     document.addEventListener("keydown", event => {
+      if ($("imageModal").style.display !== "flex") return;
+
       if (event.key === "Escape") {
         closeModal();
       }
@@ -1198,7 +1330,7 @@
     // Show local photos immediately.
     showLocalPhotos();
 
-    // Then attempt to load online photos.
+    // Then load online photos.
     loadOnlinePhotos().catch(error => {
       console.error("Online gallery error:", error);
 
@@ -1214,5 +1346,3 @@
 
 </body>
 </html>
-
-    
