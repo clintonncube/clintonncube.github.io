@@ -1,1348 +1,791 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#070912">
-  <meta name="description" content="Explore the personal photo gallery of Clinton Ncube.">
-  <title>Gallery | Clinton Ncube</title>
-  <link rel="stylesheet" href="css/animations.css">
-
-  <style>
-    :root {
-      --bg:#070912;
-      --panel:rgba(16,21,38,.88);
-      --cyan:#25f4ee;
-      --purple:#a855f7;
-      --pink:#ff5b92;
-      --text:#f5f7ff;
-      --muted:#b7bfd3;
-      --line:rgba(255,255,255,.13);
-      --glow:0 0 28px rgba(37,244,238,.13);
-    }
-
-    * {box-sizing:border-box}
-
-    html {
-      scroll-behavior:smooth;
-      scroll-padding-top:25px;
-    }
-
-    body {
-      margin:0;
-      min-height:100vh;
-      overflow-x:hidden;
-      color:var(--text);
-      font-family:Inter,"Segoe UI",Arial,sans-serif;
-      background:
-        radial-gradient(ellipse at 10% 0%,#32102f 0,transparent 34%),
-        radial-gradient(ellipse at 100% 15%,#06343a 0,transparent 35%),
-        radial-gradient(ellipse at 50% 100%,#171033 0,transparent 40%),
-        var(--bg);
-    }
-
-    body::before {
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-1;
-      pointer-events:none;
-      opacity:.2;
-      background-image:
-        linear-gradient(rgba(37,244,238,.12) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(37,244,238,.12) 1px,transparent 1px);
-      background-size:38px 38px;
-      mask-image:linear-gradient(to bottom,black,transparent 90%);
-    }
-
-    body::after {
-      content:"";
-      position:fixed;
-      width:380px;
-      height:380px;
-      right:-220px;
-      bottom:-170px;
-      border-radius:50%;
-      background:var(--purple);
-      opacity:.09;
-      filter:blur(100px);
-      pointer-events:none;
-      z-index:-1;
-      animation:ambientFloat 10s ease-in-out infinite alternate;
-    }
-
-    button,input,select {font:inherit}
-
-    button:focus-visible,
-    input:focus-visible,
-    select:focus-visible,
-    a:focus-visible {
-      outline:2px solid var(--cyan);
-      outline-offset:4px;
-    }
-
-    header {
-      position:relative;
-      overflow:hidden;
-      isolation:isolate;
-      text-align:center;
-      padding:65px 18px 48px;
-      background:linear-gradient(115deg,
-        rgba(75,8,35,.82),
-        rgba(14,18,36,.93) 52%,
-        rgba(0,93,105,.38));
-      border-bottom:1px solid rgba(37,244,238,.42);
-    }
-
-    header::before,
-    header::after {
-      content:"";
-      position:absolute;
-      pointer-events:none;
-      z-index:-1;
-      border-radius:50%;
-      animation:orbit 18s linear infinite;
-    }
-
-    header::before {
-      width:360px;
-      height:360px;
-      border:1px solid #25f4ee35;
-      right:-100px;
-      top:-240px;
-      box-shadow:0 0 55px #25f4ee15;
-    }
-
-    header::after {
-      width:300px;
-      height:300px;
-      border:1px solid #a855f744;
-      left:-170px;
-      bottom:-250px;
-      animation-direction:reverse;
-    }
-
-    .hero-content {
-      position:relative;
-      animation:heroEnter .85s cubic-bezier(.2,.8,.2,1) both;
-    }
-
-    .eyebrow {
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      border:1px solid #25f4ee60;
-      border-radius:999px;
-      padding:9px 15px;
-      color:var(--cyan);
-      font-size:.76rem;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      background:rgba(0,0,0,.3);
-      backdrop-filter:blur(12px);
-    }
-
-    .dot {
-      width:8px;
-      height:8px;
-      flex-shrink:0;
-      border-radius:50%;
-      background:var(--cyan);
-      box-shadow:0 0 13px var(--cyan);
-      animation:pulse 1.6s infinite;
-    }
-
-    h1 {
-      font-size:clamp(2.6rem,8vw,5.3rem);
-      letter-spacing:2px;
-      line-height:1.05;
-      margin:24px 0 13px;
-      text-shadow:0 0 30px #25f4ee27;
-    }
-
-    .gradient-text {
-      background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan),var(--pink));
-      background-size:300% 100%;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      animation:gradientFlow 7s linear infinite;
-    }
-
-    header p {
-      margin:0 auto;
-      max-width:620px;
-      color:#e1e5f2;
-      line-height:1.8;
-    }
-
-    .line {
-      width:190px;
-      height:3px;
-      border-radius:9px;
-      margin:27px auto 0;
-      background:linear-gradient(90deg,#8b1638,var(--pink),var(--purple),var(--cyan));
-      background-size:200% 100%;
-      box-shadow:0 0 18px #a855f744;
-      animation:flow 4s linear infinite;
-    }
-
-    .hero-label {
-      display:inline-block;
-      margin-top:22px;
-      color:#9ba7c3;
-      font-size:.73rem;
-      letter-spacing:3px;
-    }
-
-    .container {
-      max-width:1250px;
-      margin:auto;
-      padding:36px 22px 65px;
-    }
-
-    .intro,.stat,.toolbar,.gallery-card,.empty {
-      background:linear-gradient(145deg,rgba(21,29,49,.86),rgba(9,12,23,.91));
-      border:1px solid var(--line);
-      box-shadow:0 12px 35px #0004;
-      backdrop-filter:blur(14px);
-    }
-
-    .intro {
-      position:relative;
-      overflow:hidden;
-      padding:29px 22px;
-      border-radius:22px;
-      text-align:center;
-      margin-bottom:22px;
-      transition:.3s;
-    }
-
-    .intro:hover {
-      border-color:#25f4ee70;
-      box-shadow:var(--glow);
-      transform:translateY(-2px);
-    }
-
-    .intro::before {
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:3px;
-      background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));
-      animation:flow 5s linear infinite;
-    }
-
-    .intro h2 {
-      margin:0 0 10px;
-      font-size:clamp(1.4rem,3vw,2rem);
-    }
-
-    .intro p {
-      color:var(--muted);
-      line-height:1.8;
-      margin:0;
-    }
-
-    .stats {
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
-      margin:22px 0;
-    }
-
-    .stat {
-      position:relative;
-      overflow:hidden;
-      padding:20px 12px;
-      border-radius:17px;
-      text-align:center;
-      transition:.3s;
-    }
-
-    .stat:hover {
-      transform:translateY(-5px);
-      border-color:#25f4ee65;
-      box-shadow:var(--glow);
-    }
-
-    .stat strong {
-      display:block;
-      color:var(--cyan);
-      font-size:1.65rem;
-      text-shadow:0 0 17px #25f4ee35;
-    }
-
-    .stat span {
-      display:block;
-      color:var(--muted);
-      font-size:.72rem;
-      margin-top:7px;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-    }
-
-    .toolbar {
-      position:relative;
-      padding:15px;
-      border-radius:17px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-
-    .toolbar input,.toolbar select {
-      min-width:180px;
-      flex:1;
-      background:rgba(5,8,17,.9);
-      color:var(--text);
-      border:1px solid #394158;
-      border-radius:12px;
-      padding:13px 14px;
-      outline:none;
-    }
-
-    .toolbar input::placeholder {color:#858fa9}
-
-    .toolbar input:focus,.toolbar select:focus {
-      border-color:var(--cyan);
-      box-shadow:0 0 0 3px #25f4ee15;
-    }
-
-    .toolbar select option {
-      background:#101526;
-      color:white;
-    }
-
-    .count {
-      color:var(--cyan);
-      font-size:.85rem;
-      white-space:nowrap;
-      padding:5px;
-    }
-
-    .filters {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:0 0 26px;
-    }
-
-    .filter {
-      border:1px solid #343b52;
-      background:rgba(12,17,32,.8);
-      color:#dce3f4;
-      border-radius:999px;
-      padding:11px 17px;
-      font-weight:700;
-      font-size:.86rem;
-      cursor:pointer;
-      transition:.25s;
-    }
-
-    .filter:hover,.filter.active {
-      color:#061014;
-      border-color:transparent;
-      background:linear-gradient(100deg,var(--cyan),#c0fffc);
-      box-shadow:0 0 22px #25f4ee24;
-      transform:translateY(-2px);
-    }
-
-    #gallery-container {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
-      gap:22px;
-      align-items:start;
-    }
-
-    .gallery-card {
-      position:relative;
-      min-width:0;
-      overflow:hidden;
-      border-radius:19px;
-      animation:cardIn .65s ease both;
-      transition:.35s;
-      cursor:pointer;
-    }
-
-    .gallery-card:hover {
-      transform:translateY(-8px) scale(1.012);
-      border-color:#25f4eea0;
-      box-shadow:0 22px 48px #0008,0 0 30px #25f4ee13;
-    }
-
-    .image-wrap {
-      height:270px;
-      position:relative;
-      overflow:hidden;
-      background:radial-gradient(circle at center,#18263d,#080b14);
-    }
-
-    .image-wrap img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      cursor:zoom-in;
-      transition:transform .7s,filter .4s;
-    }
-
-    .gallery-card:hover .image-wrap img {
-      transform:scale(1.075);
-      filter:saturate(1.18) contrast(1.04);
-    }
-
-    .gallery-info {
-      padding:18px;
-    }
-
-    .gallery-info h3 {
-      margin:0 0 9px;
-      color:#ff8bb3;
-      font-size:1.05rem;
-      line-height:1.45;
-      overflow-wrap:anywhere;
-    }
-
-    .gallery-card:hover .gallery-info h3 {
-      color:var(--cyan);
-    }
-
-    .gallery-info p {
-      margin:0;
-      color:#d0d6e7;
-      line-height:1.7;
-      font-size:.92rem;
-      overflow-wrap:anywhere;
-    }
-
-    .tag {
-      display:inline-flex;
-      margin-top:14px;
-      padding:6px 10px;
-      border:1px solid #a855f766;
-      border-radius:999px;
-      color:#d8b4fe;
-      background:#a855f70b;
-      font-size:.7rem;
-    }
-
-    /* DOWNLOAD BUTTONS */
-    .download-btn {
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
-      gap:8px;
-      width:100%;
-      margin-top:15px;
-      padding:12px 15px;
-      border:1px solid #25f4ee75;
-      border-radius:11px;
-      background:linear-gradient(100deg,rgba(37,244,238,.13),rgba(168,85,247,.15));
-      color:var(--cyan);
-      font-size:.85rem;
-      font-weight:800;
-      cursor:pointer;
-      transition:.25s;
-      text-decoration:none;
-    }
-
-    .download-btn:hover {
-      color:#061014;
-      background:linear-gradient(100deg,var(--cyan),#b7fffc);
-      border-color:var(--cyan);
-      box-shadow:0 0 22px #25f4ee35;
-      transform:translateY(-2px);
-    }
-
-    .download-btn:disabled {
-      opacity:.6;
-      cursor:wait;
-      transform:none;
-    }
-
-    #modal-download {
-      position:absolute;
-      bottom:65px;
-      left:50%;
-      transform:translateX(-50%);
-      width:auto;
-      min-width:190px;
-      z-index:3;
-      margin:0;
-      box-shadow:0 5px 25px #0008;
-    }
-
-    .loading,.empty {
-      grid-column:1 / -1;
-      border-radius:17px;
-      padding:36px 20px;
-      text-align:center;
-      color:var(--muted);
-    }
-
-    .loading {
-      color:var(--cyan);
-      animation:pulse 1.4s infinite;
-    }
-
-    .empty h3 {
-      color:var(--cyan);
-      margin-top:0;
-    }
-
-    #imageModal {
-      display:none;
-      position:fixed;
-      z-index:9999;
-      inset:0;
-      background:rgba(2,4,10,.96);
-      backdrop-filter:blur(16px);
-      align-items:center;
-      justify-content:center;
-      padding:70px 75px 125px;
-    }
-
-    #modalImage {
-      position:relative;
-      max-width:min(100%,1100px);
-      max-height:78vh;
-      object-fit:contain;
-      border-radius:14px;
-      border:1px solid #25f4ee88;
-      box-shadow:0 0 45px #25f4ee1f,0 20px 60px #0009;
-      animation:zoom .3s ease;
-    }
-
-    .modal-button {
-      position:absolute;
-      z-index:2;
-      border:1px solid #ffffff30;
-      background:rgba(16,21,38,.9);
-      color:white;
-      border-radius:50%;
-      width:47px;
-      height:47px;
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      font-size:1.65rem;
-      line-height:1;
-    }
-
-    .modal-button:hover {
-      color:var(--cyan);
-      border-color:var(--cyan);
-      background:#101b2b;
-    }
-
-    #close-modal {
-      top:17px;
-      right:18px;
-      font-size:1.8rem;
-    }
-
-    #prev-image {
-      left:18px;
-      top:50%;
-      transform:translateY(-50%);
-    }
-
-    #next-image {
-      right:18px;
-      top:50%;
-      transform:translateY(-50%);
-    }
-
-    #modalCaption {
-      position:absolute;
-      bottom:23px;
-      left:15px;
-      right:15px;
-      text-align:center;
-      color:#e4e8f4;
-      line-height:1.6;
-      padding:0 12px;
-    }
-
-    footer {
-      text-align:center;
-      padding:27px 15px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:.9rem;
-      background:rgba(5,7,16,.45);
-    }
-
-    footer p {margin:8px 0}
-
-    footer a {
-      color:var(--cyan);
-      text-decoration:none;
-    }
-
-    @keyframes pulse {
-      50% {opacity:.55}
-    }
-
-    @keyframes cardIn {
-      from {opacity:0;transform:translateY(19px)}
-      to {opacity:1;transform:translateY(0)}
-    }
-
-    @keyframes zoom {
-      from {opacity:0;transform:scale(.96)}
-      to {opacity:1;transform:scale(1)}
-    }
-
-    @keyframes flow {
-      to {background-position:200% 0}
-    }
-
-    @keyframes gradientFlow {
-      to {background-position:300% 0}
-    }
-
-    @keyframes heroEnter {
-      from {opacity:0;transform:translateY(18px)}
-      to {opacity:1;transform:translateY(0)}
-    }
-
-    @keyframes orbit {
-      to {transform:rotate(360deg)}
-    }
-
-    @keyframes ambientFloat {
-      from {transform:translate(-10px,5px)}
-      to {transform:translate(10px,-15px)}
-    }
-
-    @media(max-width:700px) {
-      header {padding:48px 16px 37px}
-      .container {padding:24px 14px 45px}
-      .intro {padding:23px 16px}
-      .stats {gap:8px}
-      .stat {padding:15px 6px}
-      .stat strong {font-size:1.3rem}
-      .stat span {font-size:.63rem;letter-spacing:.7px}
-      #gallery-container {
-        grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
-        gap:14px;
-      }
-      .image-wrap {height:235px}
-      .toolbar input,.toolbar select {min-width:100%}
-      #imageModal {padding:65px 14px 125px}
-      #modalImage {max-height:65vh}
-      #prev-image {left:8px}
-      #next-image {right:8px}
-      .modal-button {width:42px;height:42px}
-      #modal-download {bottom:66px}
-      #modalCaption {bottom:17px;font-size:.83rem}
-    }
-
-    @media(max-width:420px) {
-      #gallery-container {grid-template-columns:minmax(0,1fr)}
-      .image-wrap {height:270px}
-      .filters {gap:8px}
-      .filter {padding:10px 13px;font-size:.79rem}
-      h1 {letter-spacing:1px}
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-      *,*::before,*::after {
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
-        transition-duration:.01ms!important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070912">
+<meta name="description" content="Explore the personal photo gallery of Clinton Ncube.">
+<title>Gallery | Clinton Ncube</title>
+<link rel="stylesheet" href="css/animations.css">
+
+<style>
+:root {
+  --bg:#070912;
+  --panel:rgba(16,21,38,.88);
+  --cyan:#25f4ee;
+  --purple:#a855f7;
+  --pink:#ff5b92;
+  --text:#f5f7ff;
+  --muted:#b7bfd3;
+  --line:rgba(255,255,255,.13);
+  --glow:0 0 28px rgba(37,244,238,.13);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:25px}
+body{
+  margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  background:
+  radial-gradient(ellipse at 10% 0%,#32102f 0,transparent 34%),
+  radial-gradient(ellipse at 100% 15%,#06343a 0,transparent 35%),
+  radial-gradient(ellipse at 50% 100%,#171033 0,transparent 40%),
+  var(--bg);
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.2;
+  background-image:
+  linear-gradient(rgba(37,244,238,.12) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(37,244,238,.12) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+body::after{
+  content:"";position:fixed;width:380px;height:380px;right:-220px;bottom:-170px;
+  border-radius:50%;background:var(--purple);opacity:.09;filter:blur(100px);
+  pointer-events:none;z-index:-1;animation:ambientFloat 10s ease-in-out infinite alternate;
+}
+button,input,select{font:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{
+  outline:2px solid var(--cyan);outline-offset:4px;
+}
+header{
+  position:relative;overflow:hidden;isolation:isolate;text-align:center;
+  padding:65px 18px 48px;
+  background:linear-gradient(115deg,rgba(75,8,35,.82),rgba(14,18,36,.93) 52%,rgba(0,93,105,.38));
+  border-bottom:1px solid rgba(37,244,238,.42);
+}
+header::before,header::after{
+  content:"";position:absolute;pointer-events:none;z-index:-1;border-radius:50%;
+  animation:orbit 18s linear infinite;
+}
+header::before{
+  width:360px;height:360px;border:1px solid #25f4ee35;right:-100px;top:-240px;
+  box-shadow:0 0 55px #25f4ee15;
+}
+header::after{
+  width:300px;height:300px;border:1px solid #a855f744;left:-170px;bottom:-250px;
+  animation-direction:reverse;
+}
+.hero-content{position:relative;animation:heroEnter .85s cubic-bezier(.2,.8,.2,1) both}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;border:1px solid #25f4ee60;
+  border-radius:999px;padding:9px 15px;color:var(--cyan);font-size:.76rem;
+  letter-spacing:2px;text-transform:uppercase;background:rgba(0,0,0,.3);
+  backdrop-filter:blur(12px);
+}
+.dot{
+  width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--cyan);
+  box-shadow:0 0 13px var(--cyan);animation:pulse 1.6s infinite;
+}
+h1{font-size:clamp(2.6rem,8vw,5.3rem);letter-spacing:2px;line-height:1.05;margin:24px 0 13px;text-shadow:0 0 30px #25f4ee27}
+.gradient-text{
+  background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan),var(--pink));
+  background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradientFlow 7s linear infinite;
+}
+header p{margin:0 auto;max-width:620px;color:#e1e5f2;line-height:1.8}
+.line{
+  width:190px;height:3px;border-radius:9px;margin:27px auto 0;
+  background:linear-gradient(90deg,#8b1638,var(--pink),var(--purple),var(--cyan));
+  background-size:200% 100%;box-shadow:0 0 18px #a855f744;animation:flow 4s linear infinite;
+}
+.hero-label{display:inline-block;margin-top:22px;color:#9ba7c3;font-size:.73rem;letter-spacing:3px}
+.container{max-width:1250px;margin:auto;padding:36px 22px 65px}
+.intro,.stat,.toolbar,.gallery-card,.empty{
+  background:linear-gradient(145deg,rgba(21,29,49,.86),rgba(9,12,23,.91));
+  border:1px solid var(--line);box-shadow:0 12px 35px #0004;backdrop-filter:blur(14px);
+}
+.intro{
+  position:relative;overflow:hidden;padding:29px 22px;border-radius:22px;text-align:center;
+  margin-bottom:22px;transition:.3s;
+}
+.intro:hover{border-color:#25f4ee70;box-shadow:var(--glow);transform:translateY(-2px)}
+.intro::before{
+  content:"";position:absolute;left:0;top:0;width:100%;height:3px;
+  background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));animation:flow 5s linear infinite;
+}
+.intro h2{margin:0 0 10px;font-size:clamp(1.4rem,3vw,2rem)}
+.intro p{color:var(--muted);line-height:1.8;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}
+.stat{position:relative;overflow:hidden;padding:20px 12px;border-radius:17px;text-align:center;transition:.3s}
+.stat:hover{transform:translateY(-5px);border-color:#25f4ee65;box-shadow:var(--glow)}
+.stat strong{display:block;color:var(--cyan);font-size:1.65rem;text-shadow:0 0 17px #25f4ee35}
+.stat span{display:block;color:var(--muted);font-size:.72rem;margin-top:7px;letter-spacing:1.5px;text-transform:uppercase}
+.toolbar{
+  position:relative;padding:15px;border-radius:17px;display:flex;align-items:center;
+  gap:12px;flex-wrap:wrap;margin-bottom:18px;
+}
+.toolbar input,.toolbar select{
+  min-width:180px;flex:1;background:rgba(5,8,17,.9);color:var(--text);
+  border:1px solid #394158;border-radius:12px;padding:13px 14px;outline:none;
+}
+.toolbar input::placeholder{color:#858fa9}
+.toolbar input:focus,.toolbar select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #25f4ee15}
+.toolbar select option{background:#101526;color:white}
+.count{color:var(--cyan);font-size:.85rem;white-space:nowrap;padding:5px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.filter{
+  border:1px solid #343b52;background:rgba(12,17,32,.8);color:#dce3f4;
+  border-radius:999px;padding:11px 17px;font-weight:700;font-size:.86rem;cursor:pointer;transition:.25s;
+}
+.filter:hover,.filter.active{
+  color:#061014;border-color:transparent;background:linear-gradient(100deg,var(--cyan),#c0fffc);
+  box-shadow:0 0 22px #25f4ee24;transform:translateY(-2px);
+}
+#gallery-container{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:22px;align-items:start;
+}
+.gallery-card{
+  position:relative;min-width:0;overflow:hidden;border-radius:19px;
+  animation:cardIn .65s ease both;transition:.35s;cursor:pointer;
+}
+.gallery-card:hover{transform:translateY(-8px) scale(1.012);border-color:#25f4eea0;box-shadow:0 22px 48px #0008,0 0 30px #25f4ee13}
+.image-wrap{height:270px;position:relative;overflow:hidden;background:radial-gradient(circle at center,#18263d,#080b14)}
+.image-wrap img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;transition:transform .7s,filter .4s}
+.gallery-card:hover .image-wrap img{transform:scale(1.075);filter:saturate(1.18) contrast(1.04)}
+.gallery-info{padding:18px}
+.gallery-info h3{margin:0 0 9px;color:#ff8bb3;font-size:1.05rem;line-height:1.45;overflow-wrap:anywhere}
+.gallery-card:hover .gallery-info h3{color:var(--cyan)}
+.gallery-info p{margin:0;color:#d0d6e7;line-height:1.7;font-size:.92rem;overflow-wrap:anywhere}
+.tag{
+  display:inline-flex;margin-top:14px;padding:6px 10px;border:1px solid #a855f766;
+  border-radius:999px;color:#d8b4fe;background:#a855f70b;font-size:.7rem;
+}
+.download-btn{
+  display:inline-flex;justify-content:center;align-items:center;gap:8px;width:100%;
+  margin-top:15px;padding:12px 15px;border:1px solid #25f4ee75;border-radius:11px;
+  background:linear-gradient(100deg,rgba(37,244,238,.13),rgba(168,85,247,.15));
+  color:var(--cyan);font-size:.85rem;font-weight:800;cursor:pointer;transition:.25s;text-decoration:none;
+}
+.download-btn:hover{color:#061014;background:linear-gradient(100deg,var(--cyan),#b7fffc);border-color:var(--cyan);box-shadow:0 0 22px #25f4ee35;transform:translateY(-2px)}
+.download-btn:disabled{opacity:.6;cursor:wait;transform:none}
+#modal-download{
+  position:absolute;bottom:65px;left:50%;transform:translateX(-50%);
+  width:auto;min-width:190px;z-index:3;margin:0;box-shadow:0 5px 25px #0008;
+}
+.loading,.empty{grid-column:1 / -1;border-radius:17px;padding:36px 20px;text-align:center;color:var(--muted)}
+.loading{color:var(--cyan);animation:pulse 1.4s infinite}
+.empty h3{color:var(--cyan);margin-top:0}
+#imageModal{
+  display:none;position:fixed;z-index:9999;inset:0;background:rgba(2,4,10,.96);
+  backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:70px 75px 125px;
+}
+#modalImage{
+  position:relative;max-width:min(100%,1100px);max-height:78vh;object-fit:contain;
+  border-radius:14px;border:1px solid #25f4ee88;box-shadow:0 0 45px #25f4ee1f,0 20px 60px #0009;
+  animation:zoom .3s ease;
+}
+.modal-button{
+  position:absolute;z-index:2;border:1px solid #ffffff30;background:rgba(16,21,38,.9);
+  color:white;border-radius:50%;width:47px;height:47px;display:grid;place-items:center;
+  cursor:pointer;font-size:1.65rem;line-height:1;
+}
+.modal-button:hover{color:var(--cyan);border-color:var(--cyan);background:#101b2b}
+#close-modal{top:17px;right:18px;font-size:1.8rem}
+#prev-image{left:18px;top:50%;transform:translateY(-50%)}
+#next-image{right:18px;top:50%;transform:translateY(-50%)}
+#modalCaption{position:absolute;bottom:23px;left:15px;right:15px;text-align:center;color:#e4e8f4;line-height:1.6;padding:0 12px}
+footer{text-align:center;padding:27px 15px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;background:rgba(5,7,16,.45)}
+footer p{margin:8px 0}
+footer a{color:var(--cyan);text-decoration:none}
+@keyframes pulse{50%{opacity:.55}}
+@keyframes cardIn{from{opacity:0;transform:translateY(19px)}to{opacity:1;transform:translateY(0)}}
+@keyframes zoom{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@keyframes flow{to{background-position:200% 0}}
+@keyframes gradientFlow{to{background-position:300% 0}}
+@keyframes heroEnter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes ambientFloat{from{transform:translate(-10px,5px)}to{transform:translate(10px,-15px)}}
+@media(max-width:700px){
+  header{padding:48px 16px 37px}
+  .container{padding:24px 14px 45px}
+  .intro{padding:23px 16px}
+  .stats{gap:8px}
+  .stat{padding:15px 6px}
+  .stat strong{font-size:1.3rem}
+  .stat span{font-size:.63rem;letter-spacing:.7px}
+  #gallery-container{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+  .image-wrap{height:235px}
+  .toolbar input,.toolbar select{min-width:100%}
+  #imageModal{padding:65px 14px 125px}
+  #modalImage{max-height:65vh}
+  #prev-image{left:8px}
+  #next-image{right:8px}
+  .modal-button{width:42px;height:42px}
+  #modal-download{bottom:66px}
+  #modalCaption{bottom:17px;font-size:.83rem}
+}
+@media(max-width:420px){
+  #gallery-container{grid-template-columns:minmax(0,1fr)}
+  .image-wrap{height:270px}
+  .filters{gap:8px}
+  .filter{padding:10px 13px;font-size:.79rem}
+  h1{letter-spacing:1px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="hero-content">
-      <div class="eyebrow">
-        <span class="dot"></span>
-        Personal memories
-      </div>
-
-      <h1>My <span class="gradient-text">Gallery</span></h1>
-
-      <p>Little moments. Big memories. A collection of experiences worth keeping.</p>
-
-      <div class="line"></div>
-
-      <div class="hero-label">
-        CLINTON NCUBE · PERSONAL ARCHIVE
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-
-    <section class="intro">
-      <h2>✨ Welcome to my world</h2>
-      <p>
-        Explore the photos, search for a memory, or open any picture
-        for a closer look.
-        <span class="gradient-text">Enjoy the journey.</span>
-      </p>
-    </section>
-
-    <section class="stats" aria-label="Gallery statistics">
-      <div class="stat">
-        <strong id="photo-total">98</strong>
-        <span>Total memories</span>
-      </div>
-
-      <div class="stat">
-        <strong id="photo-visible">98</strong>
-        <span>Showing</span>
-      </div>
-
-      <div class="stat">
-        <strong>∞</strong>
-        <span>Moments to keep</span>
-      </div>
-    </section>
-
-    <div class="toolbar">
-      <input
-        id="gallery-search"
-        type="search"
-        placeholder="🔎 Search memories…"
-        aria-label="Search gallery"
-      >
-
-      <select id="gallery-sort" aria-label="Sort gallery">
-        <option value="default">Newest / default order</option>
-        <option value="title">Title A–Z</option>
-        <option value="title-desc">Title Z–A</option>
-      </select>
-
-      <span id="gallery-count" class="count" aria-live="polite">
-        Preparing photos...
-      </span>
-    </div>
-
-    <nav class="filters" aria-label="Gallery filters">
-      <button class="filter active" type="button"
-        data-filter="all" aria-pressed="true">
-        ✦ All memories
-      </button>
-
-      <button class="filter" type="button"
-        data-filter="local" aria-pressed="false">
-        ▣ Added photos
-      </button>
-
-      <button class="filter" type="button"
-        data-filter="firebase" aria-pressed="false">
-        ☁ Online gallery
-      </button>
-    </nav>
-
-    <section id="gallery-container" aria-live="polite">
-      <div class="loading">
-        ⚡ Preparing your memories...
-      </div>
-    </section>
-
-  </main>
-
-  <div id="imageModal"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Image viewer"
-    aria-hidden="true">
-
-    <button id="close-modal" class="modal-button"
-      type="button" aria-label="Close image viewer">
-      ×
-    </button>
-
-    <button id="prev-image" class="modal-button"
-      type="button" aria-label="Previous image">
-      ‹
-    </button>
-
-    <img id="modalImage" src="" alt="">
-
-    <button id="next-image" class="modal-button"
-      type="button" aria-label="Next image">
-      ›
-    </button>
-
-    <button id="modal-download" class="download-btn"
-      type="button">
-      ↓ Download Image
-    </button>
-
-    <div id="modalCaption"></div>
+<header>
+  <div class="hero-content">
+    <div class="eyebrow"><span class="dot"></span>Personal memories</div>
+    <h1>My <span class="gradient-text">Gallery</span></h1>
+    <p>Little moments. Big memories. A collection of experiences worth keeping.</p>
+    <div class="line"></div>
+    <div class="hero-label">CLINTON NCUBE · PERSONAL ARCHIVE</div>
   </div>
+</header>
 
-  <footer>
-    <p>© 2026 Clinton Ncube · Personal Gallery</p>
-    <p><a href="index.html">← Back to Home</a></p>
-  </footer>
+<main class="container">
 
-  <script type="module">
+<section class="intro">
+  <h2>✨ Welcome to my world</h2>
+  <p>Explore the photos, search for a memory, or open any picture for a closer look.
+  <span class="gradient-text">Enjoy the journey.</span></p>
+</section>
 
-    import { initializeApp, getApps } from
-      "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+<section class="stats" aria-label="Gallery statistics">
+  <div class="stat"><strong id="photo-total">0</strong><span>Total memories</span></div>
+  <div class="stat"><strong id="photo-visible">0</strong><span>Showing</span></div>
+  <div class="stat"><strong>∞</strong><span>Moments to keep</span></div>
+</section>
 
-    import { getDatabase, ref, get } from
-      "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+<div class="toolbar">
+  <input id="gallery-search" type="search" placeholder="🔎 Search memories…" aria-label="Search gallery">
+  <select id="gallery-sort" aria-label="Sort gallery">
+    <option value="default">Newest / default order</option>
+    <option value="title">Title A–Z</option>
+    <option value="title-desc">Title Z–A</option>
+  </select>
+  <span id="gallery-count" class="count" aria-live="polite">Preparing photos...</span>
+</div>
 
-    const oldFirebaseConfig = {
-      apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
-      authDomain: "clinton-ncube-website.firebaseapp.com",
-      databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
-      projectId: "clinton-ncube-website",
-      storageBucket: "clinton-ncube-website.firebasestorage.app",
-      messagingSenderId: "946671700613",
-      appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
-      measurementId: "G-K1S62MHHXP"
-    };
+<nav class="filters" aria-label="Gallery filters">
+  <button class="filter active" type="button" data-filter="all" aria-pressed="true">✦ All memories</button>
+  <button class="filter" type="button" data-filter="local" aria-pressed="false">▣ Added photos</button>
+  <button class="filter" type="button" data-filter="firebase" aria-pressed="false">☁ Online gallery</button>
+</nav>
 
-    const dashboardFirebaseConfig = {
-      apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFyI",
-      authDomain: "clinton-ncube-website-21755.firebaseapp.com",
-      databaseURL: "https://clinton-ncube-website-21755-default-rtdb.firebaseio.com",
-      projectId: "clinton-ncube-website-21755",
-      storageBucket: "clinton-ncube-website-21755.firebasestorage.app",
-      messagingSenderId: "257869482758",
-      appId: "1:257869482758:web:526da603000f5cede56c87",
-      measurementId: "G-04160GLZQT"
-    };
+<section id="gallery-container" aria-live="polite">
+  <div class="loading">⚡ Preparing your memories...</div>
+</section>
 
-    const oldApp =
-      getApps().find(app => app.name === "oldGallery") ||
-      initializeApp(oldFirebaseConfig, "oldGallery");
+</main>
 
-    const dashboardApp =
-      getApps().find(app => app.name === "dashboardGallery") ||
-      initializeApp(dashboardFirebaseConfig, "dashboardGallery");
+<div id="imageModal" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+  <button id="close-modal" class="modal-button" type="button" aria-label="Close image viewer">×</button>
+  <button id="prev-image" class="modal-button" type="button" aria-label="Previous image">‹</button>
+  <img id="modalImage" src="" alt="">
+  <button id="next-image" class="modal-button" type="button" aria-label="Next image">›</button>
+  <button id="modal-download" class="download-btn" type="button">↓ Download Image</button>
+  <div id="modalCaption"></div>
+</div>
 
-    const oldDb = getDatabase(oldApp);
-    const dashboardDb = getDatabase(dashboardApp);
+<footer>
+  <p>© 2026 Clinton Ncube · Personal Gallery</p>
+  <p><a href="index.html">← Back to Home</a></p>
+</footer>
 
-    const addedPhotos = [
-      { id: "added-1", title: "Memory 1", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0011_(1).jpg" },
-      { id: "added-2", title: "Memory 2", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0020_(1).jpg" },
-      { id: "added-3", title: "Memory 3", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0021_(1).jpg" },
-      { id: "added-4", title: "Memory 4", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20251221-WA0056.jpg" },
-      { id: "added-5", title: "Memory 5", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0009.jpg" },
-      { id: "added-6", title: "Memory 6", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0022.jpg" },
-      { id: "added-7", title: "Memory 7", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0023.jpg" },
-      { id: "added-8", title: "Memory 8", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0024.jpg" },
-      { id: "added-9", title: "Memory 9", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0025.jpg" },
-      { id: "added-10", title: "Memory 10", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0026.jpg" },
-      { id: "added-11", title: "Memory 11", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0000.jpg" },
-      { id: "added-12", title: "Memory 12", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0001.jpg" },
-      { id: "added-13", title: "Memory 13", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0002.jpg" },
-      { id: "added-14", title: "Memory 14", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0003.jpg" },
-      { id: "added-15", title: "Memory 15", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0000.jpg" },
-      { id: "added-16", title: "Memory 16", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0002.jpg" },
-      { id: "added-17", title: "Memory 17", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0003.jpg" },
-      { id: "added-18", title: "Memory 18", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0005.jpg" },
-      { id: "added-19", title: "Memory 19", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0004.jpg" },
-      { id: "added-20", title: "Memory 20", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0005.jpg" },
-      { id: "added-21", title: "Memory 21", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0006.jpg" },
-      { id: "added-22", title: "Memory 22", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0007.jpg" },
-      { id: "added-23", title: "Memory 23", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0009.jpg" },
-      { id: "added-24", title: "Memory 24", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114-115343_674.jpg" },
-      { id: "added-25", title: "Memory 25", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114_115343_674.jpg" },
-      { id: "added-26", title: "Memory 26", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_422.jpg" },
-      { id: "added-27", title: "Memory 27", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_424.jpg" },
-      { id: "added-28", title: "Memory 28", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_603.jpg" },
-      { id: "added-29", title: "Memory 29", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_679.jpg" },
-      { id: "added-30", title: "Memory 30", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115345_619.jpg" },
-      { id: "added-31", title: "Memory 31", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115346_248.jpg" },
-      { id: "added-32", title: "Memory 32", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115347_717.jpg" },
-      { id: "added-33", title: "Memory 33", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115350_810.jpg" },
-      { id: "added-34", title: "Memory 34", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115413_175.jpg" },
-      { id: "added-35", title: "Memory 35", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115415_632.jpg" },
-      { id: "added-36", title: "Memory 36", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115417_973.jpg" },
-      { id: "added-37", title: "Memory 37", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115425_334.jpg" },
-      { id: "added-38", title: "Memory 38", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115427_738.jpg" },
-      { id: "added-39", title: "Memory 39", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115430_222.jpg" },
-      { id: "added-40", title: "Memory 40", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261116-WA0043.jpg" },
-      { id: "added-41", title: "Memory 41", description: "A moment from my personal collection.", imageUrl: "/images/MG-20261116-WA0044.jpg" },
-      { id: "added-42", title: "Memory 42", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134907_292.jpg" },
-      { id: "added-43", title: "Memory 43", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134923_949.jpg" },
-      { id: "added-44", title: "Memory 44", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134959_051.jpg" },
-      { id: "added-45", title: "Memory 45", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135003_032.jpg" },
-      { id: "added-46", title: "Memory 46", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751.jpg" },
-      { id: "added-47", title: "Memory 47", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751~2.jpg" },
-      { id: "added-48", title: "Memory 48", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135015_990~2.jpg" },
-      { id: "added-49", title: "Memory 49", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135024_287.jpg" },
-      { id: "added-50", title: "Memory 50", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_165900_481~3.jpg" },
-      { id: "added-51", title: "Memory 51", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170145_797~3.jpg" },
-      { id: "added-52", title: "Memory 52", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170154_067~3.jpg" },
-      { id: "added-53", title: "Memory 53", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170229_958.jpg" },
-      { id: "added-54", title: "Memory 54", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170409_006~3.jpg" },
-      { id: "added-55", title: "Memory 55", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170411_071~3.jpg" },
-      { id: "added-56", title: "Memory 56", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_172848_136~2.jpg" },
-      { id: "added-57", title: "Memory 57", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_173813_817~3.jpg" },
-      { id: "added-58", title: "Memory 58", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174135_434.jpg" },
-      { id: "added-59", title: "Memory 59", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174138_005~3.jpg" },
-      { id: "added-60", title: "Memory 60", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174145_178~3.jpg" },
-      { id: "added-61", title: "Memory 61", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174156_801~2.jpg" },
-      { id: "added-62", title: "Memory 62", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174623_960~3.jpg" },
-      { id: "added-63", title: "Memory 63", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093252.jpg" },
-      { id: "added-64", title: "Memory 64", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093305.jpg" },
-      { id: "added-65", title: "Memory 65", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_144742_edit_7426347801541.jpg" },
-      { id: "added-66", title: "Memory 66", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145115_edit_7303969500494.jpg" },
-      { id: "added-67", title: "Memory 67", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145348_edit_7272302860610.jpg" },
-      { id: "added-68", title: "Memory 68", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250809_194004.jpg" },
-      { id: "added-69", title: "Memory 69", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_08_Pro.jpg" },
-      { id: "added-70", title: "Memory 70", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_27_Pro.jpg" },
-      { id: "added-71", title: "Memory 71", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_35_Pro.jpg" },
-      { id: "added-72", title: "Memory 72", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_39_Pro.jpg" },
-      { id: "added-73", title: "Memory 73", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_03_Pro.jpg" },
-      { id: "added-74", title: "Memory 74", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_16_Pro.jpg" },
-      { id: "added-75", title: "Memory 75", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_28_Pro.jpg" },
-      { id: "added-76", title: "Memory 76", description: "A moment from my personal collection.", imageUrl: "/images/WhatsApp Image 2026-04-04 at 09.50.26.jpeg" },
-      { id: "added-77", title: "Memory 77", description: "A moment from my personal collection.", imageUrl: "/images/court of da gold.jpg" },
-      { id: "added-78", title: "Memory 78", description: "A moment from my personal collection.", imageUrl: "/images/court of gold.jfif" },
-      { id: "added-79", title: "Memory 79", description: "A moment from my personal collection.", imageUrl: "/images/court-of-gold.jpg" },
-      { id: "added-80", title: "Memory 80", description: "A moment from my personal collection.", imageUrl: "/images/favicon.png" },
-      { id: "added-81", title: "Memory 81", description: "A moment from my personal collection.", imageUrl: "/images/kobe.jpg" },
-      { id: "added-82", title: "Memory 82", description: "A moment from my personal collection.", imageUrl: "/images/lebron james.jfif" },
-      { id: "added-83", title: "Memory 83", description: "A moment from my personal collection.", imageUrl: "/images/photo3.jpg" }
-    ];
+<script type="module">
 
-    // ==========================================
-    // GALLERY FUNCTIONALITY
-    // ==========================================
+// Firebase is loaded separately so local photos can work even if Firebase fails.
+let initializeApp, getApps, getDatabase, ref, get;
+let oldDb = null, dashboardDb = null;
 
-    const $ = id => document.getElementById(id);
+try {
+  const appSDK = await import("https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js");
+  const databaseSDK = await import("https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js");
 
-    let allPhotos = [];
-    let filteredPhotos = [];
-    let activeFilter = "all";
-    let currentModalIndex = 0;
+  initializeApp = appSDK.initializeApp;
+  getApps = appSDK.getApps;
+  getDatabase = databaseSDK.getDatabase;
+  ref = databaseSDK.ref;
+  get = databaseSDK.get;
 
-    function showLocalPhotos() {
-      allPhotos = addedPhotos.map(photo => ({
-        ...photo,
-        source: "local"
-      }));
+  const oldFirebaseConfig = {
+    apiKey: "AIzaSyB66c1Tymv5lkTxY89HLbX4S_QTpAZQVUE",
+    authDomain: "clinton-ncube-website.firebaseapp.com",
+    databaseURL: "https://clinton-ncube-website-default-rtdb.firebaseio.com",
+    projectId: "clinton-ncube-website",
+    storageBucket: "clinton-ncube-website.firebasestorage.app",
+    messagingSenderId: "946671700613",
+    appId: "1:946671700613:web:5d74536df1dbb0d35e77ec",
+    measurementId: "G-K1S62MHHXP"
+  };
 
-      renderGallery();
-    }
+  const dashboardFirebaseConfig = {
+    apiKey: "AIzaSyDQvkPG8ZqEHEJIoGqrW0F1X5CvCJFyI",
+    authDomain: "clinton-ncube-website-21755.firebaseapp.com",
+    databaseURL: "https://clinton-ncube-website-21755-default-rtdb.firebaseio.com",
+    projectId: "clinton-ncube-website-21755",
+    storageBucket: "clinton-ncube-website-21755.firebasestorage.app",
+    messagingSenderId: "257869482758",
+    appId: "1:257869482758:web:526da603000f5cede56c87",
+    measurementId: "G-04160GLZQT"
+  };
 
-    function normalize(item, index) {
-      if (typeof item === "string") {
-        item = { imageUrl: item };
-      }
+  const oldApp = getApps().find(app => app.name === "oldGallery") ||
+    initializeApp(oldFirebaseConfig, "oldGallery");
 
-      if (!item || typeof item !== "object") {
-        return null;
-      }
+  const dashboardApp = getApps().find(app => app.name === "dashboardGallery") ||
+    initializeApp(dashboardFirebaseConfig, "dashboardGallery");
+
+  oldDb = getDatabase(oldApp);
+  dashboardDb = getDatabase(dashboardApp);
+
+} catch(error) {
+  console.warn("Firebase could not load. Local photos will still be available.",error);
+}
+
+// PHASE 2 CONTINUES HERE:
+const addedPhotos = [
+    { id: "added-1", title: "Memory 1", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0011_(1).jpg" },
+  { id: "added-2", title: "Memory 2", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0020_(1).jpg" },
+  { id: "added-3", title: "Memory 3", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0021_(1).jpg" },
+  { id: "added-4", title: "Memory 4", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20251221-WA0056.jpg" },
+  { id: "added-5", title: "Memory 5", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0009.jpg" },
+  { id: "added-6", title: "Memory 6", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0022.jpg" },
+  { id: "added-7", title: "Memory 7", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0023.jpg" },
+  { id: "added-8", title: "Memory 8", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0024.jpg" },
+  { id: "added-9", title: "Memory 9", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0025.jpg" },
+  { id: "added-10", title: "Memory 10", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0026.jpg" },
+  { id: "added-11", title: "Memory 11", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0000.jpg" },
+  { id: "added-12", title: "Memory 12", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0001.jpg" },
+  { id: "added-13", title: "Memory 13", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0002.jpg" },
+  { id: "added-14", title: "Memory 14", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0003.jpg" },
+  { id: "added-15", title: "Memory 15", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0000.jpg" },
+  { id: "added-16", title: "Memory 16", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0002.jpg" },
+  { id: "added-17", title: "Memory 17", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0003.jpg" },
+  { id: "added-18", title: "Memory 18", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0005.jpg" },
+  { id: "added-19", title: "Memory 19", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0004.jpg" },
+  { id: "added-20", title: "Memory 20", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0005.jpg" },
+  { id: "added-21", title: "Memory 21", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0006.jpg" },
+  { id: "added-22", title: "Memory 22", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0007.jpg" },
+  { id: "added-23", title: "Memory 23", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0009.jpg" },
+  { id: "added-24", title: "Memory 24", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114-115343_674.jpg" },
+  { id: "added-25", title: "Memory 25", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114_115343_674.jpg" },
+  { id: "added-26", title: "Memory 26", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_422.jpg" },
+  { id: "added-27", title: "Memory 27", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_424.jpg" },
+  { id: "added-28", title: "Memory 28", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_603.jpg" },
+  { id: "added-29", title: "Memory 29", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_679.jpg" },
+  { id: "added-30", title: "Memory 30", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115345_619.jpg" },
+  { id: "added-31", title: "Memory 31", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115346_248.jpg" },
+  { id: "added-32", title: "Memory 32", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115347_717.jpg" },
+  { id: "added-33", title: "Memory 33", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115350_810.jpg" },
+  { id: "added-34", title: "Memory 34", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115413_175.jpg" },
+  { id: "added-35", title: "Memory 35", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115415_632.jpg" },
+  { id: "added-36", title: "Memory 36", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115417_973.jpg" },
+  { id: "added-37", title: "Memory 37", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115425_334.jpg" },
+  { id: "added-38", title: "Memory 38", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115427_738.jpg" },
+  { id: "added-39", title: "Memory 39", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115430_222.jpg" },
+  { id: "added-40", title: "Memory 40", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261116-WA0043.jpg" },
+  { id: "added-41", title: "Memory 41", description: "A moment from my personal collection.", imageUrl: "/images/MG-20261116-WA0044.jpg" },
+  { id: "added-42", title: "Memory 42", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134907_292.jpg" },
+  { id: "added-43", title: "Memory 43", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134923_949.jpg" },
+  { id: "added-44", title: "Memory 44", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134959_051.jpg" },
+  { id: "added-45", title: "Memory 45", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135003_032.jpg" },
+  { id: "added-46", title: "Memory 46", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751.jpg" },
+  { id: "added-47", title: "Memory 47", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751~2.jpg" },
+  { id: "added-48", title: "Memory 48", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135015_990~2.jpg" },
+  { id: "added-49", title: "Memory 49", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135024_287.jpg" },
+  { id: "added-50", title: "Memory 50", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_165900_481~3.jpg" },
+  { id: "added-51", title: "Memory 51", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170145_797~3.jpg" },
+  { id: "added-52", title: "Memory 52", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170154_067~3.jpg" },
+  { id: "added-53", title: "Memory 53", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170229_958.jpg" },
+  { id: "added-54", title: "Memory 54", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170409_006~3.jpg" },
+  { id: "added-55", title: "Memory 55", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170411_071~3.jpg" },
+  { id: "added-56", title: "Memory 56", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_172848_136~2.jpg" },
+  { id: "added-57", title: "Memory 57", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_173813_817~3.jpg" },
+  { id: "added-58", title: "Memory 58", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174135_434.jpg" },
+  { id: "added-59", title: "Memory 59", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174138_005~3.jpg" },
+  { id: "added-60", title: "Memory 60", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174145_178~3.jpg" },
+  { id: "added-61", title: "Memory 61", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174156_801~2.jpg" },
+  { id: "added-62", title: "Memory 62", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174623_960~3.jpg" },
+  { id: "added-63", title: "Memory 63", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093252.jpg" },
+  { id: "added-64", title: "Memory 64", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093305.jpg" },
+  { id: "added-65", title: "Memory 65", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_144742_edit_7426347801541.jpg" },
+  { id: "added-66", title: "Memory 66", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145115_edit_7303969500494.jpg" },
+  { id: "added-67", title: "Memory 67", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145348_edit_7272302860610.jpg" },
+  { id: "added-68", title: "Memory 68", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250809_194004.jpg" },
+  { id: "added-69", title: "Memory 69", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_08_Pro.jpg" },
+  { id: "added-70", title: "Memory 70", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_27_Pro.jpg" },
+  { id: "added-71", title: "Memory 71", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_35_Pro.jpg" },
+  { id: "added-72", title: "Memory 72", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_39_Pro.jpg" },
+  { id: "added-73", title: "Memory 73", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_03_Pro.jpg" },
+  { id: "added-74", title: "Memory 74", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_16_Pro.jpg" },
+  { id: "added-75", title: "Memory 75", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_28_Pro.jpg" },
+  { id: "added-76", title: "Memory 76", description: "A moment from my personal collection.", imageUrl: "/images/WhatsApp Image 2026-04-04 at 09.50.26.jpeg" },
+  { id: "added-77", title: "Memory 77", description: "A moment from my personal collection.", imageUrl: "/images/court of da gold.jpg" },
+  { id: "added-78", title: "Memory 78", description: "A moment from my personal collection.", imageUrl: "/images/court of gold.jfif" },
+  { id: "added-79", title: "Memory 79", description: "A moment from my personal collection.", imageUrl: "/images/court-of-gold.jpg" },
+  { id: "added-80", title: "Memory 80", description: "A moment from my personal collection.", imageUrl: "/images/favicon.png" },
+  { id: "added-81", title: "Memory 81", description: "A moment from my personal collection.", imageUrl: "/images/kobe.jpg" },
+  { id: "added-82", title: "Memory 82", description: "A moment from my personal collection.", imageUrl: "/images/lebron james.jfif" },
+  { id: "added-83", title: "Memory 83", description: "A moment from my personal collection.", imageUrl: "/images/photo3.jpg" },
+
+  { id: "added-84", title: "Memory 84", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261126_111259_759.jpg" },
+  { id: "added-85", title: "Memory 85", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261126_111224_290.jpg" },
+  { id: "added-86", title: "Memory 86", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201455_493.jpg" },
+  { id: "added-87", title: "Memory 87", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201148_047.jpg" },
+  { id: "added-88", title: "Memory 88", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201051_849.jpg" },
+  { id: "added-89", title: "Memory 89", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_200538_116.jpg" },
+  { id: "added-90", title: "Memory 90", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_200340_474.jpg" },
+  { id: "added-91", title: "Memory 91", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_184114_951.jpg" },
+  { id: "added-92", title: "Memory 92", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_183956_522.jpg" },
+  { id: "added-93", title: "Memory 93", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232440_664.jpg" },
+  { id: "added-94", title: "Memory 94", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232347_927.jpg" },
+  { id: "added-95", title: "Memory 95", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232242_373.jpg" },
+  { id: "added-96", title: "Memory 96", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232216_361.jpg" },
+  { id: "added-97", title: "Memory 97", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_231449_556.jpg" },
+  { id: "added-98", title: "Memory 98", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_064306_492.jpg" },
+  { id: "added-99", title: "Memory 99", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_064115_859.jpg" },
+  { id: "added-100", title: "Memory 100", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261119_152941_812.jpg" },
+  { id: "added-101", title: "Memory 101", description: "A moment from my personal collection.", imageUrl: "/images/file_00000000a1bc8211a54c4ca7beb61222.png" },
+  { id: "added-102", title: "Memory 102", description: "A moment from my personal collection.", imageUrl: "/images/file_0000000052988208aeaabdba0c51a450.png" },
+  { id: "added-103", title: "Memory 103", description: "A moment from my personal collection.", imageUrl: "/images/file_00000000ad80820884a6053343da367d.png" }
+];
+  <script>
+const $ = id => document.getElementById(id);
+
+let allPhotos = [...addedPhotos];
+let filteredPhotos = [...allPhotos];
+let activeFilter = "all";
+let currentModalIndex = 0;
+
+const galleryGrid = $("gallery-grid");
+const searchInput = $("search");
+const sortSelect = $("sort");
+const modal = $("image-modal");
+
+function escapeHTML(str) {
+  return String(str ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
+}
+
+function updateStats() {
+  $("total-memories").textContent = allPhotos.length;
+  $("showing-memories").textContent = filteredPhotos.length;
+}
+
+function normalizePhoto(photo, index) {
+  return {
+    id: photo.id || "photo-" + index,
+    title: photo.title || "Memory",
+    description: photo.description || "A moment from my personal collection.",
+    imageUrl: photo.imageUrl || "",
+    category: photo.category || "added"
+  };
+}
+
+async function readPath(database, path) {
+  if (!database || !ref || !get) return null;
+
+  try {
+    const snapshot = await get(ref(database, path));
+    return snapshot.exists() ? snapshot.val() : null;
+  } catch (error) {
+    console.warn("Could not read Firebase path:", path, error);
+    return null;
+  }
+}
+
+async function loadOnlinePhotos() {
+  let online = [];
+
+  const paths = [
+    {db: oldDb, path: "gallery"},
+    {db: oldDb, path: "photos"},
+    {db: dashboardDb, path: "gallery"},
+    {db: dashboardDb, path: "photos"}
+  ];
+
+  for (const item of paths) {
+    const data = await readPath(item.db, item.path);
+    if (!data) continue;
+
+    const list = Array.isArray(data)
+      ? data
+      : Object.values(data);
+
+    list.forEach(photo => {
+      if (!photo || typeof photo !== "object") return;
 
       const imageUrl =
-        item.imageUrl ||
-        item.file ||
-        item.image ||
-        item.url ||
-        item.downloadURL;
+        photo.imageUrl ||
+        photo.url ||
+        photo.image ||
+        photo.photoURL;
 
-      if (!imageUrl) return null;
+      if (!imageUrl) return;
 
-      return {
-        id: item.id || `firebase-${index}`,
-        imageUrl: String(imageUrl).trim(),
-        title: item.title || item.name || `Online Photo ${index + 1}`,
-        description: item.description || "Online gallery photo",
-        source: "firebase"
-      };
-    }
-
-    async function readPath(db, path) {
-      try {
-        const snapshot = await get(ref(db, path));
-        const value = snapshot.val();
-
-        if (!value) return [];
-
-        const entries = Array.isArray(value)
-          ? value
-          : Object.values(value);
-
-        return entries
-          .map((item, index) => normalize(item, index))
-          .filter(Boolean);
-
-      } catch (error) {
-        console.warn("Firebase path unavailable:", path, error);
-        return [];
-      }
-    }
-
-    async function loadOnlinePhotos() {
-      const results = await Promise.all([
-        readPath(oldDb, "gallery"),
-        readPath(oldDb, "photos"),
-        readPath(dashboardDb, "dashboardGallery"),
-        readPath(dashboardDb, "gallery"),
-        readPath(dashboardDb, "photos")
-      ]);
-
-      const onlinePhotos = results.flat();
-      const combined = [...allPhotos, ...onlinePhotos];
-      const seen = new Set();
-
-      allPhotos = combined.filter(photo => {
-        const key = photo.imageUrl.toLowerCase();
-
-        if (seen.has(key)) return false;
-
-        seen.add(key);
-        return true;
+      online.push({
+        id: photo.id || "online-" + online.length,
+        title: photo.title || photo.name || "Online Memory",
+        description: photo.description || "A memory from the online gallery.",
+        imageUrl: imageUrl,
+        category: "online"
       });
+    });
+  }
 
-      renderGallery();
-    }
+  return online;
+}
 
-    // Create a safe filename from a photo title.
-    function makeDownloadName(photo) {
-      const title = (photo.title || "Clinton-Ncube-photo")
-        .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
-        .trim()
-        .replace(/\s+/g, "-");
+function deduplicatePhotos(photos) {
+  const seen = new Set();
 
-      let extension = "jpg";
+  return photos.filter(photo => {
+    const key = photo.imageUrl;
 
-      try {
-        const pathname = new URL(
-          photo.imageUrl,
-          window.location.href
-        ).pathname;
+    if (!key || seen.has(key)) return false;
 
-        const match = pathname.match(/\.(jpg|jpeg|png|gif|webp|jfif)$/i);
+    seen.add(key);
+    return true;
+  });
+}
 
-        if (match) {
-          extension = match[1].toLowerCase();
-        }
-      } catch (error) {
-        console.warn("Could not detect image extension.", error);
-      }
+function getFilteredPhotos() {
+  const query = (searchInput.value || "").toLowerCase().trim();
 
-      return `${title || "Clinton-Ncube-photo"}.${extension}`;
-    }
+  let result = [...allPhotos];
 
-    // Download an image.
-    async function downloadImage(photo, button) {
-      if (!photo || !photo.imageUrl) return;
+  if (activeFilter === "added") {
+    result = result.filter(p => p.category === "added");
+  }
 
-      const originalText = button.textContent;
+  if (activeFilter === "online") {
+    result = result.filter(p => p.category === "online");
+  }
 
-      button.disabled = true;
-      button.textContent = "Preparing download...";
-
-      try {
-        const response = await fetch(photo.imageUrl, {
-          mode: "cors",
-          cache: "no-cache"
-        });
-
-        if (!response.ok) {
-          throw new Error("Image download failed.");
-        }
-
-        const blob = await response.blob();
-
-        if (!blob.type.startsWith("image/")) {
-          throw new Error("The selected file is not an image.");
-        }
-
-        const objectUrl = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-
-        link.href = objectUrl;
-        link.download = makeDownloadName(photo);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-
-        setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
-
-        button.textContent = "✓ Download started";
-
-      } catch (error) {
-        console.warn("Direct download unavailable:", error);
-
-        // Fallback: open the image so the user can save it manually.
-        const newTab = window.open(photo.imageUrl, "_blank", "noopener");
-
-        if (newTab) {
-          button.textContent = "Image opened — save it";
-        } else {
-          button.textContent = "Allow pop-ups to open image";
-        }
-      }
-
-      setTimeout(() => {
-        button.textContent = originalText;
-        button.disabled = false;
-      }, 2500);
-    }
-
-    function renderGallery() {
-      const gallery = $("gallery-container");
-
-      if (!gallery) return;
-
-      const searchTerm = $("gallery-search").value
+  if (query) {
+    result = result.filter(photo =>
+      `${photo.title} ${photo.description} ${photo.imageUrl}`
         .toLowerCase()
-        .trim();
+        .includes(query)
+    );
+  }
 
-      const sortOrder = $("gallery-sort").value;
+  const sortValue = sortSelect.value;
 
-      filteredPhotos = allPhotos.filter(photo => {
-        const matchesSearch =
-          photo.title.toLowerCase().includes(searchTerm) ||
-          photo.description.toLowerCase().includes(searchTerm) ||
-          photo.imageUrl.toLowerCase().includes(searchTerm);
+  if (sortValue === "az") {
+    result.sort((a, b) => a.title.localeCompare(b.title));
+  }
 
-        const matchesFilter =
-          activeFilter === "all" ||
-          photo.source === activeFilter;
+  if (sortValue === "za") {
+    result.sort((a, b) => b.title.localeCompare(a.title));
+  }
 
-        return matchesSearch && matchesFilter;
-      });
+  if (sortValue === "newest") {
+    result.reverse();
+  }
 
-      if (sortOrder === "title") {
-        filteredPhotos.sort((a, b) =>
-          a.title.localeCompare(b.title)
-        );
-      }
+  return result;
+}
 
-      if (sortOrder === "title-desc") {
-        filteredPhotos.sort((a, b) =>
-          b.title.localeCompare(a.title)
-        );
-      }
+function renderGallery() {
+  filteredPhotos = getFilteredPhotos();
+  updateStats();
 
-      gallery.innerHTML = "";
+  if (!filteredPhotos.length) {
+    galleryGrid.innerHTML = `
+      <div class="empty-state">
+        <h2>No memories found</h2>
+        <p>Try changing your search or filter.</p>
+      </div>
+    `;
+    return;
+  }
 
-      if (filteredPhotos.length === 0) {
-        gallery.innerHTML = `
-          <div class="empty">
-            <h3>No photos found</h3>
-            <p>Try another search or select a different category.</p>
-          </div>
-        `;
-      } else {
-        filteredPhotos.forEach((photo, index) => {
-          const card = document.createElement("article");
-          card.className = "gallery-card";
+  galleryGrid.innerHTML = filteredPhotos.map((photo, index) => `
+    <article class="gallery-card">
+      <div class="gallery-image-wrap">
+        <img
+          src="${escapeHTML(photo.imageUrl)}"
+          alt="${escapeHTML(photo.title)}"
+          loading="lazy"
+          onclick="openModal(${index})"
+          onerror="this.parentElement.innerHTML='<div class=\\'image-error\\'>Image unavailable</div>'"
+        >
 
-          const imageWrap = document.createElement("div");
-          imageWrap.className = "image-wrap";
+        <div class="gallery-overlay">
+          <button onclick="openModal(${index})" aria-label="View photo">
+            <span>View</span>
+          </button>
+        </div>
+      </div>
 
-          const image = document.createElement("img");
-          image.src = photo.imageUrl;
-          image.alt = photo.title;
-          image.loading = "lazy";
+      <div class="gallery-info">
+        <h3>${escapeHTML(photo.title)}</h3>
+        <p>${escapeHTML(photo.description)}</p>
 
-          image.addEventListener("error", () => {
-            image.alt = "Image could not be loaded: " + photo.title;
-            image.title = "Check that this file exists in the images folder.";
-          });
+        <div class="card-actions">
+          <button onclick="openModal(${index})" class="view-btn">
+            View Photo
+          </button>
 
-          imageWrap.appendChild(image);
+          <button onclick="downloadImage('${escapeHTML(photo.imageUrl)}')" class="download-btn">
+            Download
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
 
-          const info = document.createElement("div");
-          info.className = "gallery-info";
+function applyFilter(filter) {
+  activeFilter = filter;
 
-          const heading = document.createElement("h3");
-          heading.textContent = photo.title;
+  document.querySelectorAll(".filter-btn").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.filter === filter
+    );
+  });
 
-          const description = document.createElement("p");
-          description.textContent = photo.description;
+  renderGallery();
+}
 
-          const tag = document.createElement("span");
-          tag.className = "tag";
-          tag.textContent =
-            photo.source === "firebase"
-              ? "Online gallery"
-              : "Added photo";
+function openModal(index) {
+  currentModalIndex = index;
+  updateModal();
 
-          const downloadButton = document.createElement("button");
-          downloadButton.type = "button";
-          downloadButton.className = "download-btn";
-          downloadButton.textContent = "↓ Download Image";
+  modal.classList.add("active");
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
 
-          downloadButton.addEventListener("click", event => {
-            event.stopPropagation();
-            downloadImage(photo, downloadButton);
-          });
+function closeModal() {
+  modal.classList.remove("active");
+  modal.style.display = "none";
+  document.body.style.overflow = "";
+}
 
-          info.append(heading, description, tag, downloadButton);
-          card.append(imageWrap, info);
+function updateModal() {
+  if (!filteredPhotos.length) return;
 
-          card.addEventListener("click", () => {
-            openModal(index);
-          });
+  const photo = filteredPhotos[currentModalIndex];
 
-          gallery.appendChild(card);
-        });
-      }
+  $("modal-image").src = photo.imageUrl;
+  $("modal-image").alt = photo.title;
 
-      updateStats();
+  $("modal-title").textContent = photo.title;
+  $("modal-description").textContent = photo.description;
+
+  $("modal-counter").textContent =
+    `${currentModalIndex + 1} / ${filteredPhotos.length}`;
+}
+
+function nextImage() {
+  if (!filteredPhotos.length) return;
+
+  currentModalIndex =
+    (currentModalIndex + 1) % filteredPhotos.length;
+
+  updateModal();
+}
+
+function previousImage() {
+  if (!filteredPhotos.length) return;
+
+  currentModalIndex =
+    (currentModalIndex - 1 + filteredPhotos.length)
+    % filteredPhotos.length;
+
+  updateModal();
+}
+
+async function downloadImage(url) {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Download failed");
     }
 
-    function updateStats() {
-      $("photo-total").textContent = allPhotos.length;
-      $("photo-visible").textContent = filteredPhotos.length;
+    const blob = await response.blob();
+    const objectURL = URL.createObjectURL(blob);
 
-      $("gallery-count").textContent =
-        `Showing ${filteredPhotos.length} of ${allPhotos.length} photos`;
-    }
+    const link = document.createElement("a");
+    link.href = objectURL;
+    link.download = url.split("/").pop() || "memory.jpg";
 
-    function openModal(index) {
-      if (!filteredPhotos.length) return;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 
-      currentModalIndex = index;
+    setTimeout(() => URL.revokeObjectURL(objectURL), 2000);
 
-      const photo = filteredPhotos[currentModalIndex];
+  } catch (error) {
+    console.warn("Download fallback:", error);
+    window.open(url, "_blank");
+  }
+}
 
-      const modal = $("imageModal");
-      const image = $("modalImage");
-      const caption = $("modalCaption");
+searchInput.addEventListener("input", renderGallery);
+sortSelect.addEventListener("change", renderGallery);
 
-      image.src = photo.imageUrl;
-      image.alt = photo.title;
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    applyFilter(button.dataset.filter);
+  });
+});
 
-      caption.textContent =
-        photo.title + " — " + photo.description;
+$("modal-close").addEventListener("click", closeModal);
+$("modal-next").addEventListener("click", nextImage);
+$("modal-prev").addEventListener("click", previousImage);
 
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden", "false");
+$("modal-download").addEventListener("click", () => {
+  if (filteredPhotos.length) {
+    downloadImage(filteredPhotos[currentModalIndex].imageUrl);
+  }
+});
 
-      document.body.style.overflow = "hidden";
-    }
+modal.addEventListener("click", event => {
+  if (event.target === modal) closeModal();
+});
 
-    function closeModal() {
-      const modal = $("imageModal");
+document.addEventListener("keydown", event => {
+  if (!modal.classList.contains("active")) return;
 
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
+  if (event.key === "Escape") closeModal();
+  if (event.key === "ArrowRight") nextImage();
+  if (event.key === "ArrowLeft") previousImage();
+});
 
-      document.body.style.overflow = "";
-    }
+async function initializeGallery() {
+  allPhotos = addedPhotos.map(normalizePhoto);
 
-    function moveModal(direction) {
-      if (!filteredPhotos.length) return;
+  renderGallery();
 
-      currentModalIndex += direction;
+  try {
+    const onlinePhotos = await loadOnlinePhotos();
 
-      if (currentModalIndex < 0) {
-        currentModalIndex = filteredPhotos.length - 1;
-      }
+    allPhotos = deduplicatePhotos([
+      ...addedPhotos.map(normalizePhoto),
+      ...onlinePhotos.map(normalizePhoto)
+    ]);
 
-      if (currentModalIndex >= filteredPhotos.length) {
-        currentModalIndex = 0;
-      }
+  } catch (error) {
+    console.warn("Online gallery unavailable:", error);
+  }
 
-      openModal(currentModalIndex);
-    }
+  renderGallery();
+}
 
-    // Search.
-    $("gallery-search").addEventListener("input", renderGallery);
+initializeGallery();
+</script>
 
-    // Sort.
-    $("gallery-sort").addEventListener("change", renderGallery);
-
-    // Filters.
-    document.querySelectorAll(".filter").forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelectorAll(".filter").forEach(item => {
-          item.classList.remove("active");
-          item.setAttribute("aria-pressed", "false");
-        });
-
-        button.classList.add("active");
-        button.setAttribute("aria-pressed", "true");
-
-        activeFilter = button.dataset.filter;
-
-        renderGallery();
-      });
-    });
-
-    // Download the currently enlarged image.
-    $("modal-download").addEventListener("click", event => {
-      event.stopPropagation();
-
-      const photo = filteredPhotos[currentModalIndex];
-
-      if (photo) {
-        downloadImage(photo, $("modal-download"));
-      }
-    });
-
-    // Image viewer controls.
-    $("close-modal").addEventListener("click", closeModal);
-
-    $("prev-image").addEventListener("click", () => {
-      moveModal(-1);
-    });
-
-    $("next-image").addEventListener("click", () => {
-      moveModal(1);
-    });
-
-    // Close viewer when clicking outside the image.
-    $("imageModal").addEventListener("click", event => {
-      if (event.target === $("imageModal")) {
-        closeModal();
-      }
-    });
-
-    // Keyboard controls.
-    document.addEventListener("keydown", event => {
-      if ($("imageModal").style.display !== "flex") return;
-
-      if (event.key === "Escape") {
-        closeModal();
-      }
-
-      if (event.key === "ArrowLeft") {
-        moveModal(-1);
-      }
-
-      if (event.key === "ArrowRight") {
-        moveModal(1);
-      }
-    });
-
-    // Show local photos immediately.
-    showLocalPhotos();
-
-    // Then load online photos.
-    loadOnlinePhotos().catch(error => {
-      console.error("Online gallery error:", error);
-
-      $("gallery-count").textContent =
-        "Showing local photos. Online gallery could not connect.";
-
-      renderGallery();
-    });
-
-  </script>
-
-  <script src="js/animations.js" defer></script>
+<script src="js/animations.js" defer></script>
 
 </body>
 </html>
