@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,7 +139,7 @@ header p{margin:0 auto;max-width:620px;color:#e1e5f2;line-height:1.8}
 }
 .gallery-card{
   position:relative;min-width:0;overflow:hidden;border-radius:19px;
-  animation:cardIn .65s ease both;transition:.35s;cursor:pointer;
+  animation:cardIn .65s ease both;transition:.35s;
 }
 .gallery-card:hover{transform:translateY(-8px) scale(1.012);border-color:#25f4eea0;box-shadow:0 22px 48px #0008,0 0 30px #25f4ee13}
 .image-wrap{height:270px;position:relative;overflow:hidden;background:radial-gradient(circle at center,#18263d,#080b14)}
@@ -159,7 +160,6 @@ header p{margin:0 auto;max-width:620px;color:#e1e5f2;line-height:1.8}
   color:var(--cyan);font-size:.85rem;font-weight:800;cursor:pointer;transition:.25s;text-decoration:none;
 }
 .download-btn:hover{color:#061014;background:linear-gradient(100deg,var(--cyan),#b7fffc);border-color:var(--cyan);box-shadow:0 0 22px #25f4ee35;transform:translateY(-2px)}
-.download-btn:disabled{opacity:.6;cursor:wait;transform:none}
 #modal-download{
   position:absolute;bottom:65px;left:50%;transform:translateX(-50%);
   width:auto;min-width:190px;z-index:3;margin:0;box-shadow:0 5px 25px #0008;
@@ -293,7 +293,7 @@ footer a{color:var(--cyan);text-decoration:none}
 
 <script type="module">
 
-// Firebase is loaded separately so local photos can work even if Firebase fails.
+// FIREBASE CONNECTION
 let initializeApp, getApps, getDatabase, ref, get;
 let oldDb = null, dashboardDb = null;
 
@@ -339,151 +339,150 @@ try {
   dashboardDb = getDatabase(dashboardApp);
 
 } catch(error) {
-  console.warn("Firebase could not load. Local photos will still be available.",error);
+  console.warn("Firebase could not load. Local photos will still be available.", error);
 }
 
-// PHASE 2 CONTINUES HERE:
+// ALL 103 LOCAL PHOTOS
 const addedPhotos = [
-    { id: "added-1", title: "Memory 1", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0011_(1).jpg" },
-  { id: "added-2", title: "Memory 2", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0020_(1).jpg" },
-  { id: "added-3", title: "Memory 3", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20240819-WA0021_(1).jpg" },
-  { id: "added-4", title: "Memory 4", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20251221-WA0056.jpg" },
-  { id: "added-5", title: "Memory 5", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0009.jpg" },
-  { id: "added-6", title: "Memory 6", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0022.jpg" },
-  { id: "added-7", title: "Memory 7", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0023.jpg" },
-  { id: "added-8", title: "Memory 8", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0024.jpg" },
-  { id: "added-9", title: "Memory 9", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0025.jpg" },
-  { id: "added-10", title: "Memory 10", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260428-WA0026.jpg" },
-  { id: "added-11", title: "Memory 11", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0000.jpg" },
-  { id: "added-12", title: "Memory 12", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0001.jpg" },
-  { id: "added-13", title: "Memory 13", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0002.jpg" },
-  { id: "added-14", title: "Memory 14", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260510-WA0003.jpg" },
-  { id: "added-15", title: "Memory 15", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0000.jpg" },
-  { id: "added-16", title: "Memory 16", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0002.jpg" },
-  { id: "added-17", title: "Memory 17", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0003.jpg" },
-  { id: "added-18", title: "Memory 18", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260824-WA0005.jpg" },
-  { id: "added-19", title: "Memory 19", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0004.jpg" },
-  { id: "added-20", title: "Memory 20", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0005.jpg" },
-  { id: "added-21", title: "Memory 21", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0006.jpg" },
-  { id: "added-22", title: "Memory 22", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0007.jpg" },
-  { id: "added-23", title: "Memory 23", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20260829-WA0009.jpg" },
-  { id: "added-24", title: "Memory 24", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114-115343_674.jpg" },
-  { id: "added-25", title: "Memory 25", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261114_115343_674.jpg" },
-  { id: "added-26", title: "Memory 26", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_422.jpg" },
-  { id: "added-27", title: "Memory 27", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_424.jpg" },
-  { id: "added-28", title: "Memory 28", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_603.jpg" },
-  { id: "added-29", title: "Memory 29", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115344_679.jpg" },
-  { id: "added-30", title: "Memory 30", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115345_619.jpg" },
-  { id: "added-31", title: "Memory 31", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115346_248.jpg" },
-  { id: "added-32", title: "Memory 32", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115347_717.jpg" },
-  { id: "added-33", title: "Memory 33", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115350_810.jpg" },
-  { id: "added-34", title: "Memory 34", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115413_175.jpg" },
-  { id: "added-35", title: "Memory 35", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115415_632.jpg" },
-  { id: "added-36", title: "Memory 36", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115417_973.jpg" },
-  { id: "added-37", title: "Memory 37", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115425_334.jpg" },
-  { id: "added-38", title: "Memory 38", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115427_738.jpg" },
-  { id: "added-39", title: "Memory 39", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261114_115430_222.jpg" },
-  { id: "added-40", title: "Memory 40", description: "A moment from my personal collection.", imageUrl: "/images/IMG-20261116-WA0043.jpg" },
-  { id: "added-41", title: "Memory 41", description: "A moment from my personal collection.", imageUrl: "/images/MG-20261116-WA0044.jpg" },
-  { id: "added-42", title: "Memory 42", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134907_292.jpg" },
-  { id: "added-43", title: "Memory 43", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134923_949.jpg" },
-  { id: "added-44", title: "Memory 44", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_134959_051.jpg" },
-  { id: "added-45", title: "Memory 45", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135003_032.jpg" },
-  { id: "added-46", title: "Memory 46", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751.jpg" },
-  { id: "added-47", title: "Memory 47", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135004_751~2.jpg" },
-  { id: "added-48", title: "Memory 48", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135015_990~2.jpg" },
-  { id: "added-49", title: "Memory 49", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241004_135024_287.jpg" },
-  { id: "added-50", title: "Memory 50", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_165900_481~3.jpg" },
-  { id: "added-51", title: "Memory 51", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170145_797~3.jpg" },
-  { id: "added-52", title: "Memory 52", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170154_067~3.jpg" },
-  { id: "added-53", title: "Memory 53", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170229_958.jpg" },
-  { id: "added-54", title: "Memory 54", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170409_006~3.jpg" },
-  { id: "added-55", title: "Memory 55", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241104_170411_071~3.jpg" },
-  { id: "added-56", title: "Memory 56", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_172848_136~2.jpg" },
-  { id: "added-57", title: "Memory 57", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_173813_817~3.jpg" },
-  { id: "added-58", title: "Memory 58", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174135_434.jpg" },
-  { id: "added-59", title: "Memory 59", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174138_005~3.jpg" },
-  { id: "added-60", title: "Memory 60", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174145_178~3.jpg" },
-  { id: "added-61", title: "Memory 61", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174156_801~2.jpg" },
-  { id: "added-62", title: "Memory 62", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20241111_174623_960~3.jpg" },
-  { id: "added-63", title: "Memory 63", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093252.jpg" },
-  { id: "added-64", title: "Memory 64", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_093305.jpg" },
-  { id: "added-65", title: "Memory 65", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_144742_edit_7426347801541.jpg" },
-  { id: "added-66", title: "Memory 66", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145115_edit_7303969500494.jpg" },
-  { id: "added-67", title: "Memory 67", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250802_145348_edit_7272302860610.jpg" },
-  { id: "added-68", title: "Memory 68", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20250809_194004.jpg" },
-  { id: "added-69", title: "Memory 69", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_08_Pro.jpg" },
-  { id: "added-70", title: "Memory 70", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_27_Pro.jpg" },
-  { id: "added-71", title: "Memory 71", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_35_Pro.jpg" },
-  { id: "added-72", title: "Memory 72", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_48_39_Pro.jpg" },
-  { id: "added-73", title: "Memory 73", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_03_Pro.jpg" },
-  { id: "added-74", title: "Memory 74", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_16_Pro.jpg" },
-  { id: "added-75", title: "Memory 75", description: "A moment from my personal collection.", imageUrl: "/images/WIN_20260814_16_49_28_Pro.jpg" },
-  { id: "added-76", title: "Memory 76", description: "A moment from my personal collection.", imageUrl: "/images/WhatsApp Image 2026-04-04 at 09.50.26.jpeg" },
-  { id: "added-77", title: "Memory 77", description: "A moment from my personal collection.", imageUrl: "/images/court of da gold.jpg" },
-  { id: "added-78", title: "Memory 78", description: "A moment from my personal collection.", imageUrl: "/images/court of gold.jfif" },
-  { id: "added-79", title: "Memory 79", description: "A moment from my personal collection.", imageUrl: "/images/court-of-gold.jpg" },
-  { id: "added-80", title: "Memory 80", description: "A moment from my personal collection.", imageUrl: "/images/favicon.png" },
-  { id: "added-81", title: "Memory 81", description: "A moment from my personal collection.", imageUrl: "/images/kobe.jpg" },
-  { id: "added-82", title: "Memory 82", description: "A moment from my personal collection.", imageUrl: "/images/lebron james.jfif" },
-  { id: "added-83", title: "Memory 83", description: "A moment from my personal collection.", imageUrl: "/images/photo3.jpg" },
-
-  { id: "added-84", title: "Memory 84", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261126_111259_759.jpg" },
-  { id: "added-85", title: "Memory 85", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261126_111224_290.jpg" },
-  { id: "added-86", title: "Memory 86", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201455_493.jpg" },
-  { id: "added-87", title: "Memory 87", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201148_047.jpg" },
-  { id: "added-88", title: "Memory 88", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_201051_849.jpg" },
-  { id: "added-89", title: "Memory 89", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_200538_116.jpg" },
-  { id: "added-90", title: "Memory 90", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_200340_474.jpg" },
-  { id: "added-91", title: "Memory 91", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_184114_951.jpg" },
-  { id: "added-92", title: "Memory 92", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261125_183956_522.jpg" },
-  { id: "added-93", title: "Memory 93", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232440_664.jpg" },
-  { id: "added-94", title: "Memory 94", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232347_927.jpg" },
-  { id: "added-95", title: "Memory 95", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232242_373.jpg" },
-  { id: "added-96", title: "Memory 96", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_232216_361.jpg" },
-  { id: "added-97", title: "Memory 97", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_231449_556.jpg" },
-  { id: "added-98", title: "Memory 98", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_064306_492.jpg" },
-  { id: "added-99", title: "Memory 99", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261120_064115_859.jpg" },
-  { id: "added-100", title: "Memory 100", description: "A moment from my personal collection.", imageUrl: "/images/IMG_20261119_152941_812.jpg" },
-  { id: "added-101", title: "Memory 101", description: "A moment from my personal collection.", imageUrl: "/images/file_00000000a1bc8211a54c4ca7beb61222.png" },
-  { id: "added-102", title: "Memory 102", description: "A moment from my personal collection.", imageUrl: "/images/file_0000000052988208aeaabdba0c51a450.png" },
-  { id: "added-103", title: "Memory 103", description: "A moment from my personal collection.", imageUrl: "/images/file_00000000ad80820884a6053343da367d.png" }
+  { id:"added-1", title:"Memory 1", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20240819-WA0011_(1).jpg" },
+  { id:"added-2", title:"Memory 2", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20240819-WA0020_(1).jpg" },
+  { id:"added-3", title:"Memory 3", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20240819-WA0021_(1).jpg" },
+  { id:"added-4", title:"Memory 4", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20251221-WA0056.jpg" },
+  { id:"added-5", title:"Memory 5", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0009.jpg" },
+  { id:"added-6", title:"Memory 6", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0022.jpg" },
+  { id:"added-7", title:"Memory 7", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0023.jpg" },
+  { id:"added-8", title:"Memory 8", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0024.jpg" },
+  { id:"added-9", title:"Memory 9", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0025.jpg" },
+  { id:"added-10", title:"Memory 10", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260428-WA0026.jpg" },
+  { id:"added-11", title:"Memory 11", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260510-WA0000.jpg" },
+  { id:"added-12", title:"Memory 12", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260510-WA0001.jpg" },
+  { id:"added-13", title:"Memory 13", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260510-WA0002.jpg" },
+  { id:"added-14", title:"Memory 14", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260510-WA0003.jpg" },
+  { id:"added-15", title:"Memory 15", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260824-WA0000.jpg" },
+  { id:"added-16", title:"Memory 16", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260824-WA0002.jpg" },
+  { id:"added-17", title:"Memory 17", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260824-WA0003.jpg" },
+  { id:"added-18", title:"Memory 18", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260824-WA0005.jpg" },
+  { id:"added-19", title:"Memory 19", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260829-WA0004.jpg" },
+  { id:"added-20", title:"Memory 20", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260829-WA0005.jpg" },
+  { id:"added-21", title:"Memory 21", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260829-WA0006.jpg" },
+  { id:"added-22", title:"Memory 22", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260829-WA0007.jpg" },
+  { id:"added-23", title:"Memory 23", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20260829-WA0009.jpg" },
+  { id:"added-24", title:"Memory 24", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20261114-115343_674.jpg" },
+  { id:"added-25", title:"Memory 25", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20261114_115343_674.jpg" },
+  { id:"added-26", title:"Memory 26", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115344_422.jpg" },
+  { id:"added-27", title:"Memory 27", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115344_424.jpg" },
+  { id:"added-28", title:"Memory 28", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115344_603.jpg" },
+  { id:"added-29", title:"Memory 29", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115344_679.jpg" },
+  { id:"added-30", title:"Memory 30", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115345_619.jpg" },
+  { id:"added-31", title:"Memory 31", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115346_248.jpg" },
+  { id:"added-32", title:"Memory 32", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115347_717.jpg" },
+  { id:"added-33", title:"Memory 33", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115350_810.jpg" },
+  { id:"added-34", title:"Memory 34", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115413_175.jpg" },
+  { id:"added-35", title:"Memory 35", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115415_632.jpg" },
+  { id:"added-36", title:"Memory 36", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115417_973.jpg" },
+  { id:"added-37", title:"Memory 37", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115425_334.jpg" },
+  { id:"added-38", title:"Memory 38", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115427_738.jpg" },
+  { id:"added-39", title:"Memory 39", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261114_115430_222.jpg" },
+  { id:"added-40", title:"Memory 40", description:"A moment from my personal collection.", imageUrl:"/images/IMG-20261116-WA0043.jpg" },
+  { id:"added-41", title:"Memory 41", description:"A moment from my personal collection.", imageUrl:"/images/MG-20261116-WA0044.jpg" },
+  { id:"added-42", title:"Memory 42", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_134907_292.jpg" },
+  { id:"added-43", title:"Memory 43", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_134923_949.jpg" },
+  { id:"added-44", title:"Memory 44", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_134959_051.jpg" },
+  { id:"added-45", title:"Memory 45", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_135003_032.jpg" },
+  { id:"added-46", title:"Memory 46", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_135004_751.jpg" },
+  { id:"added-47", title:"Memory 47", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_135004_751~2.jpg" },
+  { id:"added-48", title:"Memory 48", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_135015_990~2.jpg" },
+  { id:"added-49", title:"Memory 49", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241004_135024_287.jpg" },
+  { id:"added-50", title:"Memory 50", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_165900_481~3.jpg" },
+  { id:"added-51", title:"Memory 51", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_170145_797~3.jpg" },
+  { id:"added-52", title:"Memory 52", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_170154_067~3.jpg" },
+  { id:"added-53", title:"Memory 53", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_170229_958.jpg" },
+  { id:"added-54", title:"Memory 54", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_170409_006~3.jpg" },
+  { id:"added-55", title:"Memory 55", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241104_170411_071~3.jpg" },
+  { id:"added-56", title:"Memory 56", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_172848_136~2.jpg" },
+  { id:"added-57", title:"Memory 57", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_173813_817~3.jpg" },
+  { id:"added-58", title:"Memory 58", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_174135_434.jpg" },
+  { id:"added-59", title:"Memory 59", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_174138_005~3.jpg" },
+  { id:"added-60", title:"Memory 60", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_174145_178~3.jpg" },
+  { id:"added-61", title:"Memory 61", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_174156_801~2.jpg" },
+  { id:"added-62", title:"Memory 62", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20241111_174623_960~3.jpg" },
+  { id:"added-63", title:"Memory 63", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250802_093252.jpg" },
+  { id:"added-64", title:"Memory 64", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250802_093305.jpg" },
+  { id:"added-65", title:"Memory 65", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250802_144742_edit_7426347801541.jpg" },
+  { id:"added-66", title:"Memory 66", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250802_145115_edit_7303969500494.jpg" },
+  { id:"added-67", title:"Memory 67", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250802_145348_edit_7272302860610.jpg" },
+  { id:"added-68", title:"Memory 68", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20250809_194004.jpg" },
+  { id:"added-69", title:"Memory 69", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_48_08_Pro.jpg" },
+  { id:"added-70", title:"Memory 70", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_48_27_Pro.jpg" },
+  { id:"added-71", title:"Memory 71", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_48_35_Pro.jpg" },
+  { id:"added-72", title:"Memory 72", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_48_39_Pro.jpg" },
+  { id:"added-73", title:"Memory 73", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_49_03_Pro.jpg" },
+  { id:"added-74", title:"Memory 74", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_49_16_Pro.jpg" },
+  { id:"added-75", title:"Memory 75", description:"A moment from my personal collection.", imageUrl:"/images/WIN_20260814_16_49_28_Pro.jpg" },
+  { id:"added-76", title:"Memory 76", description:"A moment from my personal collection.", imageUrl:"/images/WhatsApp Image 2026-04-04 at 09.50.26.jpeg" },
+  { id:"added-77", title:"Memory 77", description:"A moment from my personal collection.", imageUrl:"/images/court of da gold.jpg" },
+  { id:"added-78", title:"Memory 78", description:"A moment from my personal collection.", imageUrl:"/images/court of gold.jfif" },
+  { id:"added-79", title:"Memory 79", description:"A moment from my personal collection.", imageUrl:"/images/court-of-gold.jpg" },
+  { id:"added-80", title:"Memory 80", description:"A moment from my personal collection.", imageUrl:"/images/favicon.png" },
+  { id:"added-81", title:"Memory 81", description:"A moment from my personal collection.", imageUrl:"/images/kobe.jpg" },
+  { id:"added-82", title:"Memory 82", description:"A moment from my personal collection.", imageUrl:"/images/lebron james.jfif" },
+  { id:"added-83", title:"Memory 83", description:"A moment from my personal collection.", imageUrl:"/images/photo3.jpg" },
+  { id:"added-84", title:"Memory 84", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261126_111259_759.jpg" },
+  { id:"added-85", title:"Memory 85", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261126_111224_290.jpg" },
+  { id:"added-86", title:"Memory 86", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_201455_493.jpg" },
+  { id:"added-87", title:"Memory 87", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_201148_047.jpg" },
+  { id:"added-88", title:"Memory 88", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_201051_849.jpg" },
+  { id:"added-89", title:"Memory 89", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_200538_116.jpg" },
+  { id:"added-90", title:"Memory 90", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_200340_474.jpg" },
+  { id:"added-91", title:"Memory 91", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_184114_951.jpg" },
+  { id:"added-92", title:"Memory 92", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261125_183956_522.jpg" },
+  { id:"added-93", title:"Memory 93", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_232440_664.jpg" },
+  { id:"added-94", title:"Memory 94", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_232347_927.jpg" },
+  { id:"added-95", title:"Memory 95", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_232242_373.jpg" },
+  { id:"added-96", title:"Memory 96", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_232216_361.jpg" },
+  { id:"added-97", title:"Memory 97", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_231449_556.jpg" },
+  { id:"added-98", title:"Memory 98", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_064306_492.jpg" },
+  { id:"added-99", title:"Memory 99", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261120_064115_859.jpg" },
+  { id:"added-100", title:"Memory 100", description:"A moment from my personal collection.", imageUrl:"/images/IMG_20261119_152941_812.jpg" },
+  { id:"added-101", title:"Memory 101", description:"A moment from my personal collection.", imageUrl:"/images/file_00000000a1bc8211a54c4ca7beb61222.png" },
+  { id:"added-102", title:"Memory 102", description:"A moment from my personal collection.", imageUrl:"/images/file_0000000052988208aeaabdba0c51a450.png" },
+  { id:"added-103", title:"Memory 103", description:"A moment from my personal collection.", imageUrl:"/images/file_00000000ad80820884a6053343da367d.png" }
 ];
-  <script>
+
+// GALLERY FUNCTIONALITY
 const $ = id => document.getElementById(id);
 
-let allPhotos = [...addedPhotos];
-let filteredPhotos = [...allPhotos];
+let allPhotos = [];
+let filteredPhotos = [];
 let activeFilter = "all";
 let currentModalIndex = 0;
 
-const galleryGrid = $("gallery-grid");
-const searchInput = $("search");
-const sortSelect = $("sort");
-const modal = $("image-modal");
+const galleryGrid = $("gallery-container");
+const searchInput = $("gallery-search");
+const sortSelect = $("gallery-sort");
+const modal = $("imageModal");
+const modalImage = $("modalImage");
+const modalCaption = $("modalCaption");
 
-function escapeHTML(str) {
-  return String(str ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
   }[char]));
-}
-
-function updateStats() {
-  $("total-memories").textContent = allPhotos.length;
-  $("showing-memories").textContent = filteredPhotos.length;
 }
 
 function normalizePhoto(photo, index) {
   return {
-    id: photo.id || "photo-" + index,
+    id: photo.id || `photo-${index}`,
     title: photo.title || "Memory",
     description: photo.description || "A moment from my personal collection.",
-    imageUrl: photo.imageUrl || "",
-    category: photo.category || "added"
+    imageUrl: photo.imageUrl || photo.url || photo.image || photo.photoURL || "",
+    category: photo.category === "online" || photo.category === "firebase"
+      ? "firebase"
+      : "local"
   };
 }
 
@@ -500,22 +499,20 @@ async function readPath(database, path) {
 }
 
 async function loadOnlinePhotos() {
-  let online = [];
+  const online = [];
 
   const paths = [
-    {db: oldDb, path: "gallery"},
-    {db: oldDb, path: "photos"},
-    {db: dashboardDb, path: "gallery"},
-    {db: dashboardDb, path: "photos"}
+    {db:oldDb,path:"gallery"},
+    {db:oldDb,path:"photos"},
+    {db:dashboardDb,path:"gallery"},
+    {db:dashboardDb,path:"photos"}
   ];
 
   for (const item of paths) {
     const data = await readPath(item.db, item.path);
     if (!data) continue;
 
-    const list = Array.isArray(data)
-      ? data
-      : Object.values(data);
+    const list = Array.isArray(data) ? data : Object.values(data);
 
     list.forEach(photo => {
       if (!photo || typeof photo !== "object") return;
@@ -529,11 +526,11 @@ async function loadOnlinePhotos() {
       if (!imageUrl) return;
 
       online.push({
-        id: photo.id || "online-" + online.length,
-        title: photo.title || photo.name || "Online Memory",
-        description: photo.description || "A memory from the online gallery.",
-        imageUrl: imageUrl,
-        category: "online"
+        id:photo.id || `online-${online.length}`,
+        title:photo.title || photo.name || "Online Memory",
+        description:photo.description || "A memory from the online gallery.",
+        imageUrl,
+        category:"firebase"
       });
     });
   }
@@ -545,26 +542,22 @@ function deduplicatePhotos(photos) {
   const seen = new Set();
 
   return photos.filter(photo => {
-    const key = photo.imageUrl;
-
-    if (!key || seen.has(key)) return false;
-
-    seen.add(key);
+    if (!photo.imageUrl || seen.has(photo.imageUrl)) return false;
+    seen.add(photo.imageUrl);
     return true;
   });
 }
 
 function getFilteredPhotos() {
-  const query = (searchInput.value || "").toLowerCase().trim();
-
   let result = [...allPhotos];
+  const query = searchInput.value.toLowerCase().trim();
 
-  if (activeFilter === "added") {
-    result = result.filter(p => p.category === "added");
+  if (activeFilter === "local") {
+    result = result.filter(photo => photo.category === "local");
   }
 
-  if (activeFilter === "online") {
-    result = result.filter(p => p.category === "online");
+  if (activeFilter === "firebase") {
+    result = result.filter(photo => photo.category === "firebase");
   }
 
   if (query) {
@@ -575,21 +568,22 @@ function getFilteredPhotos() {
     );
   }
 
-  const sortValue = sortSelect.value;
-
-  if (sortValue === "az") {
-    result.sort((a, b) => a.title.localeCompare(b.title));
+  if (sortSelect.value === "title") {
+    result.sort((a,b) => a.title.localeCompare(b.title));
   }
 
-  if (sortValue === "za") {
-    result.sort((a, b) => b.title.localeCompare(a.title));
-  }
-
-  if (sortValue === "newest") {
-    result.reverse();
+  if (sortSelect.value === "title-desc") {
+    result.sort((a,b) => b.title.localeCompare(a.title));
   }
 
   return result;
+}
+
+function updateStats() {
+  $("photo-total").textContent = allPhotos.length;
+  $("photo-visible").textContent = filteredPhotos.length;
+  $("gallery-count").textContent =
+    `${filteredPhotos.length} of ${allPhotos.length} memories`;
 }
 
 function renderGallery() {
@@ -598,75 +592,78 @@ function renderGallery() {
 
   if (!filteredPhotos.length) {
     galleryGrid.innerHTML = `
-      <div class="empty-state">
-        <h2>No memories found</h2>
+      <div class="empty">
+        <h3>No memories found</h3>
         <p>Try changing your search or filter.</p>
       </div>
     `;
     return;
   }
 
-  galleryGrid.innerHTML = filteredPhotos.map((photo, index) => `
+  galleryGrid.innerHTML = filteredPhotos.map((photo,index) => `
     <article class="gallery-card">
-      <div class="gallery-image-wrap">
+      <div class="image-wrap">
         <img
           src="${escapeHTML(photo.imageUrl)}"
           alt="${escapeHTML(photo.title)}"
           loading="lazy"
-          onclick="openModal(${index})"
-          onerror="this.parentElement.innerHTML='<div class=\\'image-error\\'>Image unavailable</div>'"
+          data-action="view"
+          data-index="${index}"
         >
-
-        <div class="gallery-overlay">
-          <button onclick="openModal(${index})" aria-label="View photo">
-            <span>View</span>
-          </button>
-        </div>
       </div>
 
       <div class="gallery-info">
         <h3>${escapeHTML(photo.title)}</h3>
         <p>${escapeHTML(photo.description)}</p>
 
-        <div class="card-actions">
-          <button onclick="openModal(${index})" class="view-btn">
-            View Photo
-          </button>
+        <span class="tag">
+          ${photo.category === "firebase" ? "Online gallery" : "Added photo"}
+        </span>
 
-          <button onclick="downloadImage('${escapeHTML(photo.imageUrl)}')" class="download-btn">
-            Download
-          </button>
-        </div>
+        <button
+          type="button"
+          class="download-btn"
+          data-action="download"
+          data-index="${index}"
+        >↓ Download Image</button>
       </div>
     </article>
   `).join("");
+
+  galleryGrid.querySelectorAll("img").forEach(img => {
+    img.addEventListener("error", () => {
+      img.alt = "Image could not be loaded";
+      img.style.opacity = ".35";
+    });
+  });
 }
 
 function applyFilter(filter) {
   activeFilter = filter;
 
-  document.querySelectorAll(".filter-btn").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.filter === filter
-    );
+  document.querySelectorAll(".filter").forEach(button => {
+    const active = button.dataset.filter === filter;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 
   renderGallery();
 }
 
 function openModal(index) {
+  if (!filteredPhotos.length) return;
+
   currentModalIndex = index;
   updateModal();
 
-  modal.classList.add("active");
   modal.style.display = "flex";
+  modal.setAttribute("aria-hidden","false");
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
-  modal.classList.remove("active");
   modal.style.display = "none";
+  modal.setAttribute("aria-hidden","true");
   document.body.style.overflow = "";
 }
 
@@ -675,14 +672,11 @@ function updateModal() {
 
   const photo = filteredPhotos[currentModalIndex];
 
-  $("modal-image").src = photo.imageUrl;
-  $("modal-image").alt = photo.title;
+  modalImage.src = photo.imageUrl;
+  modalImage.alt = photo.title;
 
-  $("modal-title").textContent = photo.title;
-  $("modal-description").textContent = photo.description;
-
-  $("modal-counter").textContent =
-    `${currentModalIndex + 1} / ${filteredPhotos.length}`;
+  modalCaption.textContent =
+    `${photo.title} — ${photo.description} (${currentModalIndex + 1} / ${filteredPhotos.length})`;
 }
 
 function nextImage() {
@@ -698,8 +692,8 @@ function previousImage() {
   if (!filteredPhotos.length) return;
 
   currentModalIndex =
-    (currentModalIndex - 1 + filteredPhotos.length)
-    % filteredPhotos.length;
+    (currentModalIndex - 1 + filteredPhotos.length) %
+    filteredPhotos.length;
 
   updateModal();
 }
@@ -708,63 +702,80 @@ async function downloadImage(url) {
   try {
     const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error("Download failed");
-    }
+    if (!response.ok) throw new Error("Image download failed");
 
     const blob = await response.blob();
     const objectURL = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
     link.href = objectURL;
-    link.download = url.split("/").pop() || "memory.jpg";
+
+    const filename = url.split("/").pop().split("?")[0];
+    link.download = decodeURIComponent(filename) || "memory.jpg";
 
     document.body.appendChild(link);
     link.click();
     link.remove();
 
-    setTimeout(() => URL.revokeObjectURL(objectURL), 2000);
+    setTimeout(() => URL.revokeObjectURL(objectURL),2000);
 
-  } catch (error) {
-    console.warn("Download fallback:", error);
-    window.open(url, "_blank");
+  } catch(error) {
+    console.warn("Download fallback:",error);
+    window.open(url,"_blank");
   }
 }
 
-searchInput.addEventListener("input", renderGallery);
-sortSelect.addEventListener("change", renderGallery);
+// Card actions
+galleryGrid.addEventListener("click",event => {
+  const button = event.target.closest("[data-action]");
+  if (!button) return;
 
-document.querySelectorAll(".filter-btn").forEach(button => {
-  button.addEventListener("click", () => {
+  const index = Number(button.dataset.index);
+  const photo = filteredPhotos[index];
+
+  if (!photo) return;
+
+  if (button.dataset.action === "view") openModal(index);
+  if (button.dataset.action === "download") downloadImage(photo.imageUrl);
+});
+
+// Search and sorting
+searchInput.addEventListener("input",renderGallery);
+sortSelect.addEventListener("change",renderGallery);
+
+// Filters
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click",() => {
     applyFilter(button.dataset.filter);
   });
 });
 
-$("modal-close").addEventListener("click", closeModal);
-$("modal-next").addEventListener("click", nextImage);
-$("modal-prev").addEventListener("click", previousImage);
+// Modal controls
+$("close-modal").addEventListener("click",closeModal);
+$("next-image").addEventListener("click",nextImage);
+$("prev-image").addEventListener("click",previousImage);
 
-$("modal-download").addEventListener("click", () => {
+$("modal-download").addEventListener("click",() => {
   if (filteredPhotos.length) {
     downloadImage(filteredPhotos[currentModalIndex].imageUrl);
   }
 });
 
-modal.addEventListener("click", event => {
+modal.addEventListener("click",event => {
   if (event.target === modal) closeModal();
 });
 
-document.addEventListener("keydown", event => {
-  if (!modal.classList.contains("active")) return;
+document.addEventListener("keydown",event => {
+  if (modal.style.display !== "flex") return;
 
   if (event.key === "Escape") closeModal();
   if (event.key === "ArrowRight") nextImage();
   if (event.key === "ArrowLeft") previousImage();
 });
 
+// INITIALIZE GALLERY
 async function initializeGallery() {
   allPhotos = addedPhotos.map(normalizePhoto);
-
   renderGallery();
 
   try {
@@ -775,14 +786,15 @@ async function initializeGallery() {
       ...onlinePhotos.map(normalizePhoto)
     ]);
 
-  } catch (error) {
-    console.warn("Online gallery unavailable:", error);
+  } catch(error) {
+    console.warn("Online gallery unavailable:",error);
   }
 
   renderGallery();
 }
 
 initializeGallery();
+
 </script>
 
 <script src="js/animations.js" defer></script>
